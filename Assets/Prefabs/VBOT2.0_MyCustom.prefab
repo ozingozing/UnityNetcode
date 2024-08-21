@@ -197,7 +197,7 @@ MonoBehaviour:
   lockCamera: 0
   rightOffset: 0
   defaultDistance: 2.5
-  height: 1.4
+  height: 1.7
   smoothFollow: 10
   xMouseSensitivity: 3
   yMouseSensitivity: 3
@@ -1452,6 +1452,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9120981537860365797}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3737071904948221052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856338774271882259}
+  m_Layer: 0
+  m_Name: CameraFollowPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856338774271882259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3737071904948221052}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.59, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 709677783805761469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3814368854586629038
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,6 +2712,7 @@ GameObject:
   - component: {fileID: 3659782348668001710}
   - component: {fileID: 3762740079699012472}
   - component: {fileID: 1430359947496642463}
+  - component: {fileID: 1500246004261073454}
   m_Layer: 0
   m_Name: VBOT2.0_MyCustom
   m_TagString: Untagged
@@ -2704,6 +2736,7 @@ Transform:
   - {fileID: 6205951245261444573}
   - {fileID: 2154946771140121564}
   - {fileID: 4728958202123010918}
+  - {fileID: 1856338774271882259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2006887965263572280
@@ -2838,7 +2871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2727307978
+  GlobalObjectIdHash: 219445395
   InScenePlacedSourceGlobalObjectIdHash: 156974877
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -2927,6 +2960,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   local3rdCam: {fileID: 4728958202123010918}
+--- !u!114 &1500246004261073454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8154695589459261961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978572f1137175d429b3f12a45872767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSense: 1
+  camFollowPos: {fileID: 1856338774271882259}
+  anim: {fileID: 0}
 --- !u!1 &8181365995104880257
 GameObject:
   m_ObjectHideFlags: 0
