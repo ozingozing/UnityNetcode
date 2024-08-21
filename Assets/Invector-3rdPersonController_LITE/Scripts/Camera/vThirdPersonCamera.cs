@@ -56,11 +56,20 @@ public class vThirdPersonCamera : MonoBehaviour
     private float cullingHeight = 0.2f;
     private float cullingMinDist = 0.1f;
 
-    #endregion
+    //CUSTOM
+    private CheckLocalComponent checkLocalComponent;
 
-    void Start()
+	#endregion
+
+	private void Awake()
+	{
+		checkLocalComponent = GetComponentInParent<CheckLocalComponent>();
+	}
+
+	void Start()
     {
-        Init();
+        if(checkLocalComponent.IsLocalPlayer)
+            Init();
     }
 
     public void Init()
@@ -68,21 +77,21 @@ public class vThirdPersonCamera : MonoBehaviour
         if (target == null)
             return;
 
-        _camera = GetComponent<Camera>();
-        currentTarget = target;
-        currentTargetPos = new Vector3(currentTarget.position.x, currentTarget.position.y + offSetPlayerPivot, currentTarget.position.z);
+		_camera = GetComponent<Camera>();
+		currentTarget = checkLocalComponent.transform;
+		currentTargetPos = new Vector3(currentTarget.position.x, currentTarget.position.y + offSetPlayerPivot, currentTarget.position.z);
 
-        targetLookAt = new GameObject("targetLookAt").transform;
-        targetLookAt.position = currentTarget.position;
-        targetLookAt.hideFlags = HideFlags.HideInHierarchy;
-        targetLookAt.rotation = currentTarget.rotation;
+		targetLookAt = new GameObject("targetLookAt").transform;
+		targetLookAt.position = currentTarget.position;
+		targetLookAt.hideFlags = HideFlags.HideInHierarchy;
+		targetLookAt.rotation = currentTarget.rotation;
 
-        mouseY = currentTarget.eulerAngles.x;
-        mouseX = currentTarget.eulerAngles.y;
+		mouseY = currentTarget.eulerAngles.x;
+		mouseX = currentTarget.eulerAngles.y;
 
-        distance = defaultDistance;
-        currentHeight = height;
-    }
+		distance = defaultDistance;
+		currentHeight = height;
+	}
 
     void FixedUpdate()
     {

@@ -3775,7 +3775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5079,7 +5079,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5106,7 +5106,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: -5.6157036, y: 0.9499999, z: -5.7170663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5232,6 +5232,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967276528}
   m_CullTransparentMesh: 1
+--- !u!1001 &980500228
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.9411764
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.144054
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709677783805761469, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183242807002586429, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2727307978
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154695589459261961, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_Name
+      value: VBOT2.0_MyCustom
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154695589459261961, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
 --- !u!1 &990540599
 GameObject:
   m_ObjectHideFlags: 0
@@ -7400,7 +7465,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1642795106}
-    PlayerPrefab: {fileID: 649623763753454960, guid: 96491a53e76072f409de9cd4473ef285, type: 3}
+    PlayerPrefab: {fileID: 8154695589459261961, guid: 8a11da7a80e2b004aac5b938ecb21b8b, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: de32df38762c21a47accec02ac04bd72, type: 2}
@@ -8841,3 +8906,4 @@ SceneRoots:
   - {fileID: 223889488}
   - {fileID: 923751483}
   - {fileID: 782628375}
+  - {fileID: 980500228}
