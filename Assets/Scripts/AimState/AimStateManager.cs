@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class AimStateManager : MonoBehaviour
@@ -15,6 +16,17 @@ public class AimStateManager : MonoBehaviour
 	[HideInInspector] public Animator anim;
 	[HideInInspector] public bool IsAiming;
 
+	[SerializeField] Transform aimPos;
+	[SerializeField] float aimSmoothSpeed = 20;
+	[SerializeField] LayerMask aimMask;
+
+	CheckLocalComponent checkLocalComponent;
+
+	private void Awake()
+	{
+		checkLocalComponent = GetComponent<CheckLocalComponent>();
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -25,14 +37,25 @@ public class AimStateManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (IsAiming)
+		if(checkLocalComponent.IsLocalPlayer)
 		{
-			xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
-			yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
-			yAxis = Mathf.Clamp(yAxis, -80, 80);
-		}
+			if (IsAiming)
+			{
+				xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
+				yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
+				yAxis = Mathf.Clamp(yAxis, -80, 80);
 
-		currentState.UpdateSatate(this);
+				Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+				Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+
+				if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
+				{
+					aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
+				}
+			}
+
+			currentState.UpdateSatate(this);
+		}
 	}
 
 	private void LateUpdate()

@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using Cinemachine;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Invector.vCharacterController
@@ -24,12 +25,16 @@ namespace Invector.vCharacterController
         
         //추가
         private Rigidbody rb;
-
+        private MovementStateManager movementStateManager;
+        [SerializeField] private Camera thirdPersonCamera;
+        [SerializeField] private CinemachineVirtualCamera adsVirtualCamera;
+        //
 		#endregion
 
 		private void Awake()
 		{
 			rb = GetComponent<Rigidbody>();
+			movementStateManager = GetComponent<MovementStateManager>();
 		}
 
 		protected virtual void Start()
@@ -84,8 +89,21 @@ namespace Invector.vCharacterController
 
         protected virtual void InputHandle()
         {
+            if(!Input.GetKey(KeyCode.Mouse1))
+            {
+				ChangeAnimationLayerWieght(1, 0);
+                thirdPersonCamera.gameObject.SetActive(true);
+				adsVirtualCamera.gameObject.SetActive(false);
+            }
+			else
+            {
+                thirdPersonCamera.gameObject.SetActive(false);
+                adsVirtualCamera.gameObject.SetActive(true);
+                ChangeAnimationLayerWieght(1, 1);
+				movementStateManager.PlayerAdsMove();
+			}
             MoveInput();
-            CameraInput();
+			CameraInput();
             SprintInput();
             StrafeInput();
             JumpInput();
@@ -160,6 +178,18 @@ namespace Invector.vCharacterController
                 cc.Jump();
         }
 
-        #endregion       
+        #endregion     
+        
+        //custom
+        void ChangeAnimationLayerWieght(int  layer, float weight)
+        {
+            for(int i = 0; i < movementStateManager.anim.layerCount; i++)
+            {
+                if (i == 2) continue;
+                movementStateManager.anim.SetLayerWeight(i, 0);
+            }
+
+            movementStateManager.anim.SetLayerWeight(layer, weight);
+        }
     }
 }
