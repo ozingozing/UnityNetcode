@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
-public class AimStateManager : MonoBehaviour
+public class AimStateManager : NetworkBehaviour
 {
 	AimBaseState currentState;
 	public HipFireState Hip = new HipFireState();
@@ -21,6 +23,9 @@ public class AimStateManager : MonoBehaviour
 	[SerializeField] LayerMask aimMask;
 
 	CheckLocalComponent checkLocalComponent;
+	[SerializeField] public MultiAimConstraint bodyRig;
+	public Vector3 targetOffset;
+	public float rotationSpeed = 5f;  // 회전 속도
 
 	private void Awake()
 	{
@@ -71,5 +76,21 @@ public class AimStateManager : MonoBehaviour
 	{
 		currentState = state;
 		currentState.EnterState(this);
+	}
+
+	[ServerRpc]
+	public void UpdateOffsetServerRpc(Vector3 newOffset)
+	{
+		bodyRig.data.offset = newOffset;
+		UpdateOffsetClientRpc(newOffset);
+	}
+
+	[ClientRpc]
+	public void UpdateOffsetClientRpc(Vector3 newOffset)
+	{
+		if (!IsLocalPlayer)
+		{
+			bodyRig.data.offset = newOffset;
+		}
 	}
 }

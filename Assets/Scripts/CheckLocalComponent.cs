@@ -7,13 +7,12 @@ public class CheckLocalComponent : NetworkBehaviour
 {
     [SerializeField] private Transform local3rdCam;
 
-
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
     {
         if (IsLocalPlayer)
         {
             local3rdCam.gameObject.SetActive(true);
-        }
+		}
     }
 }
