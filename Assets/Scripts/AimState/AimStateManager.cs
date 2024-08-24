@@ -18,7 +18,8 @@ public class AimStateManager : NetworkBehaviour
 	[HideInInspector] public Animator anim;
 	[HideInInspector] public bool IsAiming;
 
-	[SerializeField] Transform aimPos;
+	public Transform aimPos;
+	[HideInInspector] public Vector3 actualAimPos;
 	[SerializeField] float aimSmoothSpeed = 20;
 	[SerializeField] LayerMask aimMask;
 
@@ -109,9 +110,14 @@ public class AimStateManager : NetworkBehaviour
 	{
 		if(!IsLocalPlayer)
 		{
-			bodyRig.weight = newWeight;
 			rHandAim.weight = newWeight;
 			rHandAimTwoBone.weight = newWeight;
 		}
+	}
+
+	public void ChangeRightHandRigWeight(float newWeight)
+	{
+		rHandAim.weight = newWeight;
+		rHandAimTwoBone.weight = newWeight;
 	}
 }
