@@ -3274,8 +3274,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   bodyRig: {fileID: 7258865252306928892}
-  targetOffset: {x: 0, y: 0, z: 0}
-  rotationSpeed: 4
+  rHandAimTwoBone: {fileID: 4212756029440641298}
+  rHandAim: {fileID: 4735834965059647147}
 --- !u!114 &7807220199513979333
 MonoBehaviour:
   m_ObjectHideFlags: 0

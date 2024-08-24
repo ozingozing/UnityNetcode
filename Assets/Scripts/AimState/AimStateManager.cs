@@ -23,13 +23,15 @@ public class AimStateManager : NetworkBehaviour
 	[SerializeField] LayerMask aimMask;
 
 	CheckLocalComponent checkLocalComponent;
-	[SerializeField] public MultiAimConstraint bodyRig;
-	public Vector3 targetOffset;
-	public float rotationSpeed = 5f;  // 회전 속도
+	public MultiAimConstraint bodyRig;
+	public TwoBoneIKConstraint rHandAimTwoBone;
+	public MultiAimConstraint rHandAim;
 
 	private void Awake()
 	{
 		checkLocalComponent = GetComponent<CheckLocalComponent>();
+		rHandAimTwoBone.weight = 0;
+		rHandAim.weight = 0;
 	}
 
 	// Start is called before the first frame update
@@ -79,18 +81,37 @@ public class AimStateManager : NetworkBehaviour
 	}
 
 	[ServerRpc]
-	public void UpdateOffsetServerRpc(Vector3 newOffset)
+	public void UpdateAdsOffsetServerRpc(Vector3 newOffset)
 	{
 		bodyRig.data.offset = newOffset;
-		UpdateOffsetClientRpc(newOffset);
+		UpdateAdsOffsetClientRpc(newOffset);
 	}
 
 	[ClientRpc]
-	public void UpdateOffsetClientRpc(Vector3 newOffset)
+	public void UpdateAdsOffsetClientRpc(Vector3 newOffset)
 	{
 		if (!IsLocalPlayer)
 		{
 			bodyRig.data.offset = newOffset;
+		}
+	}
+
+	[ServerRpc]
+	public void UpdateRightHandRigWeightServerRPC(float newWeight)
+	{
+		rHandAim.weight = newWeight;
+		rHandAimTwoBone.weight = newWeight;
+		UpdateRightHandRigWeightClientRPC(newWeight);
+	}
+
+	[ClientRpc]
+	public void UpdateRightHandRigWeightClientRPC(float newWeight)
+	{
+		if(!IsLocalPlayer)
+		{
+			bodyRig.weight = newWeight;
+			rHandAim.weight = newWeight;
+			rHandAimTwoBone.weight = newWeight;
 		}
 	}
 }
