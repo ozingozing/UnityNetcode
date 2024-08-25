@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WeaponManager : NetworkBehaviour
 {
@@ -21,7 +22,9 @@ public class WeaponManager : NetworkBehaviour
 	private AimStateManager aim;
 
 	[SerializeField] private AudioClip gunShot;
+	[SerializeField] private GameObject hitParticle;
 	AudioSource audioSource;
+	[SerializeField] private LayerMask layerMask;
 
 	private void Awake()
 	{
@@ -54,15 +57,12 @@ public class WeaponManager : NetworkBehaviour
 		return false;
 	}
 
-	[ServerRpc(RequireOwnership = false)]
+	[ServerRpc]
 	private void RequestFireServerRpc(ServerRpcParams rpcParams = default)
 	{
-		// 서버에서 발사 요청을 처리하고, 발사 타이밍을 관리합니다.
-		Debug.Log(fireRateTimer);
 		if (fireRateTimer >= FireRate)
 		{
 			Fire();
-			// 서버에서 발사 타이밍을 관리합니다.
 			fireRateTimer = 0;
 		}
 	}
@@ -71,20 +71,23 @@ public class WeaponManager : NetworkBehaviour
 	{
 		// 총알 발사 처리
 		barrelPos.LookAt(aim.aimPos);
+		audioSource.PlayOneShot(gunShot);
 
 		for (int i = 0; i < bulletPerShot; i++)
 		{
-			GameObject currentBullet = Instantiate(bullet, barrelPos.position, barrelPos.rotation);
+			ShootRayClientRpc();
+		}
+	}
 
-			NetworkObject networkObject = currentBullet.GetComponent<NetworkObject>();
-			if (networkObject != null)
-			{
-				networkObject.Spawn();
-			}
+	[ClientRpc]
+	private void ShootRayClientRpc()
+	{
+		Ray ray = new Ray(barrelPos.position, barrelPos.forward);
+		RaycastHit hit;
 
-			Rigidbody rb = currentBullet.GetComponent<Rigidbody>();
-			audioSource.PlayOneShot(gunShot);
-			rb.AddForce(barrelPos.forward * bulletVelocity, ForceMode.Impulse);
+		if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+		{
+			Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
 		}
 	}
 }
