@@ -21,8 +21,8 @@ public class AimStateManager : NetworkBehaviour
 
 	public Transform aimPos;
 	[HideInInspector] public Vector3 actualAimPos;
-	[SerializeField] float aimSmoothSpeed = 20;
-	[SerializeField] LayerMask aimMask;
+	[SerializeField] public float aimSmoothSpeed = 20;
+	[SerializeField] public LayerMask aimMask;
 
 	CheckLocalComponent checkLocalComponent;
 	public MultiAimConstraint bodyRig;
