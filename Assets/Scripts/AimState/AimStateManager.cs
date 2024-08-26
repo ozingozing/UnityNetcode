@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -40,12 +41,40 @@ public class AimStateManager : NetworkBehaviour
 	{
 		anim = GetComponent<Animator>();
 		SwitchState(Hip);
+		StartCoroutine(PlayerActionUpdate());
 	}
 
-	// Update is called once per frame
+	IEnumerator PlayerActionUpdate()
+	{
+		while (true)
+		{
+			if (checkLocalComponent.IsLocalPlayer)
+			{
+				if (IsAiming)
+				{
+					xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
+					yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
+					yAxis = Mathf.Clamp(yAxis, -80, 80);
+
+					Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+					Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+
+					if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
+					{
+						aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
+					}
+				}
+				currentState.UpdateSatate(this);
+			}
+
+			yield return null;
+		}
+	}
+
+	/*// Update is called once per frame
 	void Update()
 	{
-		if(checkLocalComponent.IsLocalPlayer)
+		if (checkLocalComponent.IsLocalPlayer)
 		{
 			if (IsAiming)
 			{
@@ -64,7 +93,7 @@ public class AimStateManager : NetworkBehaviour
 
 			currentState.UpdateSatate(this);
 		}
-	}
+	}*/
 
 	private void LateUpdate()
 	{
@@ -91,7 +120,7 @@ public class AimStateManager : NetworkBehaviour
 	[ClientRpc]
 	public void UpdateAdsOffsetClientRpc(Vector3 newOffset)
 	{
-		if (!IsLocalPlayer)
+		if (!checkLocalComponent.IsLocalPlayer)
 		{
 			bodyRig.data.offset = newOffset;
 		}
@@ -108,7 +137,7 @@ public class AimStateManager : NetworkBehaviour
 	[ClientRpc]
 	public void UpdateRightHandRigWeightClientRPC(float newWeight)
 	{
-		if(!IsLocalPlayer)
+		if(!checkLocalComponent.IsLocalPlayer)
 		{
 			rHandAim.weight = newWeight;
 			rHandAimTwoBone.weight = newWeight;
