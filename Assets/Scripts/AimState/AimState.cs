@@ -10,14 +10,6 @@ public class AimState : AimBaseState
 
 	public override void EnterState(AimStateManager aim)
 	{
-		Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-		Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-
-		if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aim.aimMask))
-		{
-			aim.aimPos.position = Vector3.Lerp(aim.aimPos.position, hit.point, aim.aimSmoothSpeed * Time.deltaTime);
-		}
-		Debug.Log("Aim!!!!!!!!");
 		aim.IsAiming = true;
 		aim.anim.SetBool("Aiming", true);
 

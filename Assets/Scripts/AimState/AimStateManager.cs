@@ -1,3 +1,5 @@
+using Cinemachine;
+using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -11,6 +13,7 @@ public class AimStateManager : NetworkBehaviour
 	AimBaseState currentState;
 	public HipFireState Hip = new HipFireState();
 	public AimState Aim = new AimState();
+
 
 	[SerializeField] private float mouseSense = 1;
 	[SerializeField] private Transform camFollowPos;
@@ -28,10 +31,17 @@ public class AimStateManager : NetworkBehaviour
 	public MultiAimConstraint bodyRig;
 	public TwoBoneIKConstraint rHandAimTwoBone;
 	public MultiAimConstraint rHandAim;
+	public MultiAimConstraint headRig;
+
+	public Vector3 lastHitPoint;
+	private bool hitPointValid = true;
+
+	vThirdPersonInput vThirdPersonInput;
 
 	private void Awake()
 	{
 		checkLocalComponent = GetComponent<CheckLocalComponent>();
+		vThirdPersonInput = GetComponent<vThirdPersonInput>();
 		rHandAimTwoBone.weight = 0;
 		rHandAim.weight = 0;
 	}
@@ -39,6 +49,13 @@ public class AimStateManager : NetworkBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		if (IsLocalPlayer)
+		{
+			AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
+			AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
+			ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
+			ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
+		}
 		anim = GetComponent<Animator>();
 		SwitchState(Hip);
 		StartCoroutine(PlayerActionUpdate());
@@ -50,20 +67,20 @@ public class AimStateManager : NetworkBehaviour
 		{
 			if (checkLocalComponent.IsLocalPlayer)
 			{
-				if (IsAiming)
+				Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+				Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+				xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
+				yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
+				yAxis = Mathf.Clamp(yAxis, -80, 80);
+
+				// Ray를 시각적으로 표시
+				Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.green);
+				if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
 				{
-					xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
-					yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
-					yAxis = Mathf.Clamp(yAxis, -80, 80);
-
-					Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-					Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-
-					if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
-					{
-						aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
-					}
+					aimPos.position = Vector3.Lerp(aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
+					lastHitPoint = hit.point;
 				}
+
 				currentState.UpdateSatate(this);
 			}
 
@@ -110,6 +127,15 @@ public class AimStateManager : NetworkBehaviour
 		currentState.EnterState(this);
 	}
 
+	private void OnDrawGizmos()
+	{
+		if (hitPointValid)
+		{
+			Gizmos.color = Color.blue;
+			Gizmos.DrawSphere(lastHitPoint, 2);
+		}
+	}
+
 	[ServerRpc]
 	public void UpdateAdsOffsetServerRpc(Vector3 newOffset)
 	{
@@ -131,16 +157,20 @@ public class AimStateManager : NetworkBehaviour
 	{
 		rHandAim.weight = newWeight;
 		rHandAimTwoBone.weight = newWeight;
+		//headRig.weight = newWeight;
+		bodyRig.weight = newWeight;
 		UpdateRightHandRigWeightClientRPC(newWeight);
 	}
 
 	[ClientRpc]
 	public void UpdateRightHandRigWeightClientRPC(float newWeight)
 	{
-		if(!checkLocalComponent.IsLocalPlayer)
+		if (!checkLocalComponent.IsLocalPlayer)
 		{
 			rHandAim.weight = newWeight;
 			rHandAimTwoBone.weight = newWeight;
+			//headRig.weight = newWeight;
+			bodyRig.weight = newWeight;
 		}
 	}
 
@@ -148,5 +178,7 @@ public class AimStateManager : NetworkBehaviour
 	{
 		rHandAim.weight = newWeight;
 		rHandAimTwoBone.weight = newWeight;
+		//headRig.weight = newWeight;
+		bodyRig.weight = newWeight;
 	}
 }

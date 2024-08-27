@@ -1,7 +1,9 @@
 ﻿using Invector;
+using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class vThirdPersonCamera : MonoBehaviour
+public class vThirdPersonCamera : NetworkBehaviour
 {
     #region inspector properties    
 
@@ -61,15 +63,13 @@ public class vThirdPersonCamera : MonoBehaviour
 
 	#endregion
 
-	private void Awake()
-	{
-		checkLocalComponent = GetComponentInParent<CheckLocalComponent>();
-	}
 
 	void Start()
     {
-        if(checkLocalComponent.IsLocalPlayer)
-            Init();
+        if (IsLocalPlayer)
+        {
+			Init();
+		}
     }
 
     public void Init()
@@ -78,8 +78,9 @@ public class vThirdPersonCamera : MonoBehaviour
             return;
 
 		_camera = GetComponent<Camera>();
-		currentTarget = checkLocalComponent.transform;
-		currentTargetPos = new Vector3(currentTarget.position.x, currentTarget.position.y + offSetPlayerPivot, currentTarget.position.z);
+		//currentTarget = checkLocalComponent.transform;
+		currentTarget = target;
+        currentTargetPos = new Vector3(currentTarget.position.x, currentTarget.position.y + offSetPlayerPivot, currentTarget.position.z);
 
 		targetLookAt = new GameObject("targetLookAt").transform;
 		targetLookAt.position = currentTarget.position;
@@ -92,6 +93,15 @@ public class vThirdPersonCamera : MonoBehaviour
 		distance = defaultDistance;
 		currentHeight = height;
 	}
+
+    IEnumerator FixedUpdateCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
+        while (true)
+        {
+			CameraMovement();
+		}
+    }
 
     void FixedUpdate()
     {

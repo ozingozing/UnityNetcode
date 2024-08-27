@@ -2863,7 +2863,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5702370785702698741}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -3299,7 +3299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3621398941
+  GlobalObjectIdHash: 2141075144
   InScenePlacedSourceGlobalObjectIdHash: 3052732535
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -3415,7 +3415,7 @@ MonoBehaviour:
   bodyRig: {fileID: 7258865252306928892}
   rHandAimTwoBone: {fileID: 4212756029440641298}
   rHandAim: {fileID: 4735834965059647147}
-  goBack: {fileID: 0}
+  lastHitPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &7807220199513979333
 MonoBehaviour:
   m_ObjectHideFlags: 0

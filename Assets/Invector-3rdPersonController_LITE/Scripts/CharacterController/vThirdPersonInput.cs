@@ -26,8 +26,8 @@ namespace Invector.vCharacterController
         //추가
         private Rigidbody rb;
         private MovementStateManager movementStateManager;
-        [SerializeField] private Camera thirdPersonCamera;
-        [SerializeField] private CinemachineVirtualCamera adsVirtualCamera;
+        private Camera thirdPersonCamera;
+		private CinemachineVirtualCamera adsVirtualCamera;
         //
 		#endregion
 
@@ -35,13 +35,15 @@ namespace Invector.vCharacterController
 		{
 			rb = GetComponent<Rigidbody>();
 			movementStateManager = GetComponent<MovementStateManager>();
+			thirdPersonCamera = ThirdPersonCamera.Instance.GetComponent<Camera>();
+			adsVirtualCamera = AdsCamera.Instance.GetComponent<CinemachineVirtualCamera>();
 		}
 
 		protected virtual void Start()
         {
-            InitilizeController();
-            InitializeTpCamera();
-        }
+			InitilizeController();
+			InitializeTpCamera();
+		}
 
         protected virtual void FixedUpdate()
         {
@@ -77,9 +79,10 @@ namespace Invector.vCharacterController
             if (tpCamera == null)
             {
                 tpCamera = FindObjectOfType<vThirdPersonCamera>();
+                //tpCamera = ThirdPersonCamera.Instance.GetComponent<vThirdPersonCamera>();
                 if (tpCamera == null)
                     return;
-                if (tpCamera)
+                if (tpCamera && IsLocalPlayer)
                 {
                     tpCamera.SetMainTarget(this.transform);
                     tpCamera.Init();
@@ -93,7 +96,7 @@ namespace Invector.vCharacterController
             {
 				ChangeAnimationLayerWieght(1, 0);
                 thirdPersonCamera.gameObject.SetActive(true);
-				adsVirtualCamera.gameObject.SetActive(false);
+                adsVirtualCamera.gameObject.SetActive(false);
             }
 			else
             {
