@@ -13,7 +13,6 @@ public class AimState : AimBaseState
 		aim.IsAiming = true;
 		aim.anim.SetBool("Aiming", true);
 
-		aim.ChangeRightHandRigWeight(1);
 		aim.UpdateRightHandRigWeightServerRPC(1);
 		targetOffset = aim.bodyRig.data.offset + new Vector3(0, 35, 0);
 	}
@@ -24,7 +23,7 @@ public class AimState : AimBaseState
 		aim.UpdateAdsOffsetServerRpc(aim.bodyRig.data.offset);
 		if (Input.GetKeyUp(KeyCode.Mouse1))
 		{
-			aim.ChangeRightHandRigWeight(0);
+			aim.UpdateAdsOffsetServerRpc(Vector3.zero);
 			aim.UpdateRightHandRigWeightServerRPC(0);
 
 			aim.SwitchState(aim.Hip);

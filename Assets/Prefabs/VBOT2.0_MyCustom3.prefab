@@ -1275,7 +1275,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3176281850990168109}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1334,13 +1334,13 @@ MonoBehaviour:
   SyncScaleZ: 0
   PositionThreshold: 0.1
   RotAngleThreshold: 0.1
-  ScaleThreshold: 0.01
+  ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
   InLocalSpace: 0
   Interpolate: 1
-  SlerpPosition: 0
+  SlerpPosition: 1
 --- !u!1 &3176914047454178113
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,7 +4228,6 @@ MonoBehaviour:
   rHandAimTwoBone: {fileID: 4455261101413803171}
   rHandAim: {fileID: 5835493114155180933}
   headRig: {fileID: 5637567623801590062}
-  lastHitPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &5034275283889422770
 MonoBehaviour:
   m_ObjectHideFlags: 0

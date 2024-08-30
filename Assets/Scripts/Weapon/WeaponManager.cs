@@ -36,9 +36,25 @@ public class WeaponManager : NetworkBehaviour
 	void Start()
 	{
 		fireRateTimer = FireRate;
+		StartCoroutine(UpdateCoroutine());
 	}
 
-	void Update()
+	public IEnumerator UpdateCoroutine()
+	{
+		while (true)
+		{
+			// 클라이언트의 입력을 확인하고 서버에 발사 요청을 보냅니다.
+			fireRateTimer += Time.deltaTime;
+			if (checkLocalComponent.IsLocalPlayer && ShouldFire())
+			{
+				RequestFireServerRpc();
+			}
+
+			yield return null;
+		}
+	}
+
+	/*void Update()
 	{
 		// 클라이언트의 입력을 확인하고 서버에 발사 요청을 보냅니다.
 		fireRateTimer += Time.deltaTime;
@@ -46,7 +62,7 @@ public class WeaponManager : NetworkBehaviour
 		{
 			RequestFireServerRpc();
 		}
-	}
+	}*/
 
 	private bool ShouldFire()
 	{
