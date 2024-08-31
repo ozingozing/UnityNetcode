@@ -2157,6 +2157,7 @@ GameObject:
   - component: {fileID: 4362757972278295249}
   - component: {fileID: 4194799420365833364}
   - component: {fileID: 7749486844869667496}
+  - component: {fileID: 2308093131606181376}
   m_Layer: 3
   m_Name: M4_Carbine
   m_TagString: Untagged
@@ -2253,6 +2254,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &2308093131606181376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906929348069687125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beaa9c5e7d7bf4f41a1c3331f84c3a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipSize: 30
+  extraAmmo: 600
+  currentAmmo: 0
 --- !u!1 &4977566769799749616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4224,6 +4240,7 @@ MonoBehaviour:
   aimMask:
     serializedVersion: 2
     m_Bits: 1
+  checkLocalComponent: {fileID: 0}
   bodyRig: {fileID: 8942720983773381534}
   rHandAimTwoBone: {fileID: 4455261101413803171}
   rHandAim: {fileID: 5835493114155180933}

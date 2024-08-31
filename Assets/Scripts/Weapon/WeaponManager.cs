@@ -5,105 +5,108 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class WeaponManager : NetworkBehaviour
+namespace ChocoOzing
 {
-	CheckLocalComponent checkLocalComponent;
-
-	[Header("Fire Rate")]
-	[SerializeField] private float FireRate;
-	[SerializeField] private bool semiAuto;
-	private float fireRateTimer;
-
-	[Header("Bullet Properties")]
-	[SerializeField] private GameObject bullet;
-	[SerializeField] private Transform barrelPos;
-	[SerializeField] private float bulletVelocity;
-	[SerializeField] private int bulletPerShot;
-	private AimStateManager aim;
-
-	[SerializeField] private AudioClip gunShot;
-	[SerializeField] private GameObject hitParticle;
-	AudioSource audioSource;
-	[SerializeField] private LayerMask layerMask;
-
-	private void Awake()
+	public class WeaponManager : NetworkBehaviour
 	{
-		aim = GetComponentInParent<AimStateManager>();
-		audioSource = GetComponentInParent<AudioSource>();
-		checkLocalComponent = GetComponentInParent<CheckLocalComponent>();
-	}
+		CheckLocalComponent checkLocalComponent;
 
-	void Start()
-	{
-		fireRateTimer = FireRate;
-		StartCoroutine(UpdateCoroutine());
-	}
+		[Header("Fire Rate")]
+		[SerializeField] private float FireRate;
+		[SerializeField] private bool semiAuto;
+		private float fireRateTimer;
 
-	public IEnumerator UpdateCoroutine()
-	{
-		while (true)
+		[Header("Bullet Properties")]
+		[SerializeField] private GameObject bullet;
+		[SerializeField] private Transform barrelPos;
+		[SerializeField] private float bulletVelocity;
+		[SerializeField] private int bulletPerShot;
+		private AimStateManager aim;
+
+		[SerializeField] private AudioClip gunShot;
+		[SerializeField] private GameObject hitParticle;
+		AudioSource audioSource;
+		[SerializeField] private LayerMask layerMask;
+		public WeaponAmmo ammo;
+
+		private void Awake()
 		{
-			// 클라이언트의 입력을 확인하고 서버에 발사 요청을 보냅니다.
-			fireRateTimer += Time.deltaTime;
-			if (checkLocalComponent.IsLocalPlayer && ShouldFire())
+			aim = GetComponentInParent<AimStateManager>();
+			audioSource = GetComponentInParent<AudioSource>();
+			checkLocalComponent = GetComponentInParent<CheckLocalComponent>();
+			ammo = GetComponent<WeaponAmmo>();
+		}
+
+		void Start()
+		{
+			fireRateTimer = FireRate;
+			StartCoroutine(UpdateCoroutine());
+		}
+
+		public IEnumerator UpdateCoroutine()
+		{
+			while (true)
 			{
-				RequestFireServerRpc();
+				fireRateTimer += Time.deltaTime;
+				if (IsOwner)
+				{
+					if (checkLocalComponent.IsLocalPlayer && ShouldFire())
+					{
+						RequestFireServerRpc();
+					}
+
+					/*if (Input.GetKeyDown(KeyCode.R))
+					{
+						ammo.Reload();
+					}*/
+				}
+				yield return null;
 			}
-
-			yield return null;
 		}
-	}
 
-	/*void Update()
-	{
-		// 클라이언트의 입력을 확인하고 서버에 발사 요청을 보냅니다.
-		fireRateTimer += Time.deltaTime;
-		if (IsLocalPlayer && ShouldFire())
+		private bool ShouldFire()
 		{
-			RequestFireServerRpc();
+			// 클라이언트에서 발사 조건을 체크하고, 타이밍에 맞는지 확인합니다.
+			if (fireRateTimer < FireRate) return false;
+			if (ammo.currentAmmo == 0) return false;
+			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;
+			if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;
+			return false;
 		}
-	}*/
 
-	private bool ShouldFire()
-	{
-		// 클라이언트에서 발사 조건을 체크하고, 타이밍에 맞는지 확인합니다.
-		if (fireRateTimer < FireRate) return false;
-		if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;
-		if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;
-		return false;
-	}
-
-	[ServerRpc]
-	private void RequestFireServerRpc(ServerRpcParams rpcParams = default)
-	{
-		if (fireRateTimer >= FireRate)
+		[ServerRpc]
+		private void RequestFireServerRpc()
 		{
-			Fire();
-			fireRateTimer = 0;
+			if (fireRateTimer >= FireRate)
+			{
+				Fire();
+				fireRateTimer = 0;
+			}
 		}
-	}
 
-	private void Fire()
-	{
-		// 총알 발사 처리
-		barrelPos.LookAt(aim.aimPos);
-		audioSource.PlayOneShot(gunShot);
-
-		for (int i = 0; i < bulletPerShot; i++)
+		private void Fire()
 		{
-			ShootRayClientRpc();
+			// 총알 발사 처리
+			barrelPos.LookAt(aim.aimPos);
+			audioSource.PlayOneShot(gunShot);
+
+			for (int i = 0; i < bulletPerShot; i++)
+			{
+				ShootRayClientRpc();
+			}
 		}
-	}
 
-	[ClientRpc]
-	private void ShootRayClientRpc()
-	{
-		Ray ray = new Ray(barrelPos.position, barrelPos.forward);
-		RaycastHit hit;
-
-		if(Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+		[ClientRpc]
+		private void ShootRayClientRpc()
 		{
-			Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+			Ray ray = new Ray(barrelPos.position, barrelPos.forward);
+			RaycastHit hit;
+
+			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+			{
+				ammo.currentAmmo--;
+				Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+			}
 		}
 	}
 }

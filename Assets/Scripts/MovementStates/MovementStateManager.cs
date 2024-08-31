@@ -7,7 +7,7 @@ public class MovementStateManager : MonoBehaviour
     public float currentMoveSpeed = 3;
     public float walkSpeed = 3, walkBackSpeed = 2;
     public float runSpeed = 7, runBackSpeed = 5;
-
+	
     [HideInInspector] public Animator anim;
     [HideInInspector] public Vector3 dir;
     [HideInInspector] public float inputHorizontal, inputVertical;
@@ -24,7 +24,7 @@ public class MovementStateManager : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-
+		
 		SwitchState(Idle);
 	}
 

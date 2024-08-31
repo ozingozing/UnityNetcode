@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using ChocoOzing;
 
 public class AimState : AimBaseState
 {
@@ -15,6 +16,10 @@ public class AimState : AimBaseState
 
 		aim.UpdateRightHandRigWeightServerRPC(1);
 		targetOffset = aim.bodyRig.data.offset + new Vector3(0, 35, 0);
+	}
+
+	public override void ExitState(AimStateManager aim)
+	{
 	}
 
 	public override void UpdateSatate(AimStateManager aim)
