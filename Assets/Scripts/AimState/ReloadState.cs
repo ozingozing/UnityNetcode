@@ -11,13 +11,13 @@ public class ReloadState : AimBaseState
 	{
 		aim.anim.SetTrigger("Reload");
 		aim.WeaponManager.ammo.Reload();
-		aim.UpdateRightHandRigWeightServerRPC(0);
+		aim.UpdatRigWeightServerRPC(0);
 		hasSwitchedState = false;
 	}
 
 	public override void ExitState(AimStateManager aim)
 	{
-		aim.UpdateRightHandRigWeightServerRPC(1);
+		aim.UpdatRigWeightServerRPC(1);
 	}
 
 	public override void UpdateSatate(AimStateManager aim)

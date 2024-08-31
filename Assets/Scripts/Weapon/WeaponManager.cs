@@ -9,8 +9,6 @@ namespace ChocoOzing
 {
 	public class WeaponManager : NetworkBehaviour
 	{
-		CheckLocalComponent checkLocalComponent;
-
 		[Header("Fire Rate")]
 		[SerializeField] private float FireRate;
 		[SerializeField] private bool semiAuto;
@@ -25,7 +23,7 @@ namespace ChocoOzing
 
 		[SerializeField] private AudioClip gunShot;
 		[SerializeField] private GameObject hitParticle;
-		AudioSource audioSource;
+		public AudioSource audioSource;
 		[SerializeField] private LayerMask layerMask;
 		public WeaponAmmo ammo;
 
@@ -33,7 +31,6 @@ namespace ChocoOzing
 		{
 			aim = GetComponentInParent<AimStateManager>();
 			audioSource = GetComponentInParent<AudioSource>();
-			checkLocalComponent = GetComponentInParent<CheckLocalComponent>();
 			ammo = GetComponent<WeaponAmmo>();
 		}
 
@@ -50,15 +47,10 @@ namespace ChocoOzing
 				fireRateTimer += Time.deltaTime;
 				if (IsOwner)
 				{
-					if (checkLocalComponent.IsLocalPlayer && ShouldFire())
+					if (IsLocalPlayer && ShouldFire())
 					{
 						RequestFireServerRpc();
 					}
-
-					/*if (Input.GetKeyDown(KeyCode.R))
-					{
-						ammo.Reload();
-					}*/
 				}
 				yield return null;
 			}
@@ -69,6 +61,7 @@ namespace ChocoOzing
 			// 클라이언트에서 발사 조건을 체크하고, 타이밍에 맞는지 확인합니다.
 			if (fireRateTimer < FireRate) return false;
 			if (ammo.currentAmmo == 0) return false;
+			if (aim.currentState == aim.Reload) return false;
 			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;
 			if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;
 			return false;

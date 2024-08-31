@@ -12,7 +12,9 @@ namespace ChocoOzing
 {
 	public class AimStateManager : NetworkBehaviour
 	{
-		AimBaseState currentState;
+		private const float WEIGHT_UPDATE_THRESHOLD = 0.1f;
+
+		public AimBaseState currentState;
 		public HipFireState Hip = new HipFireState();
 		public AimState Aim = new AimState();
 		public ReloadState Reload = new ReloadState();
@@ -39,7 +41,6 @@ namespace ChocoOzing
 		public MultiAimConstraint rHandAim;
 		public MultiAimConstraint headRig;
 
-		private const float WEIGHT_UPDATE_THRESHOLD = 0.1f;
 
 		private void Awake()
 		{
@@ -99,6 +100,21 @@ namespace ChocoOzing
 			}
 		}
 
+		public void MagIn()
+		{
+			WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magInSound);
+		}
+
+		public void MagOut()
+		{
+			WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magOutSound);
+		}
+
+		public void ReleaseSlide()
+		{
+			WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.releaseSlideSound);
+		}
+
 		public void SwitchState(AimBaseState state)
 		{
 			currentState.ExitState(this);
@@ -126,14 +142,21 @@ namespace ChocoOzing
 		}
 
 		[ServerRpc]
+		public void UpdatRigWeightServerRPC(float newWeight)
+		{
+			rig.weight = newWeight;
+			UpdateRigWeightClientRPC(newWeight);
+		}
+		[ClientRpc]
+		public void UpdateRigWeightClientRPC(float newWeight)
+		{
+			rig.weight = newWeight;
+		}
+
+		[ServerRpc]
 		public void UpdateRightHandRigWeightServerRPC(float newWeight)
 		{
-			if (currentState == Reload)
-			{
-				rig.weight = newWeight;
-				UpdateRightHandRigWeightClientRPC(newWeight);
-			}
-			else if (Mathf.Abs(rHandAim.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD ||
+			if (Mathf.Abs(rHandAim.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD ||
 			Mathf.Abs(rHandAimTwoBone.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD ||
 			Mathf.Abs(bodyRig.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD)
 			{
@@ -148,16 +171,9 @@ namespace ChocoOzing
 		[ClientRpc]
 		public void UpdateRightHandRigWeightClientRPC(float newWeight)
 		{
-			if(currentState == Reload)
-			{
-				rig.weight = newWeight;
-			}
-			else
-			{
-				rHandAim.weight = newWeight;
-				rHandAimTwoBone.weight = newWeight;
-				bodyRig.weight = newWeight;
-			}
+			rHandAim.weight = newWeight;
+			rHandAimTwoBone.weight = newWeight;
+			bodyRig.weight = newWeight;
 		}
 	}
 }

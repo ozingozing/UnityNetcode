@@ -8,6 +8,10 @@ public class WeaponAmmo : MonoBehaviour
     public int extraAmmo;
     [HideInInspector] public int currentAmmo;
 
+	public AudioClip magInSound;
+	public AudioClip magOutSound;
+	public AudioClip releaseSlideSound;
+
 	private void Start()
 	{
 		currentAmmo = clipSize;

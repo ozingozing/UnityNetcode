@@ -2251,9 +2251,11 @@ MonoBehaviour:
   bulletPerShot: 1
   gunShot: {fileID: 8300000, guid: 7141bdee85fc87743bfc8fec32b61f2a, type: 3}
   hitParticle: {fileID: 2708598583397607911, guid: 0c3d9795cbf2e3d48a7a58e2e476748a, type: 3}
+  audioSource: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 1
+  ammo: {fileID: 0}
 --- !u!114 &2308093131606181376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,6 +2271,9 @@ MonoBehaviour:
   clipSize: 30
   extraAmmo: 600
   currentAmmo: 0
+  magInSound: {fileID: 8300000, guid: dbc755e072d02bd41a520d26ded701d0, type: 3}
+  magOutSound: {fileID: 8300000, guid: 4442512457e037542982b7c4c89d827b, type: 3}
+  releaseSlideSound: {fileID: 8300000, guid: 3555abd15913bf446a419fcbfaf6da48, type: 3}
 --- !u!1 &4977566769799749616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,7 +3906,12 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'VBOT_:LeftHand'\n\tTransform 'VBOT_:LeftForeArm'\n\tTransform
+    'VBOT_:Neck'\n\tTransform 'VBOT_:Spine'\n\tTransform 'VBOT_:RightArm'\n\tTransform
+    'VBOT_:LeftArm'\n\tTransform 'VBOT_:Hips'\n\tTransform 'VBOT_:RightForeArm'\n\tTransform
+    'VBOT_:Head'\n\tTransform 'VBOT_:RightHand'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4230,6 +4240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978572f1137175d429b3f12a45872767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponManager: {fileID: 0}
   mouseSense: 1
   camFollowPos: {fileID: 4154938974244457859}
   anim: {fileID: 0}
@@ -4240,6 +4251,7 @@ MonoBehaviour:
   aimMask:
     serializedVersion: 2
     m_Bits: 1
+  rig: {fileID: 0}
   checkLocalComponent: {fileID: 0}
   bodyRig: {fileID: 8942720983773381534}
   rHandAimTwoBone: {fileID: 4455261101413803171}
