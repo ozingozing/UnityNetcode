@@ -81,7 +81,6 @@ namespace ChocoOzing
 		{
 			// 총알 발사 처리
 			barrelPos.LookAt(aim.aimPos);
-			audioSource.PlayOneShot(gunShot);
 
 			for (int i = 0; i < bulletPerShot; i++)
 			{
@@ -97,6 +96,7 @@ namespace ChocoOzing
 
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
 			{
+				audioSource.PlayOneShot(gunShot);
 				ammo.currentAmmo--;
 				Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
 			}
