@@ -28,6 +28,7 @@ namespace Invector.vCharacterController
         private MovementStateManager movementStateManager;
         private Camera thirdPersonCamera;
 		private CinemachineVirtualCamera adsVirtualCamera;
+        vThirdPersonMotor vThirdPersonMotor;
         //
 		#endregion
 
@@ -94,15 +95,21 @@ namespace Invector.vCharacterController
         {
             if(!Input.GetKey(KeyCode.Mouse1))
             {
+                cc.isStrafing = false;
+                /*//custom func
 				ChangeAnimationLayerWieght(1, 0);
+				*/
                 thirdPersonCamera.gameObject.SetActive(true);
                 adsVirtualCamera.gameObject.SetActive(false);
             }
 			else
             {
+                cc.isStrafing = true;
+				/*//custom func
+                //ChangeAnimationLayerWieght(1, 1);
+                */
                 thirdPersonCamera.gameObject.SetActive(false);
                 adsVirtualCamera.gameObject.SetActive(true);
-                ChangeAnimationLayerWieght(1, 1);
 				movementStateManager.PlayerAdsMove();
 			}
             MoveInput();

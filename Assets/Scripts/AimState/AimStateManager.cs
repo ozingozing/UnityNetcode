@@ -56,6 +56,7 @@ namespace ChocoOzing
 		{
 			if (IsLocalPlayer)
 			{
+				//TODO: Cam Target Fix!!!!WTF
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
 				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;

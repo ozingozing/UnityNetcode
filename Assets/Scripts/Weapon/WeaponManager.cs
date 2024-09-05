@@ -26,12 +26,27 @@ namespace ChocoOzing
 		public AudioSource audioSource;
 		[SerializeField] private LayerMask layerMask;
 		public WeaponAmmo ammo;
+		WeaponRecoil weaponRecoil;
+		WeaponBloom weaponBloom;
+		
+		public Light muzzleFlashLight;
+		ParticleSystem muzzleFlashParticle;
+		float lightIntensity;
+		[SerializeField] public float lightReturnSpeed = 20;
+
 
 		private void Awake()
 		{
+			weaponRecoil = GetComponent<WeaponRecoil>();
+			weaponBloom = GetComponent<WeaponBloom>();
 			aim = GetComponentInParent<AimStateManager>();
 			audioSource = GetComponentInParent<AudioSource>();
 			ammo = GetComponent<WeaponAmmo>();
+
+			muzzleFlashLight = GetComponentInChildren<Light>();
+			lightIntensity = muzzleFlashLight.intensity;
+			muzzleFlashLight.intensity = 0;
+			muzzleFlashParticle = GetComponentInChildren<ParticleSystem>();
 		}
 
 		void Start()
@@ -45,18 +60,16 @@ namespace ChocoOzing
 			while (true)
 			{
 				fireRateTimer += Time.deltaTime;
-				if (IsOwner)
+				if (IsLocalPlayer)
 				{
-					if (IsLocalPlayer && ShouldFire())
-					{
+					if(ShouldFire())
 						RequestFireServerRpc();
-					}
 				}
 				yield return null;
 			}
 		}
 
-		private bool ShouldFire()
+		public bool ShouldFire()
 		{
 			// 클라이언트에서 발사 조건을 체크하고, 타이밍에 맞는지 확인합니다.
 			if (fireRateTimer < FireRate) return false;
@@ -81,6 +94,8 @@ namespace ChocoOzing
 		{
 			// 총알 발사 처리
 			barrelPos.LookAt(aim.aimPos);
+			/*barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos);
+			Debug.Log(barrelPos.localEulerAngles);*/
 
 			for (int i = 0; i < bulletPerShot; i++)
 			{
@@ -94,12 +109,21 @@ namespace ChocoOzing
 			Ray ray = new Ray(barrelPos.position, barrelPos.forward);
 			RaycastHit hit;
 
+			weaponRecoil.TriggerRecoil();
+			TriggerMuzzleFlash();
+
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
 			{
 				audioSource.PlayOneShot(gunShot);
 				ammo.currentAmmo--;
 				Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
 			}
+		}
+
+		private void TriggerMuzzleFlash()
+		{
+			muzzleFlashParticle.Play();
+			muzzleFlashLight.intensity = lightIntensity;
 		}
 	}
 }
