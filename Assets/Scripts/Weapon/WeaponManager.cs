@@ -94,8 +94,8 @@ namespace ChocoOzing
 		{
 			// 총알 발사 처리
 			barrelPos.LookAt(aim.aimPos);
-			/*barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos);
-			Debug.Log(barrelPos.localEulerAngles);*/
+			//barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos);
+			//Debug.Log(barrelPos.localEulerAngles);
 
 			for (int i = 0; i < bulletPerShot; i++)
 			{

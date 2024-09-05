@@ -36,6 +36,6 @@ public class WeaponBloom : MonoBehaviour
 
         Vector3 randomRotation = new Vector3(randX, randY, randZ);
 
-        return barrelPos.localEulerAngles + randomRotation;
+        return barrelPos.localEulerAngles;
     }
 }

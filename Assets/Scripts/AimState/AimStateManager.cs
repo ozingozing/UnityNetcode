@@ -23,7 +23,7 @@ namespace ChocoOzing
 		public WeaponManager WeaponManager;
 
 		[SerializeField] private float mouseSense = 1;
-		[SerializeField] private Transform camFollowPos;
+		[SerializeField] public Transform camFollowPos;
 		private float xAxis, yAxis;
 
 		[HideInInspector] public Animator anim;
@@ -59,8 +59,8 @@ namespace ChocoOzing
 				//TODO: Cam Target Fix!!!!WTF
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
-				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
-				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
+				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos.parent;
+				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos.parent;
 			}
 			anim = GetComponent<Animator>();
 			currentState = Hip;

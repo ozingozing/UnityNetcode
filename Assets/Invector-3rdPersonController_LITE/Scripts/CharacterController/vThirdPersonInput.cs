@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using ChocoOzing;
+using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,9 +27,9 @@ namespace Invector.vCharacterController
         //추가
         private Rigidbody rb;
         private MovementStateManager movementStateManager;
-        private Camera thirdPersonCamera;
+        private AimStateManager aimStateManager;
+		private Camera thirdPersonCamera;
 		private CinemachineVirtualCamera adsVirtualCamera;
-        vThirdPersonMotor vThirdPersonMotor;
         //
 		#endregion
 
@@ -36,6 +37,7 @@ namespace Invector.vCharacterController
 		{
 			rb = GetComponent<Rigidbody>();
 			movementStateManager = GetComponent<MovementStateManager>();
+			aimStateManager = GetComponent<AimStateManager>();
 			thirdPersonCamera = ThirdPersonCamera.Instance.GetComponent<Camera>();
 			adsVirtualCamera = AdsCamera.Instance.GetComponent<CinemachineVirtualCamera>();
 		}
@@ -85,7 +87,7 @@ namespace Invector.vCharacterController
                     return;
                 if (tpCamera && IsLocalPlayer)
                 {
-                    tpCamera.SetMainTarget(this.transform);
+                    tpCamera.SetMainTarget(aimStateManager.camFollowPos.parent);
                     tpCamera.Init();
                 }
             }

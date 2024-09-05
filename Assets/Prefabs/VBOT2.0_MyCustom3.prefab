@@ -4163,7 +4163,7 @@ MonoBehaviour:
   freeSpeed:
     movementSmooth: 6
     animationSmooth: 0.2
-    rotationSpeed: 16
+    rotationSpeed: 5
     walkByDefault: 0
     rotateWithCamera: 0
     walkSpeed: 2
