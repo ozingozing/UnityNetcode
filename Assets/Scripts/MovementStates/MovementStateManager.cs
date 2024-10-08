@@ -32,7 +32,7 @@ public class MovementStateManager : MonoBehaviour
 	{
 		anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
 		anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
-		currentState.UpdateState(this);
+		//currentState.UpdateState(this);
 	}
 
 	public void SwitchState(MovementBaseState state)

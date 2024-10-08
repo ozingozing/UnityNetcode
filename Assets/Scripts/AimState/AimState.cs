@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using ChocoOzing;
+using Cinemachine;
 
 public class AimState : AimBaseState
 {
@@ -11,6 +12,9 @@ public class AimState : AimBaseState
 
 	public override void EnterState(AimStateManager aim)
 	{
+		aim.xAxis = ThirdPersonCamera.Instance.transform.localEulerAngles.y;
+		aim.yAxis = ThirdPersonCamera.Instance.transform.localEulerAngles.x;
+
 		aim.IsAiming = true;
 		aim.anim.SetBool("Aiming", true);
 

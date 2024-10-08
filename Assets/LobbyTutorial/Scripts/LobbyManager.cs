@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -60,9 +61,14 @@ public class LobbyManager : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-    }
+	}
 
-    private void Update() {
+	private void Start()
+	{
+		InGamePanel.Instance.gameObject.SetActive(false);
+	}
+
+	private void Update() {
         //HandleRefreshLobbyList(); // Disabled Auto Refresh for testing with multiple builds
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
@@ -148,7 +154,7 @@ public class LobbyManager : MonoBehaviour {
                     joinedLobby = null;
 
                     OnGameStarted?.Invoke(this, EventArgs.Empty);
-                }
+				}
             }
         }
     }

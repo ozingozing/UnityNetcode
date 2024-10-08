@@ -80,7 +80,15 @@ namespace ChocoOzing
 			return false;
 		}
 
-		[ServerRpc]
+		/*
+		 * 1. In the current code, collision detection and damage
+		 * are being processed on the client,
+		 * which creates an integrity issue between the server and client.
+		 * 2. It is recommended to handle collision detection 
+		 * and damage on the server,
+		 * and synchronize the results to all clients using ClientRpc.
+		 */
+		/*[ServerRpc]
 		private void RequestFireServerRpc()
 		{
 			if (fireRateTimer >= FireRate)
@@ -117,7 +125,62 @@ namespace ChocoOzing
 				audioSource.PlayOneShot(gunShot);
 				ammo.currentAmmo--;
 				Instantiate(hitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+
+				if (hit.transform.TryGetComponent(out PlayerHealth health))
+				{
+					health.TakeDamage(10);
+				}
 			}
+		}*/
+
+		[ServerRpc]
+		private void RequestFireServerRpc()
+		{
+			if (fireRateTimer >= FireRate)
+			{
+				// 서버에서 발사 처리
+				FireServer();
+				fireRateTimer = 0;
+			}
+		}
+
+		private void FireServer()
+		{
+			barrelPos.LookAt(aim.aimPos);
+
+			for (int i = 0; i < bulletPerShot; i++)
+			{
+				// 서버에서 Raycast 처리 후, 클라이언트에게 결과 전달
+				Ray ray = new Ray(barrelPos.position, barrelPos.forward);
+				RaycastHit hit;
+
+				if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+				{
+					// 피격 대상이 있을 경우, 데미지 처리
+					if (hit.transform.TryGetComponent(out PlayerHealth health))
+					{
+						health.TakeDamage(10); // 서버에서 데미지 처리
+					}
+
+					// 클라이언트에게 시각적 효과만 동기화
+					FireEffectsClientRpc(hit.point, hit.normal);
+				}
+			}
+		}
+
+		[ClientRpc]
+		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal)
+		{
+			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
+			audioSource.PlayOneShot(gunShot);
+			ammo.currentAmmo--;
+
+			// 시각적 효과 (머즐 플래시, 총구 불빛)
+			weaponRecoil.TriggerRecoil();
+			TriggerMuzzleFlash();
+
+			// 피격 지점에 파티클 생성
+			Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
 		}
 
 		private void TriggerMuzzleFlash()

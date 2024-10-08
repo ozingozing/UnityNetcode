@@ -87,8 +87,8 @@ namespace Invector.vCharacterController
                     return;
                 if (tpCamera && IsLocalPlayer)
                 {
-                    tpCamera.SetMainTarget(aimStateManager.camFollowPos.parent);
-                    tpCamera.Init();
+                    tpCamera.SetMainTarget(aimStateManager.transform);
+					tpCamera.Init();
                 }
             }
         }
@@ -97,12 +97,12 @@ namespace Invector.vCharacterController
         {
             if(!Input.GetKey(KeyCode.Mouse1))
             {
-                cc.isStrafing = false;
-                /*//custom func
+				cc.isStrafing = false;
+				/*//custom func
 				ChangeAnimationLayerWieght(1, 0);
 				*/
-                thirdPersonCamera.gameObject.SetActive(true);
-                adsVirtualCamera.gameObject.SetActive(false);
+				thirdPersonCamera.gameObject.SetActive(true);
+				adsVirtualCamera.gameObject.SetActive(false);
             }
 			else
             {
@@ -110,8 +110,8 @@ namespace Invector.vCharacterController
 				/*//custom func
                 //ChangeAnimationLayerWieght(1, 1);
                 */
-                thirdPersonCamera.gameObject.SetActive(false);
-                adsVirtualCamera.gameObject.SetActive(true);
+				thirdPersonCamera.gameObject.SetActive(false);
+				adsVirtualCamera.gameObject.SetActive(true);
 				movementStateManager.PlayerAdsMove();
 			}
             MoveInput();

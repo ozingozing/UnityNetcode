@@ -3,6 +3,7 @@ using Invector.vCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using Unity.Burst.Intrinsics;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -24,10 +25,10 @@ namespace ChocoOzing
 
 		[SerializeField] private float mouseSense = 1;
 		[SerializeField] public Transform camFollowPos;
-		private float xAxis, yAxis;
+		public float xAxis, yAxis;
 
 		[HideInInspector] public Animator anim;
-		[HideInInspector] public bool IsAiming;
+		 public bool IsAiming;
 
 		public Transform aimPos;
 		[HideInInspector] public Vector3 actualAimPos;
@@ -41,6 +42,7 @@ namespace ChocoOzing
 		public MultiAimConstraint rHandAim;
 		public MultiAimConstraint headRig;
 
+		public Transform lastAimPos;
 
 		private void Awake()
 		{
@@ -58,9 +60,9 @@ namespace ChocoOzing
 			{
 				//TODO: Cam Target Fix!!!!WTF
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
-				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos;
+				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = aimPos;
 				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos.parent;
-				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = camFollowPos.parent;
+				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = aimPos;
 			}
 			anim = GetComponent<Animator>();
 			currentState = Hip;
@@ -78,7 +80,7 @@ namespace ChocoOzing
 					Ray ray = Camera.main.ScreenPointToRay(screenCenter);
 					xAxis += Input.GetAxisRaw("Mouse X") * mouseSense;
 					yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
-					yAxis = Mathf.Clamp(yAxis, -80, 80);
+					//yAxis = Mathf.Clamp(yAxis, -80, 80);
 
 					if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
 					{
@@ -132,7 +134,7 @@ namespace ChocoOzing
 				UpdateAdsOffsetClientRpc(newOffset);
 			}
 		}
-
+		
 		[ClientRpc]
 		public void UpdateAdsOffsetClientRpc(Vector3 newOffset)
 		{
@@ -141,8 +143,13 @@ namespace ChocoOzing
 				bodyRig.data.offset = newOffset;
 			}
 		}
-
-		[ServerRpc]
+		/*
+		 * The method has the issue
+		 * that clients may directly modify the values.
+		 * If a client an access or change the values directly,
+		 * conflicts with the server may occur.
+		 */
+		/*[ServerRpc]
 		public void UpdatRigWeightServerRPC(float newWeight)
 		{
 			rig.weight = newWeight;
@@ -152,6 +159,25 @@ namespace ChocoOzing
 		public void UpdateRigWeightClientRPC(float newWeight)
 		{
 			rig.weight = newWeight;
+		}*/
+
+		[ServerRpc]
+		public void UpdateRigWeightServerRPC(float newWeight)
+		{
+			if (rig.weight != newWeight) // 값이 달라졌을 때만 처리
+			{
+				rig.weight = newWeight;
+				UpdateRigWeightClientRPC(newWeight);
+			}
+		}
+
+		[ClientRpc]
+		public void UpdateRigWeightClientRPC(float newWeight)
+		{
+			if (!IsOwner) // 소유자가 아닐 때만 값을 업데이트
+			{
+				rig.weight = newWeight;
+			}
 		}
 
 		[ServerRpc]

@@ -16,7 +16,7 @@ public class HipFireState : AimBaseState
 
 	public override void ExitState(AimStateManager aim)
 	{
-
+		aim.lastAimPos = aim.aimPos;
 	}
 
 	public override void UpdateSatate(AimStateManager aim)

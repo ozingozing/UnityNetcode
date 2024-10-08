@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine.UI;
+using Unity.Services.Authentication;
+using static LobbyManager;
 
 public class LobbyPlayerSingleUI : MonoBehaviour {
 
@@ -30,9 +32,31 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         LobbyManager.PlayerCharacter playerCharacter = 
             System.Enum.Parse<LobbyManager.PlayerCharacter>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
         characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
+
+        //custom
+        string playerId = player.Id;
+        PlayerData playerData = new PlayerData(playerNameText.text, characterImage.sprite, playerCharacter);
+
+        if (InGameManager.Instance.playerDataDictionary.ContainsKey(playerId))
+        {
+            InGameManager.Instance.playerDataDictionary[playerId] = playerData;
+        }
+        else
+        {
+            InGameManager.Instance.playerDataDictionary.Add(playerId, playerData);
+        }
+        //custom
     }
 
-    private void KickPlayer() {
+	public void UpdatePlayer(string key)
+    {
+        playerNameText.text = InGameManager.Instance.playerDataDictionary[key].playerName;
+
+        characterImage.sprite = LobbyAssets.Instance.GetSprite(InGameManager.Instance.playerDataDictionary[key].playerCharacterImage);
+	}
+
+
+	private void KickPlayer() {
         if (player != null) {
             LobbyManager.Instance.KickPlayer(player.Id);
         }
