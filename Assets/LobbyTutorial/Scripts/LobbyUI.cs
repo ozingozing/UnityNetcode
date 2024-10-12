@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using static LobbyManager;
 
 public class LobbyUI : MonoBehaviour {
 
@@ -86,7 +88,7 @@ public class LobbyUI : MonoBehaviour {
     private void UpdateLobby(Lobby lobby) {
         ClearLobby();
 
-        foreach (Player player in lobby.Players) {
+		foreach (Player player in lobby.Players) {
             Transform playerSingleTransform = Instantiate(playerSingleTemplate, container);
             playerSingleTransform.gameObject.SetActive(true);
             LobbyPlayerSingleUI lobbyPlayerSingleUI = playerSingleTransform.GetComponent<LobbyPlayerSingleUI>();
@@ -96,10 +98,10 @@ public class LobbyUI : MonoBehaviour {
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
 
-            lobbyPlayerSingleUI.UpdatePlayer(player);
+			lobbyPlayerSingleUI.UpdatePlayer(player);
         }
 
-        changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
+		changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
         startGameButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
 
         lobbyNameText.text = lobby.Name;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +11,7 @@ public class InGameManager : MonoBehaviour
 
 	// Dictionary to store PlayerData with playerId as key
 	public Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
-
+	
 	public event EventHandler InGame;
 
 	private void Awake()
@@ -35,12 +36,14 @@ public class InGameManager : MonoBehaviour
 [System.Serializable]
 public class PlayerData
 {
+	public string playerLobbyId;
 	public string playerName;
 	public Sprite playerCharacterSprite;
 	public LobbyManager.PlayerCharacter playerCharacterImage;
 
-	public PlayerData(string playerName, Sprite playerCharacterSprite, LobbyManager.PlayerCharacter playerCharacterImage)
+	public PlayerData(string playerLobbyId, string playerName, Sprite playerCharacterSprite, LobbyManager.PlayerCharacter playerCharacterImage)
 	{
+		this.playerLobbyId = playerLobbyId;
 		this.playerName = playerName;
 		this.playerCharacterSprite = playerCharacterSprite;
 		this.playerCharacterImage = playerCharacterImage;

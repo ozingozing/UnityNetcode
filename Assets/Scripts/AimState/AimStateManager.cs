@@ -174,10 +174,7 @@ namespace ChocoOzing
 		[ClientRpc]
 		public void UpdateRigWeightClientRPC(float newWeight)
 		{
-			if (!IsOwner) // 소유자가 아닐 때만 값을 업데이트
-			{
-				rig.weight = newWeight;
-			}
+			rig.weight = newWeight;
 		}
 
 		[ServerRpc]

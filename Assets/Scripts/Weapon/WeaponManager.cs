@@ -159,9 +159,9 @@ namespace ChocoOzing
 					// 피격 대상이 있을 경우, 데미지 처리
 					if (hit.transform.TryGetComponent(out PlayerHealth health))
 					{
-						health.TakeDamage(10); // 서버에서 데미지 처리
+						//health.TakeDamage(10); // 서버에서 데미지 처리
+						health.TakeDamage(10, gameObject);
 					}
-
 					// 클라이언트에게 시각적 효과만 동기화
 					FireEffectsClientRpc(hit.point, hit.normal);
 				}

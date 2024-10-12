@@ -32,4 +32,27 @@ public class PlayerHealth : NetworkBehaviour, IHealth
 			}
 		}
 	}
+
+	public void TakeDamage(int amount, GameObject attacker)
+	{
+		currentHealth -= amount;
+		if (currentHealth <= 0)
+		{
+			OnDeath(attacker); // 공격자를 전달하여 죽음 처리
+		}
+	}
+
+	// 플레이어 사망 처리
+	private void OnDeath(GameObject attacker)
+	{
+		/*// 공격자의 clientId 가져오기
+		ulong attackerId = attacker.GetComponent<NetworkObject>().OwnerClientId;
+
+		// 자신의 clientId 가져오기
+		ulong victimId = GetComponent<NetworkObject>().OwnerClientId;
+*/
+		// 킬/데스 처리
+		Debug.Log("Death!!!!!!!!!!!");
+		CombatManager.Instance.OnPlayerDeath(attacker, gameObject);
+	}
 }

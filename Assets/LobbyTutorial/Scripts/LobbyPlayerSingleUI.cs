@@ -6,6 +6,8 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine.UI;
 using Unity.Services.Authentication;
 using static LobbyManager;
+using Unity.Netcode;
+using System.Linq;
 
 public class LobbyPlayerSingleUI : MonoBehaviour {
 
@@ -35,7 +37,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
         //custom
         string playerId = player.Id;
-        PlayerData playerData = new PlayerData(playerNameText.text, characterImage.sprite, playerCharacter);
+		PlayerData playerData = new PlayerData(player.Id, playerNameText.text, characterImage.sprite, playerCharacter);
 
         if (InGameManager.Instance.playerDataDictionary.ContainsKey(playerId))
         {

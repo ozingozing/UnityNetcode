@@ -2259,7 +2259,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   ammo: {fileID: 0}
   muzzleFlashLight: {fileID: 0}
   lightReturnSpeed: 20
@@ -3935,6 +3935,8 @@ GameObject:
   - component: {fileID: 2327135002687046570}
   - component: {fileID: 5034275283889422770}
   - component: {fileID: -5796765494437741007}
+  - component: {fileID: 7575242765587476310}
+  - component: {fileID: 1622534731154697546}
   m_Layer: 3
   m_Name: VBOT2.0_MyCustom3
   m_TagString: Untagged
@@ -4205,7 +4207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 462042434
+  GlobalObjectIdHash: 4283848011
   InScenePlacedSourceGlobalObjectIdHash: 462042434
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -4309,6 +4311,8 @@ MonoBehaviour:
   WeaponManager: {fileID: 0}
   mouseSense: 1
   camFollowPos: {fileID: 7969364526416371720}
+  xAxis: 0
+  yAxis: 0
   anim: {fileID: 0}
   IsAiming: 0
   aimPos: {fileID: 4172401546582696947}
@@ -4316,7 +4320,7 @@ MonoBehaviour:
   aimSmoothSpeed: 20
   aimMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   rig: {fileID: 0}
   checkLocalComponent: {fileID: 0}
   bodyRig: {fileID: 8942720983773381534}
@@ -4357,6 +4361,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8378d8343648d55498c9e16a3a15023b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7575242765587476310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358111469727087111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc33f933948aa044b991415e963ac88e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kills:
+    m_InternalValue: 0
+  deaths:
+    m_InternalValue: 0
+--- !u!114 &1622534731154697546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358111469727087111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  SetHealth: 100
 --- !u!1 &8416741843223228432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4767,6 +4801,10 @@ PrefabInstance:
     - target: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_Name
       value: MuzzleFlashParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
