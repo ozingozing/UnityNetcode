@@ -143,25 +143,29 @@ namespace ChocoOzing
 				bodyRig.data.offset = newOffset;
 			}
 		}
-		/*
-		 * The method has the issue
-		 * that clients may directly modify the values.
-		 * If a client an access or change the values directly,
-		 * conflicts with the server may occur.
-		 */
-		/*[ServerRpc]
-		public void UpdatRigWeightServerRPC(float newWeight)
+
+		[ServerRpc]
+		public void UpdateRigWeightServerRPC(float newWeight)
 		{
-			rig.weight = newWeight;
-			UpdateRigWeightClientRPC(newWeight);
+			if (rig.weight != newWeight) // 값이 달라졌을 때만 처리
+			{
+				rig.weight = newWeight;
+				UpdateRigWeightClientRPC(newWeight);
+			}
 		}
 		[ClientRpc]
 		public void UpdateRigWeightClientRPC(float newWeight)
 		{
 			rig.weight = newWeight;
-		}*/
+		}
 
-		[ServerRpc]
+		/*
+		 * This is an issue with this Func
+		 * It calls ServerRpc, followed by CLientRpc.
+		 * When I Set the value to cahane in ClientRpc when
+		 * !IsOwner, the changed values is not apllied to other clients;
+		 */
+		/*[ServerRpc]
 		public void UpdateRigWeightServerRPC(float newWeight)
 		{
 			if (rig.weight != newWeight) // 값이 달라졌을 때만 처리
@@ -174,8 +178,9 @@ namespace ChocoOzing
 		[ClientRpc]
 		public void UpdateRigWeightClientRPC(float newWeight)
 		{
-			rig.weight = newWeight;
-		}
+			if(!IsOwner)
+				rig.weight = newWeight;
+		}*/
 
 		[ServerRpc]
 		public void UpdateRightHandRigWeightServerRPC(float newWeight)

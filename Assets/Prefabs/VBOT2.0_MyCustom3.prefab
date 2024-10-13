@@ -4377,6 +4377,9 @@ MonoBehaviour:
     m_InternalValue: 0
   deaths:
     m_InternalValue: 0
+  playerLobbyId: 
+  IsDead: 0
+  M4: {fileID: 7792221813139961230}
 --- !u!114 &1622534731154697546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4389,6 +4392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLobbyId: 
   currentHealth: 0
   SetHealth: 100
 --- !u!1 &8416741843223228432

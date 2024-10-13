@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLobbyId: 
   currentHealth: 0
   SetHealth: 100
 --- !u!114 &3042770
@@ -7641,6 +7642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLobbyId: 
   currentHealth: 0
   SetHealth: 100
 --- !u!114 &1334195439
@@ -10227,6 +10229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSingleTemplate: {fileID: 1319093292}
   container: {fileID: 1728446763}
+  myId: 
 --- !u!1 &1947039888
 GameObject:
   m_ObjectHideFlags: 0

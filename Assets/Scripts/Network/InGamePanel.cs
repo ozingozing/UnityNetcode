@@ -38,7 +38,6 @@ public class InGamePanel : MonoBehaviour
 			Transform playerSingleTransform = Instantiate(playerSingleTemplate, container);
 			playerSingleTransform.gameObject.SetActive(true);
 			LobbyPlayerSingleUI lobbyPlayerSingleUI = playerSingleTransform.GetComponent<LobbyPlayerSingleUI>();
-
 			lobbyPlayerSingleUI.UpdatePlayer(key.ToString());
 		}
 	}
