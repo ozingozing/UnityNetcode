@@ -13,18 +13,17 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
-    [SerializeField] private Image characterImage;
+	[SerializeField] private Image characterImage;
     [SerializeField] private Button kickPlayerButton;
 
 
-    private Player player;
+    public Player player;
 
-
-    private void Awake() {
+	private void Awake() {
         kickPlayerButton.onClick.AddListener(KickPlayer);
     }
 
-    public void SetKickPlayerButtonVisible(bool visible) {
+	public void SetKickPlayerButtonVisible(bool visible) {
         kickPlayerButton.gameObject.SetActive(visible);
     }
 
@@ -37,8 +36,8 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
         //custom
         string playerId = player.Id;
-		PlayerData playerData = new PlayerData(player.Id, playerNameText.text, characterImage.sprite, playerCharacter);
-
+        PlayerData playerData = new PlayerData(player.Id, playerNameText.text, characterImage.sprite, playerCharacter);
+       
         if (InGameManager.Instance.playerDataDictionary.ContainsKey(playerId))
         {
             InGameManager.Instance.playerDataDictionary[playerId] = playerData;
@@ -57,12 +56,9 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
         characterImage.sprite = LobbyAssets.Instance.GetSprite(InGameManager.Instance.playerDataDictionary[key].playerCharacterImage);
 	}
 
-
 	private void KickPlayer() {
         if (player != null) {
             LobbyManager.Instance.KickPlayer(player.Id);
         }
     }
-
-
 }

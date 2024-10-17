@@ -1,7 +1,10 @@
+using Mono.CSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +15,8 @@ public class InGameManager : MonoBehaviour
 	// Dictionary to store PlayerData with playerId as key
 	public Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
 	
+	public event EventHandler SetInfoInGame;
+	public event EventHandler SetKdaInfo;
 	public event EventHandler InGame;
 
 	private void Awake()
@@ -23,12 +28,11 @@ public class InGameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
-			InGamePanel.Instance.gameObject.SetActive(true);
-			InGame?.Invoke(this, EventArgs.Empty);
+			InGamePlayerUIManager.Instance.gameObject.SetActive(true);
 		}
 		else if (Input.GetKeyUp(KeyCode.Tab))
 		{
-			InGamePanel.Instance.gameObject.SetActive(false);
+			InGamePlayerUIManager.Instance.gameObject.SetActive(false);
 		}
 	}
 }
@@ -36,6 +40,8 @@ public class InGameManager : MonoBehaviour
 [System.Serializable]
 public class PlayerData
 {
+	public GameObject playerGO;
+	public Transform playerSingleUI;
 	public string playerLobbyId;
 	public string playerName;
 	public Sprite playerCharacterSprite;

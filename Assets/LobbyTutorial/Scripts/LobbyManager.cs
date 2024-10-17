@@ -66,7 +66,7 @@ public class LobbyManager : MonoBehaviour {
 
 	private void Start()
 	{
-		InGamePanel.Instance.gameObject.SetActive(false);
+		//InGamePanel.Instance.gameObject.SetActive(false);
 	}
 
 	private void Update() {
