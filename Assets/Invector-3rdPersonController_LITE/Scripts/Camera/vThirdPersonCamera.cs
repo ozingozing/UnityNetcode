@@ -59,8 +59,6 @@ public class vThirdPersonCamera : NetworkBehaviour
     private float cullingMinDist = 0.1f;
 
     //CUSTOM
-    private CheckLocalComponent checkLocalComponent;
-
 	#endregion
 
 

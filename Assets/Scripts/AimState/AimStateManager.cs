@@ -36,7 +36,6 @@ namespace ChocoOzing
 		[SerializeField] public LayerMask aimMask;
 
 		public Rig rig;
-		public CheckLocalComponent checkLocalComponent;
 		public MultiAimConstraint bodyRig;
 		public TwoBoneIKConstraint rHandAimTwoBone;
 		public MultiAimConstraint rHandAim;
@@ -47,7 +46,6 @@ namespace ChocoOzing
 		private void Awake()
 		{
 			rig = GetComponentInChildren<Rig>();
-			checkLocalComponent = GetComponent<CheckLocalComponent>();
 			WeaponManager = GetComponentInChildren<WeaponManager>();
 			rHandAimTwoBone.weight = 0;
 			rHandAim.weight = 0;
@@ -74,7 +72,7 @@ namespace ChocoOzing
 		{
 			while (true)
 			{
-				if (checkLocalComponent.IsLocalPlayer)
+				if (IsLocalPlayer)
 				{
 					Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
 					Ray ray = Camera.main.ScreenPointToRay(screenCenter);
@@ -138,7 +136,7 @@ namespace ChocoOzing
 		[ClientRpc]
 		public void UpdateAdsOffsetClientRpc(Vector3 newOffset)
 		{
-			if (!checkLocalComponent.IsLocalPlayer)
+			if (!IsLocalPlayer)
 			{
 				bodyRig.data.offset = newOffset;
 			}

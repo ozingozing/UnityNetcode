@@ -36,15 +36,16 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
         //custom
         string playerId = player.Id;
-        PlayerData playerData = new PlayerData(player.Id, playerNameText.text, characterImage.sprite, playerCharacter);
+        string playerKey = playerId + playerNameText.text;
+        PlayerData playerData = new PlayerData(player.Id, player, playerNameText.text, characterImage.sprite, playerCharacter);
        
-        if (InGameManager.Instance.playerDataDictionary.ContainsKey(playerId))
+        if (InGameManager.Instance.playerDataDictionary.ContainsKey(playerKey))
         {
-            InGameManager.Instance.playerDataDictionary[playerId] = playerData;
+            InGameManager.Instance.playerDataDictionary[playerKey] = playerData;
         }
         else
         {
-            InGameManager.Instance.playerDataDictionary.Add(playerId, playerData);
+            InGameManager.Instance.playerDataDictionary.Add(playerKey, playerData);
         }
         //custom
     }

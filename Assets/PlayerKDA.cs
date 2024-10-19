@@ -20,9 +20,10 @@ public class PlayerKDA : MonoBehaviour
 
 	int kill;
 	int death;
-
+	public GameObject player;
 	public void TracePlayer(GameObject player)
 	{
+		this.player = player;
 		player.GetComponent<PlayerStats>().Name.OnValueChanged += OnNameChanged;
 		player.GetComponent<PlayerStats>().kills.OnValueChanged += OnKillChanged;
 		player.GetComponent<PlayerStats>().deaths.OnValueChanged += OnDeathChanged;
@@ -30,6 +31,8 @@ public class PlayerKDA : MonoBehaviour
 		OnKillChanged(0, player.GetComponent<PlayerStats>().kills.Value);
 		OnDeathChanged(0, player.GetComponent<PlayerStats>().deaths.Value);
 		OnNameChanged("", player.GetComponent<PlayerStats>().Name.Value);
+
+		//transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
 	}
 
 	private void OnDeathChanged(int previousValue, int newValue)
@@ -48,8 +51,22 @@ public class PlayerKDA : MonoBehaviour
 	{
 		ScoreUI.text = $"K/{kill} D/{death}";
 	}
+
 	private void OnNameChanged(FixedString128Bytes previousValue, FixedString128Bytes newValue)
 	{
-		NameUI.text = newValue.ToString();
+		NameUI.text = newValue.ToString();	
+	}
+
+	private void Update()
+	{
+		if(player != null)
+		{
+			transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
+			return;
+		}
+		/*if(Input.GetKeyDown(KeyCode.U))
+		{
+			transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
+		}*/
 	}
 }

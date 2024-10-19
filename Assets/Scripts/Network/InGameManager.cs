@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using Unity.Services.Authentication;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +15,6 @@ public class InGameManager : MonoBehaviour
 
 	// Dictionary to store PlayerData with playerId as key
 	public Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
-	
 	public event EventHandler SetInfoInGame;
 	public event EventHandler SetKdaInfo;
 	public event EventHandler InGame;
@@ -28,11 +28,11 @@ public class InGameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
-			InGamePlayerUIManager.Instance.gameObject.SetActive(true);
+			InGamePlayerUIManager.Instance.PanelFadeIn();
 		}
 		else if (Input.GetKeyUp(KeyCode.Tab))
 		{
-			InGamePlayerUIManager.Instance.gameObject.SetActive(false);
+			InGamePlayerUIManager.Instance.PanelFadeOut();
 		}
 	}
 }
@@ -40,15 +40,16 @@ public class InGameManager : MonoBehaviour
 [System.Serializable]
 public class PlayerData
 {
-	public GameObject playerGO;
+	public Player player;
 	public Transform playerSingleUI;
 	public string playerLobbyId;
 	public string playerName;
 	public Sprite playerCharacterSprite;
 	public LobbyManager.PlayerCharacter playerCharacterImage;
 
-	public PlayerData(string playerLobbyId, string playerName, Sprite playerCharacterSprite, LobbyManager.PlayerCharacter playerCharacterImage)
+	public PlayerData(string playerLobbyId, Player player, string playerName, Sprite playerCharacterSprite, LobbyManager.PlayerCharacter playerCharacterImage)
 	{
+		this.player = player;
 		this.playerLobbyId = playerLobbyId;
 		this.playerName = playerName;
 		this.playerCharacterSprite = playerCharacterSprite;

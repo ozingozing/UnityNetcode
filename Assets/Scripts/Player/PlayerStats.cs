@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -15,6 +16,7 @@ public class PlayerStats : NetworkBehaviour
     
     public bool IsDead;
     public TextMeshProUGUI kda;
+    public LobbyManager.PlayerCharacter PlayerCharactar;
 
     Transform MeshLOD;
     MeshRenderer M4MeshRender;
@@ -27,7 +29,7 @@ public class PlayerStats : NetworkBehaviour
         kills.Value = 0;
         deaths.Value = 0;
 
-        GetNameClientRpc(
+		GetNameClientRpc(
             new ClientRpcParams {
                 Send = new ClientRpcSendParams {
                     TargetClientIds = new ulong[] {GetComponent<NetworkObject>().OwnerClientId},
@@ -38,13 +40,20 @@ public class PlayerStats : NetworkBehaviour
     [ClientRpc]
     public void GetNameClientRpc(ClientRpcParams clientRpcParams = default)
     {
-        GetNameServerRpc(EditPlayerName.Instance.GetPlayerName());
-    }
-    [ServerRpc]
-    public void GetNameServerRpc(string Name)
+		ulong playerId = GetComponent<NetworkObject>().OwnerClientId;
+		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == AuthenticationService.Instance.PlayerId).Value.playerCharacterImage;
+
+        GetNameServerRpc(EditPlayerName.Instance.GetPlayerName(), AuthenticationService.Instance.PlayerId);
+	}
+
+	[ServerRpc]
+    public void GetNameServerRpc(string Name, string id)
     {
         this.Name.Value = Name;
-    }
+
+		ulong playerId = GetComponent<NetworkObject>().OwnerClientId;
+        PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == id).Value.playerCharacterImage;
+	}
 
 	private void Awake()
 	{
@@ -55,7 +64,6 @@ public class PlayerStats : NetworkBehaviour
 	private void Start()
 	{
         CombatManager.Instance.Respawn += TurnOnMesh;
-        InGameManager.Instance.SetInfoInGame += SetPlayer;
 	}
 
 	public void AddKill()
@@ -79,14 +87,6 @@ public class PlayerStats : NetworkBehaviour
     {
 		MeshLOD.gameObject.SetActive(false);
 		M4MeshRender.enabled = false;
-	}
-
-    public void SetPlayer(object sender, System.EventArgs e)
-    {
-        if (InGameManager.Instance.playerDataDictionary.ContainsKey(AuthenticationService.Instance.PlayerId))
-		{
-			InGameManager.Instance.playerDataDictionary[AuthenticationService.Instance.PlayerId].playerGO = gameObject;
-		}
 	}
 
     public void TurnOnMesh(object sender, System.EventArgs e)

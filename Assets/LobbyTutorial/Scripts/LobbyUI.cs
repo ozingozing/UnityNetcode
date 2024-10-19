@@ -63,8 +63,7 @@ public class LobbyUI : MonoBehaviour {
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnGameStarted += LobbyManager_OnGameStarted;
-        //LobbyManager.Instance.OnGameStarted += InGamePlayerUIManager.Instance.LobbyManager_OnGameStarted;
-		Hide();
+        Hide();
     }
 
     private void LobbyManager_OnGameStarted(object sender, System.EventArgs e)
