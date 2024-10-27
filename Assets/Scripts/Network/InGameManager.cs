@@ -15,9 +15,6 @@ public class InGameManager : MonoBehaviour
 
 	// Dictionary to store PlayerData with playerId as key
 	public Dictionary<string, PlayerData> playerDataDictionary = new Dictionary<string, PlayerData>();
-	public event EventHandler SetInfoInGame;
-	public event EventHandler SetKdaInfo;
-	public event EventHandler InGame;
 
 	private void Awake()
 	{

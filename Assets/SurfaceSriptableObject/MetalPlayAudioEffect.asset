@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1b5d23c48641b4082f78fca9cea977, type: 3}
+  m_Name: MetalPlayAudioEffect
+  m_EditorClassIdentifier: 
+  AudioSourcePrefab: {fileID: 3683604220191984894, guid: 24bd2f7395a4dd64895551385f697174, type: 3}
+  AudioClips:
+  - {fileID: 8300000, guid: 1aed76bf288c2ca4e89b24dd942d4b70, type: 3}
+  - {fileID: 8300000, guid: bda34156b25ff82488aa28520bedc70e, type: 3}
+  - {fileID: 8300000, guid: 22b64d9678451d047b0e816b93ad436e, type: 3}
+  VolumeRange: {x: 0.5, y: 0.75}

@@ -11,7 +11,7 @@ public class MovementStateManager : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public Vector3 dir;
     [HideInInspector] public float inputHorizontal, inputVertical;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
 
 	[HideInInspector] public MovementBaseState currentState;
@@ -24,19 +24,25 @@ public class MovementStateManager : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-		
+		currentState = Idle;
 		SwitchState(Idle);
+	}
+
+	private void Update()
+	{
+		PlayerAdsMove();
 	}
 
 	public void PlayerAdsMove()
 	{
-		anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
-		anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
-		//currentState.UpdateState(this);
+		//anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
+		//anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
+		currentState.UpdateState(this);
 	}
 
 	public void SwitchState(MovementBaseState state)
 	{
+		currentState.ExitState(this);
 		currentState = state;
 		currentState.EnterState(this);
 	}

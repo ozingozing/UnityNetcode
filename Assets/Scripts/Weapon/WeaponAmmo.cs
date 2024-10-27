@@ -6,7 +6,7 @@ public class WeaponAmmo : MonoBehaviour
 {
     public int clipSize;
     public int extraAmmo;
-    [HideInInspector] public int currentAmmo;
+    public int currentAmmo;
 
 	public AudioClip magInSound;
 	public AudioClip magOutSound;

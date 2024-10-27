@@ -1,5 +1,6 @@
 using Cinemachine;
 using Invector.vCharacterController;
+using QFSW.QC.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -21,7 +22,7 @@ namespace ChocoOzing
 		public ReloadState Reload = new ReloadState();
 		public DefaultState Default = new DefaultState();
 
-		public WeaponManager WeaponManager;
+		[HideInInspector] public GunBase WeaponManager;
 
 		[SerializeField] private float mouseSense = 1;
 		[SerializeField] public Transform camFollowPos;
@@ -46,7 +47,7 @@ namespace ChocoOzing
 		private void Awake()
 		{
 			rig = GetComponentInChildren<Rig>();
-			WeaponManager = GetComponentInChildren<WeaponManager>();
+			WeaponManager = GetComponentInChildren<GunBase>();
 			rHandAimTwoBone.weight = 0;
 			rHandAim.weight = 0;
 		}
@@ -124,28 +125,25 @@ namespace ChocoOzing
 		}
 
 		[ServerRpc]
-		public void UpdateAdsOffsetServerRpc(Vector3 newOffset)
+		public void UpdateAdsOffsetServerRpc(float newOffset)
 		{
-			if (bodyRig.data.offset != newOffset)
+			if(Mathf.Abs(bodyRig.data.offset.y - newOffset) > 0.1f)
 			{
-				bodyRig.data.offset = newOffset;
+				bodyRig.data.offset = new Vector3(0, newOffset, 0);
 				UpdateAdsOffsetClientRpc(newOffset);
 			}
 		}
 		
 		[ClientRpc]
-		public void UpdateAdsOffsetClientRpc(Vector3 newOffset)
+		public void UpdateAdsOffsetClientRpc(float newOffset)
 		{
-			if (!IsLocalPlayer)
-			{
-				bodyRig.data.offset = newOffset;
-			}
+			bodyRig.data.offset = new Vector3(0, newOffset, 0);
 		}
 
 		[ServerRpc]
 		public void UpdateRigWeightServerRPC(float newWeight)
 		{
-			if (rig.weight != newWeight) // 값이 달라졌을 때만 처리
+			if(Mathf.Abs(rig.weight - newWeight) > 0.1f)
 			{
 				rig.weight = newWeight;
 				UpdateRigWeightClientRPC(newWeight);

@@ -5,30 +5,36 @@ using UnityEngine;
 
 public class WeaponBloom : MonoBehaviour
 {
-    [SerializeField] private float defaultBloomAngle = 3;
-    [SerializeField] private float walkBloomMultiplier = 500f;
-    [SerializeField] private float sprintBloomMultiplier = 1000f;
+    [SerializeField] private float defaultBloomAngle = 0.1f;
+    [SerializeField] private float walkBloomMultiplier = 0.5f;
+    [SerializeField] private float sprintBloomMultiplier = 1f;
     [SerializeField] private float adsBloomMultiplier = 0.5f;
-
-    MovementStateManager moveStateManager;
-    AimStateManager aimStateManager;
-
     float currentBloom;
 
 	private void Awake()
 	{
         currentBloom = defaultBloomAngle;
-		moveStateManager = GetComponentInParent<MovementStateManager>();
-        aimStateManager = GetComponentInParent<AimStateManager>();
 	}
 
-    public Vector3 BloomAngle(Transform barrelPos)
+    public Vector3 BloomAngle(Transform barrelPos, MovementStateManager currentState, AimStateManager aimState)
     {
-		if (moveStateManager.currentState == moveStateManager.Walk) currentBloom = defaultBloomAngle * walkBloomMultiplier;
-        else if (moveStateManager.currentState == moveStateManager.Run) currentBloom = defaultBloomAngle * sprintBloomMultiplier;
-        else if(moveStateManager.currentState == moveStateManager.Idle) currentBloom = defaultBloomAngle * adsBloomMultiplier;
+		if (currentState.currentState == currentState.Walk)
+        {
+            Debug.Log("Now Walk!!");
+			currentBloom = defaultBloomAngle * walkBloomMultiplier;
+		}
+        else if (currentState.currentState == currentState.Run)
+        {
+            Debug.Log("Now RUN!!!!");
+			currentBloom = defaultBloomAngle * sprintBloomMultiplier;
+		}
+        else if(currentState.currentState == currentState.Idle)
+        {
+            Debug.Log("Now Idle");
+			currentBloom = defaultBloomAngle * adsBloomMultiplier;
+		}
 
-		if (aimStateManager.currentState == aimStateManager.Aim) currentBloom  *= adsBloomMultiplier;
+		if (aimState.currentState == aimState.Aim) currentBloom  *= adsBloomMultiplier;
 
         float randX = Random.Range(-currentBloom, currentBloom);
         float randY = Random.Range(-currentBloom, currentBloom);
@@ -36,6 +42,6 @@ public class WeaponBloom : MonoBehaviour
 
         Vector3 randomRotation = new Vector3(randX, randY, randZ);
 
-        return barrelPos.localEulerAngles;
+        return barrelPos.localEulerAngles + randomRotation;
     }
 }

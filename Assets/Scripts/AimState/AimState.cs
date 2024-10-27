@@ -8,7 +8,6 @@ using Cinemachine;
 public class AimState : AimBaseState
 {
 	private Vector3 targetOffset;
-	private float rotationSpeed = 10;
 
 	public override void EnterState(AimStateManager aim)
 	{
@@ -28,11 +27,11 @@ public class AimState : AimBaseState
 
 	public override void UpdateSatate(AimStateManager aim)
 	{
-		aim.bodyRig.data.offset = Vector3.Lerp(aim.bodyRig.data.offset, targetOffset, Time.deltaTime * rotationSpeed);
-		aim.UpdateAdsOffsetServerRpc(aim.bodyRig.data.offset);
+		aim.UpdateAdsOffsetServerRpc(targetOffset.y);
+
 		if (Input.GetKeyUp(KeyCode.Mouse1))
 		{
-			aim.UpdateAdsOffsetServerRpc(Vector3.zero);
+			aim.UpdateAdsOffsetServerRpc(0);
 			aim.UpdateRightHandRigWeightServerRPC(0);
 
 			aim.SwitchState(aim.Hip);

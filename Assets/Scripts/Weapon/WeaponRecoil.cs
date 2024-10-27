@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponRecoil : MonoBehaviour
 {
-    WeaponManager weaponManager;
+	GunBase weaponManager;
 
     [SerializeField] private Transform recolFollowPos;
     [SerializeField] private float kickBackAmount = -1;
@@ -14,7 +14,7 @@ public class WeaponRecoil : MonoBehaviour
 
 	private void Awake()
 	{
-		weaponManager = GetComponent<WeaponManager>();
+		weaponManager = GetComponent<GunBase>();
 	}
 
 	// Update is called once per frame
