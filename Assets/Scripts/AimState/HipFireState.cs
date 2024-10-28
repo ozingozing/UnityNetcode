@@ -8,6 +8,7 @@ public class HipFireState : AimBaseState
 	private Vector3 targetOffset;
 	public override void EnterState(AimStateManager aim)
 	{
+		Debug.Log("Now HipFire");
 		aim.IsAiming = false;
 		aim.anim.SetBool("Aiming", false);
 

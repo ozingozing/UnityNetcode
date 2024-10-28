@@ -99,8 +99,7 @@ public class PlayerStats : NetworkBehaviour
     [ClientRpc]
     public void TurnOffMeshClientRpc()
     {
-		/*MeshLOD.gameObject.SetActive(false);
-		M4MeshRender.enabled = false;*/
+        gameObject.SetActive(false);
 	}
 
     public void TurnOnMesh(object sender, System.EventArgs e)
@@ -112,7 +111,6 @@ public class PlayerStats : NetworkBehaviour
     [ServerRpc]
 	public void TurnOnMeshServerRpc()
 	{
-        transform.position = new Vector3(30, 1, 10);
         TurnOnMeshClientRpc();
 	}
 
@@ -121,7 +119,7 @@ public class PlayerStats : NetworkBehaviour
     {
 		/*MeshLOD.gameObject.SetActive(true);
 		M4MeshRender.enabled = true;*/
-
+		gameObject.SetActive(true);
 		IsDead = false;
     }
 

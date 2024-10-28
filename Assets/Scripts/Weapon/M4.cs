@@ -43,8 +43,8 @@ namespace ChocoOzing
 			if (fireRateTimer < fireRate) return false;
 			if (ammo.currentAmmo == 0) return false;
 			if (aim.currentState == aim.Reload) return false;
-			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;
-			if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;
+			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;
+			if (!semiAuto && Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;	
 			return false;
 		}
 

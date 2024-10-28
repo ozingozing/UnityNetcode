@@ -11,6 +11,7 @@ public class AimState : AimBaseState
 
 	public override void EnterState(AimStateManager aim)
 	{
+		Debug.Log("Now AimState");
 		aim.xAxis = ThirdPersonCamera.Instance.transform.localEulerAngles.y;
 		aim.yAxis = ThirdPersonCamera.Instance.transform.localEulerAngles.x;
 

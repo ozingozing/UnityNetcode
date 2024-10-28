@@ -15,7 +15,9 @@ namespace ChocoOzing
 	public class AimStateManager : NetworkBehaviour
 	{
 		private const float WEIGHT_UPDATE_THRESHOLD = 0.1f;
-
+		//TODO: Check if the current weapon type requires
+		//the HipFire state and set the starting state
+		//to either HipFireState or DefaultState accordingly;
 		public AimBaseState currentState;
 		public HipFireState Hip = new HipFireState();
 		public AimState Aim = new AimState();
@@ -57,7 +59,6 @@ namespace ChocoOzing
 		{
 			if (IsLocalPlayer)
 			{
-				//TODO: Cam Target Fix!!!!WTF
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
 				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = aimPos;
 				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos.parent;
@@ -66,8 +67,13 @@ namespace ChocoOzing
 			anim = GetComponent<Animator>();
 			currentState = Hip;
 			SwitchState(currentState);
+		}
+
+		private void OnEnable()
+		{
 			StartCoroutine(PlayerActionUpdate());
 		}
+
 
 		IEnumerator PlayerActionUpdate()
 		{
