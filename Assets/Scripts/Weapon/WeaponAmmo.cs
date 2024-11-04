@@ -17,6 +17,16 @@ public class WeaponAmmo : MonoBehaviour
 		currentAmmo = clipSize;
 	}
 
+	public void ShotGunReload()
+	{
+		if(extraAmmo > 0)
+		{
+			extraAmmo--;
+			currentAmmo++;
+		}
+		Debug.Log($"ShotGunExtraAmmo : {extraAmmo}");
+	}
+
 	public void Reload()
 	{
 		if(extraAmmo >= clipSize)

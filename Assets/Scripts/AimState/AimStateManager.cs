@@ -12,6 +12,12 @@ using UnityEngine.Animations.Rigging;
 
 namespace ChocoOzing
 {
+	public enum GunType
+	{
+		M4A1,
+		PumpShotGun,
+	}
+
 	public class AimStateManager : NetworkBehaviour
 	{
 		private const float WEIGHT_UPDATE_THRESHOLD = 0.1f;
@@ -25,6 +31,7 @@ namespace ChocoOzing
 		public DefaultState Default = new DefaultState();
 
 		[HideInInspector] public GunBase WeaponManager;
+		[HideInInspector] public GunType GunType;
 
 		[SerializeField] private float mouseSense = 1;
 		[SerializeField] public Transform camFollowPos;
@@ -108,6 +115,19 @@ namespace ChocoOzing
 			}
 		}
 
+		public void ShotGunReloadAction()
+		{
+			if(WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
+			{
+				anim.Play("ShotgunReloadAction", -1, 0f);
+				WeaponManager.ammo.ShotGunReload();
+			}
+			else
+			{
+				anim.Play("ShotgunSetPos");
+			}
+		}
+
 		public void MagIn()
 		{
 			WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magInSound);
@@ -121,6 +141,11 @@ namespace ChocoOzing
 		public void ReleaseSlide()
 		{
 			WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.releaseSlideSound);
+		}
+
+		public void ReloadFinish()
+		{
+			anim.SetBool("GunReload", false);
 		}
 
 		public void SwitchState(AimBaseState state)
@@ -149,7 +174,7 @@ namespace ChocoOzing
 		[ServerRpc]
 		public void UpdateRigWeightServerRPC(float newWeight)
 		{
-			if(Mathf.Abs(rig.weight - newWeight) > 0.1f)
+			if(Mathf.Abs(rig.weight - newWeight) > 0.5f)
 			{
 				rig.weight = newWeight;
 				UpdateRigWeightClientRPC(newWeight);

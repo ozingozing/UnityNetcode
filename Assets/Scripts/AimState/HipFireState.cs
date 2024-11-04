@@ -12,7 +12,7 @@ public class HipFireState : AimBaseState
 		aim.IsAiming = false;
 		aim.anim.SetBool("Aiming", false);
 
-		aim.headRig.data.offset = aim.headRig.data.offset + new Vector3(0, 35, 0);
+		aim.headRig.data.offset = new Vector3(0, 35, 0);
 	}
 
 	public override void ExitState(AimStateManager aim)

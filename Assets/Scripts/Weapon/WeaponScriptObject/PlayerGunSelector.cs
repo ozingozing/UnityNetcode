@@ -5,8 +5,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PlayerGunSelector : MonoBehaviour
 {
-    [SerializeField]
-    private GunType Gun;
+    //[SerializeField]
+    //private GunType Gun;
     [SerializeField]
     private Transform GunParent;
     [SerializeField]

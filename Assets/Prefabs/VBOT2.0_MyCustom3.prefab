@@ -4097,6 +4097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponManager: {fileID: 0}
+  GunType: 0
   mouseSense: 1
   camFollowPos: {fileID: 7969364526416371720}
   xAxis: 0
@@ -4754,7 +4755,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 7141bdee85fc87743bfc8fec32b61f2a, type: 3}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: fireRate
-      value: 0.18
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: semiAuto
@@ -4775,6 +4776,10 @@ PrefabInstance:
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletPerShot
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: fireRateTimer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletVelocity

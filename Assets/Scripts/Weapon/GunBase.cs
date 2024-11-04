@@ -40,6 +40,9 @@ public abstract class GunBase : NetworkBehaviour
 	public AudioSource audioSource;
 	public LayerMask layerMask;
 
+	//SetAnimActionName;
+	public string ReloadActionAnim;
+
 	private void Awake()
 	{
 		weaponRecoil = GetComponent<WeaponRecoil>();
@@ -56,6 +59,11 @@ public abstract class GunBase : NetworkBehaviour
 		muzzleFlashLight.intensity = 0;
 
 		fireRateTimer = fireRate;
+	}
+
+	public virtual void Start()
+	{
+
 	}
 
 }

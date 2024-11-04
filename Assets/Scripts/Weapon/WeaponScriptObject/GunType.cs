@@ -1,5 +1,5 @@
-public enum GunType
+/*public enum GunType
 {
 	Glock,
 	M4A1,
-}
+}*/

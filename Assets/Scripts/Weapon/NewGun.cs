@@ -13,12 +13,18 @@ namespace ChocoOzing
 		private void OnEnable()
 		{
 			aim.WeaponManager = this;
+			aim.GunType = GunType.PumpShotGun;
 			StartCoroutine(GunAction());
 		}
 
 		private void OnDisable()
 		{
 			aim.WeaponManager = null;
+		}
+
+		public override void Start()
+		{
+			ReloadActionAnim = "ManyReload";
 		}
 
 		public override IEnumerator GunAction()
@@ -44,8 +50,8 @@ namespace ChocoOzing
 			if (fireRateTimer < fireRate) return false;
 			if (ammo.currentAmmo == 0) return false;
 			if (aim.currentState == aim.Reload) return false;
-			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;
-			if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;
+			if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;
+			if (!semiAuto && Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;
 			return false;
 		}
 
@@ -117,6 +123,8 @@ namespace ChocoOzing
 		{
 			barrelPos.LookAt(aim.aimPos);
 			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
+			aim.anim.Play("AdsPump");
+			ammo.currentAmmo--;
 			for (int i = 0; i < bulletPerShot; i++)
 			{
 				// 원뿔 형태로 퍼지도록 방향 벡터를 무작위로 생성
@@ -151,7 +159,6 @@ namespace ChocoOzing
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
 			audioSource.PlayOneShot(gunShot);
-			ammo.currentAmmo--;
 
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
 			weaponRecoil.TriggerRecoil();

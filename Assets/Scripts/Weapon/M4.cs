@@ -12,12 +12,18 @@ namespace ChocoOzing
 		private void OnEnable()
 		{
 			aim.WeaponManager = this;
+			aim.GunType = GunType.M4A1;
 			StartCoroutine(GunAction());
 		}
 
 		private void OnDisable()
 		{
 			aim.WeaponManager = null;
+		}
+
+		public override void Start()
+		{
+			ReloadActionAnim = "Reloading 0";
 		}
 
 		public override IEnumerator GunAction()
