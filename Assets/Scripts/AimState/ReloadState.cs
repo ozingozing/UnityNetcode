@@ -20,7 +20,8 @@ public class ReloadState : AimBaseState
 				break;
 			case GunType.PumpShotGun:
 				aim.anim.SetBool("GunReload", true);
-				aim.anim.SetInteger("GunType", ((int)GunType.PumpShotGun)); break;
+				aim.anim.SetInteger("GunType", ((int)GunType.PumpShotGun)); 
+				break;
 			default:
 				break;
 		}
@@ -32,6 +33,7 @@ public class ReloadState : AimBaseState
 		aim.anim.SetBool("GunReload", true);
 		aim.anim.SetInteger("GunType", 1);
 		aim.WeaponManager.ammo.Reload();*/
+		Debug.Log(aim.WeaponManager.gameObject.name);
 		GunTypeReloadAction(aim);
 		hasSwitchedState = false;
 	}

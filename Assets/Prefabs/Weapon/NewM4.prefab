@@ -149,12 +149,14 @@ MonoBehaviour:
   barrelPos: {fileID: 0}
   bulletVelocity: 0
   bulletPerShot: 0
-  gunShot: {fileID: 0}
+  gunShot: {fileID: 8300000, guid: 802bff5c2fd95814faa10902dd2cb41f, type: 3}
   hitParticle: {fileID: 0}
   audioSource: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+  ReloadActionAnim: 
+  spreadAngle: 10
 --- !u!114 &4781039896005343388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,9 +172,9 @@ MonoBehaviour:
   clipSize: 30
   extraAmmo: 600
   currentAmmo: 0
-  magInSound: {fileID: 8300000, guid: dbc755e072d02bd41a520d26ded701d0, type: 3}
-  magOutSound: {fileID: 8300000, guid: 4442512457e037542982b7c4c89d827b, type: 3}
-  releaseSlideSound: {fileID: 8300000, guid: 3555abd15913bf446a419fcbfaf6da48, type: 3}
+  magInSound: {fileID: 8300000, guid: 1b28ce30a58149f43aca327423838812, type: 3}
+  magOutSound: {fileID: 8300000, guid: ba2397c71c2a3e746866204ebe7cab39, type: 3}
+  releaseSlideSound: {fileID: 8300000, guid: 15e3babf62d020f4eb4b67052fe69631, type: 3}
 --- !u!114 &671827969676852579
 MonoBehaviour:
   m_ObjectHideFlags: 0

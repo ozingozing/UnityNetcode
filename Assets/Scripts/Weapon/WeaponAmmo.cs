@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponAmmo : MonoBehaviour
+public class WeaponAmmo : NetworkBehaviour
 {
     public int clipSize;
     public int extraAmmo;
-    public int currentAmmo;
+	public int currentAmmo;
 
 	public AudioClip magInSound;
 	public AudioClip magOutSound;

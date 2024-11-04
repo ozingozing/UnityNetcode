@@ -22,6 +22,10 @@ public class HipFireState : AimBaseState
 
 	public override void UpdateSatate(AimStateManager aim)
 	{
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			Debug.Log(aim.WeaponManager.ammo.currentAmmo);
+		}
 		if(Input.GetKeyDown(KeyCode.R) && CanReload(aim))
 		{
 			aim.SwitchState(aim.Reload);

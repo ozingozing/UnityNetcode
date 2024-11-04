@@ -4752,7 +4752,7 @@ PrefabInstance:
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: gunShot
       value: 
-      objectReference: {fileID: 8300000, guid: 7141bdee85fc87743bfc8fec32b61f2a, type: 3}
+      objectReference: {fileID: 8300000, guid: 802bff5c2fd95814faa10902dd2cb41f, type: 3}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: fireRate
       value: 0.5

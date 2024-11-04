@@ -12,6 +12,7 @@ namespace ChocoOzing
 		[SerializeField] private float spreadAngle = 10; // 산탄 각도 조절 변수
 		private void OnEnable()
 		{
+			Debug.Log("NewGun!");
 			aim.WeaponManager = this;
 			aim.GunType = GunType.PumpShotGun;
 			StartCoroutine(GunAction());
@@ -123,8 +124,7 @@ namespace ChocoOzing
 		{
 			barrelPos.LookAt(aim.aimPos);
 			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
-			aim.anim.Play("AdsPump");
-			ammo.currentAmmo--;
+
 			for (int i = 0; i < bulletPerShot; i++)
 			{
 				// 원뿔 형태로 퍼지도록 방향 벡터를 무작위로 생성
@@ -154,12 +154,20 @@ namespace ChocoOzing
 			}
 		}
 
+		int n = 1;
+
 		[ClientRpc]
 		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
 			audioSource.PlayOneShot(gunShot);
 
+			if(n++ % bulletPerShot == 0)
+			{
+				ammo.currentAmmo--;
+				aim.anim.Play("AdsPump");
+			}
+			
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
 			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();

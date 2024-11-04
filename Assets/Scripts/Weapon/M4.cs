@@ -11,6 +11,7 @@ namespace ChocoOzing
 	{
 		private void OnEnable()
 		{
+			Debug.Log("M4");
 			aim.WeaponManager = this;
 			aim.GunType = GunType.M4A1;
 			StartCoroutine(GunAction());

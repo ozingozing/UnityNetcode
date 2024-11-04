@@ -117,10 +117,12 @@ namespace ChocoOzing
 
 		public void ShotGunReloadAction()
 		{
-			if(WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
+			if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
+				WeaponManager.ammo.ShotGunReload();
+			
+			if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
 			{
 				anim.Play("ShotgunReloadAction", -1, 0f);
-				WeaponManager.ammo.ShotGunReload();
 			}
 			else
 			{
