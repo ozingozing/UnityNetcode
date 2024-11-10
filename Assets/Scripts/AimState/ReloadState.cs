@@ -16,7 +16,7 @@ public class ReloadState : AimBaseState
 				aim.anim.SetBool("GunReload", true);
 				aim.anim.SetInteger("GunType", ((int)GunType.M4A1));
 				aim.WeaponManager.ammo.Reload();
-				aim.UpdateRigWeightServerRPC(0);
+				//aim.UpdateRigWeightServerRPC(0);
 				break;
 			case GunType.PumpShotGun:
 				aim.anim.SetBool("GunReload", true);
@@ -41,7 +41,7 @@ public class ReloadState : AimBaseState
 
 	public override void ExitState(AimStateManager aim)
 	{
-		aim.UpdateRigWeightServerRPC(1);
+		//aim.UpdateRigWeightServerRPC(1);
 	}
 
 	public override void UpdateSatate(AimStateManager aim)

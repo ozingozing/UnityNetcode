@@ -1,6 +1,7 @@
 using QFSW.QC.Actions;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace ChocoOzing
 {
 	public class M4 : GunBase
 	{
+		public ImpactType ImpactType;
 		private void OnEnable()
 		{
 			Debug.Log("M4");
@@ -35,9 +37,10 @@ namespace ChocoOzing
 
 				if(IsLocalPlayer)
 				{
-					if (ShouldFire())
+					if (ShouldFire() && fireRateTimer >= fireRate)
 					{
-						RequestFireServerRpc();
+						FireServerRpc();
+						fireRateTimer = 0;
 					}
 				}
 				yield return null;
@@ -108,18 +111,15 @@ namespace ChocoOzing
 			}
 		}*/
 
+		RaycastHit hit;
 		[ServerRpc]
-		private void RequestFireServerRpc()
+		public void FireServerRpc()
 		{
-			if (fireRateTimer >= fireRate)
-			{
-				// 서버에서 발사 처리
-				Fire();
-				fireRateTimer = 0;
-			}
+			FireClientRpc();
 		}
 
-		public override void Fire()
+		[ClientRpc]
+		public void FireClientRpc()
 		{
 			barrelPos.LookAt(aim.aimPos);
 			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
@@ -127,7 +127,6 @@ namespace ChocoOzing
 			{
 				// 서버에서 Raycast 처리 후, 클라이언트에게 결과 전달
 				Ray ray = new Ray(barrelPos.position, barrelPos.forward);
-				RaycastHit hit;
 
 				if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
 				{
@@ -153,6 +152,20 @@ namespace ChocoOzing
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
 			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();
+
+			//TestSurfaceManager//
+			if (hit.collider != null)
+			{
+				SurfaceManager.Instance.HandleImpact(
+					hit.transform.gameObject,
+					hit.point,
+					hit.normal,
+					ImpactType,
+					0
+				);
+			}
+			else Debug.Log("hit NULLLLLLL");
+			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
 			Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));

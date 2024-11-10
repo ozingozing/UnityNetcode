@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class GunBase : NetworkBehaviour
 {
 	// 필요한 메서드 정의
-	public abstract void Fire();
 	public abstract bool ShouldFire();
 	public abstract void TriggerMuzzleFlash();
 	public abstract IEnumerator GunAction();

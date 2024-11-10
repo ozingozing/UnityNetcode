@@ -7208,7 +7208,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8e715bc46051e5b4b8856421438d4dbf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8622,7 +8622,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f4479b29ea97f314381dee13462ef6a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8999,7 +8999,7 @@ MonoBehaviour:
   - Albedo: {fileID: 2800000, guid: aa2e29011c31245428ec0bdfd26e8d80, type: 3}
     Surface: {fileID: 11400000, guid: 68dacb052a638aa499d2fba9943dbb9c, type: 2}
   DefaultPoolSizes: 10
-  DefaultSurface: {fileID: 11400000, guid: 68dacb052a638aa499d2fba9943dbb9c, type: 2}
+  DefaultSurface: {fileID: 11400000, guid: 204c8c19d16a62144866bb8b52684f67, type: 2}
 --- !u!4 &1936375011
 Transform:
   m_ObjectHideFlags: 0
@@ -11450,12 +11450,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'VBOT_:LeftHand'\n\tTransform 'VBOT_:LeftForeArm'\n\tTransform
-    'VBOT_:Neck'\n\tTransform 'VBOT_:Spine'\n\tTransform 'VBOT_:RightArm'\n\tTransform
-    'VBOT_:LeftArm'\n\tTransform 'VBOT_:Hips'\n\tTransform 'VBOT_:RightForeArm'\n\tTransform
-    'VBOT_:Head'\n\tTransform 'VBOT_:RightHand'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

@@ -4662,6 +4662,10 @@ PrefabInstance:
       propertyPath: fireRate
       value: 0.18
       objectReference: {fileID: 0}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: ImpactType
+      value: 
+      objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
     - target: {fileID: 8434985778936673121, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_LocalScale.x
       value: 99
@@ -4765,6 +4769,10 @@ PrefabInstance:
       propertyPath: barrelPos
       value: 
       objectReference: {fileID: 6088837390401882855}
+    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: ImpactType
+      value: 
+      objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: hitParticle
       value: 

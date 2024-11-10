@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SurfaceManager : MonoBehaviour
+public class SurfaceManager : NetworkBehaviour
 {
     private static SurfaceManager _instance;
     public static SurfaceManager Instance
@@ -190,7 +191,7 @@ public class SurfaceManager : MonoBehaviour
 
 			audioSource.transform.position = HitPoint;
 			audioSource.PlayOneShot(clip, SoundOffset * Random.Range(playAudioEffect.VolumeRange.x, playAudioEffect.VolumeRange.y));
-			StartCoroutine(DisableAudioSource(audioSource, clip.length));
+			StartCoroutine(DisableAudioSource(audioSource, clip.length + 2f));
 		}
 	}
 

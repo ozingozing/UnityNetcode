@@ -9,6 +9,7 @@ namespace ChocoOzing
 {
 	public class NewGun : GunBase
 	{
+		public ImpactType ImpactType;
 		[SerializeField] private float spreadAngle = 10; // 산탄 각도 조절 변수
 		private void OnEnable()
 		{
@@ -36,9 +37,10 @@ namespace ChocoOzing
 
 				if (IsLocalPlayer)
 				{
-					if (ShouldFire())
+					if (ShouldFire() && fireRateTimer >= fireRate)
 					{
-						RequestFireServerRpc();
+						FireServerRpc();
+						fireRateTimer = 0;
 					}
 				}
 				yield return null;
@@ -109,18 +111,15 @@ namespace ChocoOzing
 			}
 		}*/
 
+		RaycastHit hit;
 		[ServerRpc]
-		private void RequestFireServerRpc()
+		public void FireServerRpc()
 		{
-			if (fireRateTimer >= fireRate)
-			{
-				// 서버에서 발사 처리
-				Fire();
-				fireRateTimer = 0;
-			}
+			FireClientRpc();
 		}
 
-		public override void Fire()
+		[ClientRpc]
+		public void FireClientRpc()
 		{
 			barrelPos.LookAt(aim.aimPos);
 			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
@@ -136,10 +135,6 @@ namespace ChocoOzing
 				// Ray를 spreadDirection 방향으로 생성
 				Ray ray = new Ray(barrelPos.position, spreadDirection);
 
-				// 서버에서 Raycast 처리 후, 클라이언트에게 결과 전달
-				//Ray ray = new Ray(barrelPos.position, barrelPos.forward);
-				RaycastHit hit;
-
 				if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
 				{
 					// 피격 대상이 있을 경우, 데미지 처리
@@ -154,15 +149,14 @@ namespace ChocoOzing
 			}
 		}
 
-		int n = 1;
-
+		int countPershot = 1;
 		[ClientRpc]
 		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
 			audioSource.PlayOneShot(gunShot);
 
-			if(n++ % bulletPerShot == 0)
+			if(countPershot++ % bulletPerShot == 0)
 			{
 				ammo.currentAmmo--;
 				aim.anim.Play("AdsPump");
@@ -171,6 +165,21 @@ namespace ChocoOzing
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
 			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();
+
+
+			//TestSurfaceManager//
+			if (hit.collider != null)
+			{
+				SurfaceManager.Instance.HandleImpact(
+					hit.transform.gameObject,
+					hit.point,
+					hit.normal,
+					ImpactType,
+					0
+				);
+			}
+			else Debug.Log("hit NULLLLLLL");
+			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
 			Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
