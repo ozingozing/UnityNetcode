@@ -137,13 +137,12 @@ namespace ChocoOzing
 						health.TakeDamage(10, gameObject);
 					}
 					// 클라이언트에게 시각적 효과만 동기화
-					FireEffectsClientRpc(hit.point, hit.normal);
+					FireEffects(hit.point, hit.normal);
 				}
 			}
 		}
 
-		[ClientRpc]
-		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal)
+		private void FireEffects(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
 			audioSource.PlayOneShot(gunShot);
