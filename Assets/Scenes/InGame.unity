@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14259dc4bfdeef4db5654c97251127d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCnt: 0
 --- !u!4 &29420207
 Transform:
   m_ObjectHideFlags: 0
@@ -2597,11 +2598,11 @@ MonoBehaviour:
   Floor: {fileID: 5603042304092814147, guid: 16586404af24409489ea1b13bc34bd1c, type: 3}
   Wall: {fileID: 1349343683576459588, guid: 840185f74f5e0344aa1f5b84546e18e5, type: 3}
   BigWall: {fileID: 1349343683576459588, guid: 2af4a944e82ce9a4982f199d6727a9b1, type: 3}
-  MapWidth: 30
-  MapHeight: 30
+  MapWidth: 50
+  MapHeight: 50
   MaximumWalkers: 10
   TileCount: 0
-  FillPercentage: 0.4
+  FillPercentage: 0.35
   WaitTime: 0.05
   width: 0
   height: 0

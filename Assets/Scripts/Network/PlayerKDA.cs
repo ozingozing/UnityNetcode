@@ -31,7 +31,6 @@ public class PlayerKDA : MonoBehaviour
 		OnKillChanged(0, player.GetComponent<PlayerStats>().kills.Value);
 		OnDeathChanged(0, player.GetComponent<PlayerStats>().deaths.Value);
 		OnNameChanged("", player.GetComponent<PlayerStats>().Name.Value);
-
 	}
 
 	private void OnDeathChanged(int previousValue, int newValue)
@@ -58,7 +57,7 @@ public class PlayerKDA : MonoBehaviour
 
 	private void Update()
 	{
-		if(player != null)
+		if (player != null)
 		{
 			transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
 			return;

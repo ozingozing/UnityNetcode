@@ -45,6 +45,8 @@ public class WalkerGenerator : MonoBehaviour
 			Vector3.up,    // 위
 
 	};
+	System.Random random = new System.Random();
+	private bool isGridInitialized = false;
 
 	private void Awake()
 	{
@@ -55,33 +57,41 @@ public class WalkerGenerator : MonoBehaviour
 
 	private void Start()
 	{
-		//LobbyManager.Instance.OnGameStarted += Func;
+		LobbyManager.Instance.OnGameStarted += Func;
 	}
 
-	public void Func(object sender, System.EventArgs e)
+	public async void Func(object sender, System.EventArgs e)
 	{
-		//InitializeGrid();
+		if (NetworkManager.Singleton.IsHost)
+			await InitializeGrid();
 	}
 
-	public void InitializeGrid()
+	public async Task InitializeGrid()
 	{
-		gridHandler = new Grid[MapWidth, MapHeight];
+		if (isGridInitialized) return; // Already Finish Create Flag
+		isGridInitialized = true;
+		
+		WalkerObject curWalker = null;
+		await Task.Run(() => {
+			gridHandler = new Grid[MapWidth, MapHeight];
 
-		for (int x = 0; x < gridHandler.GetLength(0); x++)
-		{
-			for (int y = 0; y < gridHandler.GetLength(1); y++)
+			for (int x = 0; x < gridHandler.GetLength(0); x++)
 			{
-				gridHandler[x, y] = Grid.EMPTY;
+				for (int y = 0; y < gridHandler.GetLength(1); y++)
+				{
+					gridHandler[x, y] = Grid.EMPTY;
+				}
 			}
-		}
 
-		Walkers = new List<WalkerObject>();
+			Walkers = new List<WalkerObject>();
 
-		TileCenter = new Vector3Int(gridHandler.GetLength(0) / 2, 0, gridHandler.GetLength(1) / 2);
-		OffSet = new Vector3Int(TileCenter.x * (int)width, 0, TileCenter.z * (int)depth);
+			TileCenter = new Vector3Int(gridHandler.GetLength(0) / 2, 0, gridHandler.GetLength(1) / 2);
+			OffSet = new Vector3Int(TileCenter.x * (int)width, 0, TileCenter.z * (int)depth);
 
-		WalkerObject curWalker = new WalkerObject(TileCenter, GetDirection(), 0.5f);
-		gridHandler[TileCenter.x, TileCenter.z] = Grid.FLOOR;
+			curWalker = new WalkerObject(TileCenter, GetDirection(), 0.5f);
+			gridHandler[TileCenter.x, TileCenter.z] = Grid.FLOOR;
+		});
+
 		GameObject GO = Instantiate(Floor, new Vector3(TileCenter.x * width - OffSet.x, -height / 2, TileCenter.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 		GO.GetComponent<NetworkObject>().Spawn();
 		Walkers.Add(curWalker);
@@ -89,6 +99,7 @@ public class WalkerGenerator : MonoBehaviour
 		TileCount++;
 
 		StartCoroutine(CreateFloors());
+		isGridInitialized = false; // Finish Create Flag
 	}
 
 	IEnumerator CreateDeadline(Vector3 pinPoint)
@@ -119,7 +130,17 @@ public class WalkerGenerator : MonoBehaviour
 
 	Vector3 GetDirection()
 	{
-		int choice = Mathf.FloorToInt(UnityEngine.Random.value * 3.99f);
+		int choice = random.Next(0, 4);
+		return choice switch
+		{
+			0 => Vector3.back,
+			1 => Vector3.forward,
+			2 => Vector3.left,
+			3 => Vector3.right,
+			_ => Vector3.zero,
+		};
+
+		/*int choice = Mathf.FloorToInt(UnityEngine.Random.value * 3.99f);
 
 		switch (choice)
 		{
@@ -133,11 +154,15 @@ public class WalkerGenerator : MonoBehaviour
 				return Vector3.right;
 			default:
 				return Vector3.zero;
-		}
+		}*/
 	}
 
 	IEnumerator CreateFloors()
 	{
+		//batch 
+		const int batchSize = 10; // 한 번에 처리할 타일 개수
+		int batchCount = 0;
+
 		while ((float)TileCount / (float)gridHandler.Length < FillPercentage)
 		{
 			bool hasCreatedFloor = false;
@@ -152,6 +177,13 @@ public class WalkerGenerator : MonoBehaviour
 					TileCount++;
 					gridHandler[curPos.x, curPos.z] = Grid.FLOOR;
 					hasCreatedFloor = true;
+
+					batchCount++;
+					if(batchCount >= batchSize)
+					{
+						batchCount = 0;
+						yield return new WaitForSeconds(WaitTime);
+					}
 				}
 			}
 

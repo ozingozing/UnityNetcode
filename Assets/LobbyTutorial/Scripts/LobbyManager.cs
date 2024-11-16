@@ -60,6 +60,8 @@ public class LobbyManager : MonoBehaviour {
     private string playerName;
 
 
+    public int PlayerCnt;
+
     private void Awake() {
         Instance = this;
 	}
@@ -151,7 +153,7 @@ public class LobbyManager : MonoBehaviour {
                     {
                         TestRelay.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
-
+                    
                     joinedLobby = null;
 
                     OnGameStarted?.Invoke(this, EventArgs.Empty);
