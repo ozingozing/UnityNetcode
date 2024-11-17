@@ -34,9 +34,13 @@ public class WeaponBloom : MonoBehaviour
 			currentBloom = defaultBloomAngle * adsBloomMultiplier;
 		}
 
-		if (aimState.currentState == aimState.Aim) currentBloom  *= adsBloomMultiplier;
-
-        float randX = Random.Range(-currentBloom, currentBloom);
+        if (aimState.currentState == aimState.Aim)
+        {
+            Debug.Log("Now ADS");
+            currentBloom *= adsBloomMultiplier;
+        }
+        else Debug.Log("else");
+		float randX = Random.Range(-currentBloom, currentBloom);
         float randY = Random.Range(-currentBloom, currentBloom);
         float randZ = Random.Range(-currentBloom, currentBloom);
 

@@ -32,7 +32,7 @@ public class HipFireState : AimBaseState
 		}
 		if (Input.GetKey(KeyCode.Mouse1))
 		{
-			aim.headRig.data.offset = Vector3.zero;
+			//aim.headRig.data.offset = Vector3.zero;
 			aim.SwitchState(aim.Aim);
 		}
 	}

@@ -36,7 +36,7 @@ public class AimState : AimBaseState
 			//aim.UpdateRightHandRigWeightServerRPC(0);
 
 			aim.SwitchState(aim.Hip);
-			aim.bodyRig.data.offset = Vector3.zero;
+			//aim.bodyRig.data.offset = Vector3.zero;
 		}
 	}
 }

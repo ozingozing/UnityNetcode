@@ -100,14 +100,6 @@ namespace ChocoOzing
 					}
 
 					currentState.UpdateSatate(this);
-				}
-
-				if(IsServer)
-				{
-					if(Input.GetKeyDown(KeyCode.M))
-					{
-						GameObject.Find("MapManager").GetComponent<WalkerGenerator>().InitializeGrid();
-					}
 				}	
 
 				yield return null;
