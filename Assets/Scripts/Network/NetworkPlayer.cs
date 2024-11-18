@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
@@ -16,6 +17,11 @@ public class NetworkPlayer : NetworkBehaviour
 	{
 		base.OnNetworkSpawn();
 		OnPlayerSpawn?.Invoke(this.gameObject);
+
+		Vector3 Pos = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
+		Debug.Log(Pos);
+
+		GetComponent<Rigidbody>().position = Pos;
 	}
 
 	public override void OnNetworkDespawn()
