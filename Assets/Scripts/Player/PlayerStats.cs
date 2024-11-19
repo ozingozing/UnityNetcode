@@ -11,7 +11,10 @@ using UnityEngine;
 
 public class PlayerStats : NetworkBehaviour
 {
-    public NetworkVariable<int> kills = new NetworkVariable<int>();
+	public static Action<GameObject> OnPlayerSpawn;
+	public static Action<GameObject> OnPlayerDespawn;
+
+	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
     public NetworkVariable<FixedString128Bytes> Name = new NetworkVariable<FixedString128Bytes>();
     
@@ -25,13 +28,33 @@ public class PlayerStats : NetworkBehaviour
 	public override void OnNetworkSpawn()
 	{
 		base.OnNetworkSpawn();
+		OnPlayerSpawn?.Invoke(this.gameObject);
+		//DefaultWeaponSet
 		SetWeaponActive(currentWeaponIndex);
+
 		//서버 아니면 쳐내고
 		if (!IsServer) return;
         kills.Value = 0;
         deaths.Value = 0;
 
-        //NetworkObjectId가 있는 클라한테만 전송
+		// 서버에서 플레이어 위치 지정
+		Vector3 spawnPosition = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
+		GetComponent<Rigidbody>().MovePosition(spawnPosition);
+
+		
+
+		// 클라이언트에 위치 동기화 요청
+		UpdatePositionClientRpc(spawnPosition,
+			new ClientRpcParams
+			{
+				Send = new ClientRpcSendParams
+				{
+					TargetClientIds = new ulong[] { GetComponent<NetworkObject>().OwnerClientId }
+				}
+			}
+		);
+
+		//NetworkObjectId가 있는 클라한테만 전송
 		GetNameClientRpc(
             new ClientRpcParams {
                 Send = new ClientRpcSendParams {
@@ -40,6 +63,21 @@ public class PlayerStats : NetworkBehaviour
             }    
         );
 	}
+
+	public override void OnNetworkDespawn()
+	{
+		base.OnNetworkDespawn();
+		OnPlayerDespawn?.Invoke(this.gameObject);
+	}
+
+	// 클라이언트에서 위치를 업데이트하는 RPC
+	[ClientRpc]
+	void UpdatePositionClientRpc(Vector3 newPosition, ClientRpcParams clientRpcParams = default)
+	{
+		// 클라이언트에서 위치를 설정
+		GetComponent<Rigidbody>().MovePosition(newPosition);
+	}
+
 
 	//자신 이름과 LobbyId를 바로 ServerRpc로 보냄
 	[ClientRpc]

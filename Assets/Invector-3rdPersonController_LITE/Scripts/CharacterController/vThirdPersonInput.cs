@@ -42,13 +42,18 @@ namespace Invector.vCharacterController
 			adsVirtualCamera = AdsCamera.Instance.GetComponent<CinemachineVirtualCamera>();
 		}
 
-		protected virtual void Start()
+        protected virtual void Start()
         {
+            InitilizeController();
+            InitializeTpCamera();
+        }
+
+        protected virtual void OnEnable()
+		{
 			InitilizeController();
-			InitializeTpCamera();
 		}
 
-        protected virtual void FixedUpdate()
+		protected virtual void FixedUpdate()
         {
             cc.UpdateMotor();               // updates the ThirdPersonMotor methods
             cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed

@@ -27,12 +27,12 @@ public class InGamePlayerUIManager : MonoBehaviour
 
 	private void OnEnable()
 	{
-		NetworkPlayer.OnPlayerSpawn += OnplayerSpanwed;
+		PlayerStats.OnPlayerSpawn += OnplayerSpanwed;
 	}
 
 	private void OnDisable()
 	{
-		NetworkPlayer.OnPlayerSpawn -= OnplayerSpanwed;
+		PlayerStats.OnPlayerSpawn -= OnplayerSpanwed;
 	}
 
 	private void OnplayerSpanwed(GameObject player)

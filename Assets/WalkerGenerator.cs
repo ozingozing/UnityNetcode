@@ -3,12 +3,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
 public class WalkerGenerator : MonoBehaviour
 {
+	private SemaphoreSlim semaphore = new SemaphoreSlim(0, 1);
+
+	private async Task WaitForCondition() => await semaphore.WaitAsync();
+	public void SetCondition() => semaphore.Release();
+
 	public enum Grid
 	{
 		FLOOR,
@@ -17,6 +23,7 @@ public class WalkerGenerator : MonoBehaviour
 	}
 
 	//Variables
+	public int SpawnPointCount;
 	public Grid[,] gridHandler;
 	public List<WalkerObject> Walkers;
 	public GameObject tileMap;
@@ -47,6 +54,27 @@ public class WalkerGenerator : MonoBehaviour
 	};
 	System.Random random = new System.Random();
 	private bool isGridInitialized = false;
+	private bool MakeFinish = false;
+
+	public int _playerCount;
+	public int playerCount
+	{
+		get { return _playerCount; }
+		set 
+		{
+			if (_playerCount < TotalPlayers)
+			{
+				_playerCount = value;
+			}
+			else if(_playerCount == TotalPlayers)
+			{
+				_playerCount = TotalPlayers;
+				Invoke("SetCondition", 5);
+			}
+			else _playerCount = TotalPlayers;
+		}
+	}
+	public int TotalPlayers;
 
 	private void Awake()
 	{
@@ -68,6 +96,9 @@ public class WalkerGenerator : MonoBehaviour
 
 	public async Task InitializeGrid()
 	{
+		Debug.Log("semaphore down!!!");
+		await WaitForCondition();
+		Debug.Log("semaphore up!!!");
 		if (isGridInitialized) return; // Already Finish Create Flag
 		isGridInitialized = true;
 		
@@ -126,6 +157,11 @@ public class WalkerGenerator : MonoBehaviour
 
 			yield return new WaitForSeconds(1);
 		}
+
+		if (NetworkManager.Singleton.IsServer)
+		{
+			GameObject.Find("InGameManager").GetComponent<TestSpawn>().SpawnPlayer();
+		}
 	}
 
 	Vector3 GetDirection()
@@ -139,29 +175,14 @@ public class WalkerGenerator : MonoBehaviour
 			3 => Vector3.right,
 			_ => Vector3.zero,
 		};
-
-		/*int choice = Mathf.FloorToInt(UnityEngine.Random.value * 3.99f);
-
-		switch (choice)
-		{
-			case 0:
-				return Vector3.back;
-			case 1:
-				return Vector3.left;
-			case 2:
-				return Vector3.forward;
-			case 3:
-				return Vector3.right;
-			default:
-				return Vector3.zero;
-		}*/
 	}
-
+	
 	IEnumerator CreateFloors()
 	{
 		//batch 
 		const int batchSize = 10; // 한 번에 처리할 타일 개수
 		int batchCount = 0;
+		int TempCnt = 0;
 
 		while ((float)TileCount / (float)gridHandler.Length < FillPercentage)
 		{
@@ -174,6 +195,15 @@ public class WalkerGenerator : MonoBehaviour
 				{
 					GameObject GO = Instantiate(Floor, new Vector3(curPos.x * width - OffSet.x, -height / 2, curPos.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 					GO.GetComponent<NetworkObject>().Spawn();
+
+					if(UnityEngine.Random.value < 0.2f)
+					{
+						if (TempCnt++ < SpawnPointCount)
+						{
+							GameObject.Find("NetworkManager").GetComponent<SpawnPoint>().SpawnPoints.Add(GO.transform);
+						}
+					}
+
 					TileCount++;
 					gridHandler[curPos.x, curPos.z] = Grid.FLOOR;
 					hasCreatedFloor = true;

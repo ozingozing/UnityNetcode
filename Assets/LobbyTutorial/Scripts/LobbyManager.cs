@@ -153,6 +153,8 @@ public class LobbyManager : MonoBehaviour {
                     {
                         TestRelay.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
+
+                    GameObject.Find("MapManager").GetComponent<WalkerGenerator>().TotalPlayers = joinedLobby.Players.Count;
                     
                     joinedLobby = null;
 

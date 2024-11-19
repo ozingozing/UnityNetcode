@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-	public List<Transform> SpawnPoints;  // Populate with spawn positions in-editor
+	public List<Transform> SpawnPoints = new List<Transform>();  // Populate with spawn positions in-editor
 
 	private NetworkManager m_NetworkManager;
 
@@ -14,12 +14,8 @@ public class SpawnPoint : MonoBehaviour
 	private void Awake()
 	{
 		m_NetworkManager = GetComponent<NetworkManager>();
-
-		/*for(int i = 0; i < 3 ; i++)
-		{
-			SpawnPoints.Add(new Vector3(random.Next(0, 10), random.Next(0, 10), random.Next(0, 10)));
-		}*/
 	}
+
 
 	public Vector3 GetRandomSpawnPoint()
 	{
