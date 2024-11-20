@@ -24,35 +24,25 @@ public class PlayerStats : NetworkBehaviour
 
     [SerializeField] private GameObject[] weaponPrefabs;
     private int currentWeaponIndex = 0;
-
+	
 	public override void OnNetworkSpawn()
 	{
-		base.OnNetworkSpawn();
 		OnPlayerSpawn?.Invoke(this.gameObject);
 		//DefaultWeaponSet
 		SetWeaponActive(currentWeaponIndex);
+		//DefaultSet
+		GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<CapsuleCollider>().enabled = false;
 
 		//서버 아니면 쳐내고
 		if (!IsServer) return;
         kills.Value = 0;
         deaths.Value = 0;
 
-		// 서버에서 플레이어 위치 지정
-		Vector3 spawnPosition = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
-		GetComponent<Rigidbody>().MovePosition(spawnPosition);
-
-		
-
+		/*PosSet값이 적용이 안됐을거임
+		 *여기서 1번 더 작업*/
 		// 클라이언트에 위치 동기화 요청
-		UpdatePositionClientRpc(spawnPosition,
-			new ClientRpcParams
-			{
-				Send = new ClientRpcSendParams
-				{
-					TargetClientIds = new ulong[] { GetComponent<NetworkObject>().OwnerClientId }
-				}
-			}
-		);
+		UpdatePositionClientRpc(NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint());
 
 		//NetworkObjectId가 있는 클라한테만 전송
 		GetNameClientRpc(
@@ -62,6 +52,8 @@ public class PlayerStats : NetworkBehaviour
                 }
             }    
         );
+
+		base.OnNetworkSpawn();
 	}
 
 	public override void OnNetworkDespawn()
@@ -72,10 +64,13 @@ public class PlayerStats : NetworkBehaviour
 
 	// 클라이언트에서 위치를 업데이트하는 RPC
 	[ClientRpc]
-	void UpdatePositionClientRpc(Vector3 newPosition, ClientRpcParams clientRpcParams = default)
+	void UpdatePositionClientRpc(Vector3 newPosition)
 	{
 		// 클라이언트에서 위치를 설정
 		GetComponent<Rigidbody>().MovePosition(newPosition);
+
+		GetComponent<Rigidbody>().useGravity = true;
+		GetComponent<CapsuleCollider>().enabled = true;
 	}
 
 
@@ -190,4 +185,21 @@ public class PlayerStats : NetworkBehaviour
 			weaponPrefabs[currentWeaponIndex].SetActive(true);
 		}
     }
+
+	IEnumerator CheckPosition(Vector3 targetPos)
+	{
+		while(true)
+		{
+			float displacementX = targetPos.x - transform.position.x;
+			float displacementZ = targetPos.z - transform.position.z;
+			if (displacementX < 0.1f && displacementZ < 0.1f)
+			{
+				GetComponent<Rigidbody>().useGravity = true;
+				GetComponent<CapsuleCollider>().enabled = true;
+				yield break;
+			}
+
+			yield return null;
+		}
+	}
 }

@@ -54,7 +54,6 @@ public class WalkerGenerator : MonoBehaviour
 	};
 	System.Random random = new System.Random();
 	private bool isGridInitialized = false;
-	private bool MakeFinish = false;
 
 	public int _playerCount;
 	public int playerCount
@@ -86,12 +85,14 @@ public class WalkerGenerator : MonoBehaviour
 	private void Start()
 	{
 		LobbyManager.Instance.OnGameStarted += Func;
+
 	}
 
 	public async void Func(object sender, System.EventArgs e)
 	{
-		if (NetworkManager.Singleton.IsHost)
+		if (NetworkManager.Singleton.ServerIsHost)
 			await InitializeGrid();
+		else return;
 	}
 
 	public async Task InitializeGrid()
@@ -123,7 +124,7 @@ public class WalkerGenerator : MonoBehaviour
 			gridHandler[TileCenter.x, TileCenter.z] = Grid.FLOOR;
 		});
 
-		GameObject GO = Instantiate(Floor, new Vector3(TileCenter.x * width - OffSet.x, -height / 2, TileCenter.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+		GameObject GO = Instantiate(Floor, new Vector3(TileCenter.x * width - OffSet.x, 50, TileCenter.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 		GO.GetComponent<NetworkObject>().Spawn();
 		Walkers.Add(curWalker);
 
@@ -158,10 +159,7 @@ public class WalkerGenerator : MonoBehaviour
 			yield return new WaitForSeconds(1);
 		}
 
-		if (NetworkManager.Singleton.IsServer)
-		{
-			GameObject.Find("InGameManager").GetComponent<TestSpawn>().SpawnPlayer();
-		}
+		InGameManager.Instance.SpawnPlayer();
 	}
 
 	Vector3 GetDirection()
@@ -193,14 +191,14 @@ public class WalkerGenerator : MonoBehaviour
 
 				if (gridHandler[curPos.x, curPos.z] != Grid.FLOOR)
 				{
-					GameObject GO = Instantiate(Floor, new Vector3(curPos.x * width - OffSet.x, -height / 2, curPos.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+					GameObject GO = Instantiate(Floor, new Vector3(curPos.x * width - OffSet.x, 50, curPos.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 					GO.GetComponent<NetworkObject>().Spawn();
 
-					if(UnityEngine.Random.value < 0.2f)
+					if(UnityEngine.Random.value < 0.1f)
 					{
 						if (TempCnt++ < SpawnPointCount)
 						{
-							GameObject.Find("NetworkManager").GetComponent<SpawnPoint>().SpawnPoints.Add(GO.transform);
+							InGameManager.Instance.NetworkManager.GetComponent<SpawnPoint>().SpawnPoints.Add(GO.transform.position);
 						}
 					}
 
@@ -298,28 +296,28 @@ public class WalkerGenerator : MonoBehaviour
 
 					if (gridHandler[x + 1, y] == Grid.EMPTY)
 					{
-						GameObject GO = Instantiate(Wall, new Vector3((x + 1) * width - OffSet.x, -height / 2, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+						GameObject GO = Instantiate(Wall, new Vector3((x + 1) * width - OffSet.x, 50, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 						GO.GetComponent<NetworkObject>().Spawn();
 						gridHandler[x + 1, y] = Grid.WALL;
 						hasCreatedWall = true;
 					}
 					if (gridHandler[x - 1, y] == Grid.EMPTY)
 					{
-						GameObject GO = Instantiate(Wall, new Vector3((x - 1) * width - OffSet.x, -height / 2, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+						GameObject GO = Instantiate(Wall, new Vector3((x - 1) * width - OffSet.x, 50, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 						GO.GetComponent<NetworkObject>().Spawn();
 						gridHandler[x - 1, y] = Grid.WALL;
 						hasCreatedWall = true;
 					}
 					if (gridHandler[x, y + 1] == Grid.EMPTY)
 					{
-						GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, -height / 2, (y + 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+						GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, 50, (y + 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 						GO.GetComponent<NetworkObject>().Spawn();
 						gridHandler[x, y + 1] = Grid.WALL;
 						hasCreatedWall = true;
 					}
 					if (gridHandler[x, y - 1] == Grid.EMPTY)
 					{
-						GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, -height / 2, (y - 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
+						GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, 50, (y - 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
 						GO.GetComponent<NetworkObject>().Spawn();
 						gridHandler[x, y - 1] = Grid.WALL;
 						hasCreatedWall = true;

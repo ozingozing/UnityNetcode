@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SurfaceManager : NetworkBehaviour
+public class SurfaceManager : MonoBehaviour
 {
     private static SurfaceManager _instance;
     public static SurfaceManager Instance

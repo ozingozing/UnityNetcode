@@ -4060,8 +4060,8 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.25
-  RotAngleThreshold: 0.25
+  PositionThreshold: 0.1
+  RotAngleThreshold: 0.1
   ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
