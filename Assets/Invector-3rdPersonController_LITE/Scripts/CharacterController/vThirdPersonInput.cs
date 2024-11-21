@@ -28,8 +28,8 @@ namespace Invector.vCharacterController
         private Rigidbody rb;
         private MovementStateManager movementStateManager;
         private AimStateManager aimStateManager;
-		private Camera thirdPersonCamera;
-		private CinemachineVirtualCamera adsVirtualCamera;
+		private GameObject thirdPersonCamera;
+		private GameObject adsVirtualCamera;
         //
 		#endregion
 
@@ -38,13 +38,13 @@ namespace Invector.vCharacterController
 			rb = GetComponent<Rigidbody>();
 			movementStateManager = GetComponent<MovementStateManager>();
 			aimStateManager = GetComponent<AimStateManager>();
-			thirdPersonCamera = ThirdPersonCamera.Instance.GetComponent<Camera>();
-			adsVirtualCamera = AdsCamera.Instance.GetComponent<CinemachineVirtualCamera>();
+			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
+			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 		}
 
         protected virtual void Start()
         {
-            InitilizeController();
+            //InitilizeController();
             InitializeTpCamera();
         }
 

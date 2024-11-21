@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class SpringMovement : NetworkBehaviour
+public class FloorAction : NetworkBehaviour
 {
 	public Vector3 target; // 목표 위치
 	public float stiffness = 10f; // 스프링 강도

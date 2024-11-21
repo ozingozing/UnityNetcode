@@ -7,13 +7,6 @@ public class SpawnPoint : MonoBehaviour
 {
 	public List<Vector3> SpawnPoints = new List<Vector3>();  // Populate with spawn positions in-editor
 
-	private NetworkManager m_NetworkManager;
-
-	private void Awake()
-	{
-		m_NetworkManager = GetComponent<NetworkManager>();
-	}
-
 	int currentNum = -1;
 	int beforeNum = -1;
 	public Vector3 GetRandomSpawnPoint()

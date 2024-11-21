@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8425723943205626692}
   - component: {fileID: 4466900598004535099}
   - component: {fileID: 4875453782050051243}
-  - component: {fileID: 4715478239737102369}
+  - component: {fileID: 4811153946073842091}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -128,7 +128,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &4715478239737102369
+--- !u!114 &4811153946073842091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,10 +137,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1349343683576459588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65962a692b8278746b3c8293ea7ea734, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b11010c4c20d1e4697858b17619a68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
+  TargetScale: {x: 1, y: 1, z: 1}
   stiffness: 30
   damping: 5
   mass: 1

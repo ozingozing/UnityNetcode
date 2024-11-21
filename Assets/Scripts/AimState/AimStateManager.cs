@@ -57,6 +57,7 @@ namespace ChocoOzing
 		{
 			rig = GetComponentInChildren<Rig>();
 			WeaponManager = GetComponentInChildren<GunBase>();
+			anim = GetComponent<Animator>();
 			rHandAimTwoBone.weight = 0;
 			rHandAim.weight = 0;
 		}
@@ -66,18 +67,18 @@ namespace ChocoOzing
 		{
 			if (IsLocalPlayer)
 			{
-				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos;
-				AdsCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = aimPos;
-				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().Follow = camFollowPos.parent;
-				ThirdPersonCamera.Instance.gameObject.GetComponent<CinemachineVirtualCamera>().LookAt = aimPos;
+				CamManager.Instance.AdsCam.Follow = camFollowPos;
+				CamManager.Instance.AdsCam.LookAt = aimPos;
+				CamManager.Instance.ThirdPersonCam.Follow = camFollowPos.parent;
+				CamManager.Instance.ThirdPersonCam.LookAt = aimPos;
 			}
-			anim = GetComponent<Animator>();
 			currentState = Hip;
 			SwitchState(currentState);
 		}
 
 		private void OnEnable()
 		{
+			CamManager.Instance.MapViewCam.Priority = 0;
 			StartCoroutine(PlayerActionUpdate());
 		}
 

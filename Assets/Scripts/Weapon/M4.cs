@@ -24,11 +24,6 @@ namespace ChocoOzing
 			aim.WeaponManager = null;
 		}
 
-		public override void Start()
-		{
-			ReloadActionAnim = "Reloading 0";
-		}
-
 		public override IEnumerator GunAction()
 		{
 			while (true)
