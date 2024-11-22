@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f1b5d23c48641b4082f78fca9cea977, type: 3}
-  m_Name: MetalPlayAudioEffect
+  m_Name: StonPlayAudioEffect
   m_EditorClassIdentifier: 
   AudioSourcePrefab: {fileID: 3683604220191984894, guid: 24bd2f7395a4dd64895551385f697174, type: 3}
   AudioClips:
-  - {fileID: 8300000, guid: 112e4792256a5d24abfa44b99e9591ff, type: 3}
-  - {fileID: 8300000, guid: b6c37d56914085242b66c366a9d71af7, type: 3}
-  VolumeRange: {x: 0.3, y: 0.5}
+  - {fileID: 8300000, guid: d09260a7c5c89a04ca891151ea7c840a, type: 3}
+  - {fileID: 8300000, guid: 59e71da77739ccc45bc145f856f3fa69, type: 3}
+  VolumeRange: {x: 0.85, y: 1}

@@ -11,7 +11,7 @@ public class WeaponRecoil : MonoBehaviour
     [SerializeField] private float kickBackAmount = -1;
     [SerializeField] private float kickBackSpeed = 10, returnSpeed = 20;
     private float currentRecoilPosition, finalRecoilPosition;
-
+	float velocity = 0.0f;
 	private void Awake()
 	{
 		weaponManager = GetComponent<GunBase>();
@@ -20,12 +20,21 @@ public class WeaponRecoil : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        currentRecoilPosition = Mathf.Lerp(currentRecoilPosition, 0, returnSpeed * Time.deltaTime); 
-        finalRecoilPosition = Mathf.Lerp(finalRecoilPosition, currentRecoilPosition, kickBackSpeed * Time.deltaTime);
-        recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
-
+		//currentRecoilPosition = Mathf.Lerp(currentRecoilPosition, 0, returnSpeed * Time.deltaTime); 
+		//finalRecoilPosition = Mathf.Lerp(finalRecoilPosition, currentRecoilPosition, kickBackSpeed * Time.deltaTime);
+		/*currentRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, 0, ref velocity, 1 / returnSpeed);
+		finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
+		recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
+		*/
 		weaponManager.muzzleFlashLight.intensity = Mathf.Lerp(weaponManager.muzzleFlashLight.intensity, 0, weaponManager.lightReturnSpeed * Time.deltaTime);
 	}
 
-    public void TriggerRecoil() => currentRecoilPosition += kickBackAmount;
+	private void FixedUpdate()
+	{
+		currentRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, 0, ref velocity, 1 / returnSpeed);
+		finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
+		recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
+	}
+
+	public void TriggerRecoil() => currentRecoilPosition += kickBackAmount;
 }

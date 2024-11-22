@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bcd43074257f6d498417f2cd57aa6da, type: 3}
-  m_Name: StonSurfaceEffect_BulletImpact
+  m_Name: RedMetalSurfaceEffect_BulletImpact
   m_EditorClassIdentifier: 
   SpawnObjectEffects:
-  - {fileID: 11400000, guid: b8c4a59bbc4fa6245871e7f645f520a2, type: 2}
-  - {fileID: 11400000, guid: 81e1599ef7ab8aa438922411703246c7, type: 2}
+  - {fileID: 11400000, guid: 189c218991f3cfb4eae0b5e02fe1aa2d, type: 2}
+  - {fileID: 11400000, guid: fd311df3aba58e241a31772ad80b7072, type: 2}
   PlayAudioEffects:
-  - {fileID: 11400000, guid: 3d28f89e59fddb847aa43bd638ed281e, type: 2}
+  - {fileID: 11400000, guid: 47f2b95c45711ee42a8973ff27df78ec, type: 2}

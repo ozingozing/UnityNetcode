@@ -35,6 +35,7 @@ namespace ChocoOzing
 					if (ShouldFire() && fireRateTimer >= fireRate)
 					{
 						FireServerRpc();
+						weaponRecoil.TriggerRecoil();
 						fireRateTimer = 0;
 					}
 				}
@@ -144,7 +145,6 @@ namespace ChocoOzing
 			ammo.currentAmmo--;
 
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
-			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();
 
 			//TestSurfaceManager//
@@ -162,7 +162,7 @@ namespace ChocoOzing
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
-			Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
+			//Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
 		}
 
 		public override void TriggerMuzzleFlash()

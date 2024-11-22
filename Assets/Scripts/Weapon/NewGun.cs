@@ -149,14 +149,17 @@ namespace ChocoOzing
 		private void FireEffects(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
-			audioSource.PlayOneShot(gunShot);
+			
 
 			if(countPershot++ % bulletPerShot == 0)
 			{
 				ammo.currentAmmo--;
 				aim.anim.Play("AdsPump");
 			}
-			
+			else if(countPershot % 2 != 0)
+			{
+				audioSource.PlayOneShot(gunShot);
+			}
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
 			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();

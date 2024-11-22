@@ -4128,7 +4128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8516,7 +8516,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1642795106}
-    PlayerPrefab: {fileID: 0}
+    PlayerPrefab: {fileID: 8358111469727087111, guid: 3f6bd2a06fe597a469336414239316cd, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: de32df38762c21a47accec02ac04bd72, type: 2}
@@ -9267,6 +9267,8 @@ MonoBehaviour:
   Surfaces:
   - Albedo: {fileID: 2800000, guid: aa2e29011c31245428ec0bdfd26e8d80, type: 3}
     Surface: {fileID: 11400000, guid: 68dacb052a638aa499d2fba9943dbb9c, type: 2}
+  - Albedo: {fileID: 2800000, guid: 69283fa587189144f84ab04d95160843, type: 3}
+    Surface: {fileID: 11400000, guid: 11031db0d6795e2479f767385302dd80, type: 2}
   DefaultPoolSizes: 10
   DefaultSurface: {fileID: 11400000, guid: 204c8c19d16a62144866bb8b52684f67, type: 2}
 --- !u!4 &1936375011

@@ -15,10 +15,13 @@ public class WallAction : NetworkBehaviour
 	private Vector3 scaleVelocity = Vector3.zero;
 	private Vector3 velocity = Vector3.zero; // 현재 속도
 
-	public override void OnNetworkSpawn()
+	private void Start()
 	{
 		TargetScale = transform.localScale + new Vector3(0, 30, 0);
+	}
 
+	public override void OnNetworkSpawn()
+	{
 		StartCoroutine(StartTrigger());
 		base.OnNetworkSpawn();
 	}

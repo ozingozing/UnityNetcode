@@ -13,6 +13,11 @@ public class FloorAction : NetworkBehaviour
 
 	private Vector3 velocity = Vector3.zero; // 현재 속도
 
+	private void Start()
+	{
+		target = new Vector3(transform.position.x, 0, transform.position.z);
+	}
+
 	public override void OnNetworkSpawn()
 	{
 		StartCoroutine(StartTrigger());
@@ -35,6 +40,7 @@ public class FloorAction : NetworkBehaviour
 			// 목표에 도착했다고 판단되면 Update 종료
 			if (displacement.magnitude < stopThreshold && velocity.magnitude < stopThreshold)
 			{
+				transform.position = target;
 				yield break;
 			}
 			yield return null;

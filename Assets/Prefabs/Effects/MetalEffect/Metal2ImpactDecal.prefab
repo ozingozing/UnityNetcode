@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5912475361744833641}
   - component: {fileID: 3391703348522822913}
   m_Layer: 0
-  m_Name: MetalImpactDecal
+  m_Name: Metal2ImpactDecal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4858,7 +4858,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 094e76e620df5714eb3946120657e1f6, type: 2}
+  - {fileID: 2100000, guid: 4c86a04c438104f4e9af1b30a8eb2746, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4935,7 +4935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1398603981
+  GlobalObjectIdHash: 3739486035
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1

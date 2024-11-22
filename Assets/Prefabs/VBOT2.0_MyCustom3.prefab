@@ -4007,7 +4007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 462042434
+  GlobalObjectIdHash: 4283848011
   InScenePlacedSourceGlobalObjectIdHash: 462042434
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -4634,6 +4634,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6659945100225817688, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: returnSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659945100225817688, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: kickBackAmount
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659945100225817688, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: recolFollowPos
       value: 
       objectReference: {fileID: 7969364526416371720}
@@ -4733,6 +4741,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5047941401638577665}
     m_Modifications:
     - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: kickBackAmount
+      value: -1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: recolFollowPos
       value: 
       objectReference: {fileID: 7969364526416371720}
@@ -4770,7 +4782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletPerShot
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: fireRateTimer
