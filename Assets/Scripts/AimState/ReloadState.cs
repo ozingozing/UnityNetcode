@@ -33,7 +33,6 @@ public class ReloadState : AimBaseState
 		aim.anim.SetBool("GunReload", true);
 		aim.anim.SetInteger("GunType", 1);
 		aim.WeaponManager.ammo.Reload();*/
-		Debug.Log(aim.WeaponManager.gameObject.name);
 		GunTypeReloadAction(aim);
 		hasSwitchedState = false;
 	}

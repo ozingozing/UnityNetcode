@@ -13,7 +13,6 @@ namespace ChocoOzing
 		public ImpactType ImpactType;
 		private void OnEnable()
 		{
-			Debug.Log("M4");
 			aim.WeaponManager = this;
 			aim.GunType = GunType.M4A1;
 			StartCoroutine(GunAction());
@@ -118,7 +117,7 @@ namespace ChocoOzing
 		public void FireClientRpc()
 		{
 			barrelPos.LookAt(aim.aimPos);
-			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
+			barrelPos.localEulerAngles = BloomAngle(barrelPos, moveStateManager, aim);
 			for (int i = 0; i < bulletPerShot; i++)
 			{
 				// 서버에서 Raycast 처리 후, 클라이언트에게 결과 전달
@@ -141,7 +140,7 @@ namespace ChocoOzing
 		private void FireEffects(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
-			audioSource.PlayOneShot(gunShot);
+			audioSource.PlayOneShot(gunShot, gunShootVolum);
 			ammo.currentAmmo--;
 
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
@@ -158,11 +157,13 @@ namespace ChocoOzing
 					0
 				);
 			}
-			else Debug.Log("hit NULLLLLLL");
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
 			//Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
+
+			ObjectPool pool = ObjectPool.CreateInstance(hitParticle.GetComponent<PoolableObject>(), 10);
+			PoolableObject instance = pool.GetObject(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
 		}
 
 		public override void TriggerMuzzleFlash()

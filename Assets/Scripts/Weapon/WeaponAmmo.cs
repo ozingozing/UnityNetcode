@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponAmmo : NetworkBehaviour
+public class WeaponAmmo : MonoBehaviour
 {
     public int clipSize;
     public int extraAmmo;
@@ -25,7 +25,6 @@ public class WeaponAmmo : NetworkBehaviour
 			extraAmmo--;
 			currentAmmo++;
 		}
-		Debug.Log($"ShotGunExtraAmmo : {extraAmmo}");
 	}
 
 	public void Reload()
@@ -50,6 +49,5 @@ public class WeaponAmmo : NetworkBehaviour
 				extraAmmo = 0;
 			}
 		}
-		Debug.Log($"extraAmmo : {extraAmmo}");
 	}
 }

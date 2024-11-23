@@ -38,7 +38,6 @@ public class GunScriptableObject : ScriptableObject
 	[SerializeField] private LayerMask layerMask;
 	public WeaponAmmo ammo;
 	WeaponRecoil weaponRecoil;
-	WeaponBloom weaponBloom;
 
 	public Light muzzleFlashLight;
 	ParticleSystem muzzleFlashParticle;

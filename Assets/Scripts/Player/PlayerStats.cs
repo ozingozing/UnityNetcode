@@ -99,6 +99,12 @@ public class PlayerStats : NetworkBehaviour
         CombatManager.Instance.Respawn += TurnOnMesh;
 	}
 
+	public override void OnDestroy()
+	{
+		CombatManager.Instance.Respawn -= TurnOnMesh;
+		base.OnDestroy();
+	}
+
 	private void Update()
 	{
         if (!IsOwner) return;

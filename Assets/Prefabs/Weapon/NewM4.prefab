@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8417632485980185823}
+  - {fileID: 4107372416938919423}
   - {fileID: 8923252765596341237}
   m_Father: {fileID: 5167197911550002553}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 693828928960788369}
   - component: {fileID: 4781039896005343388}
   - component: {fileID: 671827969676852579}
-  - component: {fileID: 1569414607426862841}
   m_Layer: 3
   m_Name: NewM4
   m_TagString: Untagged
@@ -133,10 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb52472b038a644a90aa93dce5ed755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLocal: 0
   aim: {fileID: 0}
   ammo: {fileID: 0}
   weaponRecoil: {fileID: 0}
-  weaponBloom: {fileID: 0}
   moveStateManager: {fileID: 0}
   fireRate: 0
   semiAuto: 0
@@ -149,13 +148,18 @@ MonoBehaviour:
   barrelPos: {fileID: 0}
   bulletVelocity: 0
   bulletPerShot: 0
+  gunShootVolum: 0
   gunShot: {fileID: 8300000, guid: 802bff5c2fd95814faa10902dd2cb41f, type: 3}
   hitParticle: {fileID: 0}
   audioSource: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
-  ReloadActionAnim: 
+  defaultBloomAngle: 1
+  walkBloomMultiplier: 2
+  sprintBloomMultiplier: 3
+  adsBloomMultiplier: 0.5
+  ImpactType: {fileID: 0}
   spreadAngle: 10
 --- !u!114 &4781039896005343388
 MonoBehaviour:
@@ -191,23 +195,7 @@ MonoBehaviour:
   kickBackAmount: -1
   kickBackSpeed: 10
   returnSpeed: 20
---- !u!114 &1569414607426862841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4716373905849923474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1958ec23e566b4f4d9bd9d5bbbda6c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultBloomAngle: 3
-  walkBloomMultiplier: 1.5
-  sprintBloomMultiplier: 2
-  adsBloomMultiplier: 0.5
---- !u!1001 &5842290214076742500
+--- !u!1001 &2072459196779600452
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -229,19 +217,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -249,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -264,10 +252,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
---- !u!4 &8417632485980185823 stripped
+--- !u!4 &4107372416938919423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2720890898478784443, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
-  m_PrefabInstance: {fileID: 5842290214076742500}
+  m_PrefabInstance: {fileID: 2072459196779600452}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8105831081632597022
 PrefabInstance:

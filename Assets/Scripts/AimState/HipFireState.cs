@@ -8,7 +8,6 @@ public class HipFireState : AimBaseState
 	private Vector3 targetOffset;
 	public override void EnterState(AimStateManager aim)
 	{
-		Debug.Log("Now HipFire");
 		aim.IsAiming = false;
 		aim.anim.SetBool("Aiming", false);
 
@@ -22,10 +21,6 @@ public class HipFireState : AimBaseState
 
 	public override void UpdateSatate(AimStateManager aim)
 	{
-		if(Input.GetKeyDown(KeyCode.R))
-		{
-			Debug.Log(aim.WeaponManager.ammo.currentAmmo);
-		}
 		if(Input.GetKeyDown(KeyCode.R) && CanReload(aim))
 		{
 			aim.SwitchState(aim.Reload);

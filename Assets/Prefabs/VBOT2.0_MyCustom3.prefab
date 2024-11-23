@@ -4638,6 +4638,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6659945100225817688, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: kickBackSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659945100225817688, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: kickBackAmount
       value: -0.5
       objectReference: {fileID: 0}
@@ -4658,9 +4662,25 @@ PrefabInstance:
       value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: ImpactType
       value: 
       objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: gunShootVolum
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: muzzleFlashParticle
+      value: 
+      objectReference: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
+    - target: {fileID: 7810403965640350952, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4283848011
+      objectReference: {fileID: 0}
     - target: {fileID: 8434985778936673121, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_LocalScale.x
       value: 99
@@ -4741,8 +4761,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5047941401638577665}
     m_Modifications:
     - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: returnSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: kickBackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: kickBackAmount
-      value: -1.2
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 671827969676852579, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: recolFollowPos
@@ -4769,6 +4797,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6088837390401882855}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: ImpactType
       value: 
       objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
@@ -4789,6 +4821,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: gunShootVolum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletVelocity
       value: 500
       objectReference: {fileID: 0}
@@ -4803,7 +4839,7 @@ PrefabInstance:
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: muzzleFlashParticle
       value: 
-      objectReference: {fileID: 8919748904236974823}
+      objectReference: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
     - target: {fileID: 936417822475070974, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4283848011
@@ -4819,6 +4855,10 @@ PrefabInstance:
     - target: {fileID: 1569414607426862841, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: sprintBloomMultiplier
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798636299459747103, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4283848011
       objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_Name
@@ -4907,10 +4947,5 @@ Light:
 --- !u!4 &6088837390401882855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 933692571357497443, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
-  m_PrefabInstance: {fileID: 6380124212201915012}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8919748904236974823 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2541034544074817635, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
   m_PrefabInstance: {fileID: 6380124212201915012}
   m_PrefabAsset: {fileID: 0}

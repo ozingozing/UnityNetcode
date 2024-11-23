@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 namespace ChocoOzing
 {
@@ -13,7 +14,6 @@ namespace ChocoOzing
 		[SerializeField] private float spreadAngle = 10; // 산탄 각도 조절 변수
 		private void OnEnable()
 		{
-			Debug.Log("NewGun!");
 			aim.WeaponManager = this;
 			aim.GunType = GunType.PumpShotGun;
 			StartCoroutine(GunAction());
@@ -35,6 +35,7 @@ namespace ChocoOzing
 					if (ShouldFire() && fireRateTimer >= fireRate)
 					{
 						FireServerRpc();
+						weaponRecoil.TriggerRecoil();
 						fireRateTimer = 0;
 					}
 				}
@@ -117,7 +118,7 @@ namespace ChocoOzing
 		public void FireClientRpc()
 		{
 			barrelPos.LookAt(aim.aimPos);
-			barrelPos.localEulerAngles = weaponBloom.BloomAngle(barrelPos, moveStateManager, aim);
+			barrelPos.localEulerAngles = BloomAngle(barrelPos, moveStateManager, aim);
 
 			for (int i = 0; i < bulletPerShot; i++)
 			{
@@ -158,10 +159,9 @@ namespace ChocoOzing
 			}
 			else if(countPershot % 2 != 0)
 			{
-				audioSource.PlayOneShot(gunShot);
+				audioSource.PlayOneShot(gunShot, gunShootVolum);
 			}
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
-			weaponRecoil.TriggerRecoil();
 			TriggerMuzzleFlash();
 
 
@@ -176,11 +176,12 @@ namespace ChocoOzing
 					0
 				);
 			}
-			else Debug.Log("hit NULLLLLLL");
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
-			Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
+			//Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
+			ObjectPool pool = ObjectPool.CreateInstance(hitParticle.GetComponent<PoolableObject>(), 10);
+			PoolableObject instance = pool.GetObject(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
 		}
 
 		public override void TriggerMuzzleFlash()
