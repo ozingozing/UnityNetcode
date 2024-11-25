@@ -127,7 +127,7 @@ public class WalkerGenerator : MonoBehaviour
 			yield return null;
 		}
 
-		StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - OffSet.x, 0, TileCenter.z * depth - OffSet.z)));
+		StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - OffSet.x - width / 2, 0, TileCenter.z * depth - OffSet.z - depth / 2)));
 	}
 
 	public async Task InitializeGrid()
@@ -153,7 +153,7 @@ public class WalkerGenerator : MonoBehaviour
 			Walkers = new List<WalkerObject>();
 
 			TileCenter = new Vector3Int(gridHandler.GetLength(0) / 2, 0, gridHandler.GetLength(1) / 2);
-			OffSet = new Vector3Int(TileCenter.x * (int)width - (int)width / 2, 0, TileCenter.z * (int)depth - (int)depth / 2);
+			OffSet = new Vector3Int(TileCenter.x * (int)width, 0, TileCenter.z * (int)depth);
 
 			curWalker = new WalkerObject(TileCenter, GetDirection(), 0.5f);
 			gridHandler[TileCenter.x, TileCenter.z] = Grid.FLOOR;
