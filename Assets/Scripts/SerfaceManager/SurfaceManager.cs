@@ -119,11 +119,22 @@ public class SurfaceManager : MonoBehaviour
 
 		return activeTextures;
 	}
+	private Dictionary<Renderer, Texture> subMeshTextureCacheList = new Dictionary<Renderer, Texture>();
+	private const int MaxCacheSize = 100; // 최대 캐시 크기
+	private LinkedList<Renderer> cacheOrder = new LinkedList<Renderer>();
 
 	private Texture GetActiveTextureFromRenderer(Renderer Renderer, int TriangleIndex)
 	{
 		if (Renderer.TryGetComponent<MeshFilter>(out MeshFilter meshFilter))
 		{
+			if (subMeshTextureCacheList.TryGetValue(Renderer, out Texture cachedTexture))
+			{
+				Debug.Log("Cache hit!");
+				cacheOrder.Remove(Renderer);
+				cacheOrder.AddFirst(Renderer);
+				return cachedTexture;
+			}
+
 			Mesh mesh = meshFilter.mesh;
 
 			if (mesh.subMeshCount > 1)
@@ -144,6 +155,8 @@ public class SurfaceManager : MonoBehaviour
 							&& submeshTriangles[j + 1] == hitTriangleIndices[1]
 							&& submeshTriangles[j + 2] == hitTriangleIndices[2])
 						{
+							AddToCache(Renderer, Renderer.sharedMaterials[i].mainTexture);
+							Debug.Log("SubMesh texture cached!");
 							return Renderer.sharedMaterials[i].mainTexture;
 						}
 					}
@@ -151,6 +164,8 @@ public class SurfaceManager : MonoBehaviour
 			}
 			else
 			{
+				AddToCache(Renderer, Renderer.sharedMaterial.mainTexture);
+				Debug.Log("Single Mesh texture cached!");
 				return Renderer.sharedMaterial.mainTexture;
 			}
 		}
@@ -158,6 +173,27 @@ public class SurfaceManager : MonoBehaviour
 		Debug.LogError($"{Renderer.name} has no MeshFilter! Using default impact effect instead of texture-specific one because we'll be unable to find the correct texture!");
 		return null;
 	}
+
+	private void AddToCache(Renderer render, Texture texture)
+	{
+        if (subMeshTextureCacheList.ContainsKey(render))
+        {
+			cacheOrder.Remove(render);
+			cacheOrder.AddFirst(render);
+			return;
+        }
+
+		subMeshTextureCacheList[render] = texture;
+		cacheOrder.AddFirst(render);
+
+		if(cacheOrder.Count > MaxCacheSize)
+		{
+			Renderer leastUsedRenderer = cacheOrder.Last.Value;
+			cacheOrder.RemoveLast();
+			subMeshTextureCacheList.Remove(leastUsedRenderer);
+			Debug.Log($"Cache evicted for render: {leastUsedRenderer}");
+		}
+    }
 
 	private void PlayEffects(Vector3 HitPoint, Vector3 HitNormal, SurfaceEffect SurfaceEffect, float SoundOffset)
 	{

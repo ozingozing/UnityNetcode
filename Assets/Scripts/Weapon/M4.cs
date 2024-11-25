@@ -161,7 +161,7 @@ namespace ChocoOzing
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
-			SafeGetPoolObj(hitParticlePool, hit.point + hit.normal * 0.01f, Quaternion.identity);
+			SafeGetPoolObj(hitParticlePool, hitPoint + hitNormal * 0.1f, Quaternion.identity);
 		}
 	}
 }

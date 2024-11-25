@@ -78,17 +78,10 @@ public abstract class GunBase : NetworkBehaviour
 
 	public void SafeGetPoolObj(ObjectPool pool, Vector3 point, Quaternion rotation)
 	{
-		StartCoroutine(GetPoolObject(pool, point, rotation));
-	}
-
-	IEnumerator GetPoolObject(ObjectPool pool, Vector3 point, Quaternion rotation)
-	{
 		if (!pool.GetObject(point, rotation))
 		{
-			yield return null;
 			SafeGetPoolObj(pool, point, rotation);
 		}
-		yield return null;
 	}
 
 	public virtual Vector3 BloomAngle(Transform barrelPos, MovementStateManager currentState, AimStateManager aimState)
