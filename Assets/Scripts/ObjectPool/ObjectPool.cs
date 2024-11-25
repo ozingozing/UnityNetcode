@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ObjectPool
@@ -6,14 +7,13 @@ public class ObjectPool
 	private GameObject Parent;
 	private PoolableObject Prefab;
 	private int Size;
-	private List<PoolableObject> AvailableObjectsPool;
+	private Queue<PoolableObject> AvailableObjectsPool = new Queue<PoolableObject>();
 	private static Dictionary<PoolableObject, ObjectPool> ObjectPools = new Dictionary<PoolableObject, ObjectPool>();
 
 	private ObjectPool(PoolableObject Prefab, int Size)
 	{
 		this.Prefab = Prefab;
 		this.Size = Size;
-		AvailableObjectsPool = new List<PoolableObject>(Size);
 	}
 
 	public static ObjectPool CreateInstance(PoolableObject Prefab, int Size)
@@ -60,16 +60,14 @@ public class ObjectPool
 			CreateObject();
 		}
 
-		PoolableObject instance = AvailableObjectsPool[0];
-
-		AvailableObjectsPool.RemoveAt(0);
-
-		instance.transform.position = Position;
-		instance.transform.rotation = Rotation;
-
-		instance.gameObject.SetActive(true);
-
-		return instance;
+		if(AvailableObjectsPool.TryDequeue(out PoolableObject instance) && instance)
+		{
+			instance.transform.position = Position;
+			instance.transform.rotation = Rotation;
+			instance.gameObject.SetActive(true);
+			return instance;
+		}
+		return null;
 	}
 
 	public PoolableObject GetObject()
@@ -79,6 +77,6 @@ public class ObjectPool
 
 	public void ReturnObjectToPool(PoolableObject Object)
 	{
-		AvailableObjectsPool.Add(Object);
+		AvailableObjectsPool.Enqueue(Object);
 	}
 }

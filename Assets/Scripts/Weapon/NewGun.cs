@@ -146,7 +146,7 @@ namespace ChocoOzing
 		}
 
 		int countPershot = 1;
-		
+
 		private void FireEffects(Vector3 hitPoint, Vector3 hitNormal)
 		{
 			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
@@ -154,6 +154,8 @@ namespace ChocoOzing
 
 			if(countPershot++ % bulletPerShot == 0)
 			{
+				//TriggerMuzzleFlash();
+				SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.identity);
 				ammo.currentAmmo--;
 				aim.anim.Play("AdsPump");
 			}
@@ -161,8 +163,7 @@ namespace ChocoOzing
 			{
 				audioSource.PlayOneShot(gunShot, gunShootVolum);
 			}
-			// 시각적 효과 (머즐 플래시, 총구 불빛)
-			TriggerMuzzleFlash();
+			
 
 
 			//TestSurfaceManager//
@@ -179,15 +180,8 @@ namespace ChocoOzing
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
-			//Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
-			ObjectPool pool = ObjectPool.CreateInstance(hitParticle.GetComponent<PoolableObject>(), 10);
-			PoolableObject instance = pool.GetObject(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-		}
-
-		public override void TriggerMuzzleFlash()
-		{
-			muzzleFlashParticle.Play();
-			muzzleFlashLight.intensity = lightIntensity;
+			//hitParticlePool.GetObject(hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal));
+			SafeGetPoolObj(hitParticlePool, hit.point + hit.normal * 0.01f, Quaternion.identity);
 		}
 	}
 }

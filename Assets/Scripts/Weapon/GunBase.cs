@@ -1,6 +1,8 @@
 using ChocoOzing;
 using System;
 using System.Collections;
+using System.Drawing;
+using Unity.Jobs;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
@@ -9,7 +11,7 @@ public abstract class GunBase : NetworkBehaviour
 {
 	// 필요한 메서드 정의
 	public abstract bool ShouldFire();
-	public abstract void TriggerMuzzleFlash();
+	//public abstract void TriggerMuzzleFlash();
 	public abstract IEnumerator GunAction();
 
 	//NetworkParameter
@@ -26,14 +28,13 @@ public abstract class GunBase : NetworkBehaviour
 	public float fireRateTimer;
 
 	//Fire Muzzle Action
-	public Light muzzleFlashLight;
-	public ParticleSystem muzzleFlashParticle;
+	public GameObject muzzleFlashParticle;
 	public float lightIntensity;
 	public float lightReturnSpeed = 20;
 
 
 	// Bullet Properties
-	public GameObject bullet;
+	//public GameObject bullet;
 	public Transform barrelPos;
 	public float bulletVelocity;
 	public int bulletPerShot;
@@ -51,6 +52,11 @@ public abstract class GunBase : NetworkBehaviour
 	[SerializeField] private float adsBloomMultiplier = 0.5f;
 	float currentBloom;
 
+
+	public ObjectPool hitParticlePool;
+	public ObjectPool muzzlePool;
+	public int defaultPoolSize = 15;
+
 	private void Awake()
 	{
 		weaponRecoil = GetComponent<WeaponRecoil>();
@@ -60,18 +66,30 @@ public abstract class GunBase : NetworkBehaviour
 
 		audioSource = GetComponentInParent<AudioSource>();
 
-		muzzleFlashLight = GetComponentInChildren<Light>();
-		muzzleFlashParticle = GetComponentInChildren<ParticleSystem>();
-		lightIntensity = muzzleFlashLight.intensity;
-		
-		muzzleFlashLight.intensity = 0;
 		fireRateTimer = fireRate;
 		currentBloom = defaultBloomAngle;
 	}
 
 	public virtual void Start()
-	{ }
+	{
+		hitParticlePool = ObjectPool.CreateInstance(hitParticle.GetComponent<PoolableObject>(), defaultPoolSize);
+		muzzlePool = ObjectPool.CreateInstance(muzzleFlashParticle.gameObject.GetComponent<PoolableObject>(), defaultPoolSize);
+	}
 
+	public void SafeGetPoolObj(ObjectPool pool, Vector3 point, Quaternion rotation)
+	{
+		StartCoroutine(GetPoolObject(pool, point, rotation));
+	}
+
+	IEnumerator GetPoolObject(ObjectPool pool, Vector3 point, Quaternion rotation)
+	{
+		if (!pool.GetObject(point, rotation))
+		{
+			yield return null;
+			SafeGetPoolObj(pool, point, rotation);
+		}
+		yield return null;
+	}
 
 	public virtual Vector3 BloomAngle(Transform barrelPos, MovementStateManager currentState, AimStateManager aimState)
 	{

@@ -2801,7 +2801,7 @@ MonoBehaviour:
     m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
-      y: 1
+      y: 0
       z: 1
 --- !u!1 &6364201759961539841
 GameObject:
@@ -3779,7 +3779,12 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'VBOT_:LeftHand'\n\tTransform 'VBOT_:LeftForeArm'\n\tTransform
+    'VBOT_:Neck'\n\tTransform 'VBOT_:Spine'\n\tTransform 'VBOT_:RightArm'\n\tTransform
+    'VBOT_:LeftArm'\n\tTransform 'VBOT_:Hips'\n\tTransform 'VBOT_:RightForeArm'\n\tTransform
+    'VBOT_:Head'\n\tTransform 'VBOT_:RightHand'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4671,12 +4676,12 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: gunShootVolum
-      value: 0.6
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: muzzleFlashParticle
       value: 
-      objectReference: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
+      objectReference: {fileID: 937686689976011591, guid: 42904218c7898c54cb2832d5062e629e, type: 3}
     - target: {fileID: 7810403965640350952, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4283848011
@@ -4822,7 +4827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: gunShootVolum
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletVelocity
@@ -4833,13 +4838,9 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
-      propertyPath: muzzleFlashLight
-      value: 
-      objectReference: {fileID: 4701968249951347616}
-    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: muzzleFlashParticle
       value: 
-      objectReference: {fileID: 6476708005871032941, guid: 289ed04b74f90bf45b30912efbec17d7, type: 3}
+      objectReference: {fileID: 937686689976011591, guid: 42904218c7898c54cb2832d5062e629e, type: 3}
     - target: {fileID: 936417822475070974, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4283848011
@@ -4937,11 +4938,6 @@ GameObject:
 --- !u!4 &2251608727524083709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5167197911550002553, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
-  m_PrefabInstance: {fileID: 6380124212201915012}
-  m_PrefabAsset: {fileID: 0}
---- !u!108 &4701968249951347616 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 1858436459139817764, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
   m_PrefabInstance: {fileID: 6380124212201915012}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6088837390401882855 stripped

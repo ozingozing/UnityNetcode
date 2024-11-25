@@ -144,7 +144,8 @@ namespace ChocoOzing
 			ammo.currentAmmo--;
 
 			// 시각적 효과 (머즐 플래시, 총구 불빛)
-			TriggerMuzzleFlash();
+			SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.identity);
+
 
 			//TestSurfaceManager//
 			if (hit.collider != null)
@@ -160,16 +161,7 @@ namespace ChocoOzing
 			//TestSurfaceManager//
 
 			// 피격 지점에 파티클 생성
-			//Instantiate(hitParticle, hitPoint, Quaternion.LookRotation(hitNormal));
-
-			ObjectPool pool = ObjectPool.CreateInstance(hitParticle.GetComponent<PoolableObject>(), 10);
-			PoolableObject instance = pool.GetObject(hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-		}
-
-		public override void TriggerMuzzleFlash()
-		{
-			muzzleFlashParticle.Play();
-			muzzleFlashLight.intensity = lightIntensity;
+			SafeGetPoolObj(hitParticlePool, hit.point + hit.normal * 0.01f, Quaternion.identity);
 		}
 	}
 }

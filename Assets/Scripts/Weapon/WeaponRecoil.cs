@@ -26,7 +26,7 @@ public class WeaponRecoil : MonoBehaviour
 		finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
 		recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
 		*/
-		weaponManager.muzzleFlashLight.intensity = Mathf.Lerp(weaponManager.muzzleFlashLight.intensity, 0, weaponManager.lightReturnSpeed * Time.deltaTime);
+		//weaponManager.muzzleFlashLight.intensity = Mathf.Lerp(weaponManager.muzzleFlashLight.intensity, 0, weaponManager.lightReturnSpeed * Time.deltaTime);
 	}
 
 	private void FixedUpdate()
