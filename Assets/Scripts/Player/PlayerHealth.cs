@@ -67,7 +67,6 @@ public class PlayerHealth : NetworkBehaviour, IHealth
 		ulong victimId = GetComponent<NetworkObject>().OwnerClientId;
 */
 		// 킬/데스 처리
-		Debug.Log("Death!!!!!!!!!!!");
 		CombatManager.Instance.OnPlayerDeath(attacker, gameObject);
 	}
 }

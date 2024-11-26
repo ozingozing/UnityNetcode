@@ -24,15 +24,13 @@ public class PlayerStats : NetworkBehaviour
 
     [SerializeField] private GameObject[] weaponPrefabs;
     private int currentWeaponIndex = 0;
-	
+
 	public override void OnNetworkSpawn()
 	{
 		OnPlayerSpawn?.Invoke(this.gameObject);
 		//DefaultWeaponSet
 		SetWeaponActive(currentWeaponIndex);
 		//DefaultSet
-		GetComponent<Rigidbody>().useGravity = false;
-		GetComponent<CapsuleCollider>().enabled = false;
 
 		//서버 아니면 쳐내고
 		if (!IsServer) return;
@@ -64,13 +62,17 @@ public class PlayerStats : NetworkBehaviour
 
 	// 클라이언트에서 위치를 업데이트하는 RPC
 	[ClientRpc]
-	void UpdatePositionClientRpc(Vector3 newPosition)
+	public void UpdatePositionClientRpc(Vector3 newPosition)
 	{
+		/*GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<CapsuleCollider>().enabled = false;*/
+
 		// 클라이언트에서 위치를 설정
+		transform.position = newPosition;
 		GetComponent<Rigidbody>().MovePosition(newPosition);
 
-		GetComponent<Rigidbody>().useGravity = true;
-		GetComponent<CapsuleCollider>().enabled = true;
+		/*GetComponent<Rigidbody>().useGravity = true;
+		GetComponent<CapsuleCollider>().enabled = true;*/
 	}
 
 
@@ -141,7 +143,7 @@ public class PlayerStats : NetworkBehaviour
         gameObject.SetActive(false);
 	}
 
-    public void TurnOnMesh(object sender, System.EventArgs e)
+	public void TurnOnMesh(object sender, System.EventArgs e)
     {
         //TurnOnMeshServerRpc();
         TurnOnMeshClientRpc();
@@ -192,20 +194,15 @@ public class PlayerStats : NetworkBehaviour
 		}
     }
 
-	IEnumerator CheckPosition(Vector3 targetPos)
+	// 플레이어가 죽었을 때 리스폰하는 로직 (Respawn 기능)
+	public void RespawnPlayer()
 	{
-		while(true)
+		IsDead = true;
+		if (IsServer)
 		{
-			float displacementX = targetPos.x - transform.position.x;
-			float displacementZ = targetPos.z - transform.position.z;
-			if (displacementX < 0.1f && displacementZ < 0.1f)
-			{
-				GetComponent<Rigidbody>().useGravity = true;
-				GetComponent<CapsuleCollider>().enabled = true;
-				yield break;
-			}
-
-			yield return null;
+			// 서버에서 새로운 위치를 할당하고, 플레이어를 리스폰시킴
+			Vector3 respawnPosition = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
+			UpdatePositionClientRpc(respawnPosition);
 		}
 	}
 }

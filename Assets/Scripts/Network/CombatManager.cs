@@ -20,14 +20,16 @@ public class CombatManager : MonoBehaviour
 		ulong killerId = killer.GetComponentInParent<NetworkObject>().OwnerClientId;
 		ulong victimId = victim.GetComponentInParent<NetworkObject>().OwnerClientId;
 
-		DieClientSet(victim);
 
+		
 		if (NetworkManager.Singleton.IsServer)
 		{
+			DieClientSet(victim);
 			var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerStats>();
 			var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerStats>();
+			//NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerStats>().RespawnPlayer();
 
-			if(killerStats != null)
+			if (killerStats != null)
 			{
 				killerStats.AddKill();
 			}
@@ -41,13 +43,11 @@ public class CombatManager : MonoBehaviour
 
 	public void DieClientSet(GameObject victiom)
 	{
-		/*victiom.GetComponent<Renderer>().enabled = false;
-		victiom.GetComponent<Collider>().enabled = false;*/
-
-		victiom.GetComponent<PlayerStats>().IsDead = true;
-		victiom.GetComponent<PlayerStats>().TurnOffMeshClientRpc();
+		//victiom.GetComponent<PlayerStats>().IsDead = true;
+		victiom.GetComponent<PlayerStats>().RespawnPlayer();
+		//victiom.GetComponent<PlayerStats>().TurnOffMeshClientRpc();
 		// 일정 시간 후 Respawn 이벤트를 실행하는 코루틴 호출
-		StartCoroutine(InvokeRespawnAfterDelay(3f)); // 3초 후에 Respawn 이벤트 실행
+		StartCoroutine(InvokeRespawnAfterDelay(1f)); // 3초 후에 Respawn 이벤트 실행
 	}
 
 	private IEnumerator InvokeRespawnAfterDelay(float delay)
