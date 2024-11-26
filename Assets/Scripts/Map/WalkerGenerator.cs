@@ -216,8 +216,6 @@ public class WalkerGenerator : MonoBehaviour
 	
 	public async Task CreateFloors()
 	{
-		int TempCnt = 0;
-
 		await Task.Run(() =>
 		{
 			while ((float)TileCount / (float)gridHandler.Length < FillPercentage)
