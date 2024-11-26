@@ -5,13 +5,10 @@ using ChocoOzing;
 
 public class HipFireState : AimBaseState
 {
-	private Vector3 targetOffset;
 	public override void EnterState(AimStateManager aim)
 	{
 		aim.IsAiming = false;
 		aim.anim.SetBool("Aiming", false);
-
-		aim.headRig.data.offset = new Vector3(0, 35, 0);
 	}
 
 	public override void ExitState(AimStateManager aim)
