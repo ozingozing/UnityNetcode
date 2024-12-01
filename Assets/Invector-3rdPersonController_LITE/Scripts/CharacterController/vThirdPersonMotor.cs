@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
 namespace Invector.vCharacterController
 {
@@ -147,15 +148,29 @@ namespace Invector.vCharacterController
 
         public virtual void UpdateMotor()
         {
-            CheckGround();
+			CheckGround();
             CheckSlopeLimit();
             ControlJumpBehaviour();
             AirControl();
-        }
 
-        #region Locomotion
+			//MyCustom
+            if(!lastIsGrounded && isGrounded)
+			    SyncRigidBody();
+            lastIsGrounded = isGrounded;
+			//MyCustom
+		}
+		//MyCustom
+		private bool lastIsGrounded = false;
+        private void SyncRigidBody()
+        {
+			Physics.SyncTransforms();
+			_rigidbody.velocity = Vector3.zero;
+		}
+		//MyCustom
 
-        public virtual void SetControllerMoveSpeed(vMovementSpeed speed)
+		#region Locomotion
+
+		public virtual void SetControllerMoveSpeed(vMovementSpeed speed)
         {
             if (speed.walkByDefault)
                 moveSpeed = Mathf.Lerp(moveSpeed, isSprinting ? speed.runningSpeed : speed.walkSpeed, speed.movementSmooth * Time.deltaTime);
@@ -163,10 +178,12 @@ namespace Invector.vCharacterController
                 moveSpeed = Mathf.Lerp(moveSpeed, isSprinting ? speed.sprintSpeed : speed.runningSpeed, speed.movementSmooth * Time.deltaTime);
         }
 
-        public virtual void MoveCharacter(Vector3 _direction)
+        [ServerRpc]
+        public virtual void MoveCharacterServerRpc(Vector3 _direction)
         {
-            // calculate input smooth
-            inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
+            MoveCharacterClientRpc(_direction);
+			/*// calculate input smooth
+			inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
             if (!isGrounded || isJumping) return;
 
@@ -182,10 +199,33 @@ namespace Invector.vCharacterController
 
             bool useVerticalVelocity = true;
             if (useVerticalVelocity) targetVelocity.y = _rigidbody.velocity.y;
-            _rigidbody.velocity = targetVelocity;
+            _rigidbody.velocity = targetVelocity;*/
         }
+        [ClientRpc]
+		void MoveCharacterClientRpc(Vector3 _direction)
+        {
+			// calculate input smooth
+			inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
-        public virtual void CheckSlopeLimit()
+			if (!isGrounded || isJumping) return;
+
+			_direction.y = 0;
+			_direction.x = Mathf.Clamp(_direction.x, -1f, 1f);
+			_direction.z = Mathf.Clamp(_direction.z, -1f, 1f);
+			// limit the input
+			if (_direction.magnitude > 1f)
+				_direction.Normalize();
+
+			Vector3 targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
+			Vector3 targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
+
+			bool useVerticalVelocity = true;
+			if (useVerticalVelocity) targetVelocity.y = _rigidbody.velocity.y;
+			_rigidbody.velocity = targetVelocity;
+		}
+
+
+		public virtual void CheckSlopeLimit()
         {
             if (input.sqrMagnitude < 0.1) return;
 
@@ -300,7 +340,7 @@ namespace Invector.vCharacterController
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
 
                 heightReached = transform.position.y;
-            }
+			}
             else
             {
                 if (groundDistance >= groundMaxDistance)
@@ -320,7 +360,7 @@ namespace Invector.vCharacterController
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
                 }
             }
-        }
+		}
 
         protected virtual void ControlMaterialPhysics()
         {

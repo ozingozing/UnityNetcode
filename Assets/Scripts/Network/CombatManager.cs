@@ -8,7 +8,6 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager Instance;
-	public event EventHandler Respawn;
 
 	private void Awake()
 	{
@@ -36,20 +35,4 @@ public class CombatManager : MonoBehaviour
 			}
 		}
 	}
-
-	/*public void DieClientSet(GameObject victiom)
-	{
-		//victiom.GetComponent<PlayerStats>().IsDead = true;
-		victiom.GetComponent<PlayerStats>().RespawnPlayer();
-		//victiom.GetComponent<PlayerStats>().TurnOffMeshClientRpc();
-		// 일정 시간 후 Respawn 이벤트를 실행하는 코루틴 호출
-		StartCoroutine(InvokeRespawnAfterDelay(1f)); // 3초 후에 Respawn 이벤트 실행
-	}
-
-	private IEnumerator InvokeRespawnAfterDelay(float delay)
-	{
-		yield return new WaitForSeconds(delay); // delay 만큼 대기
-
-		Respawn?.Invoke(this, EventArgs.Empty); // Respawn 이벤트 실행
-	}*/
 }

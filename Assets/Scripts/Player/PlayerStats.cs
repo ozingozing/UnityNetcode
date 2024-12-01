@@ -13,7 +13,6 @@ using UnityEngine;
 public class PlayerStats : NetworkBehaviour
 {
 	public static event EventHandler<GameObject> OnPlayerSpawn;
-	public static event EventHandler OnPlayerReSpawn;
 	public static event EventHandler<GameObject> OnPlayerDespawn;
 
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
@@ -29,7 +28,7 @@ public class PlayerStats : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
-
+		GetComponent<Rigidbody>().isKinematic = false;
 		//서버 아니면 쳐내고
 		if (IsServer)
 		{
@@ -55,10 +54,8 @@ public class PlayerStats : NetworkBehaviour
 	[ClientRpc]
 	public void UpdatePositionClientRpc(Vector3 newPosition)
 	{
-		gameObject.SetActive(true);
 		IsDead = false;
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		GetComponent<Rigidbody>().position = newPosition;
+		GetComponent<Rigidbody>().MovePosition(newPosition);
 		transform.position = newPosition;
 	}
 
@@ -126,7 +123,6 @@ public class PlayerStats : NetworkBehaviour
 		{
 			if (IsDead) return;
 			IsDead = true;
-			gameObject.SetActive(false);
 		}
 		
 		if (NetworkManager.Singleton.IsServer)

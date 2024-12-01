@@ -44,6 +44,25 @@ namespace ChocoOzing
 			if(can)
 			{
 				FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
+				/*if(IsServer)
+				{
+					Vector3[] spreadDirections = GenerateSpreadDirections();
+					foreach (var direction in spreadDirections)
+					{
+						if (Physics.Raycast(barrelPos.position, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
+						{
+							// 피격 처리
+							if (hit.transform.TryGetComponent(out PlayerHealth health))
+							{
+								health.TakeDamage(10, gameObject); // 데미지 처리
+							}
+
+							// 모든 클라이언트에 시각 효과를 동기화
+							FireEffectsClientRpc(hit.point, hit.normal, barrelPos.position, direction);
+						}
+					}
+				}
+				else FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청*/
 				can = false;
 			}
 		}
@@ -74,7 +93,11 @@ namespace ChocoOzing
 			return spreadDirections;
 		}
 
-		private void FireServerOnly(Vector3 barrelPosition, Vector3[] spreadDirections)
+		/// <summary>
+		/// 클라이언트에서 서버로 발사 요청을 전달
+		/// </summary>
+		[ServerRpc]
+		private void FireServerRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
 		{
 			foreach (var direction in spreadDirections)
 			{
@@ -86,7 +109,23 @@ namespace ChocoOzing
 						health.TakeDamage(10, gameObject); // 데미지 처리
 					}
 
-					/*//TestSurfaceManager//
+					// 모든 클라이언트에 시각 효과를 동기화
+					FireEffectsClientRpc(hit.point, hit.normal, barrelPosition, direction);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 모든 클라이언트에 시각 효과 동기화
+		/// </summary>
+		[ClientRpc]
+		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal, Vector3 barrelPosition, Vector3 direction)
+		{
+			if (Physics.Raycast(barrelPosition, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
+			{
+				if(hit.collider)
+				{
+					//TestSurfaceManager//
 					if (hit.collider != null)
 					{
 						SurfaceManager.Instance.HandleImpact(
@@ -97,58 +136,10 @@ namespace ChocoOzing
 							0
 						);
 					}
-					//TestSurfaceManager//*/
-
-					// 모든 클라이언트에 시각 효과를 동기화
-					FireEffectsClientRpc(hit.point, hit.normal);
+					//TestSurfaceManager//
 				}
 			}
-		}
 
-		/// <summary>
-		/// 클라이언트에서 서버로 발사 요청을 전달
-		/// </summary>
-		[ServerRpc]
-		private void FireServerRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
-		{
-			foreach (var direction in spreadDirections)
-			{
-				if (Physics.Raycast(barrelPosition, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
-				{
-					if(hit.collider != null)
-					{
-						// 피격 처리
-						if (hit.transform.TryGetComponent(out PlayerHealth health))
-						{
-							health.TakeDamage(10, gameObject); // 데미지 처리
-						}
-
-						/*//TestSurfaceManager//
-						if (hit.collider != null)
-						{
-							SurfaceManager.Instance.HandleImpact(
-								hit.transform.gameObject,
-								hit.point,
-								hit.normal,
-								ImpactType,
-								0
-							);
-						}
-						//TestSurfaceManager//*/
-
-						// 모든 클라이언트에 시각 효과를 동기화
-						FireEffectsClientRpc(hit.point, hit.normal);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// 모든 클라이언트에 시각 효과 동기화
-		/// </summary>
-		[ClientRpc]
-		private void FireEffectsClientRpc(Vector3 hitPoint, Vector3 hitNormal)
-		{
 			// 파티클 및 사운드 효과 처리
 			SafeGetPoolObj(hitParticlePool, hitPoint + hitNormal * 0.1f, Quaternion.identity);
 

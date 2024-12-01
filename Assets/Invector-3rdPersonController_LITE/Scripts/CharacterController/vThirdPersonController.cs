@@ -14,9 +14,12 @@ namespace Invector.vCharacterController
                 transform.rotation = animator.rootRotation;
             }
 
+            /*if (useRootMotion)
+                MoveCharacter(moveDirection);*/
             if (useRootMotion)
-                MoveCharacter(moveDirection);
-        }
+                MoveCharacterServerRpc(moveDirection);
+
+		}
 
         public virtual void ControlLocomotionType()
         {
@@ -35,7 +38,7 @@ namespace Invector.vCharacterController
             }
 
             if (!useRootMotion)
-                MoveCharacter(moveDirection);
+				MoveCharacterServerRpc(moveDirection);
         }
 
         public virtual void ControlRotationType()

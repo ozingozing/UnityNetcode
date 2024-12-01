@@ -114,7 +114,7 @@ public class WalkerGenerator : MonoBehaviour
 			if (gridHandler[random.Next(0, MapWidth), random.Next(0, MapHeight)] == Grid.FLOOR
 				&&TempCnt++ < SpawnPointCount)
 			{
-				InGameManager.Instance.NetworkManager.GetComponent<SpawnPoint>().SpawnPoints.Add(new Vector3(GO.transform.position.x, 2, GO.transform.position.z));
+				InGameManager.Instance.NetworkManager.GetComponent<SpawnPoint>().SpawnPoints.Add(GO.transform.position);
 			}
 
 			yield return null;

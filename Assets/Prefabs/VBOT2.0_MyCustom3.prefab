@@ -1208,7 +1208,7 @@ GameObject:
   - component: {fileID: 2530193444375949990}
   - component: {fileID: 4188430182443954691}
   - component: {fileID: 874408772526005445}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AimPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1304,7 +1304,7 @@ MonoBehaviour:
   SyncScaleZ: 0
   PositionThreshold: 0.1
   RotAngleThreshold: 0.1
-  ScaleThreshold: 1
+  ScaleThreshold: 2
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 1
@@ -3732,6 +3732,7 @@ GameObject:
   - component: {fileID: 2697245886532436947}
   - component: {fileID: 9121510604555533350}
   - component: {fileID: 8544650295593193462}
+  - component: {fileID: -2655918395739160061}
   - component: {fileID: 5832200183334975902}
   - component: {fileID: 2327135002687046570}
   - component: {fileID: 5034275283889422770}
@@ -3830,10 +3831,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 1.8
+  m_Radius: 0.29
+  m_Height: 1.9
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.95, z: 0}
 --- !u!114 &4022420121716495385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3966,7 +3967,7 @@ MonoBehaviour:
   freeSpeed:
     movementSmooth: 6
     animationSmooth: 0.2
-    rotationSpeed: 5
+    rotationSpeed: 16
     walkByDefault: 0
     rotateWithCamera: 0
     walkSpeed: 2
@@ -3994,7 +3995,7 @@ MonoBehaviour:
     m_Bits: 1
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
-  slopeLimit: 75
+  slopeLimit: 45
 --- !u!114 &2697245886532436947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4060,8 +4061,8 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.01
-  RotAngleThreshold: 0.01
+  PositionThreshold: 0.1
+  RotAngleThreshold: 0.1
   ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
@@ -4069,6 +4070,18 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 1
+--- !u!114 &-2655918395739160061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358111469727087111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5832200183334975902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4810,7 +4823,7 @@ PrefabInstance:
       objectReference: {fileID: 2708598583397607911, guid: 0c3d9795cbf2e3d48a7a58e2e476748a, type: 3}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: spreadAngle
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletPrefab
