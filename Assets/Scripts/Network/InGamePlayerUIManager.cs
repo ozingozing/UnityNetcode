@@ -35,7 +35,7 @@ public class InGamePlayerUIManager : MonoBehaviour
 		PlayerStats.OnPlayerSpawn -= OnplayerSpanwed;
 	}
 
-	private void OnplayerSpanwed(GameObject player)
+	private void OnplayerSpanwed(object sender, GameObject player)
 	{
 		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
 		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player);

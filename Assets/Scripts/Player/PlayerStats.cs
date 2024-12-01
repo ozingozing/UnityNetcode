@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using TMPro;
 using Unity.Collections;
@@ -11,8 +12,9 @@ using UnityEngine;
 
 public class PlayerStats : NetworkBehaviour
 {
-	public static Action<GameObject> OnPlayerSpawn;
-	public static Action<GameObject> OnPlayerDespawn;
+	public static event EventHandler<GameObject> OnPlayerSpawn;
+	public static event EventHandler OnPlayerReSpawn;
+	public static event EventHandler<GameObject> OnPlayerDespawn;
 
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
@@ -27,63 +29,49 @@ public class PlayerStats : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
-		OnPlayerSpawn?.Invoke(this.gameObject);
-		//DefaultWeaponSet
-		SetWeaponActive(currentWeaponIndex);
-		//DefaultSet
 
 		//서버 아니면 쳐내고
-		if (!IsServer) return;
-        kills.Value = 0;
-        deaths.Value = 0;
+		if (IsServer)
+		{
+			kills.Value = 0;
+			deaths.Value = 0;
 
-		/*PosSet값이 적용이 안됐을거임
-		 *여기서 1번 더 작업*/
-		// 클라이언트에 위치 동기화 요청
-		UpdatePositionClientRpc(NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint());
+			UpdatePositionClientRpc(NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint());
 
-		//NetworkObjectId가 있는 클라한테만 전송
-		GetNameClientRpc(
-            new ClientRpcParams {
-                Send = new ClientRpcSendParams {
-                    TargetClientIds = new ulong[] {GetComponent<NetworkObject>().OwnerClientId},
-                }
-            }    
-        );
-
+			GetNameClientRpc();
+		}
+		SetWeaponActive(currentWeaponIndex);
+		
 		base.OnNetworkSpawn();
 	}
 
 	public override void OnNetworkDespawn()
 	{
+		OnPlayerDespawn?.Invoke(this, gameObject);
 		base.OnNetworkDespawn();
-		OnPlayerDespawn?.Invoke(this.gameObject);
 	}
 
 	// 클라이언트에서 위치를 업데이트하는 RPC
 	[ClientRpc]
 	public void UpdatePositionClientRpc(Vector3 newPosition)
 	{
-		/*GetComponent<Rigidbody>().useGravity = false;
-		GetComponent<CapsuleCollider>().enabled = false;*/
-
-		// 클라이언트에서 위치를 설정
+		gameObject.SetActive(true);
+		IsDead = false;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().position = newPosition;
 		transform.position = newPosition;
-		GetComponent<Rigidbody>().MovePosition(newPosition);
-
-		/*GetComponent<Rigidbody>().useGravity = true;
-		GetComponent<CapsuleCollider>().enabled = true;*/
 	}
 
 
 	//자신 이름과 LobbyId를 바로 ServerRpc로 보냄
 	[ClientRpc]
-    public void GetNameClientRpc(ClientRpcParams clientRpcParams = default)
+    public void GetNameClientRpc()
     {
 		ulong playerId = GetComponent<NetworkObject>().OwnerClientId;
-		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == AuthenticationService.Instance.PlayerId).Value.playerCharacterImage;
+		string playerLobbyId = AuthenticationService.Instance.PlayerId;
 
-        GetNameServerRpc(EditPlayerName.Instance.GetPlayerName(), AuthenticationService.Instance.PlayerId);
+		if(IsOwner)
+			GetNameServerRpc(EditPlayerName.Instance.GetPlayerName(), playerLobbyId);
 	}
 
     //받은 값으로 최신화
@@ -92,20 +80,23 @@ public class PlayerStats : NetworkBehaviour
     {
         this.Name.Value = Name;
 
-		ulong playerId = GetComponent<NetworkObject>().OwnerClientId;
-        PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == id).Value.playerCharacterImage;
+		List<ulong> targetClientIds = 
+			NetworkManager.Singleton.ConnectedClients
+			.Where(var => var.Key != NetworkManager.ServerClientId)
+			.Select(var => var.Key)
+			.ToList();
+
+		SendNameToClientRpc(id);
 	}
 
-	private void Start()
+	[ClientRpc]
+	public void SendNameToClientRpc(string clientLobbyId)
 	{
-        CombatManager.Instance.Respawn += TurnOnMesh;
+		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == clientLobbyId).Value.playerCharacterImage;
+
+		OnPlayerSpawn?.Invoke(this, gameObject);
 	}
 
-	public override void OnDestroy()
-	{
-		CombatManager.Instance.Respawn -= TurnOnMesh;
-		base.OnDestroy();
-	}
 
 	private void Update()
 	{
@@ -130,39 +121,20 @@ public class PlayerStats : NetworkBehaviour
     }
 
     public void AddDeath()
-    {
-        if (NetworkManager.Singleton.IsServer)
-        {
+	{
+		if (IsOwner)
+		{
+			if (IsDead) return;
+			IsDead = true;
+			gameObject.SetActive(false);
+		}
+		
+		if (NetworkManager.Singleton.IsServer)
+		{
 			deaths.Value++;
+			RespawnPlayer();
 		}
 	}
-
-    [ClientRpc]
-    public void TurnOffMeshClientRpc()
-    {
-        gameObject.SetActive(false);
-	}
-
-	public void TurnOnMesh(object sender, System.EventArgs e)
-    {
-        //TurnOnMeshServerRpc();
-        TurnOnMeshClientRpc();
-	}
-
-    [ServerRpc]
-	public void TurnOnMeshServerRpc()
-	{
-        TurnOnMeshClientRpc();
-	}
-
-    [ClientRpc]
-	public void TurnOnMeshClientRpc()
-    {
-		/*MeshLOD.gameObject.SetActive(true);
-		M4MeshRender.enabled = true;*/
-		gameObject.SetActive(true);
-		IsDead = false;
-    }
 
     public void SetWeaponActive(int index)
     {
@@ -197,12 +169,10 @@ public class PlayerStats : NetworkBehaviour
 	// 플레이어가 죽었을 때 리스폰하는 로직 (Respawn 기능)
 	public void RespawnPlayer()
 	{
-		IsDead = true;
-		if (IsServer)
-		{
-			// 서버에서 새로운 위치를 할당하고, 플레이어를 리스폰시킴
-			Vector3 respawnPosition = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
-			UpdatePositionClientRpc(respawnPosition);
-		}
+		if (IsOwner) IsDead = false;
+
+		// 서버에서 새로운 위치를 할당하고, 플레이어를 리스폰시킴
+		Vector3 respawnPosition = NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint();
+		UpdatePositionClientRpc(respawnPosition);
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -12,40 +13,26 @@ public class PlayerHealth : NetworkBehaviour, IHealth
 
 	[SerializeField] private int currentHealth;
 	[SerializeField] private int SetHealth;
-
-	NetworkObject networkObject;
-
-
+	PlayerStats playerStats;
 	private void Awake()
 	{
-		networkObject = GetComponent<NetworkObject>();
+		playerStats = GetComponent<PlayerStats>();
 	}
 
 	private void Start()
 	{
-		CombatManager.Instance.Respawn += InitializePlayerHealth;
+		playerStats.deaths.OnValueChanged += Test;
+		currentHealth = SetHealth;
+	}
+
+	private void Test(int previousValue, int newValue)
+	{
 		currentHealth = SetHealth;
 	}
 
 	public void InitializePlayerHealth(object sender, System.EventArgs e)
 	{
 		currentHealth = SetHealth;
-	}
-
-	/*Test Func*/
-	public void TakeDamage(int amount)
-	{
-		if (currentHealth > 0)
-		{
-			currentHealth -= amount;
-			Debug.Log(currentHealth);
-			if (currentHealth <= 0)
-			{
-				Debug.Log("Dead!!!!!!!!");
-				if (IsServer)
-					networkObject.Despawn();
-			}
-		}
 	}
 
 	public void TakeDamage(int amount, GameObject attacker)

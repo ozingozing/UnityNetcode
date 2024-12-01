@@ -20,14 +20,10 @@ public class CombatManager : MonoBehaviour
 		ulong killerId = killer.GetComponentInParent<NetworkObject>().OwnerClientId;
 		ulong victimId = victim.GetComponentInParent<NetworkObject>().OwnerClientId;
 
-
-		
 		if (NetworkManager.Singleton.IsServer)
 		{
-			DieClientSet(victim);
 			var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerStats>();
 			var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerStats>();
-			//NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerStats>().RespawnPlayer();
 
 			if (killerStats != null)
 			{
@@ -41,7 +37,7 @@ public class CombatManager : MonoBehaviour
 		}
 	}
 
-	public void DieClientSet(GameObject victiom)
+	/*public void DieClientSet(GameObject victiom)
 	{
 		//victiom.GetComponent<PlayerStats>().IsDead = true;
 		victiom.GetComponent<PlayerStats>().RespawnPlayer();
@@ -55,5 +51,5 @@ public class CombatManager : MonoBehaviour
 		yield return new WaitForSeconds(delay); // delay 만큼 대기
 
 		Respawn?.Invoke(this, EventArgs.Empty); // Respawn 이벤트 실행
-	}
+	}*/
 }

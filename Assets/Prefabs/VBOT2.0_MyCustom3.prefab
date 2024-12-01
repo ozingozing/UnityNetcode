@@ -3830,7 +3830,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.35
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -4060,8 +4060,8 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.1
-  RotAngleThreshold: 0.1
+  PositionThreshold: 0.01
+  RotAngleThreshold: 0.01
   ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
@@ -4812,6 +4812,10 @@ PrefabInstance:
       propertyPath: spreadAngle
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 8536363173960644836, guid: 784703f167ebf774cbb086f877731709, type: 3}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: bulletPerShot
       value: 5
