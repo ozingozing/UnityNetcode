@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Invector.vCharacterController
 {
-    public class vThirdPersonInput : NetworkBehaviour
+    public class vThirdPersonInput : MonoBehaviour
     {
         #region Variables       
 
@@ -62,7 +62,7 @@ namespace Invector.vCharacterController
 
         protected virtual void Update()
 		{
-			if (!IsOwner) return;
+			//if (!IsOwner) return;
 			InputHandle();                  // update the input methods
             cc.UpdateAnimator();            // updates the Animator Parameters
         }
@@ -90,7 +90,8 @@ namespace Invector.vCharacterController
                 //tpCamera = ThirdPersonCamera.Instance.GetComponent<vThirdPersonCamera>();
                 if (tpCamera == null)
                     return;
-                if (tpCamera && IsLocalPlayer)
+				if (tpCamera)
+				//if(tpCamera && IsLocalPlayer)
                 {
                     tpCamera.SetMainTarget(aimStateManager.transform);
 					tpCamera.Init();
@@ -103,18 +104,12 @@ namespace Invector.vCharacterController
             if(!Input.GetKey(KeyCode.Mouse1))
             {
 				cc.isStrafing = false;
-				/*//custom func
-				ChangeAnimationLayerWieght(1, 0);
-				*/
 				thirdPersonCamera.gameObject.SetActive(true);
 				adsVirtualCamera.gameObject.SetActive(false);
             }
 			else
             {
                 cc.isStrafing = true;
-				/*//custom func
-                //ChangeAnimationLayerWieght(1, 1);
-                */
 				thirdPersonCamera.gameObject.SetActive(false);
 				adsVirtualCamera.gameObject.SetActive(true);
 				movementStateManager.PlayerAdsMove();

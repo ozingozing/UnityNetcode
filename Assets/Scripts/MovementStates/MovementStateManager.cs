@@ -28,10 +28,24 @@ public class MovementStateManager : MonoBehaviour
 		SwitchState(Idle);
 	}
 
-	private void Update()
+	public void OnEnable()
+	{
+		StartCoroutine(PlayerAdsMoveUpdate());
+	}
+
+	IEnumerator PlayerAdsMoveUpdate()
+	{
+		while (true)
+		{
+			yield return null;
+			PlayerAdsMove();
+		}
+	}
+
+	/*private void Update()
 	{
 		PlayerAdsMove();
-	}
+	}*/
 
 	public void PlayerAdsMove()
 	{

@@ -17,23 +17,20 @@ public class WeaponRecoil : MonoBehaviour
 		weaponManager = GetComponent<GunBase>();
 	}
 
-	// Update is called once per frame
-	void Update()
-    {
-		//currentRecoilPosition = Mathf.Lerp(currentRecoilPosition, 0, returnSpeed * Time.deltaTime); 
-		//finalRecoilPosition = Mathf.Lerp(finalRecoilPosition, currentRecoilPosition, kickBackSpeed * Time.deltaTime);
-		/*currentRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, 0, ref velocity, 1 / returnSpeed);
-		finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
-		recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
-		*/
-		//weaponManager.muzzleFlashLight.intensity = Mathf.Lerp(weaponManager.muzzleFlashLight.intensity, 0, weaponManager.lightReturnSpeed * Time.deltaTime);
+	private void OnEnable()
+	{
+		StartCoroutine(WeaponRecoilAction());
 	}
 
-	private void FixedUpdate()
+	IEnumerator WeaponRecoilAction()
 	{
-		currentRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, 0, ref velocity, 1 / returnSpeed);
-		finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
-		recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
+		while (true)
+		{
+			yield return null;
+			currentRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, 0, ref velocity, 1 / returnSpeed);
+			finalRecoilPosition = Mathf.SmoothDamp(currentRecoilPosition, finalRecoilPosition, ref velocity, 1 / kickBackSpeed);
+			recolFollowPos.localPosition = new Vector3(0, 0, finalRecoilPosition);
+		}
 	}
 
 	public void TriggerRecoil() => currentRecoilPosition += kickBackAmount;

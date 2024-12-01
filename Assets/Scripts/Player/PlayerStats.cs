@@ -1,3 +1,4 @@
+using Invector.vCharacterController;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ public class PlayerStats : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
+		if(IsOwner && IsLocalPlayer)
+		{
+			GetComponent<vThirdPersonInput>().enabled = true;
+		}
 		GetComponent<Rigidbody>().isKinematic = false;
 		SetWeaponActive(currentWeaponIndex);
 		StartCoroutine(WeaponSwape());

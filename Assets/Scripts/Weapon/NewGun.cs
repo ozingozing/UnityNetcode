@@ -30,6 +30,7 @@ namespace ChocoOzing
 				if (ShouldFire() && fireRateTimer >= fireRate)
 				{
 					BarrelPositionReadyAction();
+					FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
 					weaponRecoil.TriggerRecoil();
 					fireRateTimer = 0;
 				}
@@ -37,14 +38,14 @@ namespace ChocoOzing
 			}
 		}
 		
-		private void FixedUpdate()
+		/*private void FixedUpdate()
 		{
 			if(canShoot)
 			{
 				FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
 				canShoot = false;
 			}
-		}
+		}*/
 
 		/// <summary>
 		/// 클라이언트에서 서버로 발사 요청을 전달
