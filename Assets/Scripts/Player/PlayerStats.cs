@@ -26,9 +26,12 @@ public class PlayerStats : NetworkBehaviour
     [SerializeField] private GameObject[] weaponPrefabs;
     private int currentWeaponIndex = 0;
 
+
 	public override void OnNetworkSpawn()
 	{
 		GetComponent<Rigidbody>().isKinematic = false;
+		SetWeaponActive(currentWeaponIndex);
+		StartCoroutine(WeaponSwape());
 		//서버 아니면 쳐내고
 		if (IsServer)
 		{
@@ -39,8 +42,7 @@ public class PlayerStats : NetworkBehaviour
 
 			GetNameClientRpc();
 		}
-		SetWeaponActive(currentWeaponIndex);
-		
+
 		base.OnNetworkSpawn();
 	}
 
@@ -94,18 +96,20 @@ public class PlayerStats : NetworkBehaviour
 		OnPlayerSpawn?.Invoke(this, gameObject);
 	}
 
-
-	private void Update()
+	IEnumerator WeaponSwape()
 	{
-        if (!IsOwner) return;
-
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-			EquipWeaponServerRpc(0);
-		}
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+		if(!IsOwner) yield break;
+		while (true)
 		{
-			EquipWeaponServerRpc(1);
+			yield return null;
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				EquipWeaponServerRpc(0);
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				EquipWeaponServerRpc(1);
+			}
 		}
 	}
 

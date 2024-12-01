@@ -14,12 +14,9 @@ namespace Invector.vCharacterController
                 transform.rotation = animator.rootRotation;
             }
 
-            /*if (useRootMotion)
-                MoveCharacter(moveDirection);*/
             if (useRootMotion)
-                MoveCharacterServerRpc(moveDirection);
-
-		}
+                MoveCharacter(moveDirection);
+        }
 
         public virtual void ControlLocomotionType()
         {
@@ -38,7 +35,7 @@ namespace Invector.vCharacterController
             }
 
             if (!useRootMotion)
-				MoveCharacterServerRpc(moveDirection);
+				MoveCharacter(moveDirection);
         }
 
         public virtual void ControlRotationType()
@@ -53,9 +50,9 @@ namespace Invector.vCharacterController
                 inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
                 Vector3 dir = (isStrafing && (!isSprinting || sprintOnlyFree == false) || (freeSpeed.rotateWithCamera && input == Vector3.zero)) && rotateTarget ? rotateTarget.forward : moveDirection;
-                RotateToDirection(dir);
-            }
-        }
+				RotateToDirection(dir);
+			}
+		}
 
         public virtual void UpdateMoveDirection(Transform referenceTransform = null)
         {

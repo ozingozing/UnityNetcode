@@ -57,12 +57,4 @@ public class PlayerKDA : MonoBehaviour
 		NameUI.text = newValue.ToString();	
 	}
 
-	/*private void Update()
-	{
-		if (player != null)
-		{
-			transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
-			return;
-		}
-	}*/
 }

@@ -80,6 +80,7 @@ namespace ChocoOzing
 		{
 			CamManager.Instance.MapViewCam.Priority = 0;
 			StartCoroutine(PlayerActionUpdate());
+			StartCoroutine(AimLateUpdate());
 		}
 
 
@@ -106,15 +107,31 @@ namespace ChocoOzing
 				yield return null;
 			}
 		}
+		
+		IEnumerator AimLateUpdate()
+		{
+			while(true)
+			{
+				if (IsLocalPlayer)
+				{
+					if (IsAiming)
+					{
+						camFollowPos.localEulerAngles = new Vector3(yAxis, camFollowPos.localEulerAngles.y, camFollowPos.localEulerAngles.z);
+						transform.eulerAngles = new Vector3(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
+					}
+				}
+				yield return null;
+			}
+		}
 
-		private void LateUpdate()
+		/*private void LateUpdate()
 		{
 			if (IsAiming)
 			{
 				camFollowPos.localEulerAngles = new Vector3(yAxis, camFollowPos.localEulerAngles.y, camFollowPos.localEulerAngles.z);
 				transform.eulerAngles = new Vector3(transform.eulerAngles.x, xAxis, transform.eulerAngles.z);
 			}
-		}
+		}*/
 
 		public void ShotGunReloadAction()
 		{
@@ -156,83 +173,6 @@ namespace ChocoOzing
 			currentState.ExitState(this);
 			currentState = state;
 			currentState.EnterState(this);
-		}
-
-		[ServerRpc]
-		public void UpdateAdsOffsetServerRpc(float newOffset)
-		{
-			if(Mathf.Abs(bodyRig.data.offset.y - newOffset) > 0.1f)
-			{
-				bodyRig.data.offset = new Vector3(0, newOffset, 0);
-				UpdateAdsOffsetClientRpc(newOffset);
-			}
-		}
-		
-		[ClientRpc]
-		public void UpdateAdsOffsetClientRpc(float newOffset)
-		{
-			bodyRig.data.offset = new Vector3(0, newOffset, 0);
-		}
-
-		[ServerRpc]
-		public void UpdateRigWeightServerRPC(float newWeight)
-		{
-			if(Mathf.Abs(rig.weight - newWeight) > 0.5f)
-			{
-				rig.weight = newWeight;
-				UpdateRigWeightClientRPC(newWeight);
-			}
-		}
-		[ClientRpc]
-		public void UpdateRigWeightClientRPC(float newWeight)
-		{
-			rig.weight = newWeight;
-		}
-
-		/*
-		 * This is an issue with this Func
-		 * It calls ServerRpc, followed by CLientRpc.
-		 * When I Set the value to cahane in ClientRpc when
-		 * !IsOwner, the changed values is not apllied to other clients;
-		 */
-		/*[ServerRpc]
-		public void UpdateRigWeightServerRPC(float newWeight)
-		{
-			if (rig.weight != newWeight) // 값이 달라졌을 때만 처리
-			{
-				rig.weight = newWeight;
-				UpdateRigWeightClientRPC(newWeight);
-			}
-		}
-
-		[ClientRpc]
-		public void UpdateRigWeightClientRPC(float newWeight)
-		{
-			if(!IsOwner)
-				rig.weight = newWeight;
-		}*/
-
-		[ServerRpc]
-		public void UpdateRightHandRigWeightServerRPC(float newWeight)
-		{
-			if (Mathf.Abs(rHandAim.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD ||
-			Mathf.Abs(rHandAimTwoBone.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD ||
-			Mathf.Abs(bodyRig.weight - newWeight) > WEIGHT_UPDATE_THRESHOLD)
-			{
-				rHandAim.weight = newWeight;
-				rHandAimTwoBone.weight = newWeight;
-				bodyRig.weight = newWeight;
-				UpdateRightHandRigWeightClientRPC(newWeight);
-			}
-			
-		}
-
-		[ClientRpc]
-		public void UpdateRightHandRigWeightClientRPC(float newWeight)
-		{
-			rHandAim.weight = newWeight;
-			rHandAimTwoBone.weight = newWeight;
-			bodyRig.weight = newWeight;
 		}
 	}
 }

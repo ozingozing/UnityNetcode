@@ -4008,7 +4008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4283848011
+  GlobalObjectIdHash: 462042434
   InScenePlacedSourceGlobalObjectIdHash: 462042434
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -4061,8 +4061,8 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.1
-  RotAngleThreshold: 0.1
+  PositionThreshold: 0.3
+  RotAngleThreshold: 0.3
   ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
@@ -4682,6 +4682,10 @@ PrefabInstance:
       propertyPath: ImpactType
       value: 
       objectReference: {fileID: 11400000, guid: ffa1bb91b5ee30148af8f42602e11f82, type: 2}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: spreadAngle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: gunShootVolum
       value: 0.25

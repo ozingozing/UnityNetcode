@@ -178,12 +178,10 @@ namespace Invector.vCharacterController
                 moveSpeed = Mathf.Lerp(moveSpeed, isSprinting ? speed.sprintSpeed : speed.runningSpeed, speed.movementSmooth * Time.deltaTime);
         }
 
-        [ServerRpc]
-        public virtual void MoveCharacterServerRpc(Vector3 _direction)
+        public virtual void MoveCharacter(Vector3 _direction)
         {
-            MoveCharacterClientRpc(_direction);
-			/*// calculate input smooth
-			inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
+            // calculate input smooth
+            inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
             if (!isGrounded || isJumping) return;
 
@@ -199,31 +197,8 @@ namespace Invector.vCharacterController
 
             bool useVerticalVelocity = true;
             if (useVerticalVelocity) targetVelocity.y = _rigidbody.velocity.y;
-            _rigidbody.velocity = targetVelocity;*/
+            _rigidbody.velocity = targetVelocity;
         }
-        [ClientRpc]
-		void MoveCharacterClientRpc(Vector3 _direction)
-        {
-			// calculate input smooth
-			inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
-
-			if (!isGrounded || isJumping) return;
-
-			_direction.y = 0;
-			_direction.x = Mathf.Clamp(_direction.x, -1f, 1f);
-			_direction.z = Mathf.Clamp(_direction.z, -1f, 1f);
-			// limit the input
-			if (_direction.magnitude > 1f)
-				_direction.Normalize();
-
-			Vector3 targetPosition = (useRootMotion ? animator.rootPosition : _rigidbody.position) + _direction * (stopMove ? 0 : moveSpeed) * Time.deltaTime;
-			Vector3 targetVelocity = (targetPosition - transform.position) / Time.deltaTime;
-
-			bool useVerticalVelocity = true;
-			if (useVerticalVelocity) targetVelocity.y = _rigidbody.velocity.y;
-			_rigidbody.velocity = targetVelocity;
-		}
-
 
 		public virtual void CheckSlopeLimit()
         {
@@ -257,7 +232,7 @@ namespace Invector.vCharacterController
             RotateToDirection(desiredDirection.normalized);
         }
 
-        public virtual void RotateToDirection(Vector3 direction)
+		public virtual void RotateToDirection(Vector3 direction)
         {
             RotateToDirection(direction, isStrafing ? strafeSpeed.rotationSpeed : freeSpeed.rotationSpeed);
         }
