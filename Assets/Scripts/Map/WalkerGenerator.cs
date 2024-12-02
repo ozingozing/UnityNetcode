@@ -45,7 +45,7 @@ public class WalkerGenerator : MonoBehaviour
 	public float height;
 	public float depth;
 	Vector3Int TileCenter;
-	Vector3Int OffSet;
+	Vector3Int BlockSizeOffSet;
 	Vector3[] Directions = {
 			Vector3.down,  // 아래
             Vector3.left,  // 왼쪽
@@ -111,7 +111,8 @@ public class WalkerGenerator : MonoBehaviour
 			GameObject GO = Instantiate(Floor, SpawnFloorPos.Dequeue(), Quaternion.identity, tileMap.transform);
 			GO.GetComponent<NetworkObject>().Spawn();
 
-			if (gridHandler[random.Next(0, MapWidth), random.Next(0, MapHeight)] == Grid.FLOOR
+			if (random.Next(0, 10) == 5
+				&& gridHandler[random.Next(0, MapWidth), random.Next(0, MapHeight)] == Grid.FLOOR
 				&&TempCnt++ < SpawnPointCount)
 			{
 				InGameManager.Instance.NetworkManager.GetComponent<SpawnPoint>().SpawnPoints.Add(GO.transform.position);
@@ -127,7 +128,9 @@ public class WalkerGenerator : MonoBehaviour
 			yield return null;
 		}
 
-		StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - OffSet.x - width / 2, 0, TileCenter.z * depth - OffSet.z - depth / 2)));
+		//StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - BlockSizeOffSet.x - width / 2, 0, TileCenter.z * depth - BlockSizeOffSet.z - depth / 2)));
+		StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width, 0, TileCenter.z * depth) - BlockSizeOffSet));
+
 	}
 
 	public async Task InitializeGrid()
@@ -153,16 +156,13 @@ public class WalkerGenerator : MonoBehaviour
 			Walkers = new List<WalkerObject>();
 
 			TileCenter = new Vector3Int(gridHandler.GetLength(0) / 2, 0, gridHandler.GetLength(1) / 2);
-			OffSet = new Vector3Int(TileCenter.x * (int)width, 0, TileCenter.z * (int)depth);
+			BlockSizeOffSet = new Vector3Int(TileCenter.x * (int)width, 0, TileCenter.z * (int)depth);
 
 			curWalker = new WalkerObject(TileCenter, GetDirection(), 0.5f);
 			gridHandler[TileCenter.x, TileCenter.z] = Grid.FLOOR;
 		
 
-			/*GameObject GO = Instantiate(Floor, new Vector3(TileCenter.x * width - OffSet.x, 50, TileCenter.z * depth - OffSet.z), Quaternion.identity, tileMap.transform);
-			GO.GetComponent<NetworkObject>().Spawn();*/
-			SpawnFloorPos.Enqueue(new Vector3(TileCenter.x * width - OffSet.x, 50, TileCenter.z * depth - OffSet.z));
-
+			SpawnFloorPos.Enqueue(new Vector3(TileCenter.x * width, 50, TileCenter.z * depth) - BlockSizeOffSet);
 			Walkers.Add(curWalker);
 
 			TileCount++;
@@ -177,7 +177,7 @@ public class WalkerGenerator : MonoBehaviour
 		// 각 방향으로 큐브 생성
 		foreach (var direction in Directions)
 		{
-			Vector3 position = pinPoint + direction * TileCenter.x * width; // 중앙에서 각 방향으로 offset만큼 떨어진 위치
+			Vector3 position = pinPoint + direction * TileCenter.x * width - BigWall.GetComponent<Renderer>().bounds.size / 2; // 중앙에서 각 방향으로 offset만큼 떨어진 위치
 			GameObject GO = Instantiate(BigWall, position, Quaternion.identity); // 큐브 인스턴스화
 			
 			if (direction == Vector3.right || direction == Vector3.left)
@@ -220,35 +220,21 @@ public class WalkerGenerator : MonoBehaviour
 		{
 			while ((float)TileCount / (float)gridHandler.Length < FillPercentage)
 			{
-				bool hasCreatedFloor = false;
 				foreach (WalkerObject curWalker in Walkers)
 				{
 					Vector3Int curPos = new Vector3Int((int)curWalker.Position.x, 0, (int)curWalker.Position.z);
-
 					if (gridHandler[curPos.x, curPos.z] != Grid.FLOOR)
 					{
-						Vector3 pos = new Vector3(curPos.x * width - OffSet.x, 50, curPos.z * depth - OffSet.z);
+						Vector3 pos = new Vector3(curPos.x * width, 50, curPos.z * depth) - BlockSizeOffSet;
 						SpawnFloorPos.Enqueue(pos);
-						/*GameObject GO = Instantiate(Floor, pos, Quaternion.identity, tileMap.transform);
-						GO.GetComponent<NetworkObject>().Spawn();*/
-
-						/*if (UnityEngine.Random.value < 0.1f)
-						{
-							if (TempCnt++ < SpawnPointCount)
-							{
-								InGameManager.Instance.NetworkManager.GetComponent<SpawnPoint>().SpawnPoints.Add(pos);
-							}
-						}*/
 
 						TileCount++;
 						gridHandler[curPos.x, curPos.z] = Grid.FLOOR;
-						hasCreatedFloor = true;
 
 						batchCount++;
 						if (batchCount >= batchSize)
 						{
 							batchCount = 0;
-							//yield return new WaitForSeconds(WaitTime);
 						}
 					}
 				}
@@ -258,28 +244,9 @@ public class WalkerGenerator : MonoBehaviour
 				ChanceToRedirect();
 				ChanceToCreate();
 				UpdatePosition();
-
-				if (hasCreatedFloor)
-				{
-					//yield return new WaitForSeconds(WaitTime);
-				}
 			}
 		});
 
-		//Queue에 담아서 처리하는 형식은 local상으론 괜찮은데 Network상에선 데이터 전송에 부하가 생김
-		/*while(SpawnPos.Count > 0)
-		{
-			GameObject GO = Instantiate(Floor, SpawnPos.Dequeue(), Quaternion.identity, tileMap.transform);
-			GO.GetComponent<NetworkObject>().Spawn();
-			batchCount++;
-			if (batchCount >= batchSize)
-			{
-				batchCount = 0;
-				//yield return new WaitForSeconds(WaitTime);
-			}
-		}*/
-
-		//StartCoroutine(CreateWalls());
 		await CreateWalls();
 	}
 
@@ -288,11 +255,6 @@ public class WalkerGenerator : MonoBehaviour
 		int updatedCount = Walkers.Count;
 		for (int i = 0; i < updatedCount; i++)
 		{
-			/*if (UnityEngine.Random.value < Walkers[i].ChanceToChange && Walkers.Count > 1)
-			{
-				Walkers.RemoveAt(i);
-				break;
-			}*/
 			if (random.Next(0,10) * 0.1f < Walkers[i].ChanceToChange && Walkers.Count > 1)
 			{
 				Walkers.RemoveAt(i);
@@ -305,12 +267,6 @@ public class WalkerGenerator : MonoBehaviour
 	{
 		for (int i = 0; i < Walkers.Count; i++)
 		{
-			/*if (UnityEngine.Random.value < Walkers[i].ChanceToChange)
-			{
-				WalkerObject curWalker = Walkers[i];
-				curWalker.Direction = GetDirection();
-				Walkers[i] = curWalker;
-			}*/
 			if (random.Next(0, 10) * 0.1f < Walkers[i].ChanceToChange)
 			{
 				WalkerObject curWalker = Walkers[i];
@@ -325,14 +281,6 @@ public class WalkerGenerator : MonoBehaviour
 		int updatedCount = Walkers.Count;
 		for (int i = 0; i < updatedCount; i++)
 		{
-			/*if (UnityEngine.Random.value < Walkers[i].ChanceToChange && Walkers.Count < MaximumWalkers)
-			{
-				Vector3 newDirection = GetDirection();
-				Vector3 newPosition = Walkers[i].Position;
-
-				WalkerObject newWalker = new WalkerObject(newPosition, newDirection, 0.5f);
-				Walkers.Add(newWalker);
-			}*/
 			if (random.Next(0, 10) * 0.1f < Walkers[i].ChanceToChange && Walkers.Count < MaximumWalkers)
 			{
 				Vector3 newDirection = GetDirection();
@@ -371,67 +319,36 @@ public class WalkerGenerator : MonoBehaviour
 
 						if (gridHandler[x + 1, y] == Grid.EMPTY)
 						{
-							//SpawnPos.Enqueue(new Vector3((x + 1) * width - OffSet.x, 50, y * depth - OffSet.z));
-							wall = new Vector3((x + 1) * width - OffSet.x, 50, y * depth - OffSet.z);
+							wall = new Vector3((x + 1) * width , 50, y * depth) - BlockSizeOffSet;
+
 							SpawnWallPos.Enqueue(wall);
-							/*GameObject GO = Instantiate(Wall, new Vector3((x + 1) * width - OffSet.x, 50, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
-							GO.GetComponent<NetworkObject>().Spawn();*/
 							gridHandler[x + 1, y] = Grid.WALL;
-							//hasCreatedWall = true;
 						}
 						if (gridHandler[x - 1, y] == Grid.EMPTY)
 						{
-							//SpawnPos.Enqueue(new Vector3((x - 1) * width - OffSet.x, 50, y * depth - OffSet.z));
-							wall = new Vector3((x - 1) * width - OffSet.x, 50, y * depth - OffSet.z);
+							wall = new Vector3((x - 1) * width, 50, y * depth) - BlockSizeOffSet;
+
 							SpawnWallPos.Enqueue(wall);
-							/*GameObject GO = Instantiate(Wall, new Vector3((x - 1) * width - OffSet.x, 50, y * depth - OffSet.z), Quaternion.identity, tileMap.transform);
-							GO.GetComponent<NetworkObject>().Spawn();*/
 							gridHandler[x - 1, y] = Grid.WALL;
-							//hasCreatedWall = true;
 						}
 						if (gridHandler[x, y + 1] == Grid.EMPTY)
 						{
-							//SpawnPos.Enqueue(new Vector3(x * width - OffSet.x, 50, (y + 1) * depth - OffSet.z));
-							wall = new Vector3(x * width - OffSet.x, 50, (y + 1) * depth - OffSet.z);
+							wall = new Vector3(x * width, 50, (y + 1) * depth) - BlockSizeOffSet;
+
 							SpawnWallPos.Enqueue(wall);
-							/*GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, 50, (y + 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
-							GO.GetComponent<NetworkObject>().Spawn();*/
 							gridHandler[x, y + 1] = Grid.WALL;
-							//hasCreatedWall = true;
 						}
 						if (gridHandler[x, y - 1] == Grid.EMPTY)
 						{
-							//SpawnPos.Enqueue(new Vector3(x * width - OffSet.x, 50, (y - 1) * depth - OffSet.z));
-							wall = new Vector3(x * width - OffSet.x, 50, (y - 1) * depth - OffSet.z);
-							SpawnWallPos.Enqueue(wall);
-							/*GameObject GO = Instantiate(Wall, new Vector3(x * width - OffSet.x, 50, (y - 1) * depth - OffSet.z), Quaternion.identity, tileMap.transform);
-							GO.GetComponent<NetworkObject>().Spawn();*/
-							gridHandler[x, y - 1] = Grid.WALL;
-							//hasCreatedWall = true;
-						}
+							wall = new Vector3(x * width, 50, (y - 1) * depth) - BlockSizeOffSet;
 
-						/*if (hasCreatedWall)
-						{
-							yield return new WaitForSeconds(WaitTime);
-						}*/
+							SpawnWallPos.Enqueue(wall);
+							gridHandler[x, y - 1] = Grid.WALL;
+						}
 					}
 				}
 			}
 		});
-
-		/*while(SpawnPos.Count > 0)
-		{
-			GameObject GO = Instantiate(Wall, SpawnPos.Dequeue(), Quaternion.identity, tileMap.transform);
-			GO.GetComponent<NetworkObject>().Spawn(); batchCount++;
-			if (batchCount >= batchSize)
-			{
-				batchCount = 0;
-				yield return new WaitForSeconds(WaitTime);
-			}
-		}*/
-
-		//TODO: Create Deadline
-		//StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - OffSet.x, 0, TileCenter.z * depth - OffSet.z)));
 	}
 
 }
