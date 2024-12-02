@@ -33,6 +33,9 @@ public class PlayerStats : NetworkBehaviour
 		if(IsOwner && IsLocalPlayer)
 		{
 			GetComponent<vThirdPersonInput>().enabled = true;
+			//Debug Grid
+			GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
+			//Debug Grid
 		}
 		GetComponent<Rigidbody>().isKinematic = false;
 		SetWeaponActive(currentWeaponIndex);
