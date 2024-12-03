@@ -46,6 +46,8 @@ namespace Invector.vCharacterController
 
 		//Server Specific
 		[SerializeField] private float maxPositionError = 0.5f;
+		private float lastReceivedServerTime = 0; // 서버로부터 받은 마지막 데이터의 시간
+		private const float extrapolationThreshold = 0.05f; // 외삽을 적용할 최소 시간 (100ms 이상 지연되었을 때)
 
 		private void Awake()
 		{
@@ -77,15 +79,50 @@ namespace Invector.vCharacterController
 				currentTick++;
 				time -= tickTime;
 
-				cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-				cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
-				cc.ControlRotationType();       // handle the controller rotation type
-
+				if(currentTick <= 2)
+				{
+					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+					cc.ControlRotationType();       // handle the controller rotation type
+				}
 				MOVE();
 			} 
 		}
 
 		public void MOVE()
+		{
+			float deltaTime = Time.time - lastReceivedServerTime; // 현재 시간에서 마지막으로 받은 서버 데이터 시간 차이
+			// 서버로부터 받은 위치와 회전 보간
+			clientMovementDatas[currentTick % BUFFERSIZE] = new MovementData
+			{
+				tick = currentTick,
+				position = transform.position,
+				rotation = transform.rotation,
+				rbVelocity = cc._rigidbody.velocity,
+				angularVelocity = cc._rigidbody.angularVelocity,
+			};
+
+			// 현재 서버에서 받은 데이터를 기준으로 외삽
+			if (currentTick > 2)
+			{
+				// 보간처리
+				MoveServerRPC(clientMovementDatas[currentTick % BUFFERSIZE], clientMovementDatas[(currentTick - 1) % BUFFERSIZE]);
+
+				// 서버로부터 Rpc받은 시간이
+				// extrapolationThreshold보다 경과가 지났을 경우 외삽처리
+				if (deltaTime > extrapolationThreshold)
+				{
+					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+					cc.ControlRotationType();       // handle the controller rotation type
+				}
+
+				currentTick = 0;
+			}
+		}
+
+		// 보간처리
+		/*public void MOVE()
 		{
 			clientMovementDatas[currentTick % BUFFERSIZE] = new MovementData
 			{
@@ -102,7 +139,7 @@ namespace Invector.vCharacterController
 				MoveServerRPC(clientMovementDatas[currentTick % BUFFERSIZE], clientMovementDatas[(currentTick - 1) % BUFFERSIZE]);
 				currentTick = 0;
 			}
-		}
+		}*/
 
 		protected virtual void Update()
 		{
@@ -232,8 +269,8 @@ namespace Invector.vCharacterController
 		{
 			if (Vector3.Distance(lastMovementData.position, currentMovementData.position) > maxPositionError)
 			{
-				Debug.Log("Position Error!!!");
-				Debug.Log("Start!!! ClientSidePrediction / ServerReconciliation");
+				//Debug.Log("Position Error!!!");
+				//Debug.Log("Start!!! ClientSidePrediction / ServerReconciliation");
 				ReconciliateClientRPC(currentMovementData.tick);
 			}
 		}
@@ -241,6 +278,9 @@ namespace Invector.vCharacterController
 		[ClientRpc]
 		private void ReconciliateClientRPC(int activationTick)
 		{
+			// 서버가 클라이언트에게 언제 데이터를 보냈는지 기록 (외삽을 위한 기준)
+			lastReceivedServerTime = Time.time;
+
 			// 올바른 위치, 속도, 회전 데이터를 사용하여 보정
 			Vector3 correctPosition = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].position;
 			Vector3 correctRbVelocity = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].rbVelocity;
@@ -252,7 +292,7 @@ namespace Invector.vCharacterController
 			float rotationLerpSpeed = 180f;
 
 			// 위치 보간: SmoothDamp
-			float smoothDampSpeed = 10f;  // SmoothDamp에 적용할 속도
+			float smoothDampSpeed = 3f;  // SmoothDamp에 적용할 속도
 			Vector3 velocity = Vector3.zero;  // SmoothDamp의 속도를 제어할 변수
 			Physics.simulationMode = SimulationMode.Script;
 			transform.position = Vector3.SmoothDamp(transform.position, correctPosition, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
@@ -271,7 +311,7 @@ namespace Invector.vCharacterController
 
 			// 보정 후 새로운 이동 데이터를 업데이트
 			clientMovementDatas[activationTick % BUFFERSIZE].position = transform.position;
-			clientMovementDatas[(activationTick - 1) % BUFFERSIZE].rotation = transform.rotation;
+			clientMovementDatas[activationTick % BUFFERSIZE].rotation = transform.rotation;
 			clientMovementDatas[activationTick % BUFFERSIZE].angularVelocity = rb.angularVelocity; // 각속도 보정
 			clientMovementDatas[activationTick % BUFFERSIZE].rbVelocity = rb.velocity; // 물리 속도 보정
 		}
