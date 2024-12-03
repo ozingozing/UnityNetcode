@@ -34,7 +34,7 @@ public class PlayerStats : NetworkBehaviour
 		{
 			GetComponent<vThirdPersonInput>().enabled = true;
 			//Debug Grid
-			GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
+			//GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
 			//Debug Grid
 		}
 		GetComponent<Rigidbody>().isKinematic = false;

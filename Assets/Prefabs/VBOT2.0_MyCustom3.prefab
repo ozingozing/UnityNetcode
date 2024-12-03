@@ -3677,8 +3677,8 @@ GameObject:
   - component: {fileID: 4022420121716495385}
   - component: {fileID: 5809715217145361091}
   - component: {fileID: 6295585084772041961}
-  - component: {fileID: 9121510604555533350}
   - component: {fileID: 2697245886532436947}
+  - component: {fileID: 9121510604555533350}
   - component: {fileID: 8544650295593193462}
   - component: {fileID: -2655918395739160061}
   - component: {fileID: 5832200183334975902}
@@ -3944,6 +3944,27 @@ MonoBehaviour:
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
+--- !u!114 &2697245886532436947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8358111469727087111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 462042434
+  InScenePlacedSourceGlobalObjectIdHash: 462042434
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &9121510604555533350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3957,7 +3978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalInput: Horizontal
-  verticallInput: Vertical
+  verticalInput: Vertical
   jumpInput: 32
   strafeInput: 9
   sprintInput: 304
@@ -3966,27 +3987,6 @@ MonoBehaviour:
   cc: {fileID: 0}
   tpCamera: {fileID: 0}
   cameraMain: {fileID: 0}
---- !u!114 &2697245886532436947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358111469727087111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4283848011
-  InScenePlacedSourceGlobalObjectIdHash: 462042434
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &8544650295593193462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3999,7 +3999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 1
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -4009,15 +4009,15 @@ MonoBehaviour:
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
-  PositionThreshold: 0.35
-  RotAngleThreshold: 0.35
+  PositionThreshold: 0.1
+  RotAngleThreshold: 0.1
   ScaleThreshold: 1
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 1
+  UseHalfFloatPrecision: 0
   InLocalSpace: 0
   Interpolate: 1
-  SlerpPosition: 1
+  SlerpPosition: 0
 --- !u!114 &-2655918395739160061
 MonoBehaviour:
   m_ObjectHideFlags: 0

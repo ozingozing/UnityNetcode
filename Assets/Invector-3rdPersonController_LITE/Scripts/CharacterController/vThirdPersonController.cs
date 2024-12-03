@@ -38,7 +38,7 @@ namespace Invector.vCharacterController
 				MoveCharacter(moveDirection);
         }
 
-        public virtual void ControlRotationType()
+		public virtual void ControlRotationType()
         {
             if (lockRotation) return;
 
