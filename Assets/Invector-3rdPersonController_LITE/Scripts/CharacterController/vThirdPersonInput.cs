@@ -27,7 +27,7 @@ namespace Invector.vCharacterController
 
 		//추가
 		private Rigidbody rb;
-		private MovementStateManager movementStateManager;
+		//private MovementStateManager movementStateManager;
 		private AimStateManager aimStateManager;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
@@ -52,7 +52,7 @@ namespace Invector.vCharacterController
 		private void Awake()
 		{
 			rb = GetComponent<Rigidbody>();
-			movementStateManager = GetComponent<MovementStateManager>();
+			//movementStateManager = GetComponent<MovementStateManager>();
 			aimStateManager = GetComponent<AimStateManager>();
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
@@ -191,7 +191,7 @@ namespace Invector.vCharacterController
 				cc.isStrafing = true;
 				thirdPersonCamera.gameObject.SetActive(false);
 				adsVirtualCamera.gameObject.SetActive(true);
-				movementStateManager.PlayerAdsMove();
+				//movementStateManager.PlayerAdsMove();
 			}
 			MoveInput();
 			CameraInput();

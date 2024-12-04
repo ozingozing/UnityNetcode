@@ -19,7 +19,7 @@ public abstract class GunBase : NetworkBehaviour
 	public AimStateManager aim;
 	public WeaponAmmo ammo;
 	public WeaponRecoil weaponRecoil;
-	public MovementStateManager moveStateManager;
+	public MyPlayer myPlayer;
 
 	// Fire Rate
 	public float fireRate;
@@ -63,7 +63,7 @@ public abstract class GunBase : NetworkBehaviour
 		weaponRecoil = GetComponent<WeaponRecoil>();
 		ammo = GetComponent<WeaponAmmo>();
 		aim = GetComponentInParent<AimStateManager>();
-		moveStateManager = GetComponentInParent<MovementStateManager>();
+		myPlayer = GetComponentInParent<MyPlayer>();
 
 		audioSource = GetComponentInParent<AudioSource>();
 	}
@@ -81,7 +81,7 @@ public abstract class GunBase : NetworkBehaviour
 	public void BarrelPositionReadyAction()
 	{
 		barrelPos.LookAt(aim.aimPos);
-		barrelPos.localEulerAngles = BloomAngle(barrelPos, moveStateManager, aim);
+		barrelPos.localEulerAngles = BloomAngle(barrelPos, myPlayer, aim);
 		canShoot = true;
 	}
 
@@ -126,17 +126,17 @@ public abstract class GunBase : NetworkBehaviour
 		}
 	}
 
-	public virtual Vector3 BloomAngle(Transform barrelPos, MovementStateManager currentState, AimStateManager aimState)
+	public virtual Vector3 BloomAngle(Transform barrelPos, MyPlayer currentState, AimStateManager aimState)
 	{
-		if (currentState.currentState == currentState.Walk)
+		if (currentState.StateMachine.CurrentState == currentState.WalkState)
 		{
 			currentBloom = defaultBloomAngle * walkBloomMultiplier;
 		}
-		else if (currentState.currentState == currentState.Run)
+		else if (currentState.StateMachine.CurrentState == currentState.RunState)
 		{
 			currentBloom = defaultBloomAngle * sprintBloomMultiplier;
 		}
-		else if (currentState.currentState == currentState.Idle)
+		else if (currentState.StateMachine.CurrentState == currentState.IdleState)
 		{
 			currentBloom = defaultBloomAngle * adsBloomMultiplier;
 		}

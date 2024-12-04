@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementStateManager : MonoBehaviour
 {
-    public float currentMoveSpeed = 3;
+    /*public float currentMoveSpeed = 3;
     public float walkSpeed = 3, walkBackSpeed = 2;
     public float runSpeed = 7, runBackSpeed = 5;
 	
@@ -42,10 +42,10 @@ public class MovementStateManager : MonoBehaviour
 		}
 	}
 
-	/*private void Update()
+	*//*private void Update()
 	{
 		PlayerAdsMove();
-	}*/
+	}*//*
 
 	public void PlayerAdsMove()
 	{
@@ -65,5 +65,5 @@ public class MovementStateManager : MonoBehaviour
 	{
 		Vector3 moveVelocity = dir.normalized * currentMoveSpeed;
 		rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
-	}
+	}*/
 }
