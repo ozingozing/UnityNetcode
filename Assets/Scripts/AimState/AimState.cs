@@ -4,30 +4,36 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using ChocoOzing;
 using Cinemachine;
+using Unity.Burst.Intrinsics;
 
-public class AimState : AimBaseState
+public class AimState : PlayerGunActionState
 {
-	private Vector3 targetOffset;
-
-	public override void EnterState(AimStateManager aim)
-	{
-		aim.xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
-		aim.yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
-
-		aim.IsAiming = true;
-		aim.anim.SetBool("Aiming", true);
-	}
-
-	public override void ExitState(AimStateManager aim)
+	public AimState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
 	{
 	}
 
-	public override void UpdateSatate(AimStateManager aim)
+	public override void Enter()
 	{
+		base.Enter();
+		xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
+		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
 
+		IsAiming = true;
+		//anim.SetBool("Aiming", true);
+	}
+
+	public override void Exit()
+	{
+		base.Exit();
+	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
 		if (Input.GetKeyUp(KeyCode.Mouse1))
 		{
-			aim.SwitchState(aim.Hip);
+			gunStateMachine.ChangeState(player.HipFireState);
+			//aim.SwitchState(aim.Hip);
 		}
 	}
 }

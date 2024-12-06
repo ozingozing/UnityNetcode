@@ -13,15 +13,15 @@ namespace ChocoOzing
 		public ImpactType ImpactType;
 		private void OnEnable()
 		{
-			aim.WeaponManager = this;
-			aim.GunType = GunType.M4A1;
+			myPlayer.WeaponManager = this;
+			myPlayer.GunType = GunType.M4A1;
 			if(IsOwner)
 				StartCoroutine(GunAction());
 		}
 
 		private void OnDisable()
 		{
-			aim.WeaponManager = null;
+			myPlayer.WeaponManager = null;
 		}
 		public override IEnumerator GunAction()
 		{

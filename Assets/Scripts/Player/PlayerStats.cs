@@ -33,6 +33,14 @@ public class PlayerStats : NetworkBehaviour
 		if(IsOwner && IsLocalPlayer)
 		{
 			GetComponent<vThirdPersonInput>().enabled = true;
+
+			//Player Init
+			CamManager.Instance.AdsCam.Follow = GetComponent<MyPlayer>().camFollowPos;
+			CamManager.Instance.AdsCam.LookAt = GetComponent<MyPlayer>().aimPos;
+			CamManager.Instance.ThirdPersonCam.Follow = GetComponent<MyPlayer>().camFollowPos; ;
+			CamManager.Instance.ThirdPersonCam.LookAt = GetComponent<MyPlayer>().aimPos;
+			GetComponent<MyPlayer>().PlayerActionStart();
+
 			//Debug Grid
 			//GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
 			//Debug Grid

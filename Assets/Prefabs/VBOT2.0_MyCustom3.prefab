@@ -3773,7 +3773,6 @@ GameObject:
   - component: {fileID: -2655918395739160061}
   - component: {fileID: 5832200183334975902}
   - component: {fileID: 8904948559616900000}
-  - component: {fileID: 2327135002687046570}
   - component: {fileID: 7575242765587476310}
   - component: {fileID: 1622534731154697546}
   m_Layer: 3
@@ -9271,38 +9270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe2fd15d264674ab85e0235b7ff74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2327135002687046570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358111469727087111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978572f1137175d429b3f12a45872767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   WeaponManager: {fileID: 0}
   GunType: 0
-  mouseSense: 1
-  camFollowPos: {fileID: 7969364526416371720}
-  xAxis: 0
-  yAxis: 0
-  anim: {fileID: 0}
-  IsAiming: 0
   aimPos: {fileID: 4172401546582696947}
-  actualAimPos: {x: 0, y: 0, z: 0}
-  aimSmoothSpeed: 20
-  aimMask:
-    serializedVersion: 2
-    m_Bits: 9
-  rig: {fileID: 0}
-  bodyRig: {fileID: 8942720983773381534}
-  rHandAimTwoBone: {fileID: 4455261101413803171}
-  rHandAim: {fileID: 5835493114155180933}
-  headRig: {fileID: 5637567623801590062}
-  lastAimPos: {fileID: 0}
+  camFollowPos: {fileID: 7969364526416371720}
 --- !u!114 &7575242765587476310
 MonoBehaviour:
   m_ObjectHideFlags: 0

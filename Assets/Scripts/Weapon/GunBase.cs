@@ -1,4 +1,5 @@
 using ChocoOzing;
+using ChocoOzing.CoreSystem;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -16,7 +17,6 @@ public abstract class GunBase : NetworkBehaviour
 	//NetworkParameter
 
 	// Scripts
-	public AimStateManager aim;
 	public WeaponAmmo ammo;
 	public WeaponRecoil weaponRecoil;
 	public MyPlayer myPlayer;
@@ -60,10 +60,9 @@ public abstract class GunBase : NetworkBehaviour
 
 	private void Awake()
 	{
+		myPlayer = GetComponentInParent<MyPlayer>();
 		weaponRecoil = GetComponent<WeaponRecoil>();
 		ammo = GetComponent<WeaponAmmo>();
-		aim = GetComponentInParent<AimStateManager>();
-		myPlayer = GetComponentInParent<MyPlayer>();
 
 		audioSource = GetComponentInParent<AudioSource>();
 	}
@@ -80,8 +79,8 @@ public abstract class GunBase : NetworkBehaviour
 
 	public void BarrelPositionReadyAction()
 	{
-		barrelPos.LookAt(aim.aimPos);
-		barrelPos.localEulerAngles = BloomAngle(barrelPos, myPlayer, aim);
+		barrelPos.LookAt(myPlayer.aimPos);
+		barrelPos.localEulerAngles = BloomAngle(barrelPos, myPlayer);
 		canShoot = true;
 	}
 
@@ -90,7 +89,7 @@ public abstract class GunBase : NetworkBehaviour
 		// 클라이언트에서 발사 조건을 체크하고, 타이밍에 맞는지 확인합니다.
 		if (fireRateTimer < fireRate) return false;
 		if (ammo.currentAmmo == 0) return false;
-		if (aim.currentState == aim.Reload) return false;
+		if (myPlayer.StateMachine.CurrentState == myPlayer.ReloadState) return false;
 		if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;
 		if (!semiAuto && Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1)) return true;
 		return false;
@@ -126,7 +125,7 @@ public abstract class GunBase : NetworkBehaviour
 		}
 	}
 
-	public virtual Vector3 BloomAngle(Transform barrelPos, MyPlayer currentState, AimStateManager aimState)
+	public virtual Vector3 BloomAngle(Transform barrelPos, MyPlayer currentState)
 	{
 		if (currentState.StateMachine.CurrentState == currentState.WalkState)
 		{
@@ -141,7 +140,7 @@ public abstract class GunBase : NetworkBehaviour
 			currentBloom = defaultBloomAngle * adsBloomMultiplier;
 		}
 
-		if (aimState.currentState == aimState.Aim)
+		if (myPlayer.StateMachine.CurrentState == currentState.AimState)
 		{
 			currentBloom *= adsBloomMultiplier;
 		}

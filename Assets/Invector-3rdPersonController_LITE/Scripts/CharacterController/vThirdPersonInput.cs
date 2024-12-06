@@ -172,7 +172,7 @@ namespace Invector.vCharacterController
 					return;
 				if (tpCamera)
 				{
-					tpCamera.SetMainTarget(aimStateManager.transform);
+					tpCamera.SetMainTarget(transform);
 					tpCamera.Init();
 				}
 			}

@@ -9,6 +9,7 @@ public class PlayerState
 
     protected MyPlayer player;
     protected PlayerStateMachine playerStateMachine;
+    protected PlayerGunStateMachine gunStateMachine;
     //TODO: Should Make PlayerData
     //protected PlayerData playerData;
 
@@ -26,7 +27,15 @@ public class PlayerState
         core = _player.Core;
     }
 
-    public virtual void Enter()
+	public PlayerState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, /*AddPlayerData*/ string _animBoolName)
+	{
+		this.player = _player;
+		this.gunStateMachine = _gunStateMachine;
+		this.animBoolName = _animBoolName;
+		core = _player.Core;
+	}
+
+	public virtual void Enter()
     {
         DoChecks();
         player.Anim.SetBool(animBoolName, true);
@@ -53,4 +62,10 @@ public class PlayerState
     public virtual void AnimationTrigger() { }
     public virtual void DoChecks() { }
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
+
+    public virtual void ShotGunReloadAction() { }
+	public virtual void MagIn() { }
+    public virtual void MagOut() { }
+	public virtual void ReleaseSlide() { }
+	public virtual void ReloadFinish() { }
 }

@@ -34,13 +34,11 @@ public class WalkState : PlayerGroundedState
 	public override void Enter()
 	{
 		base.Enter();
-		//movement.anim.SetBool("IsWalking", true);
 	}
 
 	public override void Exit()
 	{
 		base.Exit();
-		//movement.anim.SetBool("IsWalking", false);
 	}
 
 	public override void LogicUpdate()
@@ -48,9 +46,6 @@ public class WalkState : PlayerGroundedState
 		base.LogicUpdate();
 		if (Input.GetKey(KeyCode.LeftShift)) playerStateMachine.ChangeState(player.RunState);
 		else if (Movement.CurrentVelocity.magnitude < 0.1f) playerStateMachine.ChangeState(player.IdleState);
-
-		/*if (inputVertical < 0) currentMoveSpeed = walkBackSpeed;
-		else currentMoveSpeed = walkSpeed;*/
 	}
 
 	public override void PhysicsUpdate()

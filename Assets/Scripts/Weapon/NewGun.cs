@@ -11,15 +11,15 @@ namespace ChocoOzing
 		
 		private void OnEnable()
 		{
-			aim.WeaponManager = this;
-			aim.GunType = GunType.PumpShotGun;
+			myPlayer.WeaponManager = this;
+			myPlayer.GunType = GunType.PumpShotGun;
 			if (IsOwner)
 				StartCoroutine(GunAction());
 		}
 
 		private void OnDisable()
 		{
-			aim.WeaponManager = null;
+			myPlayer.WeaponManager = null;
 		}
 		public override IEnumerator GunAction()
 		{
@@ -98,7 +98,7 @@ namespace ChocoOzing
 			{
 				SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.identity);
 				ammo.currentAmmo--;
-				aim.anim.Play("AdsPump");
+				myPlayer.Anim.Play("AdsPump");
 			}
 			else if (countPershot % 2 != 0)
 			{

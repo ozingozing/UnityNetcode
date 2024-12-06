@@ -1,9 +1,8 @@
-using ChocoOzing.CoreSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine
+public class PlayerGunStateMachine
 {
 	public PlayerState CurrentState { get; private set; }
 	public void Initialize(PlayerState startingState)

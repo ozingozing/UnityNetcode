@@ -2,36 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChocoOzing;
+using Unity.Burst.Intrinsics;
 
-public class HipFireState : AimBaseState
+public class HipFireState : PlayerGunActionState
 {
-	public override void EnterState(AimStateManager aim)
+	public HipFireState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
 	{
-		aim.IsAiming = false;
-		aim.anim.SetBool("Aiming", false);
 	}
 
-	public override void ExitState(AimStateManager aim)
+	public override void Enter()
 	{
-		aim.lastAimPos = aim.aimPos;
+		base.Enter();
+
+		IsAiming = false;
+		//player.Anim.SetBool("Aiming", false);
 	}
 
-	public override void UpdateSatate(AimStateManager aim)
+	public override void Exit()
 	{
-		if(Input.GetKeyDown(KeyCode.R) && CanReload(aim))
+		base.Exit();
+		lastAimPos = player.aimPos;
+	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+		if (Input.GetKeyDown(KeyCode.R) && CanReload())
 		{
-			aim.SwitchState(aim.Reload);
+			gunStateMachine.ChangeState(player.ReloadState);
 		}
 		if (Input.GetKey(KeyCode.Mouse1))
 		{
-			aim.SwitchState(aim.Aim);
+			gunStateMachine.ChangeState(player.AimState);
 		}
 	}
 
-	public bool CanReload(AimStateManager aim)
+	public bool CanReload()
 	{
-		if (aim.WeaponManager.ammo.currentAmmo == aim.WeaponManager.ammo.clipSize) return false;
-		else if (aim.WeaponManager.ammo.extraAmmo == 0) return false;
+		if (player.WeaponManager.ammo.currentAmmo == player.WeaponManager.ammo.clipSize) return false;
+		else if (player.WeaponManager.ammo.extraAmmo == 0) return false;
 		else return true;
 	}
 
