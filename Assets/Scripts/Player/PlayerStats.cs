@@ -72,6 +72,7 @@ public class PlayerStats : NetworkBehaviour
 	[ClientRpc]
 	public void UpdatePositionClientRpc(Vector3 newPosition)
 	{
+		if (!gameObject.activeSelf) gameObject.SetActive(!gameObject.activeSelf);
 		IsDead = false;
 		GetComponent<Rigidbody>().MovePosition(newPosition);
 		transform.position = newPosition;

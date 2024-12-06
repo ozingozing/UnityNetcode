@@ -40,6 +40,7 @@ public class PlayerState
         DoChecks();
         player.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
+        //Debug
         Debug.Log($"PlayerState Enter: {animBoolName}");
         isAnimationFinished = false;
         isExitingState = false;
@@ -48,6 +49,7 @@ public class PlayerState
     public virtual void Exit()
     {
         player.Anim.SetBool(animBoolName, false);
+		//Debug
 		Debug.Log($"PlayerState Exit: {animBoolName}");
 		isExitingState = true;
     }

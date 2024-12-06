@@ -1,3 +1,4 @@
+using ChocoOzing.Utilities;
 using QFSW.QC.Actions;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,9 +61,9 @@ namespace ChocoOzing
 				if (Physics.Raycast(barrelPosition, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
 				{
 					// 피격 처리
-					if (hit.transform.TryGetComponent(out PlayerHealth health))
+					if (hit.transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
 					{
-						health.TakeDamage(10, gameObject); // 데미지 처리
+						damageReceiver.TakeDamage(10, gameObject); // 데미지 처리
 					}
 
 					// 모든 클라이언트에 시각 효과를 동기화
