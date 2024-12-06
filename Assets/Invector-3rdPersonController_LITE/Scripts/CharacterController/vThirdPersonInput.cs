@@ -27,8 +27,6 @@ namespace Invector.vCharacterController
 
 		//추가
 		private Rigidbody rb;
-		//private MovementStateManager movementStateManager;
-		private AimStateManager aimStateManager;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
 		//
@@ -52,12 +50,10 @@ namespace Invector.vCharacterController
 		private void Awake()
 		{
 			rb = GetComponent<Rigidbody>();
-			//movementStateManager = GetComponent<MovementStateManager>();
-			aimStateManager = GetComponent<AimStateManager>();
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 
-			time = 1f / tickRate;
+			tickTime = 1f / tickRate;
 		}
 
 		protected virtual void Start()
@@ -76,9 +72,6 @@ namespace Invector.vCharacterController
 
 			if (time > tickTime)
 			{
-				currentTick++;
-				time -= tickTime;
-
 				if(currentTick <= 2)
 				{
 					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
@@ -86,6 +79,9 @@ namespace Invector.vCharacterController
 					cc.ControlRotationType();       // handle the controller rotation type
 				}
 				MOVE();
+
+				currentTick++;
+				time -= tickTime;
 			} 
 		}
 
@@ -116,8 +112,6 @@ namespace Invector.vCharacterController
 					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 					cc.ControlRotationType();       // handle the controller rotation type
 				}
-
-				currentTick = 0;
 			}
 		}
 
