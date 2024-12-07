@@ -42,7 +42,11 @@ public class PlayerStats : NetworkBehaviour
 			GetComponent<MyPlayer>().PlayerActionStart();
 
 			//Debug Grid
-			//GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
+			if(GameObject.Find("A*").activeSelf)
+			{
+				GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
+				GameObject.Find("Seeker").GetComponent<Unit>().target = this.transform;
+			}
 			//Debug Grid
 		}
 		GetComponent<Rigidbody>().isKinematic = false;
