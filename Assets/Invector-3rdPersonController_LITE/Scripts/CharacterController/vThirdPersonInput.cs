@@ -68,27 +68,43 @@ namespace Invector.vCharacterController
 
 		protected virtual void FixedUpdate()
 		{
-			if (!IsClient || !IsOwner) return;
-
-			if (time > tickTime)
+			if(IsOwner && IsClient)
 			{
-				if(currentTick <= 2)
+				if (time > tickTime)
 				{
 					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 					cc.ControlRotationType();       // handle the controller rotation type
-				}
-				MOVE();
+					MOVE();
 
-				currentTick++;
-				time -= tickTime;
-			} 
+					currentTick++;
+					time -= tickTime;
+				}
+			}
+			else
+			{
+				Vector3 estimatedPosition =
+						clientMovementDatas[(currentTick) % BUFFERSIZE].position
+					  + clientMovementDatas[(currentTick) % BUFFERSIZE].rbVelocity
+					  * (NetworkManager.Singleton.ServerTime.TimeAsFloat - lastReceivedServerTime);
+				Vector3 positionError = estimatedPosition - rb.position;
+				if (positionError.magnitude > maxPositionError)
+				{
+					Physics.simulationMode = SimulationMode.Script;
+					rb.position = Vector3.SmoothDamp(transform.position, clientMovementDatas[(currentTick) % BUFFERSIZE].position, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
+
+					rb.velocity = Vector3.Lerp(rb.velocity, clientMovementDatas[(currentTick) % BUFFERSIZE].angularVelocity, positionLerpSpeed * Time.fixedDeltaTime);
+
+					rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, clientMovementDatas[(currentTick) % BUFFERSIZE].rbVelocity, positionLerpSpeed * Time.fixedDeltaTime);
+					Physics.simulationMode = SimulationMode.FixedUpdate;
+				}
+			}
 		}
 
 		public void MOVE()
 		{
-			float deltaTime = Time.time - lastReceivedServerTime; // 현재 시간에서 마지막으로 받은 서버 데이터 시간 차이
-			// 서버로부터 받은 위치와 회전 보간
+			float deltaTime = NetworkManager.Singleton.ServerTime.TimeAsFloat - lastReceivedServerTime; // 현재 시간에서 마지막으로 받은 서버 데이터 시간 차이
+			//current Vector and Tick Info 
 			clientMovementDatas[currentTick % BUFFERSIZE] = new MovementData
 			{
 				tick = currentTick,
@@ -98,42 +114,12 @@ namespace Invector.vCharacterController
 				angularVelocity = cc._rigidbody.angularVelocity,
 			};
 
-			// 현재 서버에서 받은 데이터를 기준으로 외삽
-			if (currentTick > 2)
+			if (currentTick >= 1)
 			{
-				// 보간처리
+				//Interpolation on The Server Side
 				MoveServerRPC(clientMovementDatas[currentTick % BUFFERSIZE], clientMovementDatas[(currentTick - 1) % BUFFERSIZE]);
-
-				// 서버로부터 Rpc받은 시간이
-				// extrapolationThreshold보다 경과가 지났을 경우 외삽처리
-				if (deltaTime > extrapolationThreshold)
-				{
-					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
-					cc.ControlRotationType();       // handle the controller rotation type
-				}
 			}
 		}
-
-		// 보간처리
-		/*public void MOVE()
-		{
-			clientMovementDatas[currentTick % BUFFERSIZE] = new MovementData
-			{
-				tick = currentTick,
-				position = transform.position,
-				rotation = transform.rotation,
-				rbVelocity = cc._rigidbody.velocity,
-				angularVelocity = cc._rigidbody.angularVelocity,
-			};
-
-			if (currentTick < 2) return;
-			else
-			{
-				MoveServerRPC(clientMovementDatas[currentTick % BUFFERSIZE], clientMovementDatas[(currentTick - 1) % BUFFERSIZE]);
-				currentTick = 0;
-			}
-		}*/
 
 		protected virtual void Update()
 		{
@@ -261,19 +247,25 @@ namespace Invector.vCharacterController
 		[ServerRpc]
 		private void MoveServerRPC(MovementData currentMovementData, MovementData lastMovementData)
 		{
-			if (Vector3.Distance(lastMovementData.position, currentMovementData.position) > maxPositionError)
-			{
-				//Debug.Log("Position Error!!!");
-				//Debug.Log("Start!!! ClientSidePrediction / ServerReconciliation");
-				ReconciliateClientRPC(currentMovementData.tick);
-			}
+			//Save Palyer Vector Infor every tick
+			ReconciliateClientRPC(currentMovementData.tick);
 		}
+
+		// Interpolation Speed
+		float positionLerpSpeed = 10f;
+		float rotationLerpSpeed = 180f;
+
+		// Interpolation Position
+		float smoothDampSpeed = 5f;
+		Vector3 velocity = Vector3.zero;
+
 
 		[ClientRpc]
 		private void ReconciliateClientRPC(int activationTick)
 		{
-			// 서버가 클라이언트에게 언제 데이터를 보냈는지 기록 (외삽을 위한 기준)
-			lastReceivedServerTime = Time.time;
+			if (IsOwner) return;
+			//Save the Time Last Get ServerRpc
+			lastReceivedServerTime = NetworkManager.Singleton.ServerTime.TimeAsFloat;
 
 			// 올바른 위치, 속도, 회전 데이터를 사용하여 보정
 			Vector3 correctPosition = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].position;
@@ -281,29 +273,24 @@ namespace Invector.vCharacterController
 			Vector3 correctAngularVelocity = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].angularVelocity;
 			Quaternion correctRotation = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].rotation;
 
-			// 보간 속도
-			float positionLerpSpeed = 10f;
-			float rotationLerpSpeed = 180f;
-
-			// 위치 보간: SmoothDamp
-			float smoothDampSpeed = 3f;  // SmoothDamp에 적용할 속도
-			Vector3 velocity = Vector3.zero;  // SmoothDamp의 속도를 제어할 변수
+			// Custom FixedUpdate Start
 			Physics.simulationMode = SimulationMode.Script;
-			transform.position = Vector3.SmoothDamp(transform.position, correctPosition, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
+			//transform.position = Vector3.SmoothDamp(transform.position, correctPosition, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
+			rb.position = Vector3.SmoothDamp(transform.position, correctPosition, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
 
-			// 속도 보간
+			// Interpolation Rigidbody Velocity
 			rb.velocity = Vector3.Lerp(rb.velocity, correctRbVelocity, positionLerpSpeed * Time.fixedDeltaTime);
 
-			// 각속도 보간
+			// Interpoalation Rigidbody AngularVelocity
 			rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, correctAngularVelocity, positionLerpSpeed * Time.fixedDeltaTime);
 
-			// 회전 보간: Slerp
-			transform.rotation = Quaternion.Slerp(transform.rotation, correctRotation, rotationLerpSpeed * Time.fixedDeltaTime);
+			// Interpolation Transform Rotaion
+			//transform.rotation = Quaternion.Slerp(transform.rotation, correctRotation, rotationLerpSpeed * Time.fixedDeltaTime);
 
-			// 고정된 업데이트로 돌아감
+			// Custom FixedUpate get back
 			Physics.simulationMode = SimulationMode.FixedUpdate;
 
-			// 보정 후 새로운 이동 데이터를 업데이트
+			// Update Current Player VectorInfo
 			clientMovementDatas[activationTick % BUFFERSIZE].position = transform.position;
 			clientMovementDatas[activationTick % BUFFERSIZE].rotation = transform.rotation;
 			clientMovementDatas[activationTick % BUFFERSIZE].angularVelocity = rb.angularVelocity; // 각속도 보정
