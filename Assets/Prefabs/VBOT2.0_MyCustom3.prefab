@@ -4168,7 +4168,7 @@ MonoBehaviour:
   limitFallVelocity: -15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1601
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
@@ -9938,6 +9938,10 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 1545
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: muzzleFlashParticle
       value: 
       objectReference: {fileID: 937686689976011591, guid: 42904218c7898c54cb2832d5062e629e, type: 3}
@@ -10098,7 +10102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: layerMask.m_Bits
-      value: 9
+      value: 1545
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: muzzleFlashParticle

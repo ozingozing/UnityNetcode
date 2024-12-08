@@ -8,6 +8,9 @@ public class GridGizmo : MonoBehaviour
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
+	public TerrainType[] walkableRegions;
+	public LayerMask walkableMask;
+	public Dictionary<int, int> walkableRegionDictionary = new Dictionary<int, int>();
 	Node[,] grid;
 
 	float nodeDiameter;
@@ -23,6 +26,19 @@ public class GridGizmo : MonoBehaviour
 		nodeDiameter = nodeRadius * 2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+		foreach(TerrainType region in walkableRegions)
+		{
+			walkableMask.value |= region.terrainLayerMask;
+			walkableRegionDictionary.Add((int)Mathf.Log(region.terrainLayerMask.value, 2), region.terrainPenalty);
+		}
+
+		// Dictionary의 모든 key와 value를 출력
+		foreach (KeyValuePair<int, int> entry in walkableRegionDictionary)
+		{
+			Debug.Log("Key: " + entry.Key + ", Value: " + entry.Value);
+		}
+
 		CreateGrid();
 	}
 
@@ -36,7 +52,20 @@ public class GridGizmo : MonoBehaviour
 			{
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
 				bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
-				grid[x, y] = new Node(walkable, worldPoint, x, y);
+
+				int n = 0;
+				//raycast
+				if(walkable)
+				{
+					Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
+					RaycastHit hit;
+					if (Physics.Raycast(ray, out hit, 100, walkableMask))
+					{
+						walkableRegionDictionary.TryGetValue(hit.collider.gameObject.layer, out int movementPenalty);
+						n = movementPenalty;
+					}
+				}
+				grid[x, y] = new Node(walkable, worldPoint, x, y, n);
 			}
 		}
 	}
@@ -89,4 +118,12 @@ public class GridGizmo : MonoBehaviour
 			}
 		}
 	}
+
+	[System.Serializable]
+	public class TerrainType
+	{
+		public LayerMask terrainLayerMask;
+		public int terrainPenalty;
+	}
+
 }

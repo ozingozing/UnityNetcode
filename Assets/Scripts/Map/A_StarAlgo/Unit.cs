@@ -61,17 +61,17 @@ public class Unit : MonoBehaviour
 		{
 			for(int i = targetIndex; i < path.Length; i++)
 			{
-				Gizmos.color = Color.red;
-				Gizmos.DrawCube(path[i], Vector3.one / 4);
+				Gizmos.color = Color.cyan;
+				Gizmos.DrawCube(path[i] + Vector3.up, Vector3.one / 2);
 
-				Gizmos.color = Color.black;
+				Gizmos.color = Color.red;
 				if (i == targetIndex)
 				{
-					Gizmos.DrawLine(transform.position, path[i]);
+					Gizmos.DrawLine(transform.position + Vector3.up, path[i] + Vector3.up);
 				}
 				else
 				{
-					Gizmos.DrawLine(path[i - 1], path[i]);
+					Gizmos.DrawLine(path[i - 1] + Vector3.up, path[i] + Vector3.up);
 				}
 			}
 		}
