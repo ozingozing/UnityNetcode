@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour
 		{
 			yield return null;
 		}
-		yield return new WaitForSeconds(10);
+		yield return new WaitForSeconds(20);
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 	}
 
@@ -61,9 +61,10 @@ public class Unit : MonoBehaviour
 		{
 			for(int i = targetIndex; i < path.Length; i++)
 			{
-				Gizmos.color = Color.black;
-				Gizmos.DrawCube(path[i], Vector3.one / 2);
+				Gizmos.color = Color.red;
+				Gizmos.DrawCube(path[i], Vector3.one / 4);
 
+				Gizmos.color = Color.black;
 				if (i == targetIndex)
 				{
 					Gizmos.DrawLine(transform.position, path[i]);

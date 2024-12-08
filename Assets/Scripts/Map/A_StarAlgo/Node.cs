@@ -13,7 +13,6 @@ public class Node : IHeapItem<Node>
     public Node parent;
     int heapIndex;
 
-
 	public Node(bool _walkable,  Vector3 _worldPosition, int _gridX, int _gridY)
     {
         walkable = _walkable;
@@ -27,7 +26,7 @@ public class Node : IHeapItem<Node>
         get { return gCost + hCost; }
     }
 
-	public int HeapIndex 
+    public int HeapIndex 
     {
         get { return heapIndex; }
         set { heapIndex = value; }

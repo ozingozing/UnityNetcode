@@ -8,6 +8,7 @@ public class Pathfinding : MonoBehaviour
 {
 	PathRequestManager pathRequestManager;
 
+	public bool turnOnHeap = false;
 	public Transform seeker, tartget;
     GridGizmo gridGizmo;
 	private void Awake()
@@ -16,23 +17,12 @@ public class Pathfinding : MonoBehaviour
 		gridGizmo = GetComponent<GridGizmo>();
 	}
 
-	private void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.O))
-		{
-			if (tartget != null && seeker != null)
-				StartCoroutine(FindPathList(seeker.position, tartget.position));
-		}
-		else if(Input.GetKeyDown(KeyCode.P))
-		{
-			if (tartget != null && seeker != null)
-				StartCoroutine(FindPathHeap(seeker.position, tartget.position));
-		}
-	}
-
 	public void StartFindPath(Vector3 startPos,  Vector3 targetPos)
 	{
-		StartCoroutine(FindPathHeap(startPos, targetPos));
+		if(turnOnHeap)
+			StartCoroutine(FindPathHeap(startPos, targetPos));
+		else
+			StartCoroutine(FindPathList(startPos, targetPos));
 	}
 
 	IEnumerator FindPathHeap(Vector3 startPos, Vector3 targetPos)
@@ -46,10 +36,12 @@ public class Pathfinding : MonoBehaviour
 		Node startNode = gridGizmo.NodeFromWorldPoint(startPos);
 		Node targetNode = gridGizmo.NodeFromWorldPoint(targetPos);
 
-		if(startNode.walkable && targetNode.walkable)
+		if (startNode.walkable && targetNode.walkable)
 		{
+			//Heap(Prioriy Queue) spend time O(logN) when it Del or Add
 			Heap<Node> openSet = new Heap<Node>(gridGizmo.MaxSize);
 			HashSet<Node> closedSet = new HashSet<Node>();
+
 			openSet.Add(startNode);
 
 			while (openSet.Count > 0)
@@ -78,6 +70,8 @@ public class Pathfinding : MonoBehaviour
 
 						if (!openSet.Contains(neighbour))
 							openSet.Add(neighbour);
+						else
+							openSet.UpdateItem(neighbour);
 					}
 				}
 			}
@@ -85,7 +79,7 @@ public class Pathfinding : MonoBehaviour
 
 		yield return null;
 
-		if(pathSuccess)
+		if (pathSuccess)
 		{
 			waypoints = RetracePath(startNode, targetNode);
 		}
@@ -110,7 +104,7 @@ public class Pathfinding : MonoBehaviour
 		while(openSet.Count > 0)
 		{
 			Node currentNode = openSet[0];
-			//List Serch Time O(n) => we change heap
+			//List spend time O(n) when it Del or Add
 			for (int i = 1; i < openSet.Count; i++)
 			{
 				if (openSet[i].fCost < currentNode.fCost

@@ -15,6 +15,9 @@ public class Heap<T> where T : IHeapItem<T>
 
 	public void Add(T item)
 	{
+		if(currentItemCount == items.Length)
+			Array.Resize(ref items, items.Length * 2);
+
 		item.HeapIndex = currentItemCount;
 		items[currentItemCount] = item;
 		SortUp(item);
@@ -27,13 +30,14 @@ public class Heap<T> where T : IHeapItem<T>
 		currentItemCount--;
 		items[0] = items[currentItemCount];
 		items[0].HeapIndex = 0;
-		StortDown(items[0]);
+		SortDown(items[0]);
 		return firstItem;
 	}
 
 	public void UpdateItem(T item)
 	{
 		SortUp(item);
+		SortDown(item);
 	}
 
 	public int Count
@@ -46,7 +50,7 @@ public class Heap<T> where T : IHeapItem<T>
 		return Equals(items[item.HeapIndex], item);
 	}
 
-	public void StortDown(T item)
+	public void SortDown(T item)
 	{
 		while (true)
 		{
@@ -54,21 +58,20 @@ public class Heap<T> where T : IHeapItem<T>
 			int childIndexRight = item.HeapIndex * 2 + 2;
 			int swapIndex = -1;
 
-			if(childIndexLeft < currentItemCount)
-			{
-				swapIndex = childIndexLeft;
-				if (childIndexRight < currentItemCount)
-					if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0)
-						swapIndex = childIndexRight;
-				if (item.CompareTo(items[swapIndex]) < 0)
-					Swap(item, items[swapIndex]);
-				else
-					return;
-			}
-			else
-			{
+			if (childIndexLeft >= currentItemCount)
 				return;
+			
+			swapIndex = childIndexLeft;
+			if(childIndexRight < currentItemCount
+			&& items[childIndexLeft].CompareTo(items[childIndexRight]) < 0)
+			{
+				swapIndex = childIndexRight;
 			}
+			
+			if (item.CompareTo(items[swapIndex]) < 0)
+				Swap(item, items[swapIndex]);
+			else
+				return;
 		}
 	}
 
@@ -102,9 +105,5 @@ public class Heap<T> where T : IHeapItem<T>
 //Use HeapIndex(param) to compare(Using IComparable)
 public interface IHeapItem<T> : IComparable<T>
 {
-	int HeapIndex
-	{
-		get;
-		set;
-	}
+	int HeapIndex{ get; set; }
 }
