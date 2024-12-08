@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 3042772}
   - component: {fileID: 3042771}
   - component: {fileID: 3042770}
-  - component: {fileID: 3042769}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -144,18 +143,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &3042769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3042768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3042770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4468,7 +4455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6962,7 +6949,6 @@ GameObject:
   - component: {fileID: 1334195435}
   - component: {fileID: 1334195434}
   - component: {fileID: 1334195439}
-  - component: {fileID: 1334195438}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -7056,18 +7042,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1334195438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334195433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e7f0a2b447e1147be36fafcbf72ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1334195439
 MonoBehaviour:
   m_ObjectHideFlags: 0
