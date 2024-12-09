@@ -4184,7 +4184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4283848011
+  GlobalObjectIdHash: 462042434
   InScenePlacedSourceGlobalObjectIdHash: 462042434
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -4200,7 +4200,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8358111469727087111}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5deb9ff5611cb9d4596d397ac57ee8c7, type: 3}
   m_Name: 
@@ -4221,5123 +4221,3075 @@ MonoBehaviour:
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   - tick: 0
     position: {x: 0, y: 0, z: 0}
     rbVelocity: {x: 0, y: 0, z: 0}
-    angularVelocity: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
   maxPositionError: 0.5
 --- !u!114 &8544650295593193462
 MonoBehaviour:
