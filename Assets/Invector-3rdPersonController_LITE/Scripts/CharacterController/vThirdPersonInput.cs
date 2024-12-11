@@ -2,7 +2,9 @@
 using ChocoOzing.Network;
 using ChocoOzing.Utilities;
 using Cinemachine;
+using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -46,12 +48,33 @@ namespace Invector.vCharacterController
 		//Netcode server specific
 		CircularBuffer<StatePayload> serverStateBuffer;
 		Queue<InputPayload> serverInputQueue;
-		[SerializeField] private float reconciliationThreshold = 10f;
 
+		[Header("Netcode")]
+		[SerializeField] private float reconciliationCooldownTime = 1f;
+		[SerializeField] private float reconciliationThreshold = 10f;
 		[SerializeField] private GameObject serverCube;
 		[SerializeField] private GameObject clientCube;
+
+		CountdownTimer reconciliationCooldown;
+
+		[Header("Netcode Debug")]
+		[SerializeField] TextMeshProUGUI networkText;
+		[SerializeField] TextMeshProUGUI playerText;
+		[SerializeField] TextMeshProUGUI serverRpcText;
+		[SerializeField] TextMeshProUGUI clientRpcText;
 		//
 		#endregion
+
+		public override void OnNetworkSpawn()
+		{
+			if(IsOwner)
+			{
+				networkText.SetText($"Player {NetworkManager.LocalClientId} Host: {NetworkManager.IsHost} Server: {IsServer} Client: {IsClient}");
+				if (!IsServer) serverRpcText.SetText("Not Server");
+				if (!IsClient) clientRpcText.SetText("Not Client");
+			}
+			base.OnNetworkSpawn();
+		}
 
 
 		private void Awake()
@@ -67,6 +90,8 @@ namespace Invector.vCharacterController
 			
 			serverStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
 			serverInputQueue = new Queue<InputPayload>();
+
+			reconciliationCooldown = new CountdownTimer(reconciliationCooldownTime);
 		}
 
 		protected virtual void Start()
@@ -81,8 +106,6 @@ namespace Invector.vCharacterController
 
 		protected virtual void FixedUpdate()
 		{
-			if (!IsOwner) return;
-			
 			while(timer.ShouldTick())
 			{
 				HandleClientTick();
@@ -90,52 +113,52 @@ namespace Invector.vCharacterController
 			}
 		}
 
+
+		protected virtual void Update()
+		{
+			timer.Update(Time.deltaTime);
+			reconciliationCooldown.Tick(Time.deltaTime);
+			
+			playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {rb.velocity.magnitude:F1}");
+
+			if (IsOwner)
+			{
+				InputHandle();                  // update the input methods
+				cc.UpdateAnimator();            // updates the Animator Parameters
+			}
+		}
+
 		void HandleServerTick()
 		{
+			if (!IsServer) return;
+
 			var bufferIndex = -1;
 			while(serverInputQueue.Count > 0)
 			{
 				InputPayload inputPayload = serverInputQueue.Dequeue();
-
 				bufferIndex = inputPayload.tick % bufferSize;
 
-				StatePayload statePayload = SimulateMovement(inputPayload);
-				serverCube.transform.position = statePayload.position.With(y:4);
+				StatePayload statePayload = ProcessMovement(inputPayload);
 				serverStateBuffer.Add(statePayload, bufferIndex);
 			}
 
 			if (bufferIndex == -1) return;
-			if(IsServer)
-				SendToClientRpc(serverStateBuffer.Get(bufferIndex));
+			SendToClientRpc(serverStateBuffer.Get(bufferIndex));
 		}
 
-		StatePayload SimulateMovement(InputPayload inputPayload)
-		{
-			Physics.simulationMode = SimulationMode.Script;
-			MOVE();
-			Physics.Simulate(Time.fixedDeltaTime);
-			Physics.simulationMode = SimulationMode.FixedUpdate;
-
-			return new StatePayload()
-			{
-				tick = inputPayload.tick,
-				position = transform.position,
-				rotation = transform.rotation,
-				velocity = rb.velocity,
-				angularVelocity = rb.angularVelocity,
-			};
-		}
 
 		[ClientRpc]
 		void SendToClientRpc(StatePayload statePayload)
 		{
+			clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
+			serverCube.transform.position = statePayload.position.With();
 			if (!IsOwner) return;
 			lastServerState = statePayload;
 		}
 
 		void HandleClientTick()
 		{
-			if (!IsClient) return;
+			if (!IsClient || !IsOwner) return;
 
 			var currentTick = timer.CurrentTick;
 			var bufferIndex = currentTick % bufferSize;
@@ -143,15 +166,16 @@ namespace Invector.vCharacterController
 			InputPayload inputPayload = new InputPayload()
 			{
 				tick = currentTick,
+				timestamp = DateTime.Now,
+				networkObjectId = NetworkObjectId,
 				inputVector = cc.moveDirection,
+				position = transform.position,
 			};
 
 			clientInputBuffer.Add(inputPayload, bufferIndex);
-			if(!IsServer)
-				SendToServerRpc(inputPayload);
+			SendToServerRpc(inputPayload);
 
 			StatePayload statePayload = ProcessMovement(inputPayload);
-			clientCube.transform.position = statePayload.position.With(y: 4);
 			clientStateBuffer.Add(statePayload, bufferIndex);
 
 			HandleServerReconciliation();
@@ -162,7 +186,7 @@ namespace Invector.vCharacterController
 			bool isNewServerState = !lastServerState.Equals(default);
 			bool isLastStateUndefinedOrDifferent = lastProcessedState.Equals(default)
 													|| !lastProcessedState.Equals(lastServerState);
-			return isNewServerState && isLastStateUndefinedOrDifferent;
+			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationCooldown.IsRunning;
 		}
 		void HandleServerReconciliation()
 		{
@@ -180,6 +204,7 @@ namespace Invector.vCharacterController
 			if(positionError > reconciliationThreshold)
 			{
 				ReconcileState(rewindState);
+				reconciliationCooldown.Start();
 			}
 
 			lastProcessedState = lastServerState;
@@ -211,6 +236,8 @@ namespace Invector.vCharacterController
 		[ServerRpc]
 		void SendToServerRpc(InputPayload input)
 		{
+			serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
+			clientCube.transform.position = input.position.With();
 			serverInputQueue.Enqueue(input);
 		}
 
@@ -221,6 +248,7 @@ namespace Invector.vCharacterController
 			return new StatePayload()
 			{
 				tick = input.tick,
+				networkObjectId = NetworkObjectId,
 				position = transform.position,
 				rotation = transform.rotation,
 				velocity = rb.velocity,
@@ -233,17 +261,11 @@ namespace Invector.vCharacterController
 			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 			cc.ControlRotationType();       // handle the controller rotation type
+
+			Vector3 forwardWithoutY = transform.forward.With(y: 0).normalized;
+			rb.velocity = Vector3.Lerp(rb.velocity, forwardWithoutY * cc.input.z, timer.MinTimeBetweenTicks);
 		}
 
-		protected virtual void Update()
-		{
-			timer.Update(Time.deltaTime);
-			if (IsOwner)
-			{
-				InputHandle();                  // update the input methods
-				cc.UpdateAnimator();            // updates the Animator Parameters
-			}
-		}
 
 		public virtual void OnAnimatorMove()
 		{
@@ -367,17 +389,25 @@ namespace Invector.vCharacterController
 	public struct InputPayload : INetworkSerializable
 	{
 		public int tick;
+		public DateTime timestamp;
+		public ulong networkObjectId;
 		public Vector3 inputVector;
+		public Vector3 position;
+
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
+			serializer.SerializeValue(ref timestamp);
+			serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref inputVector);
+			serializer.SerializeValue(ref position);
 		}
 	}
 
 	public struct StatePayload : INetworkSerializable
 	{
 		public int tick;
+		public ulong networkObjectId;
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 velocity;
@@ -385,6 +415,7 @@ namespace Invector.vCharacterController
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
+			serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref position);
 			serializer.SerializeValue(ref rotation);
 			serializer.SerializeValue(ref velocity);
