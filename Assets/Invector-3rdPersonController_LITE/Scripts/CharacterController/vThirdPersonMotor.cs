@@ -260,8 +260,12 @@ namespace Invector.vCharacterController
                 jumpCounter = 0;
                 isJumping = false;
             }
-            // apply extra force to the jump height   
-            var vel = _rigidbody.velocity;
+			//Custom
+			// 점프 중 회전 초기화 (X, Z 축 회전 방지)
+			_rigidbody.angularVelocity = Vector3.zero;
+
+			// apply extra force to the jump height   
+			var vel = _rigidbody.velocity;
             vel.y = jumpHeight;
             _rigidbody.velocity = vel;
         }

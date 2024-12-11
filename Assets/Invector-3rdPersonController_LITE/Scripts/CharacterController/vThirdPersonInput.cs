@@ -1,4 +1,6 @@
 ﻿using ChocoOzing;
+using ChocoOzing.Network;
+using ChocoOzing.Utilities;
 using Cinemachine;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -29,23 +31,28 @@ namespace Invector.vCharacterController
 		private Rigidbody rb;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
+
+		//Netcode general
+		NetworkTimer timer;
+		const float serverTick = 60f; //60FPS
+		const int bufferSize = 1024;
+
+		//Netcode client specific
+		CircularBuffer<StatePayload> clientStateBuffer;
+		CircularBuffer<InputPayload> clientInputBuffer;
+		StatePayload lastServerState;
+		StatePayload lastProcessedState;
+
+		//Netcode server specific
+		CircularBuffer<StatePayload> serverStateBuffer;
+		Queue<InputPayload> serverInputQueue;
+		[SerializeField] private float reconciliationThreshold = 10f;
+
+		[SerializeField] private GameObject serverCube;
+		[SerializeField] private GameObject clientCube;
 		//
 		#endregion
 
-		//Both Client And Server Specific
-		[SerializeField] private int tickRate = 60;
-		[SerializeField] int currentTick;
-		private float time;
-		private float tickTime;
-
-		//Client Specific
-		private const int BUFFERSIZE = 1024;
-		[SerializeField] MovementData[] clientMovementDatas = new MovementData[BUFFERSIZE];
-
-		//Server Specific
-		[SerializeField] private float maxPositionError = 0.5f;
-		private float lastReceivedServerTime = 0; // 서버로부터 받은 마지막 데이터의 시간
-		private const float extrapolationThreshold = 0.05f; // 외삽을 적용할 최소 시간 (100ms 이상 지연되었을 때)
 
 		private void Awake()
 		{
@@ -53,7 +60,13 @@ namespace Invector.vCharacterController
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 
-			tickTime = 1f / tickRate;
+			timer = new NetworkTimer(serverTick);
+			
+			clientStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
+			clientInputBuffer = new CircularBuffer<InputPayload>(bufferSize);
+			
+			serverStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
+			serverInputQueue = new Queue<InputPayload>();
 		}
 
 		protected virtual void Start()
@@ -68,56 +81,163 @@ namespace Invector.vCharacterController
 
 		protected virtual void FixedUpdate()
 		{
-			if (time > tickTime)
+			if (!IsOwner) return;
+			
+			while(timer.ShouldTick())
 			{
-				if (IsOwner)
-				{
-					cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-					cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
-					cc.ControlRotationType();       // handle the controller rotation type
-					MOVE();
-				}
-				else //extrapolate
-				{
-					Vector3 estimatedPosition =
-							clientMovementDatas[(currentTick) % BUFFERSIZE].position
-						  + clientMovementDatas[(currentTick) % BUFFERSIZE].rbVelocity
-						  * (NetworkManager.Singleton.ServerTime.TimeAsFloat - lastReceivedServerTime);
-					Vector3 positionError = estimatedPosition - rb.position;
-					if (positionError.magnitude > maxPositionError)
-					{
-						rb.position = Vector3.Slerp(rb.position, positionError, cc.moveSpeed * Time.deltaTime);
-						rb.velocity = Vector3.Slerp(rb.velocity, positionError, cc.moveSpeed * Time.deltaTime);
-					}
-				}
-
-				currentTick++;
-				time -= tickTime;
+				HandleClientTick();
+				HandleServerTick();
 			}
+		}
+
+		void HandleServerTick()
+		{
+			var bufferIndex = -1;
+			while(serverInputQueue.Count > 0)
+			{
+				InputPayload inputPayload = serverInputQueue.Dequeue();
+
+				bufferIndex = inputPayload.tick % bufferSize;
+
+				StatePayload statePayload = SimulateMovement(inputPayload);
+				serverCube.transform.position = statePayload.position.With(y:4);
+				serverStateBuffer.Add(statePayload, bufferIndex);
+			}
+
+			if (bufferIndex == -1) return;
+			if(IsServer)
+				SendToClientRpc(serverStateBuffer.Get(bufferIndex));
+		}
+
+		StatePayload SimulateMovement(InputPayload inputPayload)
+		{
+			Physics.simulationMode = SimulationMode.Script;
+			MOVE();
+			Physics.Simulate(Time.fixedDeltaTime);
+			Physics.simulationMode = SimulationMode.FixedUpdate;
+
+			return new StatePayload()
+			{
+				tick = inputPayload.tick,
+				position = transform.position,
+				rotation = transform.rotation,
+				velocity = rb.velocity,
+				angularVelocity = rb.angularVelocity,
+			};
+		}
+
+		[ClientRpc]
+		void SendToClientRpc(StatePayload statePayload)
+		{
+			if (!IsOwner) return;
+			lastServerState = statePayload;
+		}
+
+		void HandleClientTick()
+		{
+			if (!IsClient) return;
+
+			var currentTick = timer.CurrentTick;
+			var bufferIndex = currentTick % bufferSize;
+
+			InputPayload inputPayload = new InputPayload()
+			{
+				tick = currentTick,
+				inputVector = cc.moveDirection,
+			};
+
+			clientInputBuffer.Add(inputPayload, bufferIndex);
+			if(!IsServer)
+				SendToServerRpc(inputPayload);
+
+			StatePayload statePayload = ProcessMovement(inputPayload);
+			clientCube.transform.position = statePayload.position.With(y: 4);
+			clientStateBuffer.Add(statePayload, bufferIndex);
+
+			HandleServerReconciliation();
+		}
+
+		bool ShouldReconcile()
+		{
+			bool isNewServerState = !lastServerState.Equals(default);
+			bool isLastStateUndefinedOrDifferent = lastProcessedState.Equals(default)
+													|| !lastProcessedState.Equals(lastServerState);
+			return isNewServerState && isLastStateUndefinedOrDifferent;
+		}
+		void HandleServerReconciliation()
+		{
+			if (!ShouldReconcile()) return;
+
+			float positionError;
+			int bufferIndex = lastServerState.tick % bufferSize;
+
+			if (bufferIndex - 1 < 0) return;
+			//Host RPCs excute immediately, so we can use the last server state
+			StatePayload rewindState = IsHost ? serverStateBuffer.Get(bufferIndex - 1) : lastServerState;
+			StatePayload clientState = IsHost ? clientStateBuffer.Get(bufferIndex - 1) : clientStateBuffer.Get(bufferIndex);
+			positionError = Vector3.Distance(rewindState.position, clientState.position);
+
+			if(positionError > reconciliationThreshold)
+			{
+				ReconcileState(rewindState);
+			}
+
+			lastProcessedState = lastServerState;
+		}
+
+		void ReconcileState(StatePayload rewindState)
+		{
+			transform.position = rewindState.position;
+			transform.rotation = rewindState.rotation;
+			rb.velocity = rewindState.velocity;
+			rb.angularVelocity = rewindState.angularVelocity;
+
+			if (!rewindState.Equals(lastServerState)) return;
+
+			clientStateBuffer.Add(rewindState, rewindState.tick);
+
+			//Replay all inputs fromt the rewind state to the current state
+			int tickToReplay = lastServerState.tick;
+
+			while(tickToReplay < timer.CurrentTick)
+			{
+				int bufferIndex = tickToReplay % bufferSize;
+				StatePayload statePayload = ProcessMovement(clientInputBuffer.Get(bufferIndex));
+				clientStateBuffer.Add(statePayload, bufferIndex);
+				tickToReplay++;
+			}
+		}
+
+		[ServerRpc]
+		void SendToServerRpc(InputPayload input)
+		{
+			serverInputQueue.Enqueue(input);
+		}
+
+		StatePayload ProcessMovement(InputPayload input)
+		{
+			MOVE();
+
+			return new StatePayload()
+			{
+				tick = input.tick,
+				position = transform.position,
+				rotation = transform.rotation,
+				velocity = rb.velocity,
+				angularVelocity = rb.velocity
+			};
 		}
 
 		public void MOVE()
 		{
-			//current Vector and Tick Info 																							
-			clientMovementDatas[currentTick % BUFFERSIZE] = new MovementData
-			{
-				tick = currentTick,
-				position = rb.position,
-				//rotation = transform.rotation,
-				rbVelocity = rb.velocity,
-				//angularVelocity = cc._rigidbody.angularVelocity,
-			};
-
-			if (currentTick >= 1)
-			{
-				//Interpolation on The Server Side
-				MoveServerRPC(clientMovementDatas[currentTick % BUFFERSIZE], clientMovementDatas[(currentTick - 1) % BUFFERSIZE]);
-			}
+			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
+			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
+			cc.ControlRotationType();       // handle the controller rotation type
 		}
 
 		protected virtual void Update()
 		{
-			time += Time.deltaTime;
+			timer.Update(Time.deltaTime);
 			if (IsOwner)
 			{
 				InputHandle();                  // update the input methods
@@ -241,77 +361,34 @@ namespace Invector.vCharacterController
 
 		#endregion
 
-		[ServerRpc]
-		private void MoveServerRPC(MovementData currentMovementData, MovementData lastMovementData)
+	}
+
+	//Network variables should be value objects
+	public struct InputPayload : INetworkSerializable
+	{
+		public int tick;
+		public Vector3 inputVector;
+		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
-			//Save Palyer Vector Infor every tick
-			//if (Vector3.Distance(currentMovementData.position, lastMovementData.position) > maxPositionError)
-				ReconciliateClientRPC(currentMovementData.tick, NetworkManager.Singleton.ServerTime.TimeAsFloat);
-		}
-
-		// Interpolation Speed
-		//float positionLerpSpeed = 10;
-		//float rotationLerpSpeed = 180f;
-
-		// Interpolation Position
-		//float smoothDampSpeed = 45f;
-		//Vector3 velocity = Vector3.zero;
-
-
-		[ClientRpc]
-		private void ReconciliateClientRPC(int activationTick, float serverTime)
-		{
-			if (IsOwner) return;
-			//Save the Time Last Get ServerRpc
-			lastReceivedServerTime = serverTime;
-
-			// 올바른 위치, 속도, 회전 데이터를 사용하여 보정
-			Vector3 correctPosition = clientMovementDatas[(activationTick) % BUFFERSIZE].position;
-			Vector3 correctRbVelocity = clientMovementDatas[(activationTick) % BUFFERSIZE].rbVelocity;
-			//Vector3 correctAngularVelocity = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].angularVelocity;
-			//Quaternion correctRotation = clientMovementDatas[(activationTick - 1) % BUFFERSIZE].rotation;
-
-
-			// Custom FixedUpdate Start
-			//Physics.simulationMode = SimulationMode.Script;
-			//transform.position = Vector3.SmoothDamp(transform.position, correctPosition, ref velocity, smoothDampSpeed * Time.fixedDeltaTime);
-			rb.position = Vector3.Slerp(rb.position, correctPosition, cc.moveSpeed * Time.deltaTime);
-
-			// Interpoalation Rigidbody AngularVelocity
-			//rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, correctAngularVelocity, rotationLerpSpeed * Time.fixedDeltaTime);
-
-			// Interpolation Rigidbody Velocity
-			rb.velocity = Vector3.Slerp(rb.velocity, correctRbVelocity, cc.moveSpeed * Time.deltaTime);
-			// Interpolation Transform Rotaion
-			//transform.rotation = Quaternion.Slerp(transform.rotation, correctRotation, rotationLerpSpeed * Time.fixedDeltaTime);
-
-			// Custom FixedUpate get back
-			//Physics.simulationMode = SimulationMode.FixedUpdate;
-
-			// Update Current Player VectorInfo
-			clientMovementDatas[activationTick % BUFFERSIZE].position = rb.position;
-			//clientMovementDatas[activationTick % BUFFERSIZE].rotation = transform.rotation;
-			//clientMovementDatas[activationTick % BUFFERSIZE].angularVelocity = rb.angularVelocity; // 각속도 보정
-			clientMovementDatas[activationTick % BUFFERSIZE].rbVelocity = rb.velocity; // 물리 속도 보정
+			serializer.SerializeValue(ref tick);
+			serializer.SerializeValue(ref inputVector);
 		}
 	}
-}
 
-[System.Serializable]
-public class MovementData : INetworkSerializable
-{
-	public int tick;
-	public Vector3 position;
-	public Vector3 rbVelocity;
-	//public Vector3 angularVelocity;
-	//public Quaternion rotation;
-
-	public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+	public struct StatePayload : INetworkSerializable
 	{
-		serializer.SerializeValue(ref tick);
-		serializer.SerializeValue(ref position);
-		serializer.SerializeValue(ref rbVelocity);
-		//serializer.SerializeValue(ref angularVelocity);
-		//serializer.SerializeValue(ref rotation);
+		public int tick;
+		public Vector3 position;
+		public Quaternion rotation;
+		public Vector3 velocity;
+		public Vector3 angularVelocity;
+		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+		{
+			serializer.SerializeValue(ref tick);
+			serializer.SerializeValue(ref position);
+			serializer.SerializeValue(ref rotation);
+			serializer.SerializeValue(ref velocity);
+			serializer.SerializeValue(ref angularVelocity);
+		}
 	}
 }

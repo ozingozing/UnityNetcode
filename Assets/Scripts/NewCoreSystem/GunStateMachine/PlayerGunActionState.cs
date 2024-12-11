@@ -15,7 +15,7 @@ public class PlayerGunActionState : PlayerState
 
 	[HideInInspector] public Vector3 actualAimPos;
 	[SerializeField] public float aimSmoothSpeed = 20;
-	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Default") | LayerMask.GetMask("Player");
+	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Ground") | LayerMask.GetMask("Default");
 
 
 	public Transform lastAimPos;

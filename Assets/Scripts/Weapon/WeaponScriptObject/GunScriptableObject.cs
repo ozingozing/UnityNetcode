@@ -30,7 +30,6 @@ public class GunScriptableObject : ScriptableObject
 	[SerializeField] private Transform barrelPos;
 	[SerializeField] private float bulletVelocity;
 	[SerializeField] private int bulletPerShot;
-	private AimStateManager aim;
 
 	[SerializeField] private AudioClip gunShot;
 	[SerializeField] private GameObject hitParticle;

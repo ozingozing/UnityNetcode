@@ -52,7 +52,8 @@ public class PlayerState
 		//Debug
 		Debug.Log($"PlayerState Exit: {animBoolName}");
 		isExitingState = true;
-    }
+        isAnimationFinished = true;
+	}
 
     public virtual void LogicUpdate() { }
 
