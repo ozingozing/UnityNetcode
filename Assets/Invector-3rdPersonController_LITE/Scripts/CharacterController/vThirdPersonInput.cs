@@ -30,13 +30,14 @@ namespace Invector.vCharacterController
 		[HideInInspector] public Camera cameraMain;
 
 		//추가
-		private Rigidbody rb;
+		//private Rigidbody rb;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
+		ClientNetworkTransform clientNetworkTransform;
 
 		//Netcode general
-		NetworkTimer timer;
-		const float serverTick = 60f; //60FPS
+		NetworkTimer neworkTimer;
+		const float serverTick = 30f; //30FPS
 		const int bufferSize = 1024;
 
 		//Netcode client specific
@@ -52,10 +53,15 @@ namespace Invector.vCharacterController
 		[Header("Netcode")]
 		[SerializeField] private float reconciliationCooldownTime = 1f;
 		[SerializeField] private float reconciliationThreshold = 10f;
+		[SerializeField] private float extrapolationLimit = 0.5f; //500ms
+		[SerializeField] private float extrapolationMultiplier = 1.25f;
 		[SerializeField] private GameObject serverCube;
 		[SerializeField] private GameObject clientCube;
 
-		CountdownTimer reconciliationCooldown;
+		StatePayload extrapolationState;
+		CountdownTimer extrapolationTimer;
+
+		CountdownTimer reconciliationTimer;
 
 		[Header("Netcode Debug")]
 		[SerializeField] TextMeshProUGUI networkText;
@@ -67,7 +73,7 @@ namespace Invector.vCharacterController
 
 		public override void OnNetworkSpawn()
 		{
-			if(IsOwner)
+			if (IsOwner)
 			{
 				networkText.SetText($"Player {NetworkManager.LocalClientId} Host: {NetworkManager.IsHost} Server: {IsServer} Client: {IsClient}");
 				if (!IsServer) serverRpcText.SetText("Not Server");
@@ -79,19 +85,34 @@ namespace Invector.vCharacterController
 
 		private void Awake()
 		{
-			rb = GetComponent<Rigidbody>();
+			//rb = GetComponent<Rigidbody>();
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
+			clientNetworkTransform = GetComponent<ClientNetworkTransform>();
 
-			timer = new NetworkTimer(serverTick);
-			
+			neworkTimer = new NetworkTimer(serverTick);
+
 			clientStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
 			clientInputBuffer = new CircularBuffer<InputPayload>(bufferSize);
-			
+
 			serverStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
 			serverInputQueue = new Queue<InputPayload>();
 
-			reconciliationCooldown = new CountdownTimer(reconciliationCooldownTime);
+			reconciliationTimer = new CountdownTimer(reconciliationCooldownTime);
+			extrapolationTimer = new CountdownTimer(extrapolationLimit);
+
+			reconciliationTimer.OnTimerStart += () => {
+				extrapolationTimer.Stop();
+			};
+
+			extrapolationTimer.OnTimerStart += () => {
+				reconciliationTimer.Stop();
+				SwitchAuthorityMode(AuthorityMode.Server);
+			};
+			extrapolationTimer.OnTimerStop += () => {
+				extrapolationState = default;
+				SwitchAuthorityMode(AuthorityMode.Client);
+			};
 		}
 
 		protected virtual void Start()
@@ -106,26 +127,40 @@ namespace Invector.vCharacterController
 
 		protected virtual void FixedUpdate()
 		{
-			while(timer.ShouldTick())
+			while (neworkTimer.ShouldTick())
 			{
 				HandleClientTick();
 				HandleServerTick();
 			}
+			//Run on Update or FixedUpdate, or both - depends on the game, consider exposing on option to the editor
+			Extrapolate();
 		}
 
 
 		protected virtual void Update()
 		{
-			timer.Update(Time.deltaTime);
-			reconciliationCooldown.Tick(Time.deltaTime);
-			
-			playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {rb.velocity.magnitude:F1}");
+			neworkTimer.Update(Time.deltaTime);
+			reconciliationTimer.Tick(Time.deltaTime);
+			extrapolationTimer.Tick(Time.deltaTime);
+			//Run on Update or FixedUpdate, or both - depends on the game
+			Extrapolate();
 
-			if (IsOwner)
+			playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
+
+			if (IsOwner && IsLocalPlayer)
 			{
 				InputHandle();                  // update the input methods
 				cc.UpdateAnimator();            // updates the Animator Parameters
 			}
+		}
+
+		void SwitchAuthorityMode(AuthorityMode mode)
+		{
+			clientNetworkTransform.authorityMode = mode;
+			bool shouldSync = mode == AuthorityMode.Client;
+			/*clientNetworkTransform.SyncPositionX = shouldSync;
+			clientNetworkTransform.SyncPositionY = shouldSync;
+			clientNetworkTransform.SyncPositionZ = shouldSync;*/
 		}
 
 		void HandleServerTick()
@@ -133,9 +168,10 @@ namespace Invector.vCharacterController
 			if (!IsServer) return;
 
 			var bufferIndex = -1;
-			while(serverInputQueue.Count > 0)
+			InputPayload inputPayload = default;
+			while (serverInputQueue.Count > 0)
 			{
-				InputPayload inputPayload = serverInputQueue.Dequeue();
+				inputPayload = serverInputQueue.Dequeue();
 				bufferIndex = inputPayload.tick % bufferSize;
 
 				StatePayload statePayload = ProcessMovement(inputPayload);
@@ -144,8 +180,42 @@ namespace Invector.vCharacterController
 
 			if (bufferIndex == -1) return;
 			SendToClientRpc(serverStateBuffer.Get(bufferIndex));
+			HandleExtrapolation(serverStateBuffer.Get(bufferIndex), CalculateLatencyInMillis(inputPayload));
 		}
 
+		void Extrapolate()
+		{
+			if (IsServer && extrapolationTimer.IsRunning)
+			{
+				transform.position += extrapolationState.position.With(y: 0);
+				transform.rotation = Quaternion.Slerp(transform.rotation, extrapolationState.rotation, cc.moveSpeed * Time.deltaTime); // 회전 외삽 추가
+			}
+		}
+
+		void HandleExtrapolation(StatePayload latest, float latency)
+		{
+			if(ShouldExtrapolate(latency))
+			{
+				float latencyWeight = (1 + latency * extrapolationMultiplier);
+				float axisLength = latencyWeight * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
+				Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.angularVelocity);
+
+				// Calculate the arc the object would traverse in degrees
+				extrapolationState.position = latest.velocity * latencyWeight;
+				extrapolationState.rotation = angularRotation * transform.rotation;
+
+				extrapolationTimer.Start();
+			} 
+			else
+			{
+				extrapolationTimer.Stop();
+			}
+		}
+
+		bool ShouldExtrapolate(float latency)
+		{
+			return latency < extrapolationLimit && latency > Time.fixedDeltaTime;
+		}
 
 		[ClientRpc]
 		void SendToClientRpc(StatePayload statePayload)
@@ -160,7 +230,7 @@ namespace Invector.vCharacterController
 		{
 			if (!IsClient || !IsOwner) return;
 
-			var currentTick = timer.CurrentTick;
+			var currentTick = neworkTimer.CurrentTick;
 			var bufferIndex = currentTick % bufferSize;
 
 			InputPayload inputPayload = new InputPayload()
@@ -181,12 +251,17 @@ namespace Invector.vCharacterController
 			HandleServerReconciliation();
 		}
 
+		static float CalculateLatencyInMillis(InputPayload inputPayload)
+		{
+			return (DateTime.Now - inputPayload.timestamp).Milliseconds / 1000f;
+		}
+
 		bool ShouldReconcile()
 		{
 			bool isNewServerState = !lastServerState.Equals(default);
 			bool isLastStateUndefinedOrDifferent = lastProcessedState.Equals(default)
 													|| !lastProcessedState.Equals(lastServerState);
-			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationCooldown.IsRunning;
+			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationTimer.IsRunning && !extrapolationTimer.IsRunning;
 		}
 		void HandleServerReconciliation()
 		{
@@ -201,10 +276,10 @@ namespace Invector.vCharacterController
 			StatePayload clientState = IsHost ? clientStateBuffer.Get(bufferIndex - 1) : clientStateBuffer.Get(bufferIndex);
 			positionError = Vector3.Distance(rewindState.position, clientState.position);
 
-			if(positionError > reconciliationThreshold)
+			if (positionError > reconciliationThreshold)
 			{
 				ReconcileState(rewindState);
-				reconciliationCooldown.Start();
+				reconciliationTimer.Start();
 			}
 
 			lastProcessedState = lastServerState;
@@ -214,8 +289,8 @@ namespace Invector.vCharacterController
 		{
 			transform.position = rewindState.position;
 			transform.rotation = rewindState.rotation;
-			rb.velocity = rewindState.velocity;
-			rb.angularVelocity = rewindState.angularVelocity;
+			cc._rigidbody.velocity = rewindState.velocity;
+			cc._rigidbody.angularVelocity = rewindState.angularVelocity;
 
 			if (!rewindState.Equals(lastServerState)) return;
 
@@ -224,7 +299,7 @@ namespace Invector.vCharacterController
 			//Replay all inputs fromt the rewind state to the current state
 			int tickToReplay = lastServerState.tick;
 
-			while(tickToReplay < timer.CurrentTick)
+			while (tickToReplay < neworkTimer.CurrentTick)
 			{
 				int bufferIndex = tickToReplay % bufferSize;
 				StatePayload statePayload = ProcessMovement(clientInputBuffer.Get(bufferIndex));
@@ -243,7 +318,10 @@ namespace Invector.vCharacterController
 
 		StatePayload ProcessMovement(InputPayload input)
 		{
-			MOVE();
+			if(IsOwner && IsLocalPlayer)
+			{
+				MOVE();
+			}
 
 			return new StatePayload()
 			{
@@ -251,19 +329,21 @@ namespace Invector.vCharacterController
 				networkObjectId = NetworkObjectId,
 				position = transform.position,
 				rotation = transform.rotation,
-				velocity = rb.velocity,
-				angularVelocity = rb.velocity
+				velocity = cc._rigidbody.velocity,
+				angularVelocity = cc._rigidbody.angularVelocity,
 			};
 		}
 
 		public void MOVE()
 		{
+			InputHandle();                  // update the input methods
+			
 			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 			cc.ControlRotationType();       // handle the controller rotation type
 
-			Vector3 forwardWithoutY = transform.forward.With(y: 0).normalized;
-			rb.velocity = Vector3.Lerp(rb.velocity, forwardWithoutY * cc.input.z, timer.MinTimeBetweenTicks);
+			//Vector3 forwardWithoutY = transform.forward.With(y: 0).normalized;
+			//rb.velocity = Vector3.Lerp(rb.velocity, forwardWithoutY * cc.moveSpeed, neworkTimer.MinTimeBetweenTicks);
 		}
 
 
@@ -326,7 +406,7 @@ namespace Invector.vCharacterController
 
 			if (!Input.GetButtonDown(horizontalInput) || !Input.GetButtonDown(verticallInput))
 			{
-				rb.angularVelocity = Vector3.zero;
+				cc._rigidbody.angularVelocity = Vector3.zero;
 			}
 		}
 

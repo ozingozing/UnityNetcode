@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3042770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 3042768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.72, y: 3.4, z: 14.5}
+  m_LocalPosition: {x: 31, y: 3.4, z: 30}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4455,7 +4455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6955,7 +6955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1334195434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7036,7 +7036,7 @@ Transform:
   m_GameObject: {fileID: 1334195433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.9, y: 3.4, z: 14.5}
+  m_LocalPosition: {x: -26.2, y: 3.4, z: 30}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9270,8 +9270,8 @@ MonoBehaviour:
     Port: 7777
     ServerListenAddress: 0.0.0.0
   DebugSimulator:
-    PacketDelayMS: 500
-    PacketJitterMS: 100
+    PacketDelayMS: 0
+    PacketJitterMS: 0
     PacketDropRate: 0
 --- !u!114 &1642795107
 MonoBehaviour:
