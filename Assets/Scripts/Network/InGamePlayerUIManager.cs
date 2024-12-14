@@ -24,22 +24,31 @@ public class InGamePlayerUIManager : MonoBehaviour
 		Instance = this;
 		rectTransform = GetComponent<RectTransform>();
 	}
-
+	EventBinding<PlayerEvent> OnPlayerSpawnBinding;
 	private void OnEnable()
 	{
-		PlayerStats.OnPlayerSpawn += OnplayerSpanwed;
+		OnPlayerSpawnBinding = new EventBinding<PlayerEvent>(OnplayerSpanwed);
+		EventBus<PlayerEvent>.Register(OnPlayerSpawnBinding);
+		//PlayerStats.OnPlayerSpawn += OnplayerSpanwed;
 	}
 
 	private void OnDisable()
 	{
-		PlayerStats.OnPlayerSpawn -= OnplayerSpanwed;
+		EventBus<PlayerEvent>.Deregister(OnPlayerSpawnBinding);
+		//PlayerStats.OnPlayerSpawn -= OnplayerSpanwed;
 	}
 
-	private void OnplayerSpanwed(object sender, GameObject player)
+	void OnplayerSpanwed(PlayerEvent player)
+	{
+		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
+		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player.player);
+	}
+
+	/*private void OnplayerSpanwed(object sender, GameObject player)
 	{
 		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
 		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player);
-	}
+	}*/
 
 	public void PanelFadeIn()
 	{

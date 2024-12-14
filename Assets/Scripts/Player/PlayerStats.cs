@@ -13,6 +13,52 @@ using UnityEngine;
 
 public class PlayerStats : NetworkBehaviour
 {
+	/// <summary>
+	/// Event Bus
+	/// </summary>
+	/*EventBinding<TestEvent> testEventBinding;
+	EventBinding<PlayerEvent> playerEventBinding;
+
+	private void OnEnable()
+	{
+		testEventBinding = new EventBinding<TestEvent>(HandleTestEvent);
+		EventBus<TestEvent>.Register(testEventBinding);
+
+		playerEventBinding = new EventBinding<PlayerEvent>(HandlePlayerEvent);
+		EventBus<PlayerEvent>.Register(playerEventBinding);
+	}
+
+	private void OnDisable()
+	{
+		EventBus<TestEvent>.Deregister(testEventBinding);
+		EventBus<PlayerEvent>.Deregister(playerEventBinding);
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.V))
+		{
+			EventBus<TestEvent>.Raise(new TestEvent());
+		}
+		else if (Input.GetKeyDown(KeyCode.B))
+		{
+			EventBus<PlayerEvent>.Raise(new PlayerEvent()
+			{
+				health = 100,
+				mana = 200,
+			});
+		}
+	}
+
+	void HandleTestEvent()
+	{
+		Debug.Log("Test Event Received!");
+	}
+	void HandlePlayerEvent(PlayerEvent playerEvent)
+	{
+		Debug.Log($"Player Event Received! Health: {playerEvent.health}, Mana: {playerEvent.mana}");
+	}*/
+
 	public static event EventHandler<GameObject> OnPlayerSpawn;
 	public static event EventHandler<GameObject> OnPlayerDespawn;
 
@@ -114,7 +160,11 @@ public class PlayerStats : NetworkBehaviour
 	{
 		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == clientLobbyId).Value.playerCharacterImage;
 
-		OnPlayerSpawn?.Invoke(this, gameObject);
+		//OnPlayerSpawn?.Invoke(this, gameObject);
+		EventBus<PlayerEvent>.Raise(new PlayerEvent()
+		{
+			player = this.gameObject
+		});
 	}
 
 	IEnumerator WeaponSwape()
