@@ -177,20 +177,20 @@ public class WalkerGenerator : MonoBehaviour
 		// 각 방향으로 큐브 생성
 		foreach (var direction in Directions)
 		{
-			Vector3 position = pinPoint + direction * TileCenter.x * width - BigWall.GetComponent<Renderer>().bounds.size / 2; // 중앙에서 각 방향으로 offset만큼 떨어진 위치
+			Vector3 position = pinPoint + direction * ((gridHandler.GetLength(0) + 2) / 2) * width; // 중앙에서 각 방향으로 offset만큼 떨어진 위치
 			GameObject GO = Instantiate(BigWall, position, Quaternion.identity); // 큐브 인스턴스화
 			
 			if (direction == Vector3.right || direction == Vector3.left)
 			{
-				GO.transform.localScale = new Vector3(1, gridHandler.GetLength(0) * height, gridHandler.GetLength(0) * depth);
+				GO.transform.localScale = new Vector3(1, (gridHandler.GetLength(0) + 2) * height, (gridHandler.GetLength(0) + 2) * depth);
 			}
 			else if (direction == Vector3.forward || direction == Vector3.back)
 			{
-				GO.transform.localScale = new Vector3(gridHandler.GetLength(0) * width, gridHandler.GetLength(0) * height, 1);
+				GO.transform.localScale = new Vector3((gridHandler.GetLength(0) + 2) * width, (gridHandler.GetLength(0) + 2) * height, 1);
 			}
 			else
 			{
-				GO.transform.localScale = new Vector3(gridHandler.GetLength(0) * width, 1, gridHandler.GetLength(0) * depth);
+				GO.transform.localScale = new Vector3((gridHandler.GetLength(0) + 2) * width, 1, (gridHandler.GetLength(0) + 2) * depth);
 			}
 
 			GO.GetComponent<NetworkObject>().Spawn();

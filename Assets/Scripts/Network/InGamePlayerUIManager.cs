@@ -1,14 +1,7 @@
 using UnityEngine;
-using TMPro;
-using Unity.Netcode;
-using System.Collections.Generic;
-using System;
-using UnityEngine.UI;
 using DG.Tweening;
-using Unity.VisualScripting;
-using System.Linq;
-using Unity.Services.Authentication;
 using static LobbyManager;
+using ChocoOzing.EventBusSystem;
 
 public class InGamePlayerUIManager : MonoBehaviour
 {
@@ -24,31 +17,23 @@ public class InGamePlayerUIManager : MonoBehaviour
 		Instance = this;
 		rectTransform = GetComponent<RectTransform>();
 	}
-	EventBinding<PlayerEvent> OnPlayerSpawnBinding;
+	EventBinding<PlayerOnSpawnEvent> OnPlayerSpawnBinding;
 	private void OnEnable()
 	{
-		OnPlayerSpawnBinding = new EventBinding<PlayerEvent>(OnplayerSpanwed);
-		EventBus<PlayerEvent>.Register(OnPlayerSpawnBinding);
-		//PlayerStats.OnPlayerSpawn += OnplayerSpanwed;
+		OnPlayerSpawnBinding = new EventBinding<PlayerOnSpawnEvent>(OnplayerSpanwed);
+		EventBus<PlayerOnSpawnEvent>.Register(OnPlayerSpawnBinding);
 	}
 
 	private void OnDisable()
 	{
-		EventBus<PlayerEvent>.Deregister(OnPlayerSpawnBinding);
-		//PlayerStats.OnPlayerSpawn -= OnplayerSpanwed;
+		EventBus<PlayerOnSpawnEvent>.Deregister(OnPlayerSpawnBinding);
 	}
 
-	void OnplayerSpanwed(PlayerEvent player)
+	void OnplayerSpanwed(PlayerOnSpawnEvent player)
 	{
 		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
 		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player.player);
 	}
-
-	/*private void OnplayerSpanwed(object sender, GameObject player)
-	{
-		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
-		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player);
-	}*/
 
 	public void PanelFadeIn()
 	{

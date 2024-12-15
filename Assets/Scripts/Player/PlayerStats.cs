@@ -1,3 +1,5 @@
+using Architecture.AbilitySystem.Controller;
+using ChocoOzing.EventBusSystem;
 using Invector.vCharacterController;
 using System;
 using System.Collections;
@@ -16,17 +18,23 @@ public class PlayerStats : NetworkBehaviour
 	/// <summary>
 	/// Event Bus
 	/// </summary>
+
+	EventBinding<PlayerAnimationEvent> playerAnimBinding;
+	private void OnEnable()
+	{
+		playerAnimBinding = new EventBinding<PlayerAnimationEvent>(TestMVC);
+		EventBus<PlayerAnimationEvent>.Register(playerAnimBinding);
+	}
+
+	private void TestMVC(PlayerAnimationEvent @event)
+	{
+		GetComponent<Animator>().Play(@event.animationHash);
+	}
+
+
 	/*EventBinding<TestEvent> testEventBinding;
 	EventBinding<PlayerEvent> playerEventBinding;
 
-	private void OnEnable()
-	{
-		testEventBinding = new EventBinding<TestEvent>(HandleTestEvent);
-		EventBus<TestEvent>.Register(testEventBinding);
-
-		playerEventBinding = new EventBinding<PlayerEvent>(HandlePlayerEvent);
-		EventBus<PlayerEvent>.Register(playerEventBinding);
-	}
 
 	private void OnDisable()
 	{
@@ -58,9 +66,6 @@ public class PlayerStats : NetworkBehaviour
 	{
 		Debug.Log($"Player Event Received! Health: {playerEvent.health}, Mana: {playerEvent.mana}");
 	}*/
-
-	public static event EventHandler<GameObject> OnPlayerSpawn;
-	public static event EventHandler<GameObject> OnPlayerDespawn;
 
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
@@ -112,11 +117,6 @@ public class PlayerStats : NetworkBehaviour
 		base.OnNetworkSpawn();
 	}
 
-	public override void OnNetworkDespawn()
-	{
-		OnPlayerDespawn?.Invoke(this, gameObject);
-		base.OnNetworkDespawn();
-	}
 
 	// 클라이언트에서 위치를 업데이트하는 RPC
 	[ClientRpc]
@@ -155,13 +155,20 @@ public class PlayerStats : NetworkBehaviour
 		SendNameToClientRpc(id);
 	}
 
+	private void OnDisable()
+	{
+		EventBus<PlayerOnDespawnEvent>.Raise(new PlayerOnDespawnEvent()
+		{
+			player = this.gameObject
+		});
+	}
+
 	[ClientRpc]
 	public void SendNameToClientRpc(string clientLobbyId)
 	{
 		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == clientLobbyId).Value.playerCharacterImage;
 
-		//OnPlayerSpawn?.Invoke(this, gameObject);
-		EventBus<PlayerEvent>.Raise(new PlayerEvent()
+		EventBus<PlayerOnSpawnEvent>.Raise(new PlayerOnSpawnEvent()
 		{
 			player = this.gameObject
 		});

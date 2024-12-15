@@ -1,18 +1,22 @@
 using UnityEngine;
 
-public interface IEvent { }
-
-public struct TestEvent : IEvent
+namespace ChocoOzing.EventBusSystem
 {
-    
-}
+	public interface IEvent { }
 
-public struct PlayerEvent :IEvent
-{
-   public GameObject player;
-}
+	public struct PlayerOnSpawnEvent : IEvent
+	{
+		public GameObject player;
+	}
 
-public class Events : IEvent
-{
-    
+	public struct PlayerOnDespawnEvent : IEvent
+	{
+		public GameObject player;
+	}
+
+
+	public class Events : IEvent
+	{
+
+	}
 }
