@@ -1,7 +1,9 @@
+using ChocoOzing.EventBusSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,28 +29,50 @@ public class LobbyListUI : MonoBehaviour {
         createLobbyButton.onClick.AddListener(CreateLobbyButtonClick);
     }
 
-    private void Start() {
-        LobbyManager.Instance.OnLobbyListChanged += LobbyManager_OnLobbyListChanged;
+	private void Start() {
+        EventBus<OnLobbyListChangedEventArgs>.Register(new EventBinding<OnLobbyListChangedEventArgs>(LobbyManager_OnLobbyListChanged));
+        EventBus<LobbyJoinedEvnetArgs>.Register(new EventBinding<LobbyJoinedEvnetArgs>(LobbyManager_OnJoinedLobby));
+        EventBus<LobbyLeftEventArgs>.Register(new EventBinding<LobbyLeftEventArgs>(LobbyManager_OnLeftLobby));
+        
+        /*LobbyManager.Instance.OnLobbyListChanged += LobbyManager_OnLobbyListChanged;
         LobbyManager.Instance.OnJoinedLobby += LobbyManager_OnJoinedLobby;
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
-        LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnKickedFromLobby;
+        LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnKickedFromLobby;*/
     }
 
-    private void LobbyManager_OnKickedFromLobby(object sender, LobbyManager.LobbyEventArgs e) {
+	private void LobbyManager_OnLeftLobby()
+	{
+		Show();
+	}
+
+	private void LobbyManager_OnJoinedLobby()
+	{
+		Hide();
+	}
+	private void LobbyManager_OnLobbyListChanged(OnLobbyListChangedEventArgs e)
+	{
+		UpdateLobbyList(e.lobbyList);
+	}
+    /*private void LobbyManager_OnKickedFromLobby(object sender, LobbyManager.LobbyEventArgs e)
+    {
         Show();
     }
 
-    private void LobbyManager_OnLeftLobby(object sender, EventArgs e) {
+    private void LobbyManager_OnLeftLobby(object sender, EventArgs e)
+    {
         Show();
     }
 
-    private void LobbyManager_OnJoinedLobby(object sender, LobbyManager.LobbyEventArgs e) {
+    private void LobbyManager_OnJoinedLobby(object sender, LobbyManager.LobbyEventArgs e)
+    {
         Hide();
     }
 
-    private void LobbyManager_OnLobbyListChanged(object sender, LobbyManager.OnLobbyListChangedEventArgs e) {
+    private void LobbyManager_OnLobbyListChanged(object sender, LobbyManager.OnLobbyListChangedEventArgs e)
+    {
         UpdateLobbyList(e.lobbyList);
-    }
+    }*/
+
 
     private void UpdateLobbyList(List<Lobby> lobbyList) {
         foreach (Transform child in container) {

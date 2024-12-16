@@ -1,3 +1,5 @@
+using Architecture.AbilitySystem.Model;
+using ChocoOzing.EventBusSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,14 +58,39 @@ public class LobbyUI : MonoBehaviour {
         });
     }
 
-    private void Start() {
-        LobbyManager.Instance.OnJoinedLobby += UpdateLobby_Event;
+	private void Start() {
+        EventBus<LobbyJoinedEvnetArgs>.Register(new EventBinding<LobbyJoinedEvnetArgs>(UpdateLobby_Event));
+        EventBus<LobbyLeftEventArgs>.Register(new EventBinding<LobbyLeftEventArgs>(LobbyManager_OnLeftLobby));
+        EventBus<LobbyGameSartEventArgs>.Register(new EventBinding<LobbyGameSartEventArgs>(LobbyManager_OnGameStarted));
+
+        /*LobbyManager.Instance.OnJoinedLobby += UpdateLobby_Event;
         LobbyManager.Instance.OnJoinedLobbyUpdate += UpdateLobby_Event;
         LobbyManager.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
+
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
-        LobbyManager.Instance.OnGameStarted += LobbyManager_OnGameStarted;
+
+        LobbyManager.Instance.OnGameStarted += LobbyManager_OnGameStarted;*/
+        
         Hide();
+    }
+
+	private void LobbyManager_OnGameStarted()
+    {
+		Hide();
+	}
+    private void LobbyManager_OnLeftLobby()
+    {
+		ClearLobby();
+		Hide();
+	}
+    private void UpdateLobby_Event(LobbyJoinedEvnetArgs e)
+    {
+        UpdateLobby(e.lobby);
+	}
+	
+    /*private void UpdateLobby() {
+        UpdateLobby(LobbyManager.Instance.GetJoinedLobby());
     }
 
     private void LobbyManager_OnGameStarted(object sender, System.EventArgs e)
@@ -71,18 +98,17 @@ public class LobbyUI : MonoBehaviour {
         Hide();
     }
 
-    private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e) {
+    private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e)
+    {
         ClearLobby();
         Hide();
     }
 
-    private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e) {
+    private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e)
+    {
         UpdateLobby();
-    }
+    }*/
 
-    private void UpdateLobby() {
-        UpdateLobby(LobbyManager.Instance.GetJoinedLobby());
-    }
 
     private void UpdateLobby(Lobby lobby) {
         ClearLobby();
