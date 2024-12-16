@@ -151,7 +151,7 @@ public class LobbyManager : MonoBehaviour {
                     //StartGame!
                     if(!IsLobbyHost())
                     {
-                        TestRelay.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
+                        MyRelayServer.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
                     }
 
                     //GameObject.Find("MapManager").GetComponent<WalkerGenerator>().TotalPlayers = joinedLobby.Players.Count;
@@ -397,7 +397,7 @@ public class LobbyManager : MonoBehaviour {
             {
 				Debug.Log("StartGame");
 
-				string relayCode = await TestRelay.Instance.CreateRelay();
+				string relayCode = await MyRelayServer.Instance.CreateRelay();
 
 				Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(
 					joinedLobby.Id, new UpdateLobbyOptions

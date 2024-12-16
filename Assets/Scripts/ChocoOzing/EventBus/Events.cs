@@ -14,6 +14,10 @@ namespace ChocoOzing.EventBusSystem
 		public GameObject player;
 	}
 
+	public struct PlayerAnimationEvent : IEvent
+	{
+		public int animationHash;
+	}
 
 	public class Events : IEvent
 	{

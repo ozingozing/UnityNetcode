@@ -18,54 +18,11 @@ public class PlayerStats : NetworkBehaviour
 	/// <summary>
 	/// Event Bus
 	/// </summary>
-
 	EventBinding<PlayerAnimationEvent> playerAnimBinding;
-	private void OnEnable()
-	{
-		playerAnimBinding = new EventBinding<PlayerAnimationEvent>(TestMVC);
-		EventBus<PlayerAnimationEvent>.Register(playerAnimBinding);
-	}
-
 	private void TestMVC(PlayerAnimationEvent @event)
 	{
 		GetComponent<Animator>().Play(@event.animationHash);
 	}
-
-
-	/*EventBinding<TestEvent> testEventBinding;
-	EventBinding<PlayerEvent> playerEventBinding;
-
-
-	private void OnDisable()
-	{
-		EventBus<TestEvent>.Deregister(testEventBinding);
-		EventBus<PlayerEvent>.Deregister(playerEventBinding);
-	}
-
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.V))
-		{
-			EventBus<TestEvent>.Raise(new TestEvent());
-		}
-		else if (Input.GetKeyDown(KeyCode.B))
-		{
-			EventBus<PlayerEvent>.Raise(new PlayerEvent()
-			{
-				health = 100,
-				mana = 200,
-			});
-		}
-	}
-
-	void HandleTestEvent()
-	{
-		Debug.Log("Test Event Received!");
-	}
-	void HandlePlayerEvent(PlayerEvent playerEvent)
-	{
-		Debug.Log($"Player Event Received! Health: {playerEvent.health}, Mana: {playerEvent.mana}");
-	}*/
 
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
@@ -92,13 +49,16 @@ public class PlayerStats : NetworkBehaviour
 			CamManager.Instance.ThirdPersonCam.LookAt = GetComponent<MyPlayer>().aimPos;
 			GetComponent<MyPlayer>().PlayerActionStart();
 
+			//EventRegister
+			playerAnimBinding = new EventBinding<PlayerAnimationEvent>(TestMVC);
+			EventBus<PlayerAnimationEvent>.Register(playerAnimBinding);
+
 			//Debug Grid
 			/*if(GameObject.Find("A*").activeSelf)
 			{
 				GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
 				GameObject.Find("Seeker").GetComponent<Unit>().target = this.transform;
 			}*/
-			//Debug Grid
 		}
 		GetComponent<Rigidbody>().isKinematic = false;
 		SetWeaponActive(currentWeaponIndex);

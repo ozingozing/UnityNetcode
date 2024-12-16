@@ -8,13 +8,14 @@ namespace Architecture.AbilitySystem
 	public class AbilitySystem : MonoBehaviour
 	{
 		[SerializeField] AbilityView view;
-		[SerializeField] AbilityData[] startingAbilities;
+		[SerializeField] AbilityData[] startingSOabilities;
 		AbilityController controller;
 
-		private void Awake()
+		private void OnEnable()
 		{
+			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
 			controller = new AbilityController.Builder()
-				.WithAbilities(startingAbilities)
+				.WithAbilities(startingSOabilities)
 				.Build(view);
 		}
 

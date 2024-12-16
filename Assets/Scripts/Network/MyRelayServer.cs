@@ -11,9 +11,9 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class TestRelay : MonoBehaviour
+public class MyRelayServer : MonoBehaviour
 {
-	[HideInInspector] public static TestRelay Instance {  get; private set; }
+	[HideInInspector] public static MyRelayServer Instance {  get; private set; }
 
 	private void Awake()
 	{

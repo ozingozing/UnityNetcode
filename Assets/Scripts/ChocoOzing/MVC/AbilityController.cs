@@ -14,7 +14,7 @@ namespace Architecture.AbilitySystem.Controller
 		readonly AbilityModel model;
 		readonly AbilityView view;
 		readonly Queue<AbilityCommand> abilityQueue = new Queue<AbilityCommand>();
-		readonly CountdownTimer timer = new CountdownTimer(0);
+		readonly CountdownTimer cooltimer = new CountdownTimer(0);
 
 		AbilityController(AbilityView view, AbilityModel model)
 		{
@@ -27,14 +27,14 @@ namespace Architecture.AbilitySystem.Controller
 
 		public void Update(float deltaTime)
 		{
-			timer.Tick(deltaTime);
-			view.UpdateRedial(timer.Progress);
+			cooltimer.Tick(deltaTime);
+			view.UpdateRedial(cooltimer.Progress);
 
-			if(!timer.IsRunning && abilityQueue.TryDequeue(out AbilityCommand cmd))
+			if(!cooltimer.IsRunning && abilityQueue.TryDequeue(out AbilityCommand cmd))
 			{
 				cmd.Execute();
-				timer.Reset(cmd.duration);
-				timer.Start();
+				cooltimer.Reset(cmd.duration);
+				cooltimer.Start();
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace Architecture.AbilitySystem.Controller
 
 		void OnAbilityButtonPressed(int index)
 		{
-			if(timer.Progress < 0.25f || !timer.IsRunning)
+			if(cooltimer.Progress < 0.25f || !cooltimer.IsRunning)
 			{
 				if (model.abilities[index] != null)
 				{
