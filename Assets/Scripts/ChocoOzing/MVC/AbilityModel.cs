@@ -17,16 +17,15 @@ namespace Architecture.AbilitySystem.Model
 
 	public class Ability
 	{
+		AbilityCommand command;
 		public readonly AbilityData data;
 		
 		public Ability(AbilityData data)
 		{
 			this.data = data;
+			command = new AbilityCommand(data);
 		}
 
-		public AbilityCommand CreateCommand()
-		{
-			return new AbilityCommand(data);
-		}
+		public AbilityCommand CreateCommand() => command;
 	}
 }

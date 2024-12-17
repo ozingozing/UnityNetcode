@@ -18,7 +18,6 @@ public class PlayerStats : NetworkBehaviour
 	/// <summary>
 	/// Event Bus
 	/// </summary>
-	EventBinding<PlayerAnimationEvent> playerAnimBinding;
 	private void TestMVC(PlayerAnimationEvent @event)
 	{
 		GetComponent<Animator>().Play(@event.animationHash);
@@ -50,8 +49,7 @@ public class PlayerStats : NetworkBehaviour
 			GetComponent<MyPlayer>().PlayerActionStart();
 
 			//EventRegister
-			playerAnimBinding = new EventBinding<PlayerAnimationEvent>(TestMVC);
-			EventBus<PlayerAnimationEvent>.Register(playerAnimBinding);
+			EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
 
 			//Debug Grid
 			/*if(GameObject.Find("A*").activeSelf)

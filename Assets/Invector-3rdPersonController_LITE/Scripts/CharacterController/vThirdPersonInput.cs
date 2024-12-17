@@ -68,12 +68,23 @@ namespace Invector.vCharacterController
 		[SerializeField] TextMeshProUGUI playerText;
 		[SerializeField] TextMeshProUGUI serverRpcText;
 		[SerializeField] TextMeshProUGUI clientRpcText;
+
+		public bool isDebug = false;
 		//
 		#endregion
 
 		public override void OnNetworkSpawn()
 		{
-			if (IsOwner)
+			if(!isDebug)
+			{
+				clientCube.SetActive(false);
+				serverCube.SetActive(false);
+				networkText.gameObject.SetActive(false);
+				playerText.gameObject.SetActive(false);
+				serverRpcText.gameObject.SetActive(false);
+				clientRpcText.gameObject.SetActive(false);
+			}
+			if (IsOwner && isDebug)
 			{
 				networkText.SetText($"Player {NetworkManager.LocalClientId} Host: {NetworkManager.IsHost} Server: {IsServer} Client: {IsClient}");
 				if (!IsServer) serverRpcText.SetText("Not Server");
@@ -132,6 +143,10 @@ namespace Invector.vCharacterController
 				HandleClientTick();
 				HandleServerTick();
 			}
+			if (IsOwner && IsLocalPlayer)
+			{
+				MOVE();
+			}
 			//Run on Update or FixedUpdate, or both - depends on the game, consider exposing on option to the editor
 			Extrapolate();
 		}
@@ -144,8 +159,8 @@ namespace Invector.vCharacterController
 			extrapolationTimer.Tick(Time.deltaTime);
 			//Run on Update or FixedUpdate, or both - depends on the game
 			Extrapolate();
-
-			playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
+			if(isDebug)
+				playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
 
 			if (IsOwner && IsLocalPlayer)
 			{
@@ -165,7 +180,7 @@ namespace Invector.vCharacterController
 
 		void HandleServerTick()
 		{
-			if (!IsServer) return;
+			if (!IsServer || IsOwner) return;
 
 			var bufferIndex = -1;
 			InputPayload inputPayload = default;
@@ -185,7 +200,7 @@ namespace Invector.vCharacterController
 
 		void Extrapolate()
 		{
-			if (IsServer && extrapolationTimer.IsRunning)
+			if (!IsOwner && IsServer && extrapolationTimer.IsRunning)
 			{
 				transform.position += extrapolationState.position.With(y: 0);
 				transform.rotation = Quaternion.Slerp(transform.rotation, extrapolationState.rotation, cc.moveSpeed * Time.deltaTime); // 회전 외삽 추가
@@ -220,8 +235,11 @@ namespace Invector.vCharacterController
 		[ClientRpc]
 		void SendToClientRpc(StatePayload statePayload)
 		{
-			clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
-			serverCube.transform.position = statePayload.position.With();
+			if (isDebug)
+			{
+				clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
+				serverCube.transform.position = statePayload.position.With();
+			}
 			if (!IsOwner) return;
 			lastServerState = statePayload;
 		}
@@ -263,6 +281,7 @@ namespace Invector.vCharacterController
 													|| !lastProcessedState.Equals(lastServerState);
 			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationTimer.IsRunning && !extrapolationTimer.IsRunning;
 		}
+
 		void HandleServerReconciliation()
 		{
 			if (!ShouldReconcile()) return;
@@ -311,18 +330,30 @@ namespace Invector.vCharacterController
 		[ServerRpc]
 		void SendToServerRpc(InputPayload input)
 		{
-			serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
-			clientCube.transform.position = input.position.With();
+			if(isDebug)
+			{
+				serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
+				clientCube.transform.position = input.position.With();
+			}
 			serverInputQueue.Enqueue(input);
 		}
 
 		StatePayload ProcessMovement(InputPayload input)
 		{
-			if(IsOwner && IsLocalPlayer)
-			{
-				MOVE();
-			}
 
+			if (IsServer 
+			&& !IsOwner
+			&& !extrapolationTimer.IsRunning)
+			{
+				cc.input = input.inputVector.With(y: 0);
+				if (cc.input.sqrMagnitude > 0.001f)
+				{
+					Quaternion targetRotation = Quaternion.LookRotation(cc.input);
+					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+				}
+
+				transform.position = Vector3.Lerp(transform.position, input.position, Time.deltaTime);
+			}
 			return new StatePayload()
 			{
 				tick = input.tick,
@@ -336,8 +367,6 @@ namespace Invector.vCharacterController
 
 		public void MOVE()
 		{
-			InputHandle();                  // update the input methods
-			
 			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 			cc.ControlRotationType();       // handle the controller rotation type

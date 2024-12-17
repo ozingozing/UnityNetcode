@@ -36,6 +36,11 @@ namespace ChocoOzing.EventBusSystem
 	{
 		public int animationHash;
 	}
+
+	public struct PlayerBaseAnimationEvent : IEvent
+	{
+		public int animationHash;
+	}
 	#endregion
 
 	public class Events : IEvent{}
