@@ -11,28 +11,29 @@ public class InGamePlayerUIManager : MonoBehaviour
 	[SerializeField] private Transform container;
 	private RectTransform rectTransform;
 
+	EventBinding<PlayerOnSpawnState> OnPlayerSpawnBinding;
 
 	private void Awake()
 	{
 		Instance = this;
 		rectTransform = GetComponent<RectTransform>();
-	}
-	EventBinding<PlayerOnSpawnEvent> OnPlayerSpawnBinding;
-	private void OnEnable()
-	{
-		OnPlayerSpawnBinding = new EventBinding<PlayerOnSpawnEvent>(OnplayerSpanwed);
-		EventBus<PlayerOnSpawnEvent>.Register(OnPlayerSpawnBinding);
+		OnPlayerSpawnBinding = new EventBinding<PlayerOnSpawnState>(OnplayerSpanwed);
+		EventBus<PlayerOnSpawnState>.Register(OnPlayerSpawnBinding);
 	}
 
-	private void OnDisable()
+	private void OnDestroy()
 	{
-		EventBus<PlayerOnSpawnEvent>.Deregister(OnPlayerSpawnBinding);
+		EventBus<PlayerOnSpawnState>.Deregister(OnPlayerSpawnBinding);
+		OnPlayerSpawnBinding = null;
 	}
 
-	void OnplayerSpanwed(PlayerOnSpawnEvent player)
+	void OnplayerSpanwed(PlayerOnSpawnState player)
 	{
-		Transform PlayerUI = Instantiate(playerSingleTemplate, container);
-		PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player.player);
+		if(player.state == ChocoOzing.EventBusSystem.PlayerState.Init)
+		{
+			Transform PlayerUI = Instantiate(playerSingleTemplate, container);
+			PlayerUI.GetComponent<PlayerKDA>().TracePlayer(player.player);
+		}
 	}
 
 	public void PanelFadeIn()

@@ -115,9 +115,10 @@ public class PlayerStats : NetworkBehaviour
 
 	private void OnDisable()
 	{
-		EventBus<PlayerOnDespawnEvent>.Raise(new PlayerOnDespawnEvent()
+		EventBus<PlayerOnSpawnState>.Raise(new PlayerOnSpawnState()
 		{
-			player = this.gameObject
+			player = this.gameObject,
+			state = ChocoOzing.EventBusSystem.PlayerState.Despawn,
 		});
 	}
 
@@ -126,9 +127,10 @@ public class PlayerStats : NetworkBehaviour
 	{
 		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == clientLobbyId).Value.playerCharacterImage;
 
-		EventBus<PlayerOnSpawnEvent>.Raise(new PlayerOnSpawnEvent()
+		EventBus<PlayerOnSpawnState>.Raise(new PlayerOnSpawnState()
 		{
-			player = this.gameObject
+			player = this.gameObject,
+			state = ChocoOzing.EventBusSystem.PlayerState.Init,
 		});
 	}
 

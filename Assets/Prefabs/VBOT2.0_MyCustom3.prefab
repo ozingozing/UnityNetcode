@@ -5095,6 +5095,7 @@ MonoBehaviour:
   playerText: {fileID: 3325955665199038621}
   serverRpcText: {fileID: 3550636724675341066}
   clientRpcText: {fileID: 8867576331077597912}
+  isDebug: 1
 --- !u!114 &8904948559616900000
 MonoBehaviour:
   m_ObjectHideFlags: 0

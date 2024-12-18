@@ -9,6 +9,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using static ChocoOzing.EventBusSystem.LobbyEventArgs;
 using static LobbyManager;
 
 public class LobbyUI : MonoBehaviour {
@@ -58,12 +59,12 @@ public class LobbyUI : MonoBehaviour {
         });
     }
 
+    EventBinding<LobbyEventArgs> eventBinding;
 	private void Start() {
-        EventBus<LobbyJoinedEvnetArgs>.Register(new EventBinding<LobbyJoinedEvnetArgs>(UpdateLobby_Event));
-        EventBus<LobbyLeftEventArgs>.Register(new EventBinding<LobbyLeftEventArgs>(LobbyManager_OnLeftLobby));
-        EventBus<LobbyGameSartEventArgs>.Register(new EventBinding<LobbyGameSartEventArgs>(LobbyManager_OnGameStarted));
+        eventBinding = new EventBinding<LobbyEventArgs>(LobbyEvent);
+		EventBus<LobbyEventArgs>.Register(eventBinding);
 
-        /*LobbyManager.Instance.OnJoinedLobby += UpdateLobby_Event;
+		/*LobbyManager.Instance.OnJoinedLobby += UpdateLobby_Event;
         LobbyManager.Instance.OnJoinedLobbyUpdate += UpdateLobby_Event;
         LobbyManager.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
 
@@ -71,22 +72,37 @@ public class LobbyUI : MonoBehaviour {
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
 
         LobbyManager.Instance.OnGameStarted += LobbyManager_OnGameStarted;*/
-        
-        Hide();
+
+		Hide();
     }
 
-	private void LobbyManager_OnGameStarted()
-    {
-		Hide();
+	private void OnDestroy()
+	{
+		EventBus<LobbyEventArgs>.Deregister(eventBinding);
+        eventBinding = null;
 	}
-    private void LobbyManager_OnLeftLobby()
-    {
-		ClearLobby();
-		Hide();
-	}
-    private void UpdateLobby_Event(LobbyJoinedEvnetArgs e)
-    {
-        UpdateLobby(e.lobby);
+
+	private void LobbyEvent(LobbyEventArgs e)
+	{
+		switch (e.state)
+		{
+			case LobbyState.Joined:
+				if(e.lobby != null)
+                    UpdateLobby(e.lobby);
+				break;
+
+			case LobbyState.Leave:
+				ClearLobby();
+				Hide();
+				break;
+
+			case LobbyState.Start:
+				Hide();
+				break;
+
+			default:
+				break;
+		}
 	}
 	
     /*private void UpdateLobby() {

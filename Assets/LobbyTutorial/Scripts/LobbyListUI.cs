@@ -30,9 +30,8 @@ public class LobbyListUI : MonoBehaviour {
     }
 
 	private void Start() {
-        EventBus<OnLobbyListChangedEventArgs>.Register(new EventBinding<OnLobbyListChangedEventArgs>(LobbyManager_OnLobbyListChanged));
-        EventBus<LobbyJoinedEvnetArgs>.Register(new EventBinding<LobbyJoinedEvnetArgs>(LobbyManager_OnJoinedLobby));
-        EventBus<LobbyLeftEventArgs>.Register(new EventBinding<LobbyLeftEventArgs>(LobbyManager_OnLeftLobby));
+		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(LobbyEvent));
+        //EventBus<OnLobbyListChangedEventArgs>.Register(new EventBinding<OnLobbyListChangedEventArgs>(LobbyManager_OnLobbyListChanged));
         
         /*LobbyManager.Instance.OnLobbyListChanged += LobbyManager_OnLobbyListChanged;
         LobbyManager.Instance.OnJoinedLobby += LobbyManager_OnJoinedLobby;
@@ -40,19 +39,28 @@ public class LobbyListUI : MonoBehaviour {
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnKickedFromLobby;*/
     }
 
-	private void LobbyManager_OnLeftLobby()
+	private void LobbyEvent(LobbyEventArgs lobby)
 	{
-		Show();
+        switch(lobby.state)
+        {
+            case LobbyState.Joined:
+				Hide();
+				break;
+
+            case LobbyState.Leave:
+				Show();
+				break;
+
+            case LobbyState.Refresh:
+                if(lobby.lobbyList != null)
+				    UpdateLobbyList(lobby.lobbyList);
+				break;
+
+            default:
+                break;
+        }
 	}
 
-	private void LobbyManager_OnJoinedLobby()
-	{
-		Hide();
-	}
-	private void LobbyManager_OnLobbyListChanged(OnLobbyListChangedEventArgs e)
-	{
-		UpdateLobbyList(e.lobbyList);
-	}
     /*private void LobbyManager_OnKickedFromLobby(object sender, LobbyManager.LobbyEventArgs e)
     {
         Show();

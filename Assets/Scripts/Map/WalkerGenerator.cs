@@ -91,26 +91,19 @@ public class WalkerGenerator : MonoBehaviour
 
 	private void Start()
 	{
-		//LobbyManager.Instance.OnGameStarted += Func;
-		EventBus<LobbyGameSartEventArgs>.Register(new EventBinding<LobbyGameSartEventArgs>(Func));
+		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(Func));
 	}
 
-	public async void Func(object sender, System.EventArgs e)
+	public async void Func(LobbyEventArgs e)
 	{
-		if (NetworkManager.Singleton.ServerIsHost)
+		if (e.state == LobbyState.Start)
 		{
-			await InitializeGrid();
-			//Queue에 담아서 처리하는 형식은 local상으론 괜찮은데 Network상에선 데이터 전송에 부하가 생김
-			StartCoroutine(Test());
-		}
-	}
-	public async void Func()
-	{
-		if (NetworkManager.Singleton.ServerIsHost)
-		{
-			await InitializeGrid();
-			//Queue에 담아서 처리하는 형식은 local상으론 괜찮은데 Network상에선 데이터 전송에 부하가 생김
-			StartCoroutine(Test());
+			if (NetworkManager.Singleton.ServerIsHost)
+			{
+				await InitializeGrid();
+				//Queue에 담아서 처리하는 형식은 local상으론 괜찮은데 Network상에선 데이터 전송에 부하가 생김
+				StartCoroutine(Test());
+			}
 		}
 	}
 

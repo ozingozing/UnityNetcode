@@ -133,10 +133,11 @@ public class LobbyManager : MonoBehaviour {
                 joinedLobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
 
                 //OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-                EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+                EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
                 {
-                    lobby = joinedLobby
-                });
+                    lobby = joinedLobby,
+					state = LobbyState.Joined,
+				});
 
                 if (!IsPlayerInLobby()) {
                     // Player was kicked out of this lobby
@@ -145,10 +146,13 @@ public class LobbyManager : MonoBehaviour {
 					//OnKickedFromLobby?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
 					joinedLobby = null;
 
-					EventBus<LobbyLeftEventArgs>.Raise(new LobbyLeftEventArgs(){});
+					EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
+                    {
+                        lobby = joinedLobby,
+						state = LobbyState.Leave,
+					});
 				}
-
-                if (joinedLobby.Data[KEY_START_GAME].Value != "0")
+                else if (joinedLobby.Data[KEY_START_GAME].Value != "0")
                 {
                     //StartGame!
                     if(!IsLobbyHost())
@@ -161,7 +165,11 @@ public class LobbyManager : MonoBehaviour {
 
                     joinedLobby = null;
 					//OnGameStarted?.Invoke(this, EventArgs.Empty);
-					EventBus<LobbyGameSartEventArgs>.Raise(new LobbyGameSartEventArgs(){});
+					EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
+					{
+						lobby = joinedLobby,
+						state = LobbyState.Start,
+					});
 				}
             }
         }
@@ -228,10 +236,11 @@ public class LobbyManager : MonoBehaviour {
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
         joinedLobby = lobby;
-		//OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-		EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
-		{
-			lobby = joinedLobby
+        //OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
+        EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
+        {
+            lobby = joinedLobby,
+			state = LobbyState.Joined,
 		});
 
 		Debug.Log("Created Lobby " + lobby.Name);
@@ -259,9 +268,10 @@ public class LobbyManager : MonoBehaviour {
 
             QueryResponse lobbyListQueryResponse = await Lobbies.Instance.QueryLobbiesAsync();
 			//OnLobbyListChanged?.Invoke(this, new OnLobbyListChangedEventArgs { lobbyList = lobbyListQueryResponse.Results });
-			EventBus<ChocoOzing.EventBusSystem.OnLobbyListChangedEventArgs>.Raise(new ChocoOzing.EventBusSystem.OnLobbyListChangedEventArgs()
+			EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 			{
-				lobbyList = lobbyListQueryResponse.Results
+				lobbyList = lobbyListQueryResponse.Results,
+                state = LobbyState.Refresh,
 			});
 		} catch (LobbyServiceException e) {
             Debug.Log(e);
@@ -277,9 +287,10 @@ public class LobbyManager : MonoBehaviour {
 
         joinedLobby = lobby;
 		//OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-		EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+		EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 		{
-			lobby = joinedLobby
+			lobby = joinedLobby,
+			state = LobbyState.Joined,
 		});
 	}
 
@@ -290,9 +301,10 @@ public class LobbyManager : MonoBehaviour {
             Player = player
         });
 		//OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-		EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+		EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 		{
-			lobby = lobby
+			lobby = lobby,
+			state = LobbyState.Joined,
 		});
 	}
 
@@ -316,9 +328,10 @@ public class LobbyManager : MonoBehaviour {
                 Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
                 joinedLobby = lobby;
 				//OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-				EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+				EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 				{
-					lobby = joinedLobby
+					lobby = joinedLobby,
+					state = LobbyState.Joined,
 				});
 			} catch (LobbyServiceException e) {
                 Debug.Log(e);
@@ -345,9 +358,10 @@ public class LobbyManager : MonoBehaviour {
                 joinedLobby = lobby;
 
 				//OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-				EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+				EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 				{
-					lobby = joinedLobby
+					lobby = joinedLobby,
+					state = LobbyState.Joined,
 				});
 			} catch (LobbyServiceException e) {
                 Debug.Log(e);
@@ -363,9 +377,10 @@ public class LobbyManager : MonoBehaviour {
             joinedLobby = lobby;
 
 			//OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
-			EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+			EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 			{
-				lobby = joinedLobby
+				lobby = joinedLobby,
+				state = LobbyState.Leave,
 			});
 		} catch (LobbyServiceException e) {
             Debug.Log(e);
@@ -380,7 +395,11 @@ public class LobbyManager : MonoBehaviour {
                 joinedLobby = null;
 
 				//OnLeftLobby?.Invoke(this, EventArgs.Empty);
-				EventBus<LobbyLeftEventArgs>.Raise(new LobbyLeftEventArgs(){});
+				EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
+				{
+					lobby = joinedLobby,
+					state = LobbyState.Leave,
+				});
 			} catch (LobbyServiceException e) {
                 Debug.Log(e);
             }
@@ -410,9 +429,10 @@ public class LobbyManager : MonoBehaviour {
             joinedLobby = lobby;
 
 			//OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-			EventBus<LobbyJoinedEvnetArgs>.Raise(new LobbyJoinedEvnetArgs()
+			EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 			{
-				lobby = joinedLobby
+				lobby = joinedLobby,
+                state = LobbyState.Joined,
 			});
 		} catch (LobbyServiceException e) {
             Debug.Log(e);

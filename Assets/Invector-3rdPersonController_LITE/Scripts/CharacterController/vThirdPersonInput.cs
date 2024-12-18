@@ -173,9 +173,9 @@ namespace Invector.vCharacterController
 		{
 			clientNetworkTransform.authorityMode = mode;
 			bool shouldSync = mode == AuthorityMode.Client;
-			/*clientNetworkTransform.SyncPositionX = shouldSync;
+			clientNetworkTransform.SyncPositionX = shouldSync;
 			clientNetworkTransform.SyncPositionY = shouldSync;
-			clientNetworkTransform.SyncPositionZ = shouldSync;*/
+			clientNetworkTransform.SyncPositionZ = shouldSync;
 		}
 
 		void HandleServerTick()
@@ -200,16 +200,26 @@ namespace Invector.vCharacterController
 
 		void Extrapolate()
 		{
-			if (!IsOwner && IsServer && extrapolationTimer.IsRunning)
+			if (IsServer && extrapolationTimer.IsRunning)
 			{
-				transform.position += extrapolationState.position.With(y: 0);
-				transform.rotation = Quaternion.Slerp(transform.rotation, extrapolationState.rotation, cc.moveSpeed * Time.deltaTime); // 회전 외삽 추가
+				//transform.position += 10 * Time.deltaTime *extrapolationState.position.With(y: 0);
+				//transform.rotation = Quaternion.Slerp(transform.rotation, extrapolationState.rotation, cc.moveSpeed * Time.deltaTime * 360); // 회전 외삽 추가
+				// Z축 정면 방향으로 속도를 투영하여 이동
+				Vector3 forwardVelocity = transform.forward * Vector3.Dot(extrapolationState.velocity, transform.forward);
+				transform.position += forwardVelocity * 10 * Time.deltaTime;
+
+				// 회전 외삽 추가
+				transform.rotation = Quaternion.Slerp(
+					transform.rotation,
+					extrapolationState.rotation,
+					10 * Time.deltaTime
+				);
 			}
 		}
 
 		void HandleExtrapolation(StatePayload latest, float latency)
 		{
-			if(ShouldExtrapolate(latency))
+			if (ShouldExtrapolate(latency))
 			{
 				float latencyWeight = (1 + latency * extrapolationMultiplier);
 				float axisLength = latencyWeight * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
@@ -220,7 +230,7 @@ namespace Invector.vCharacterController
 				extrapolationState.rotation = angularRotation * transform.rotation;
 
 				extrapolationTimer.Start();
-			} 
+			}
 			else
 			{
 				extrapolationTimer.Stop();
@@ -238,7 +248,7 @@ namespace Invector.vCharacterController
 			if (isDebug)
 			{
 				clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
-				serverCube.transform.position = statePayload.position.With();
+				serverCube.transform.position = statePayload.position;
 			}
 			if (!IsOwner) return;
 			lastServerState = statePayload;
@@ -333,7 +343,7 @@ namespace Invector.vCharacterController
 			if(isDebug)
 			{
 				serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
-				clientCube.transform.position = input.position.With();
+				clientCube.transform.position = input.position;
 			}
 			serverInputQueue.Enqueue(input);
 		}
@@ -341,15 +351,21 @@ namespace Invector.vCharacterController
 		StatePayload ProcessMovement(InputPayload input)
 		{
 
-			if (IsServer 
-			&& !IsOwner
-			&& !extrapolationTimer.IsRunning)
+			if (IsServer
+			&& !IsOwner)
 			{
 				cc.input = input.inputVector.With(y: 0);
 				if (cc.input.sqrMagnitude > 0.001f)
 				{
-					Quaternion targetRotation = Quaternion.LookRotation(cc.input);
-					transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+					// 목표 방향 설정
+					Vector3 targetDirection = cc.input.normalized;
+
+					// 부드럽게 회전하기
+					transform.forward = Vector3.Slerp(
+						transform.forward,
+						targetDirection,
+						10 * Time.deltaTime
+					);
 				}
 
 				transform.position = Vector3.Lerp(transform.position, input.position, Time.deltaTime);

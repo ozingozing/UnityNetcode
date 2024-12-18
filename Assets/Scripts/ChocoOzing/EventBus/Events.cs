@@ -7,37 +7,35 @@ namespace ChocoOzing.EventBusSystem
 	public interface IEvent { }
 
 	#region LobbyEvnet
-	public struct LobbyJoinedEvnetArgs :IEvent
+	public enum LobbyState
+	{
+		Joined,
+		Refresh,
+		Leave,
+		Start
+	};
+	public struct LobbyEventArgs :IEvent
 	{
 		public Lobby lobby;
-	}
-	public struct LobbyLeftEventArgs : IEvent{}
-
-	public struct LobbyGameSartEventArgs : IEvent{}
-
-	public struct OnLobbyListChangedEventArgs :IEvent
-	{
+		public LobbyState state;
 		public List<Lobby> lobbyList;
 	}
 	#endregion
 
 	#region Player
-	public struct PlayerOnSpawnEvent : IEvent
+	public enum PlayerState
 	{
-		public GameObject player;
+		Init,
+		Spawn,
+		Despawn,
 	}
-
-	public struct PlayerOnDespawnEvent : IEvent
+	public struct PlayerOnSpawnState : IEvent
 	{
 		public GameObject player;
+		public PlayerState state;
 	}
 
 	public struct PlayerAnimationEvent : IEvent
-	{
-		public int animationHash;
-	}
-
-	public struct PlayerBaseAnimationEvent : IEvent
 	{
 		public int animationHash;
 	}
