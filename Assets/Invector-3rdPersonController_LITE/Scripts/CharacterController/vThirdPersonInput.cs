@@ -200,20 +200,10 @@ namespace Invector.vCharacterController
 
 		void Extrapolate()
 		{
-			if (IsServer && extrapolationTimer.IsRunning)
+			if (!IsOwner && IsServer && extrapolationTimer.IsRunning)
 			{
-				//transform.position += 10 * Time.deltaTime *extrapolationState.position.With(y: 0);
-				//transform.rotation = Quaternion.Slerp(transform.rotation, extrapolationState.rotation, cc.moveSpeed * Time.deltaTime * 360); // 회전 외삽 추가
-				// Z축 정면 방향으로 속도를 투영하여 이동
-				Vector3 forwardVelocity = transform.forward * Vector3.Dot(extrapolationState.velocity, transform.forward);
-				transform.position += forwardVelocity * 10 * Time.deltaTime;
-
-				// 회전 외삽 추가
-				transform.rotation = Quaternion.Slerp(
-					transform.rotation,
-					extrapolationState.rotation,
-					10 * Time.deltaTime
-				);
+				transform.position += extrapolationState.position.With(y: 0);
+				transform.rotation *= Quaternion.Slerp(transform.rotation, extrapolationState.rotation, 360f * Time.deltaTime); // 회전 외삽 추가
 			}
 		}
 
@@ -222,12 +212,12 @@ namespace Invector.vCharacterController
 			if (ShouldExtrapolate(latency))
 			{
 				float latencyWeight = (1 + latency * extrapolationMultiplier);
-				float axisLength = latencyWeight * latest.angularVelocity.magnitude * Mathf.Rad2Deg;
-				Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.angularVelocity);
+				float axisLength = latencyWeight * latest.velocity.magnitude * Mathf.Rad2Deg;
+				Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.velocity.normalized);
 
 				// Calculate the arc the object would traverse in degrees
 				extrapolationState.position = latest.velocity * latencyWeight;
-				extrapolationState.rotation = angularRotation * transform.rotation;
+				extrapolationState.rotation = angularRotation;
 
 				extrapolationTimer.Start();
 			}
@@ -239,7 +229,7 @@ namespace Invector.vCharacterController
 
 		bool ShouldExtrapolate(float latency)
 		{
-			return latency < extrapolationLimit && latency > Time.fixedDeltaTime;
+			return (latency < 0.1f) ? false :  latency < extrapolationLimit && latency > Time.fixedDeltaTime;
 		}
 
 		[ClientRpc]
@@ -319,7 +309,6 @@ namespace Invector.vCharacterController
 			transform.position = rewindState.position;
 			transform.rotation = rewindState.rotation;
 			cc._rigidbody.velocity = rewindState.velocity;
-			cc._rigidbody.angularVelocity = rewindState.angularVelocity;
 
 			if (!rewindState.Equals(lastServerState)) return;
 
@@ -357,18 +346,16 @@ namespace Invector.vCharacterController
 				cc.input = input.inputVector.With(y: 0);
 				if (cc.input.sqrMagnitude > 0.001f)
 				{
-					// 목표 방향 설정
 					Vector3 targetDirection = cc.input.normalized;
 
-					// 부드럽게 회전하기
 					transform.forward = Vector3.Slerp(
 						transform.forward,
 						targetDirection,
-						10 * Time.deltaTime
+						360f * Time.deltaTime
 					);
 				}
 
-				transform.position = Vector3.Lerp(transform.position, input.position, Time.deltaTime);
+				transform.position = Vector3.Lerp(transform.position, input.position, 10 * Time.deltaTime);
 			}
 			return new StatePayload()
 			{
@@ -377,7 +364,6 @@ namespace Invector.vCharacterController
 				position = transform.position,
 				rotation = transform.rotation,
 				velocity = cc._rigidbody.velocity,
-				angularVelocity = cc._rigidbody.angularVelocity,
 			};
 		}
 
@@ -386,9 +372,6 @@ namespace Invector.vCharacterController
 			cc.UpdateMotor();               // updates the ThirdPersonMotor methods
 			cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
 			cc.ControlRotationType();       // handle the controller rotation type
-
-			//Vector3 forwardWithoutY = transform.forward.With(y: 0).normalized;
-			//rb.velocity = Vector3.Lerp(rb.velocity, forwardWithoutY * cc.moveSpeed, neworkTimer.MinTimeBetweenTicks);
 		}
 
 
@@ -435,7 +418,6 @@ namespace Invector.vCharacterController
 				cc.isStrafing = true;
 				thirdPersonCamera.gameObject.SetActive(false);
 				adsVirtualCamera.gameObject.SetActive(true);
-				//movementStateManager.PlayerAdsMove();
 			}
 			MoveInput();
 			CameraInput();
@@ -536,7 +518,6 @@ namespace Invector.vCharacterController
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 velocity;
-		public Vector3 angularVelocity;
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
@@ -544,7 +525,6 @@ namespace Invector.vCharacterController
 			serializer.SerializeValue(ref position);
 			serializer.SerializeValue(ref rotation);
 			serializer.SerializeValue(ref velocity);
-			serializer.SerializeValue(ref angularVelocity);
 		}
 	}
 }
