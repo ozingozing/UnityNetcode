@@ -4,14 +4,14 @@ namespace ChocoOzing.EventBusSystem
 {
 	internal interface IEventBinding<T>
 	{
-		public Action<T> OnEvent { get; set; }
-		public Action OnEventNoArgs { get; set; }
+		public Action<T> OnEvent { get; protected set; }
+		public Action OnEventNoArgs { get; protected set; }
 	}
 
 	public class EventBinding<T> : IEventBinding<T> where T : IEvent
 	{
-		Action<T> onEvent = _ => { };
-		Action onEventNoArgs = () => { };
+		private Action<T> onEvent = _ => { };
+		private Action onEventNoArgs = () => { };
 
 		Action<T> IEventBinding<T>.OnEvent { get => onEvent; set => onEvent = value; }
 		Action IEventBinding<T>.OnEventNoArgs { get => onEventNoArgs; set => onEventNoArgs = value; }

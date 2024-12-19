@@ -1,15 +1,14 @@
+using Architecture.AbilitySystem;
 using ChocoOzing.EventBusSystem;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Input;
-using UnityEngine;
 
-namespace Architecture.AbilitySystem.Controller
+namespace ChocoOzing.CommandSystem
 {
 	public interface ICommand
 	{
 		void Execute();
 	}
+
+	//can make any CommandClass using ICommand
 	public class AbilityCommand : ICommand
 	{
 		private readonly AbilityData data;
