@@ -5086,7 +5086,7 @@ MonoBehaviour:
   tpCamera: {fileID: 0}
   cameraMain: {fileID: 0}
   reconciliationCooldownTime: 1
-  reconciliationThreshold: 10
+  reconciliationThreshold: 5
   extrapolationLimit: 0.6
   extrapolationMultiplier: 2
   serverCube: {fileID: 3588975000338341014}

@@ -30,7 +30,6 @@ namespace Invector.vCharacterController
 		[HideInInspector] public Camera cameraMain;
 
 		//추가
-		//private Rigidbody rb;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
 		ClientNetworkTransform clientNetworkTransform;
@@ -96,7 +95,6 @@ namespace Invector.vCharacterController
 
 		private void Awake()
 		{
-			//rb = GetComponent<Rigidbody>();
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 			clientNetworkTransform = GetComponent<ClientNetworkTransform>();
@@ -342,7 +340,8 @@ namespace Invector.vCharacterController
 		{
 
 			if (IsServer
-			&& !IsOwner)
+			&& !IsOwner
+			&& !extrapolationTimer.IsRunning)
 			{
 				cc.input = input.inputVector.With(y: 0);
 				if (cc.input.sqrMagnitude > 0.001f)
