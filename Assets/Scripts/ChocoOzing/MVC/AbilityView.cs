@@ -10,7 +10,7 @@ namespace Architecture.AbilitySystem.View
 	{
 		[SerializeField] public AbilityButton[] buttons;
 
-		readonly KeyCode[] keys = { KeyCode.R, KeyCode.T, KeyCode.F, KeyCode.D, KeyCode.G };
+		readonly KeyCode[] keys = { KeyCode.Y, KeyCode.T, KeyCode.F, KeyCode.D, KeyCode.G };
 
 		private void Awake()
 		{

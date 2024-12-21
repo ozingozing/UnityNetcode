@@ -18,7 +18,12 @@ public class PlayerState
 
     protected float startTime;
     private string animBoolName;
-
+    /// <summary>
+    /// Player BaseMovement
+    /// </summary>
+    /// <param name="_player"></param>
+    /// <param name="_playerStateMachine"></param>
+    /// <param name="_animBoolName"></param>
     public PlayerState(MyPlayer _player, PlayerStateMachine _playerStateMachine, /*AddPlayerData*/ string _animBoolName)
     {
         this.player = _player;
@@ -27,6 +32,12 @@ public class PlayerState
         core = _player.Core;
     }
 
+    /// <summary>
+    /// Player FPS ActionAnim Using Bool Param
+    /// </summary>
+    /// <param name="_player"></param>
+    /// <param name="_gunStateMachine"></param>
+    /// <param name="_animBoolName"></param>
 	public PlayerState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, /*AddPlayerData*/ string _animBoolName)
 	{
 		this.player = _player;
@@ -38,7 +49,8 @@ public class PlayerState
 	public virtual void Enter()
     {
         DoChecks();
-        player.Anim.SetBool(animBoolName, true);
+        if(animBoolName != "_")
+         player.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
         //Debug
         Debug.Log($"PlayerState Enter: {animBoolName}");
@@ -48,7 +60,8 @@ public class PlayerState
 
     public virtual void Exit()
     {
-        player.Anim.SetBool(animBoolName, false);
+		if (animBoolName != "_")
+			player.Anim.SetBool(animBoolName, false);
 		//Debug
 		Debug.Log($"PlayerState Exit: {animBoolName}");
 		isExitingState = true;

@@ -1,7 +1,5 @@
 using ChocoOzing.CoreSystem;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public enum GunType
@@ -10,8 +8,9 @@ public enum GunType
 	PumpShotGun,
 }
 
-public class MyPlayer : MonoBehaviour
-{
+public class MyPlayer : MonoBehaviour, IEntity
+{ 
+	// 지연 초기화
 	/// <summary>
 	/// if you want use Rigidbody? use this
 	/// UNT0008 Null propagation on Unity objects
@@ -20,6 +19,15 @@ public class MyPlayer : MonoBehaviour
 	protected Movement Movement
 	{ get => movement != null ? movement : Core.GetCoreComponent(ref movement); }
 	private Movement movement;
+
+	public AnimationManager AnimationManager
+	{ get => animationManager ??= new AnimationManager(Anim); }
+	private AnimationManager animationManager;
+
+	public MyPlayer Player
+	{  get => player ??= this; }
+	private MyPlayer player;
+	
 
 	#region Component
 	public Core Core { get; private set; }
@@ -63,7 +71,7 @@ public class MyPlayer : MonoBehaviour
 		RunState = new RunState(this, StateMachine, "IsRunning");
 		HipFireState = new HipFireState(this, GunStateMachine, "IsHipfiring");
 		AimState = new AimState(this, GunStateMachine, "IsAiming");
-		ReloadState = new ReloadState(this, GunStateMachine, "IsReloading");
+		ReloadState = new ReloadState(this, GunStateMachine, "_");
 	}
 	private void Start()
 	{

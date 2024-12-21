@@ -211,7 +211,8 @@ namespace Invector.vCharacterController
 		{
 			if (ShouldExtrapolate(latency))
 			{
-				float latencyWeight = (1 + latency * extrapolationMultiplier);
+				/*float latencyWeight = (1 + latency * extrapolationMultiplier);*/
+				float latencyWeight = latency;
 				float axisLength = latencyWeight * latest.velocity.magnitude * Mathf.Rad2Deg;
 				Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.velocity.normalized);
 

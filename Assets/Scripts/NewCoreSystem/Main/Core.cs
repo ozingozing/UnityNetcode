@@ -1,6 +1,8 @@
+using ChocoOzing.CommandSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,6 +10,10 @@ namespace ChocoOzing.CoreSystem
 {
 	public class Core : MonoBehaviour
 	{
+		#region Command
+		public readonly CommandInvoker commandInvoker = new();
+		#endregion
+
 		private readonly List<CoreComponent> CoreComponents = new List<CoreComponent>();
 		[field: SerializeField] public GameObject Root {  get; private set; }
 
@@ -54,5 +60,22 @@ namespace ChocoOzing.CoreSystem
 			value = GetCoreComponent<T>();
 			return value;
 		}
+
+		public async Task ExecuteCommand(List<ICommandTask> commands)
+		{
+			await commandInvoker.ExecuteCommand(commands);
+		}
+	}
+
+	public class CommandInvoker
+	{
+		public async Task ExecuteCommand(List<ICommandTask> commands)
+		{
+			foreach (var command in commands)
+			{
+				await command.Execute();
+			}
+		}
+
 	}
 }
