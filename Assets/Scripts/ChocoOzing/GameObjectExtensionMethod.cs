@@ -35,5 +35,12 @@ namespace ChocoOzing.Utilities
 		{
 			return new Vector3(vector.x + (x ?? 0), vector.y + (y ?? 0), vector.z + (z ?? 0));
 		}
+
+		/// <summary>
+		/// Vector3 change to Vector2
+		/// </summary>
+		/// <param name="vector3"></param>
+		/// <returns></returns>
+		public static Vector2 Vector3ToVector2(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
 	}
 }

@@ -5,9 +5,11 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public Transform target;
-    float speed = 20;
-    Vector3[] path;
-    int targetIndex=0;
+	public float speed = 20;
+	public float turnSpeed = 3;
+	public float turnDst = 5;
+
+	Path path;
 
 	private void Start()
 	{
@@ -24,11 +26,11 @@ public class Unit : MonoBehaviour
 		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
 	}
 
-	public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
+	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful)
 	{
 		if(pathSuccessful)
 		{
-			path = newPath;
+			path = new Path(waypoints, transform.position, turnDst);
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
 		}
@@ -36,21 +38,30 @@ public class Unit : MonoBehaviour
 
 	IEnumerator FollowPath()
 	{
-		Vector3 curretnWaypoint = path[0];
+		bool followingPath = true;
+		int pathIndex = 0;
+		transform.LookAt(path.lookPoints[0]);
 
-		while (true)
+		while (followingPath)
 		{
-			if(transform.position == curretnWaypoint)
+			Vector2 pos2D = new Vector2(transform.position.x, transform.position.z);
+			while(path.turnBoundaries[pathIndex].HasCrossedLine(pos2D))
 			{
-				targetIndex++;
-				if(targetIndex >= path.Length)
+				if (pathIndex == path.finishLineIndex)
 				{
-					yield break;
+					followingPath = false;
+					break;
 				}
-				curretnWaypoint = path[targetIndex];
+				else
+					pathIndex++;
 			}
 
-			transform.position = Vector3.MoveTowards(transform.position, curretnWaypoint, speed * Time.deltaTime);
+			if(followingPath)
+			{
+				Quaternion targetRoation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+				transform.rotation = Quaternion.Slerp(transform.rotation, targetRoation, Time.deltaTime * turnSpeed);
+				transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
+			}
 			yield return null;
 		}
 	}
@@ -59,21 +70,7 @@ public class Unit : MonoBehaviour
 	{
 		if(path != null)
 		{
-			for(int i = targetIndex; i < path.Length; i++)
-			{
-				Gizmos.color = Color.cyan;
-				Gizmos.DrawCube(path[i] + Vector3.up, Vector3.one / 2);
-
-				Gizmos.color = Color.red;
-				if (i == targetIndex)
-				{
-					Gizmos.DrawLine(transform.position + Vector3.up, path[i] + Vector3.up);
-				}
-				else
-				{
-					Gizmos.DrawLine(path[i - 1] + Vector3.up, path[i] + Vector3.up);
-				}
-			}
+			path.DrawWithGizmos();
 		}
 	}
 }

@@ -53,7 +53,7 @@ namespace Invector.vCharacterController
 		[SerializeField] private float reconciliationCooldownTime = 1f;
 		[SerializeField] private float reconciliationThreshold = 10f;
 		[SerializeField] private float extrapolationLimit = 0.5f; //500ms
-		[SerializeField] private float extrapolationMultiplier = 1.25f;
+		//[SerializeField] private float extrapolationMultiplier = 1.25f;
 		[SerializeField] private GameObject serverCube;
 		[SerializeField] private GameObject clientCube;
 

@@ -13170,6 +13170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  speed: 20
+  turnDst: 5
 --- !u!1 &2135972083
 GameObject:
   m_ObjectHideFlags: 0
