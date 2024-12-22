@@ -9,7 +9,6 @@ public class Pathfinding : MonoBehaviour
 	PathRequestManager pathRequestManager;
 
 	public bool turnOnHeap = false;
-	public Transform seeker, tartget;
     GridGizmo gridGizmo;
 	private void Awake()
 	{

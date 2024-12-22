@@ -52,16 +52,15 @@ public class PlayerStats : NetworkBehaviour
 			EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
 
 			//Debug Grid
-			/*if(GameObject.Find("A*").activeSelf)
+			if (GameObject.Find("A*").activeSelf)
 			{
-				GameObject.Find("A*").GetComponent<Pathfinding>().tartget = this.transform;
 				GameObject.Find("Seeker").GetComponent<Unit>().target = this.transform;
-			}*/
+			}
 		}
 		GetComponent<Rigidbody>().isKinematic = false;
 		SetWeaponActive(currentWeaponIndex);
 		StartCoroutine(WeaponSwape());
-		//서버 아니면 쳐내고
+		
 		if (IsServer)
 		{
 			kills.Value = 0;
