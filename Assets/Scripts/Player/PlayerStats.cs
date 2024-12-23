@@ -54,7 +54,10 @@ public class PlayerStats : NetworkBehaviour
 			//Debug Grid
 			if (GameObject.Find("A*").activeSelf)
 			{
-				GameObject.Find("Seeker").GetComponent<Unit>().target = this.transform;
+				foreach(GameObject item in GameObject.FindGameObjectsWithTag("Enemy"))
+				{
+					item.GetComponent<Unit>().target = this.transform;
+				}
 			}
 		}
 		GetComponent<Rigidbody>().isKinematic = false;

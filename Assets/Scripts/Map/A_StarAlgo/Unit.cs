@@ -35,8 +35,7 @@ public class Unit : MonoBehaviour
 		{
 			path = new Path(waypoints, transform.position, turnDst, stoppingDst);
 			StopCoroutine("FollowPath");
-			if(path.lookPoints.Length > 0)
-				StartCoroutine("FollowPath");
+			StartCoroutine("FollowPath");
 		}
 	}
 
@@ -51,7 +50,7 @@ public class Unit : MonoBehaviour
 		if (Time.timeSinceLevelLoad < .3f)
 			yield return new WaitForSeconds(.3f);
 
-		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+		PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 
 		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
 		Vector3 targetPosOld = target.position;
@@ -60,7 +59,7 @@ public class Unit : MonoBehaviour
 			yield return new WaitForSeconds(minPathUpdateTime);
 			if((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
 			{
-				PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+				PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 				targetPosOld = target.position;
 			}
 		}

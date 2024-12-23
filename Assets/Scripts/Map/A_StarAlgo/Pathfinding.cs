@@ -6,25 +6,14 @@ using System;
 
 public class Pathfinding : MonoBehaviour
 {
-	PathRequestManager pathRequestManager;
-
 	public bool turnOnHeap = false;
     GridGizmo gridGizmo;
 	private void Awake()
 	{
-		pathRequestManager = GetComponent<PathRequestManager>();
 		gridGizmo = GetComponent<GridGizmo>();
 	}
 
-	public void StartFindPath(Vector3 startPos,  Vector3 targetPos)
-	{
-		if(turnOnHeap)
-			StartCoroutine(FindPathHeap(startPos, targetPos));
-		else
-			StartCoroutine(FindPathList(startPos, targetPos));
-	}
-
-	IEnumerator FindPathHeap(Vector3 startPos, Vector3 targetPos)
+	public void FindPathHeap(PathRequest request, Action<PathResult> callback)
 	{
 		Stopwatch sw = new Stopwatch();
 		sw.Start();
@@ -32,8 +21,8 @@ public class Pathfinding : MonoBehaviour
 		Vector3[] waypoints = new Vector3[0];
 		bool pathSuccess = false;
 
-		Node startNode = gridGizmo.NodeFromWorldPoint(startPos);
-		Node targetNode = gridGizmo.NodeFromWorldPoint(targetPos);
+		Node startNode = gridGizmo.NodeFromWorldPoint(request.pathStart);
+		Node targetNode = gridGizmo.NodeFromWorldPoint(request.pathEnd);
 
 		if (startNode.walkable && targetNode.walkable)
 		{
@@ -80,22 +69,20 @@ public class Pathfinding : MonoBehaviour
 			}
 		}
 
-		yield return null;
-
 		if (pathSuccess)
 		{
 			waypoints = RetracePath(startNode, targetNode);
 		}
-		pathRequestManager.FinishedProcessingPath(waypoints, pathSuccess);
+		callback(new PathResult(waypoints, pathSuccess, request.callback));
 	}
 
-	IEnumerator FindPathList(Vector3 startPos, Vector3 targetPos)
+	void FindPathList(PathRequest request, Action<PathResult> callback)
     {
 		Stopwatch sw = new Stopwatch();
 		sw.Start();
 
-		Node startNode = gridGizmo.NodeFromWorldPoint(startPos);
-		Node targetNode = gridGizmo.NodeFromWorldPoint(targetPos);
+		Node startNode = gridGizmo.NodeFromWorldPoint(request.pathStart);
+		Node targetNode = gridGizmo.NodeFromWorldPoint(request.pathEnd);
 
 		Vector3[] waypoints = new Vector3[0];
 		bool pathSuccess = false;
@@ -144,12 +131,13 @@ public class Pathfinding : MonoBehaviour
 				}
 			}
 		}
-		yield return null;
+
 		if (pathSuccess)
 		{
 			waypoints = RetracePath(startNode, targetNode);
+			pathSuccess = waypoints.Length > 0;
 		}
-		pathRequestManager.FinishedProcessingPath(waypoints, pathSuccess);
+		callback(new PathResult(waypoints, pathSuccess, request.callback));
 	}
 
 	Vector3[] RetracePath(Node startNode, Node endNode)
