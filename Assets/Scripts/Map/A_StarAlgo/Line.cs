@@ -84,6 +84,31 @@ public struct Line
 	public bool HasCrossedLine(Vector2 p) => GetSide(p) != approachSide;
 
 	/// <summary>
+	/// 주어진 점에서 이 선까지의 수직 거리를 계산합니다.
+	/// </summary>
+	/// <param name="p">거리 계산에 사용할 점</param>
+	/// <returns>점에서 선까지의 수직 거리</returns>
+	public float DistanceFromPoint(Vector2 p)
+	{
+		// 주어진 점에서 이 선에 수직한 선의 y절편을 계산
+		// y = mx + b => b = y - mx
+		float yInterceptPerpendicular = p.y - gradientPerpendicular * p.x;
+
+		// 수직선과 원래 선이 교차하는 x좌표 계산
+		// 두 직선의 교점: y1 = y2 -> gradient1 * x + intercept1 = gradient2 * x + intercept2
+		float intersectX = (yInterceptPerpendicular - y_intercept) / (gradient - gradientPerpendicular);
+
+		// 교차점의 y좌표 계산
+		// y = gradient * x + intercept
+		float intersectY = gradient * intersectX + y_intercept;
+
+		// 주어진 점과 교차점 사이의 거리를 계산
+		// Vector2.Distance는 두 점 사이의 유클리드 거리(Euclidean distance)를 반환
+		return Vector2.Distance(p, new Vector2(intersectX, intersectY));
+	}
+
+
+	/// <summary>
 	/// Gizmos를 사용해 선을 시각적으로 표시
 	/// </summary>
 	/// <param name="length">선의 길이</param>

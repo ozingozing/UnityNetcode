@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+	const float pathUpdateMoveThreshold = .5f;
+	const float minPathUpdateTime = .2f;
+
     public Transform target;
 	public float speed = 20;
 	public float turnSpeed = 3;
 	public float turnDst = 5;
+	public float stoppingDst = 10;
 
 	Path path;
 
 	private void Start()
 	{
-		StartCoroutine(WaitTarget());
+		StartCoroutine(UpdatePath());
 	}
 	
 	IEnumerator WaitTarget()
@@ -22,17 +26,43 @@ public class Unit : MonoBehaviour
 		{
 			yield return null;
 		}
-		yield return new WaitForSeconds(20);
-		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+		yield return new WaitForSeconds(10);
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful)
 	{
 		if(pathSuccessful)
 		{
-			path = new Path(waypoints, transform.position, turnDst);
+			path = new Path(waypoints, transform.position, turnDst, stoppingDst);
 			StopCoroutine("FollowPath");
-			StartCoroutine("FollowPath");
+			if(path.lookPoints.Length > 0)
+				StartCoroutine("FollowPath");
+		}
+	}
+
+	IEnumerator UpdatePath()
+	{
+		while (target == null)
+		{
+			yield return null;
+		}
+		yield return new WaitForSeconds(10);
+
+		if (Time.timeSinceLevelLoad < .3f)
+			yield return new WaitForSeconds(.3f);
+
+		PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+
+		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
+		Vector3 targetPosOld = target.position;
+		while (true)
+		{
+			yield return new WaitForSeconds(minPathUpdateTime);
+			if((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+			{
+				PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+				targetPosOld = target.position;
+			}
 		}
 	}
 
@@ -41,6 +71,8 @@ public class Unit : MonoBehaviour
 		bool followingPath = true;
 		int pathIndex = 0;
 		transform.LookAt(path.lookPoints[0]);
+
+		float speedPercent = 1;
 
 		while (followingPath)
 		{
@@ -58,9 +90,17 @@ public class Unit : MonoBehaviour
 
 			if(followingPath)
 			{
+				if(pathIndex >= path.slowDownIndex && stoppingDst > 0)
+				{
+					speedPercent = Mathf.Clamp01(path.turnBoundaries[path.finishLineIndex].DistanceFromPoint(pos2D) / stoppingDst);
+					if(speedPercent < 0.01f)
+					{
+						followingPath = false;
+					}
+				}
 				Quaternion targetRoation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
 				transform.rotation = Quaternion.Slerp(transform.rotation, targetRoation, Time.deltaTime * turnSpeed);
-				transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
+				transform.Translate(Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
 			}
 			yield return null;
 		}
