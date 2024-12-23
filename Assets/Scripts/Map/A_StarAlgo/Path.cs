@@ -79,10 +79,10 @@ public class Path
 	public void DrawWithGizmos()
 	{
 		// 경로의 각 웨이포인트를 검은색 큐브로 표시
-		Gizmos.color = Color.black;
+		Gizmos.color = Color.cyan;
 		foreach (Vector3 p in lookPoints)
 		{
-			Gizmos.DrawCube(p + Vector3.up, Vector3.one); // 웨이포인트 위치 위로 살짝 띄워 표시
+			DrawHexagon(p, 0.5f); // 웨이포인트 위치 위로 살짝 띄워 표시
 		}
 
 		// 각 회전 경계선을 흰색으로 표시
@@ -90,6 +90,30 @@ public class Path
 		foreach (Line l in turnBoundaries)
 		{
 			l.DrawWithGizmos(10); // 각 경계선을 길이 10으로 그림
+		}
+	}
+
+	private void DrawHexagon(Vector3 center, float radius)
+	{
+		Vector3[] vertices = new Vector3[6];
+		float rotationOffset = Mathf.Deg2Rad * -30; // -30°를 라디안으로 변환
+
+		for (int i = 0; i < 6; i++)
+		{
+			float angle = Mathf.Deg2Rad * (60 * i) + rotationOffset; // 각도를 -30° 회전
+			vertices[i] = new Vector3(
+				center.x + radius * Mathf.Cos(angle),
+				center.y,
+				center.z + radius * Mathf.Sin(angle)
+			);
+		}
+
+		// 여섯 개의 선으로 정육각형을 그림
+		for (int i = 0; i < 6; i++)
+		{
+			Vector3 start = vertices[i];
+			Vector3 end = vertices[(i + 1) % 6]; // 마지막 점에서 첫 번째 점으로 연결
+			Gizmos.DrawLine(start, end);
 		}
 	}
 }
