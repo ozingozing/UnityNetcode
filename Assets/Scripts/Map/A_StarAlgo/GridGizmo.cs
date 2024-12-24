@@ -45,17 +45,18 @@ public class GridGizmo : MonoBehaviour
 		CreateGrid();
 	}
 
+	Vector3 worldBottomLeft;
 	void CreateGrid()
 	{
 		grid = new Node[gridSizeX, gridSizeY];
-		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+		worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
 
 		for (int r = 0; r < gridSizeY; r++)
 		{
 			for (int q = 0; q < gridSizeX; q++)
 			{
 				// 홀수 행에 xOffset 추가하여 맞물리게 배치
-				float xOffset = (r % 2 == 0) ? 0 : hexWidth * 0.5f;
+				float xOffset = (r % 2 == 1) ? hexWidth * 0.5f : 0;
 
 				// 정육각형 중심 좌표 계산
 				Vector3 worldPoint = worldBottomLeft +
@@ -84,12 +85,18 @@ public class GridGizmo : MonoBehaviour
 	public List<Node> GetNeighbours(Node node)
 	{
 		List<Node> neighbours = new List<Node>();
-		int[] dq = { 1, -1, 0, 0, 1, -1 };
-		int[] dr = { 0, 0, 1, -1, -1, 1 };
+		//int[] dq = { 1,-1,  0,0,  1,-1 };
+		//int[] dr = { 0,0,  1,-1,  -1,1 };
+
+		int[] dq_even = { 1,-1,  1, 0,  1, 0 };
+		int[] dq_odd =  { 1,-1,  0,-1,  0,-1 };
+		int[] dr =	    { 0,0,   1,-1,  -1,1 };
+
+		bool isOddRow = node.gridY % 2 == 0;
 
 		for (int i = 0; i < 6; i++)
 		{
-			int checkQ = node.gridX + dq[i];
+			int checkQ = node.gridX + (isOddRow ? dq_odd[i] : dq_even[i]);
 			int checkR = node.gridY + dr[i];
 
 			if (checkQ >= 0 && checkQ < gridSizeX && checkR >= 0 && checkR < gridSizeY)
@@ -186,11 +193,10 @@ public class GridGizmo : MonoBehaviour
 		{
 			foreach (Node n in grid)
 			{
-				Gizmos.color = Color.Lerp(Color.white, Color.black, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
+				Gizmos.color = Color.Lerp(Color.green, Color.blue, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
 				// 정육각형 색상 설정 (walkable 여부에 따라)
 				Gizmos.color = (n.walkable) ? Gizmos.color : Color.red;
 
-				// 정육각형 그리기
 				DrawHexagon(n.worldPosition, hexRadius);
 			}
 		}

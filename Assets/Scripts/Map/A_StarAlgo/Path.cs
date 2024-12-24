@@ -79,7 +79,7 @@ public class Path
 	public void DrawWithGizmos()
 	{
 		// 경로의 각 웨이포인트를 검은색 큐브로 표시
-		Gizmos.color = Color.cyan;
+		Gizmos.color = Color.yellow;
 		foreach (Vector3 p in lookPoints)
 		{
 			DrawHexagon(p, 0.5f); // 웨이포인트 위치 위로 살짝 띄워 표시
