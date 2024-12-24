@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridGizmo : MonoBehaviour
@@ -42,6 +43,9 @@ public class GridGizmo : MonoBehaviour
 			walkableRegionDictionary.Add((int)Mathf.Log(region.terrainLayerMask.value, 2), region.terrainPenalty);
 		}
 
+		penaltyMax = walkableRegionDictionary.Values.Max();
+		penaltyMin = walkableRegionDictionary.Values.Min();
+
 		CreateGrid();
 	}
 
@@ -79,7 +83,7 @@ public class GridGizmo : MonoBehaviour
 				grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);
 			}
 		}
-		BlurPenaltyMapHex(3);
+		BlurPenaltyMap(3);
 	}
 
 	public List<Node> GetNeighbours(Node node)
@@ -120,7 +124,7 @@ public class GridGizmo : MonoBehaviour
 		return grid[q, r];
 	}
 
-	private void BlurPenaltyMapHex(int blurSize)
+	private void BlurPenaltyMap(int blurSize)
 	{
 		int kernelSize = blurSize * 2 + 1;
 		int kernelExtents = (kernelSize - 1) / 2;
@@ -128,49 +132,48 @@ public class GridGizmo : MonoBehaviour
 		int[,] penaltiesHorizontalPass = new int[gridSizeX, gridSizeY];
 		int[,] penaltiesVerticalPass = new int[gridSizeX, gridSizeY];
 
-		// 수평 패스: q 방향
-		for (int r = 0; r < gridSizeY; r++)
+		for (int y = 0; y < gridSizeY; y++)
 		{
-			for (int q = -kernelExtents; q <= kernelExtents; q++)
+			for (int x = -kernelExtents; x < kernelExtents; x++)
 			{
-				int sampleQ = Mathf.Clamp(q, 0, gridSizeX - 1);
-				penaltiesHorizontalPass[0, r] += grid[sampleQ, r].movementPenalty;
+				int sampleX = Mathf.Clamp(x, 0, kernelExtents);
+				penaltiesHorizontalPass[0, y] += grid[sampleX, y].movementPenalty;
 			}
 
-			for (int q = 1; q < gridSizeX; q++)
+			for (int x = 1; x < gridSizeX; x++)
 			{
-				int removeIndex = Mathf.Clamp(q - kernelExtents - 1, 0, gridSizeX - 1);
-				int addIndex = Mathf.Clamp(q + kernelExtents, 0, gridSizeX - 1);
+				int removeIndex = Mathf.Clamp(x - kernelExtents - 1, 0, gridSizeX);
+				int addIndex = Mathf.Clamp(x + kernelExtents, 0, gridSizeX - 1);
 
-				penaltiesHorizontalPass[q, r] = penaltiesHorizontalPass[q - 1, r]
-											  - grid[removeIndex, r].movementPenalty
-											  + grid[addIndex, r].movementPenalty;
+				penaltiesHorizontalPass[x, y]
+					= penaltiesHorizontalPass[x - 1, y]
+					- grid[removeIndex, y].movementPenalty
+					+ grid[addIndex, y].movementPenalty;
 			}
 		}
 
-		// 수직 패스: r 방향
-		for (int q = 0; q < gridSizeX; q++)
+		for (int x = 0; x < gridSizeX; x++)
 		{
-			for (int r = -kernelExtents; r <= kernelExtents; r++)
+			for (int y = -kernelExtents; y < kernelExtents; y++)
 			{
-				int sampleR = Mathf.Clamp(r, 0, gridSizeY - 1);
-				penaltiesVerticalPass[q, 0] += penaltiesHorizontalPass[q, sampleR];
+				int sampleY = Mathf.Clamp(y, 0, kernelExtents);
+				penaltiesVerticalPass[x, 0] += penaltiesHorizontalPass[x, sampleY];
 			}
 
-			int blurredPenalty = Mathf.RoundToInt(penaltiesVerticalPass[q, 0] / (kernelSize * kernelSize));
-			grid[q, 0].movementPenalty = blurredPenalty;
+			int blurredPenalty = Mathf.RoundToInt(penaltiesVerticalPass[x, 0] / (kernelSize * kernelSize));
+			grid[x, 0].movementPenalty = blurredPenalty;
 
-			for (int r = 1; r < gridSizeY; r++)
+			for (int y = 1; y < gridSizeY; y++)
 			{
-				int removeIndex = Mathf.Clamp(r - kernelExtents - 1, 0, gridSizeY - 1);
-				int addIndex = Mathf.Clamp(r + kernelExtents, 0, gridSizeY - 1);
+				int removeIndex = Mathf.Clamp(y - kernelExtents - 1, 0, gridSizeY);
+				int addIndex = Mathf.Clamp(y + kernelExtents, 0, gridSizeY - 1);
 
-				penaltiesVerticalPass[q, r] = penaltiesVerticalPass[q, r - 1]
-											- penaltiesHorizontalPass[q, removeIndex]
-											+ penaltiesHorizontalPass[q, addIndex];
-
-				blurredPenalty = Mathf.RoundToInt(penaltiesVerticalPass[q, r] / (kernelSize * kernelSize));
-				grid[q, r].movementPenalty = blurredPenalty;
+				penaltiesVerticalPass[x, y]
+					= penaltiesVerticalPass[x, y - 1]
+					- penaltiesHorizontalPass[x, removeIndex]
+					+ penaltiesHorizontalPass[x, addIndex];
+				blurredPenalty = Mathf.RoundToInt(penaltiesVerticalPass[x, y] / (kernelSize * kernelSize));
+				grid[x, y].movementPenalty = blurredPenalty;
 
 				if (blurredPenalty > penaltyMax)
 				{
