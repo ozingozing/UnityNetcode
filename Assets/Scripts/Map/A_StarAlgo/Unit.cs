@@ -5,7 +5,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
 	const float pathUpdateMoveThreshold = .5f;
-	const float minPathUpdateTime = .2f;
+	const float minPathUpdateTime = 1f;
 
     public Transform target;
 	public float speed = 20;
@@ -98,7 +98,7 @@ public class Unit : MonoBehaviour
 					}
 				}
 				Quaternion targetRoation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRoation, Time.deltaTime * turnSpeed);
+				transform.rotation = Quaternion.Slerp(transform.rotation, targetRoation, 360f * Time.deltaTime * turnSpeed);
 				transform.Translate(Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
 			}
 			yield return null;

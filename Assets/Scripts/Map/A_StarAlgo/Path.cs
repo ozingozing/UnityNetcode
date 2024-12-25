@@ -82,7 +82,7 @@ public class Path
 		Gizmos.color = Color.yellow;
 		foreach (Vector3 p in lookPoints)
 		{
-			DrawHexagon(p, 0.5f); // 웨이포인트 위치 위로 살짝 띄워 표시
+			DrawHexagon(p + Vector3.up / 2, 0.5f); // 웨이포인트 위치 위로 살짝 띄워 표시
 		}
 
 		// 각 회전 경계선을 흰색으로 표시

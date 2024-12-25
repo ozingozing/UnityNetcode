@@ -5727,7 +5727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &854969859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5741,7 +5741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 20
+  speed: 5.5
   turnSpeed: 2
   turnDst: 5
   stoppingDst: 10
@@ -11519,6 +11519,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   gridWorldSize: {x: 100, y: 100}
+  blurSize: 3
   hexRadius: 0.5
   walkableRegions:
   - terrainLayerMask:
@@ -12427,7 +12428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2046312250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12441,7 +12442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 20
+  speed: 5.5
   turnSpeed: 2
   turnDst: 5
   stoppingDst: 10
@@ -13401,7 +13402,7 @@ Transform:
   m_GameObject: {fileID: 2130440344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35, y: 0, z: 22.4}
+  m_LocalPosition: {x: 43.3, y: 0, z: 43.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -13420,7 +13421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 4.5
+  speed: 5.5
   turnSpeed: 2
   turnDst: 5
   stoppingDst: 10

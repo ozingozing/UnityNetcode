@@ -112,9 +112,23 @@ public class Pathfinding : MonoBehaviour
 
 	int GetHexDistance(Node nodeA, Node nodeB)
 	{
-		int q1 = nodeA.gridX, r1 = nodeA.gridY;
-		int q2 = nodeB.gridX, r2 = nodeB.gridY;
+		Vector3Int cubeA = OffsetToCube(nodeA.gridX, nodeA.gridY);
+		Vector3Int cubeB = OffsetToCube(nodeB.gridX, nodeB.gridY);
 
-		return Mathf.Max(Mathf.Abs(q1 - q2), Mathf.Abs(r1 - r2), Mathf.Abs(-(q1 + r1) + (q2 + r2)));
+		// Cube 좌표계에서 거리 계산
+		return Mathf.Max(
+			Mathf.Abs(cubeA.x - cubeB.x),
+			Mathf.Abs(cubeA.y - cubeB.y),
+			Mathf.Abs(cubeA.z - cubeB.z)
+		);
+	}
+
+	Vector3Int OffsetToCube(int q, int r)
+	{
+		int x = q - (r % 2 == 0 ? r / 2 : (r - 1) / 2); // 홀수/짝수 행에 따라 x 계산
+		int z = r;
+		int y = -x - z;
+
+		return new Vector3Int(x, y, z);
 	}
 }
