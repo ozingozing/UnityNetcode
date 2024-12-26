@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GridGizmo : MonoBehaviour
 {
+	public static GridGizmo instance;
+
 	public bool displayGridGizmos;
 	public Transform player;
 	public LayerMask unwalkableMask;
@@ -13,11 +15,11 @@ public class GridGizmo : MonoBehaviour
 	public int blurSize = 3;
 	public float hexRadius; // 정육각형 타일 반지름
 	public TerrainType[] walkableRegions;
-	public int obstacleProximityPenalty = 10;
 	public LayerMask walkableMask;
 	public Dictionary<int, int> walkableRegionDictionary = new Dictionary<int, int>();
 	Node[,] grid;
 
+	[SerializeField]private int obstacleProximityPenalty = 100;
 	float hexWidth, hexHeight, hexHorizontalSpacing, hexVerticalSpacing;
 	int gridSizeX, gridSizeY;
 	int penaltyMin = int.MaxValue;
@@ -29,8 +31,9 @@ public class GridGizmo : MonoBehaviour
 		get { return gridSizeX * gridSizeY; }
 	}
 
-	async void Awake()
+	void Awake()
 	{
+		instance = this;
 		// 정육각형 타일 크기 계산
 		hexWidth = Mathf.Sqrt(3) * hexRadius; // 가로 너비
 		hexHeight = 2 * hexRadius; // 세로 높이
@@ -50,6 +53,14 @@ public class GridGizmo : MonoBehaviour
 		penaltyMax = walkableRegionDictionary.Values.Max();
 		penaltyMin = walkableRegionDictionary.Values.Min();
 
+		/*Debug.Log("Starting Grid Generation...");
+		isGridReady = await CreateGrid(blurSize);
+		Debug.Log("Grid Generation Completed!");*/
+	}
+
+	public async Task DoCreateGrid()
+	{
+		isGridReady = false;
 		Debug.Log("Starting Grid Generation...");
 		isGridReady = await CreateGrid(blurSize);
 		Debug.Log("Grid Generation Completed!");
@@ -69,7 +80,10 @@ public class GridGizmo : MonoBehaviour
 
 				// 정육각형 중심 좌표 계산
 				Vector3 worldPoint = worldBottomLeft +
-									 new Vector3(q * hexHorizontalSpacing + xOffset, 0, r * hexVerticalSpacing);
+									 new Vector3(
+										 q * hexHorizontalSpacing + xOffset,
+										 0,
+										 r * hexVerticalSpacing);
 
 				bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
 
@@ -120,13 +134,19 @@ public class GridGizmo : MonoBehaviour
 
 	public Node NodeFromWorldPoint(Vector3 worldPosition)
 	{
+		//TotalSzie of Center (0, 0) == LeftButtom + HalfSize
 		float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 
-		int q = Mathf.RoundToInt((gridSizeX - 1) * percentX);
-		int r = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+		int q = Mathf.RoundToInt((gridSizeX) * percentX);
+		int r = Mathf.RoundToInt((gridSizeY) * percentY);
+
+		// 홀수 행에 대한 보정
+		q = Mathf.Clamp(q - ((r % 2 == 1) ? 1 : 0), 0, gridSizeX - 1);
+		r = Mathf.Clamp(r, 0, gridSizeY - 1);
+
 		return grid[q, r];
 	}
 

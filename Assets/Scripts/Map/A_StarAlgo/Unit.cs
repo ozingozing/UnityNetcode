@@ -5,28 +5,44 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
 	const float pathUpdateMoveThreshold = .5f;
-	const float minPathUpdateTime = 1f;
+	const float minPathUpdateTime = .2f;
 
+	public LayerMask layerMask;
     public Transform target;
 	public float speed = 20;
 	public float turnSpeed = 3;
-	public float turnDst = 5;
 	public float stoppingDst = 10;
 
-	Path path;
+	private Path path;
+	private Rigidbody rb;
+	private float turnDst = 5;
 
 	private void Start()
 	{
-		StartCoroutine(UpdatePath());
+		rb = GetComponent<Rigidbody>();
+		turnDst = (GridGizmo.instance.hexRadius * 2) * 1.2f;
 	}
-	
-	IEnumerator WaitTarget()
+
+	private void FixedUpdate()
 	{
-		while (target == null)
+		rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+	}
+
+	public void StartAction(GameObject go)
+	{
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
+		foreach (Collider hitCollider in hitColliders)
 		{
-			yield return null;
+			// 자신을 제외한 객체만 처리
+			if (hitCollider.gameObject != go)
+			{
+				target = hitCollider.gameObject.transform;
+				Debug.Log($"Detected: {target.name}");
+				break;
+			}
 		}
-		yield return new WaitForSeconds(10);
+
+		StartCoroutine(UpdatePath());
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful)
@@ -57,7 +73,7 @@ public class Unit : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
-			if(target != null && (target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+			if((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
 			{
 				PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 				targetPosOld = target.position;
@@ -91,15 +107,36 @@ public class Unit : MonoBehaviour
 			{
 				if(pathIndex >= path.slowDownIndex && stoppingDst > 0)
 				{
-					speedPercent = Mathf.Clamp01(path.turnBoundaries[path.finishLineIndex].DistanceFromPoint(pos2D) / stoppingDst);
-					if(speedPercent < 0.01f)
+					//speedPercent = Mathf.Clamp01(path.turnBoundaries[path.finishLineIndex].DistanceFromPoint(pos2D) / stoppingDst);
+					speedPercent = 1;
+					if (speedPercent < 0.01f)
 					{
 						followingPath = false;
 					}
 				}
-				Quaternion targetRoation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRoation, 360f * Time.deltaTime * turnSpeed);
-				transform.Translate(Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
+
+				// 전진 이동 계산
+				Vector3 forwardMovement = transform.forward * speed * speedPercent * Time.deltaTime;
+
+				// `transform.position`으로 이동
+				transform.position += forwardMovement;
+				// 목표 회전 값 계산
+				Quaternion targetRotation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+
+				// 현재 회전 값 가져오기
+				Vector3 currentEulerAngles = transform.rotation.eulerAngles;
+
+				// 목표 회전 값에서 Y축만 가져오기
+				float targetYAngle = targetRotation.eulerAngles.y;
+
+				// 현재 Y축 회전 값과 목표 Y축 회전 값 보간
+				float newYAngle = Mathf.LerpAngle(currentEulerAngles.y, targetYAngle, 360f * Time.deltaTime * turnSpeed);
+
+				// 새로운 회전 값 생성 (Y축만 수정)
+				Quaternion newRotation = Quaternion.Euler(0, newYAngle, 0);
+
+				// 오브젝트 회전 설정
+				transform.rotation = newRotation;
 			}
 			yield return null;
 		}

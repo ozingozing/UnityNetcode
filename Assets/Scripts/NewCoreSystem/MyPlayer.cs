@@ -1,5 +1,6 @@
 using ChocoOzing.CoreSystem;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
 public enum GunType
@@ -27,7 +28,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	public MyPlayer Player
 	{  get => player ??= this; }
 	private MyPlayer player;
-	
+
 
 	#region Component
 	public Core Core { get; private set; }

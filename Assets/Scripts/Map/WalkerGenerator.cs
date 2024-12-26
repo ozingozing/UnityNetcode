@@ -102,12 +102,22 @@ public class WalkerGenerator : MonoBehaviour
 			{
 				await InitializeGrid();
 				//Queue에 담아서 처리하는 형식은 local상으론 괜찮은데 Network상에선 데이터 전송에 부하가 생김
-				StartCoroutine(Test());
+				//StartCoroutine(CreateMap());
+				await CreatMapAsync();
+				await GridGizmo.instance.DoCreateGrid();
+				InGameManager.Instance.SpawnPlayer();
 			}
 		}
 	}
 
-	IEnumerator Test()
+	private async Task CreatMapAsync()
+	{
+		var tsc = new TaskCompletionSource<bool>();
+		StartCoroutine(CreateMap(tsc));
+		await tsc.Task;
+	}
+
+	IEnumerator CreateMap(TaskCompletionSource<bool> tcs)
 	{
 		int TempCnt = 0;
 		while (SpawnFloorPos.Count > 0)
@@ -135,6 +145,8 @@ public class WalkerGenerator : MonoBehaviour
 		//StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width - BlockSizeOffSet.x - width / 2, 0, TileCenter.z * depth - BlockSizeOffSet.z - depth / 2)));
 		StartCoroutine(CreateDeadline(new Vector3(TileCenter.x * width, 0, TileCenter.z * depth) - BlockSizeOffSet));
 
+		yield return new WaitForSeconds(2);
+		tcs.SetResult(true);
 	}
 
 	public async Task InitializeGrid()
@@ -202,7 +214,7 @@ public class WalkerGenerator : MonoBehaviour
 			yield return new WaitForSeconds(1);
 		}
 
-		InGameManager.Instance.SpawnPlayer();
+		//InGameManager.Instance.SpawnPlayer();
 	}
 
 	Vector3 GetDirection()

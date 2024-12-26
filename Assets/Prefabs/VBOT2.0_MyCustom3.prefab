@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3710339978716683889}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Debug====================
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 8833868286872324095}
   - component: {fileID: 6418943648828419034}
   - component: {fileID: 7938392606555215553}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: NetworkStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 106037006953036098}
   - component: {fileID: 1773198830191950750}
   - component: {fileID: 3550636724675341066}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ServerRpcDebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4172401546582696947}
   - component: {fileID: 874408772526005445}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AimPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2889,7 +2889,7 @@ GameObject:
   - component: {fileID: 3811169504481061191}
   - component: {fileID: 2952856609561445882}
   - component: {fileID: 3325955665199038621}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: PlayerStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3788,7 +3788,7 @@ GameObject:
   - component: {fileID: 2854764503412999495}
   - component: {fileID: 8818188725040467233}
   - component: {fileID: 2317794488484221677}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4157,7 +4157,7 @@ GameObject:
   - component: {fileID: 6430417136616294135}
   - component: {fileID: 1787734390348074272}
   - component: {fileID: 8867576331077597912}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ClientRpcDebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4991,7 +4991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 462042434
+  GlobalObjectIdHash: 4283848011
   InScenePlacedSourceGlobalObjectIdHash: 462042434
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -5088,7 +5088,6 @@ MonoBehaviour:
   reconciliationCooldownTime: 1
   reconciliationThreshold: 5
   extrapolationLimit: 0.6
-  extrapolationMultiplier: 2
   serverCube: {fileID: 3588975000338341014}
   clientCube: {fileID: 5156786475040477664}
   networkText: {fileID: 7938392606555215553}
@@ -5309,6 +5308,7 @@ MonoBehaviour:
         byte0123: 0
         byte0124: 0
         byte0125: 0
+  Seeker: {fileID: 313859679423136830, guid: d8f56273d6233f74490cc8035a07b47d, type: 3}
   IsDead: 0
   kda: {fileID: 0}
   PlayerCharactar: 0
@@ -5641,6 +5641,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 4283848011
       objectReference: {fileID: 0}
+    - target: {fileID: 1862690070231287600, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2089956038417073302, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: defaultBloomAngle
       value: 1
@@ -5674,6 +5678,10 @@ PrefabInstance:
       value: M4_Carbine (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7136091046414503313, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136091046414503313, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5699,7 +5707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: layerMask.m_Bits
-      value: 1545
+      value: 1673
       objectReference: {fileID: 0}
     - target: {fileID: 7266470767052641672, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: muzzleFlashParticle
@@ -5862,7 +5870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: layerMask.m_Bits
-      value: 1545
+      value: 1673
       objectReference: {fileID: 0}
     - target: {fileID: 693828928960788369, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: muzzleFlashParticle
@@ -5888,9 +5896,17 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 4283848011
       objectReference: {fileID: 0}
+    - target: {fileID: 3120583887678870316, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_Name
       value: NewM4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_IsActive

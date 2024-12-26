@@ -24,8 +24,9 @@ public class Pathfinding : MonoBehaviour
 
 		Node startNode = gridGizmo.NodeFromWorldPoint(request.pathStart);
 		Node targetNode = gridGizmo.NodeFromWorldPoint(request.pathEnd);
-
-		if (startNode.walkable && targetNode.walkable)
+		UnityEngine.Debug.Log(targetNode.worldPosition);
+		/*if (startNode.walkable &&
+			targetNode.walkable)*/
 		{
 			Heap<Node> openSet = new Heap<Node>(gridGizmo.MaxSize);
 			HashSet<Node> closedSet = new HashSet<Node>();
@@ -47,7 +48,9 @@ public class Pathfinding : MonoBehaviour
 
 				foreach (Node neighbour in gridGizmo.GetNeighbours(currentNode))
 				{
-					if (!neighbour.walkable || closedSet.Contains(neighbour)) continue;
+					if (neighbour != targetNode &&
+						!neighbour.walkable ||
+						closedSet.Contains(neighbour)) continue;
 
 					int newMovementCostToNeighbour =
 						currentNode.gCost +

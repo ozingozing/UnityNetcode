@@ -38,15 +38,6 @@ namespace ChocoOzing
 				yield return null;
 			}
 		}
-		
-		/*private void FixedUpdate()
-		{
-			if(canShoot)
-			{
-				FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
-				canShoot = false;
-			}
-		}*/
 
 		/// <summary>
 		/// 클라이언트에서 서버로 발사 요청을 전달

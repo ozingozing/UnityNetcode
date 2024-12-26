@@ -26,21 +26,20 @@ public class PlayerStats : NetworkBehaviour
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
     public NetworkVariable<FixedString128Bytes> Name = new NetworkVariable<FixedString128Bytes>();
-    
-    public bool IsDead;
+
+
+	public GameObject Seeker;
+	public bool IsDead;
     public TextMeshProUGUI kda;
     public LobbyManager.PlayerCharacter PlayerCharactar;
 
     [SerializeField] private GameObject[] weaponPrefabs;
     private int currentWeaponIndex = 0;
 
-
 	public override void OnNetworkSpawn()
 	{
 		if(IsOwner && IsLocalPlayer)
 		{
-			GetComponent<vThirdPersonInput>().enabled = true;
-
 			//Player Init
 			CamManager.Instance.AdsCam.Follow = GetComponent<MyPlayer>().camFollowPos;
 			CamManager.Instance.AdsCam.LookAt = GetComponent<MyPlayer>().aimPos;
@@ -50,17 +49,7 @@ public class PlayerStats : NetworkBehaviour
 
 			//EventRegister
 			EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
-
-			//Debug Grid
-			if (GameObject.Find("A*").activeSelf)
-			{
-				foreach(GameObject item in GameObject.FindGameObjectsWithTag("Enemy"))
-				{
-					item.GetComponent<Unit>().target = this.transform;
-				}
-			}
 		}
-		GetComponent<Rigidbody>().isKinematic = false;
 		SetWeaponActive(currentWeaponIndex);
 		StartCoroutine(WeaponSwape());
 		
@@ -150,8 +139,27 @@ public class PlayerStats : NetworkBehaviour
 			{
 				EquipWeaponServerRpc(1);
 			}
+			else if(Input.GetKeyDown(KeyCode.M) &&
+					IsLocalPlayer)
+			{
+				SpawnGOServerRpc(OwnerClientId);
+			}
 		}
 	}
+
+	[ServerRpc]
+	void SpawnGOServerRpc(ulong id)
+	{
+		if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
+		{
+			GameObject go = Instantiate(Seeker, new Vector3(0,10,0), Quaternion.identity);
+			go.GetComponent<NetworkObject>().Spawn();
+			/*var networkObject = go.GetComponent<NetworkObject>();
+			networkObject.SpawnWithOwnership(id);*/
+			go.GetComponent<Unit>().StartAction(client.PlayerObject.gameObject);
+		}
+	}
+
 
 	public void AddKill()
     {
