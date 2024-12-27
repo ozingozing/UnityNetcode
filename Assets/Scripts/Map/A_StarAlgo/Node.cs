@@ -34,6 +34,13 @@ public class Node : IHeapItem<Node>
         set { heapIndex = value; }
     }
 
+    /// <summary>
+    /// If TargetValue > myValue OR TargetValue is null +
+    /// If TargetValue == myValue 0
+    /// If TargetValue < myValue -
+    /// </summary>
+    /// <param name="nodeToCompare"></param>
+    /// <returns></returns>
 	public int CompareTo(Node nodeToCompare)
 	{
         int compare = fCost.CompareTo(nodeToCompare.fCost);

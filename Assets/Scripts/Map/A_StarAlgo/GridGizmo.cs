@@ -140,12 +140,8 @@ public class GridGizmo : MonoBehaviour
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 
-		int q = Mathf.RoundToInt((gridSizeX) * percentX);
-		int r = Mathf.RoundToInt((gridSizeY) * percentY);
-
-		// 홀수 행에 대한 보정
-		q = Mathf.Clamp(q - ((r % 2 == 1) ? 1 : 0), 0, gridSizeX - 1);
-		r = Mathf.Clamp(r, 0, gridSizeY - 1);
+		int r = Mathf.Clamp(Mathf.RoundToInt((gridSizeY) * percentY), 0, gridSizeY - 1);
+		int q = Mathf.Clamp(Mathf.RoundToInt((gridSizeX) * percentX), 0, gridSizeX - 1);
 
 		return grid[q, r];
 	}

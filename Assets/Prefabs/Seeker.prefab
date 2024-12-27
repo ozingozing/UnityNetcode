@@ -156,8 +156,8 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 5
   turnSpeed: 3
-  turnDst: 5
   stoppingDst: 1
+  turnDst: 0
 --- !u!114 &-1010176184068041761
 MonoBehaviour:
   m_ObjectHideFlags: 0

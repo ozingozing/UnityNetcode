@@ -76,13 +76,18 @@ public class Path
 	/// <summary>
 	/// 경로와 경계선을 Gizmos를 통해 시각적으로 표시.
 	/// </summary>
-	public void DrawWithGizmos()
+	public void DrawWithGizmos(Transform targetPos = null)
 	{
+		if(targetPos != null)
+		{
+			Gizmos.color = Color.cyan;
+			DrawHexagon(GridGizmo.instance.NodeFromWorldPoint(targetPos.position).worldPosition + Vector3.up/2, GridGizmo.instance.hexRadius);
+		}
 		// 경로의 각 웨이포인트를 검은색 큐브로 표시
 		Gizmos.color = Color.yellow;
 		foreach (Vector3 p in lookPoints)
 		{
-			DrawHexagon(p + Vector3.up / 2, 0.5f); // 웨이포인트 위치 위로 살짝 띄워 표시
+			DrawHexagon(p + Vector3.up / 2, GridGizmo.instance.hexRadius); // 웨이포인트 위치 위로 살짝 띄워 표시
 		}
 
 		// 각 회전 경계선을 흰색으로 표시
