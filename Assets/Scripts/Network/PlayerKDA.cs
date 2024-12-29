@@ -24,15 +24,15 @@ public class PlayerKDA : MonoBehaviour
 	public void TracePlayer(GameObject player)
 	{
 		this.player = player;
-		player.GetComponent<PlayerStats>().Name.OnValueChanged += OnNameChanged;
-		player.GetComponent<PlayerStats>().kills.OnValueChanged += OnKillChanged;
-		player.GetComponent<PlayerStats>().deaths.OnValueChanged += OnDeathChanged;
+		player.GetComponent<PlayerInit>().Name.OnValueChanged += OnNameChanged;
+		player.GetComponent<PlayerInit>().kills.OnValueChanged += OnKillChanged;
+		player.GetComponent<PlayerInit>().deaths.OnValueChanged += OnDeathChanged;
 
-		OnKillChanged(0, player.GetComponent<PlayerStats>().kills.Value);
-		OnDeathChanged(0, player.GetComponent<PlayerStats>().deaths.Value);
-		OnNameChanged("", player.GetComponent<PlayerStats>().Name.Value);
+		OnKillChanged(0, player.GetComponent<PlayerInit>().kills.Value);
+		OnDeathChanged(0, player.GetComponent<PlayerInit>().deaths.Value);
+		OnNameChanged("", player.GetComponent<PlayerInit>().Name.Value);
 
-		transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerStats>().PlayerCharactar);
+		transform.GetChild(3).GetComponent<Image>().sprite = LobbyAssets.Instance.GetSprite(player.GetComponent<PlayerInit>().PlayerCharactar);
 	}
 
 	private void OnDeathChanged(int previousValue, int newValue)

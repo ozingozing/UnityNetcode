@@ -119,10 +119,11 @@ public abstract class GunBase : NetworkBehaviour
 
 	public void SafeGetPoolObj(ObjectPool pool, Vector3 point, Quaternion rotation)
 	{
-		if (!pool.GetObject(point, rotation))
+		pool.GetObject(point, rotation);
+		/*if (!pool.GetObject(point, rotation))
 		{
 			SafeGetPoolObj(pool, point, rotation);
-		}
+		}*/
 	}
 
 	public virtual Vector3 BloomAngle(Transform barrelPos, MyPlayer currentState)

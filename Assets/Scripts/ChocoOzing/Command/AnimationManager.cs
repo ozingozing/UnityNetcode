@@ -20,10 +20,10 @@ public class AnimationManager
 	readonly Dictionary<int, float> animationDuration = new()
     {
 		{ HipFireHash, 0.1f },
-        { ReloadHash, 3f },
-		{ ManyReloadHash, 0.4f },
-		{ ShotgunReloadActionHash, 0.3f },
-		{ ShotgunSetPosHash, 0.25f },
+        { ReloadHash, 2.9f },
+		{ ManyReloadHash, 0.2f },
+		{ ShotgunReloadActionHash, 0.25f },
+		{ ShotgunSetPosHash, 0.3f },
 		{ ShotgunPumpActionHash, 0.4f },
     };
 
@@ -34,11 +34,13 @@ public class AnimationManager
 		this.animator = animator;
 	}
 
-	public float Reload() => PlayAnimation(ReloadHash, corossFadeDuration, 2);
 	public float HipFire() => PlayAnimation(HipFireHash, corossFadeDuration, 2);
+	public float HipFire(float durtaion) => PlayAnimation(HipFireHash, durtaion, 2);
+
+	public float Reload() => PlayAnimation(ReloadHash, corossFadeDuration, 2);
 	public float ManyReload() => PlayAnimation(ManyReloadHash, corossFadeDuration, 2);
-	public float ShotgunReloadAction() => PlayAnimation(ShotgunReloadActionHash, corossFadeDuration, 2);
-	public float ShotgunSetPos() => PlayAnimation(ShotgunSetPosHash, corossFadeDuration, 2);
+	public float ShotgunReloadAction() => PlayAnimation(ShotgunReloadActionHash, 0.2f, 2);
+	public float ShotgunSetPos() => PlayAnimation(ShotgunSetPosHash, 0.25f, 2);
 	public float ShotgunPumpAction() => PlayAnimation(ShotgunPumpActionHash, corossFadeDuration, 2);
 
 	float PlayAnimation(int animationHash, float duration, int layer)

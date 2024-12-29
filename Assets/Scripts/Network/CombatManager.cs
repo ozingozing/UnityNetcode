@@ -21,8 +21,8 @@ public class CombatManager : MonoBehaviour
 
 		if (NetworkManager.Singleton.IsServer)
 		{
-			var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerStats>();
-			var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerStats>();
+			var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerInit>();
+			var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerInit>();
 
 			if (killerStats != null)
 			{

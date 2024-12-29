@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem.Controller;
+using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using Invector.vCharacterController;
 using System;
@@ -13,7 +14,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
-public class PlayerStats : NetworkBehaviour
+public class PlayerInit : NetworkBehaviour
 {
 	/// <summary>
 	/// Event Bus
@@ -26,7 +27,6 @@ public class PlayerStats : NetworkBehaviour
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
     public NetworkVariable<FixedString128Bytes> Name = new NetworkVariable<FixedString128Bytes>();
-
 
 	public GameObject Seeker;
 	public bool IsDead;

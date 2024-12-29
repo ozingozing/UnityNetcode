@@ -29,7 +29,6 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{  get => player ??= this; }
 	private MyPlayer player;
 
-
 	#region Component
 	public Core Core { get; private set; }
 	public Animator Anim {  get; private set; }
@@ -110,41 +109,38 @@ public class MyPlayer : MonoBehaviour, IEntity
 		}
 	}
 
-	public void ShotGunReloadAction()
+	//When using AudioClip as AnimEvent in a netcode,
+	//Do not use it as an inheritance type
+	public void M4_AmmoReload()
+	{
+		WeaponManager.ammo.Reload();
+	}
+
+	public void ShotgunAmmoReload()
 	{
 		if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
-				WeaponManager.ammo.ShotGunReload();
+			WeaponManager.ammo.ShotGunReload();
 
 		if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
 		{
-			Anim.Play("ShotgunReloadAction", -1, 0f);
+			Anim.Play("ShotgunReloadAction", 2, 0f);
 		}
-		else
-		{
-			Anim.Play("ShotgunSetPos");
-		}
-		/*GunStateMachine.CurrentState.ShotGunReloadAction();*/
 	}
 	public void MagIn()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magInSound);
-		/* GunStateMachine.CurrentState.MagIn()*/
 	}
 	public void MagOut()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magOutSound);
-
-		/*GunStateMachine.CurrentState.MagOut();*/
 	}
 	public virtual void ReleaseSlide()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.releaseSlideSound);
-
-		/*GunStateMachine.CurrentState.ReleaseSlide();*/
 	}
-	public void ReloadFinish()
+
+	public void AnimationFinishTrigger()
 	{
-		Anim.SetBool("IsReloading", false);
-		GunStateMachine.CurrentState.ReloadFinish();
+		GunStateMachine.CurrentState.AnimationFinishTrigger();
 	}
 }

@@ -66,8 +66,6 @@ namespace ChocoOzing.CommandSystem
 			{
 				await Task.Yield(); // 매 프레임마다 대기
 			}
-			player.AnimationManager.HipFire();
-			player.Player.GunStateMachine.ChangeState(player.Player.HipFireState);
 		}
 	}
 
@@ -135,8 +133,22 @@ namespace ChocoOzing.CommandSystem
 			{
 				await Task.Yield(); // 매 프레임마다 대기
 			}
-			player.AnimationManager.HipFire();
-			player.Player.GunStateMachine.ChangeState(player.Player.HipFireState);
+		}
+	}
+
+	public class HipFireAction : PlayerCommand
+	{
+		public HipFireAction(IEntity player) : base(player) { }
+
+		public override async Task Execute()
+		{
+			float startTime = Time.time;
+			float animationTime = player.AnimationManager.HipFire(); // 애니메이션 시간
+
+			while (Time.time - startTime < animationTime)
+			{
+				await Task.Yield(); // 매 프레임마다 대기
+			}
 		}
 	}
 }

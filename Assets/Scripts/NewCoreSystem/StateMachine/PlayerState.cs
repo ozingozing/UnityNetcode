@@ -78,10 +78,4 @@ public class PlayerState
     public virtual void AnimationTrigger() { }
     public virtual void DoChecks() { }
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
-
-    public virtual void ShotGunReloadAction() { }
-	public virtual void MagIn() { }
-    public virtual void MagOut() { }
-	public virtual void ReleaseSlide() { }
-	public virtual void ReloadFinish() { }
 }

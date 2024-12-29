@@ -50007,7 +50007,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 2.85
+    m_StopTime: 2.8666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -99388,15 +99388,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2
+  - time: 1.9833333
     functionName: ReleaseSlide
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.85
-    functionName: ReloadFinish
+  - time: 2
+    functionName: M4_AmmoReload
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.8666666
+    functionName: AnimationFinishTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
