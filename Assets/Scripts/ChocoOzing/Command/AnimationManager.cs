@@ -22,7 +22,7 @@ public class AnimationManager
 		{ HipFireHash, 0.1f },
         { ReloadHash, 2.9f },
 		{ ManyReloadHash, 0.2f },
-		{ ShotgunReloadActionHash, 0.25f },
+		{ ShotgunReloadActionHash, 0.5f },
 		{ ShotgunSetPosHash, 0.3f },
 		{ ShotgunPumpActionHash, 0.4f },
     };
@@ -45,7 +45,7 @@ public class AnimationManager
 
 	float PlayAnimation(int animationHash, float duration, int layer)
 	{
-		animator.CrossFade(animationHash, duration, layer);
+		animator.CrossFade(animationHash, duration, layer, 0f);
 		return animationDuration[animationHash];
 	}
 

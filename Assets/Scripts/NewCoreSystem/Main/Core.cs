@@ -71,9 +71,9 @@ namespace ChocoOzing.CoreSystem
 	{
 		public async Task ExecuteCommand(List<ICommandTask> commands)
 		{
-			foreach (var command in commands)
+			for (int i = 0; i < commands.Count; i++)
 			{
-				await command.Execute();
+				if (!await commands[i].Execute()) i--;
 			}
 		}
 

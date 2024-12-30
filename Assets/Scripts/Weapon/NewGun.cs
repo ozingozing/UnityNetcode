@@ -88,7 +88,7 @@ namespace ChocoOzing
 
 			if (countPershot++ % bulletPerShot == 0)
 			{
-				SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.identity);
+				SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));
 				ammo.currentAmmo--;
 				myPlayer.Anim.Play("AdsPump");
 			}

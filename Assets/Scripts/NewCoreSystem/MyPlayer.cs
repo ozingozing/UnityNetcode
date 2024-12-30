@@ -113,18 +113,18 @@ public class MyPlayer : MonoBehaviour, IEntity
 	//Do not use it as an inheritance type
 	public void M4_AmmoReload()
 	{
-		WeaponManager.ammo.Reload();
+		//WeaponManager.ammo.Reload();
 	}
 
 	public void ShotgunAmmoReload()
 	{
-		if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
+		/*if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
 			WeaponManager.ammo.ShotGunReload();
 
 		if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
 		{
 			Anim.Play("ShotgunReloadAction", 2, 0f);
-		}
+		}*/
 	}
 	public void MagIn()
 	{

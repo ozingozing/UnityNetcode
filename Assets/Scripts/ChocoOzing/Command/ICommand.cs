@@ -13,7 +13,7 @@ namespace ChocoOzing.CommandSystem
 
 	public interface ICommandTask
 	{
-		Task Execute();
+		Task<bool> Execute();
 	}
 
 	//can make any CommandClass using ICommand
@@ -36,6 +36,12 @@ namespace ChocoOzing.CommandSystem
 		}
 	}
 
+	public class AbilityCommandWithProjectile : AbilityCommand
+	{
+		public AbilityCommandWithProjectile(AbilityData data) : base(data) { }
+	}
+
+
 	public abstract class PlayerCommand : ICommandTask
 	{
 		protected readonly IEntity player;
@@ -45,7 +51,7 @@ namespace ChocoOzing.CommandSystem
 			this.player = player;
 		}
 
-		public abstract Task Execute();
+		public abstract Task<bool> Execute();
 
 		public static T Create<T>(IEntity player) where T : PlayerCommand
 		{
@@ -57,15 +63,18 @@ namespace ChocoOzing.CommandSystem
 	{
 		public Reload(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
 			float startTime = Time.time;
-			float animationTime = player.AnimationManager.Reload(); // 애니메이션 시간
+			float animationTime = player.AnimationManager.Reload();
+			player.Player.WeaponManager.ammo.Reload();
 
 			while (Time.time - startTime < animationTime)
 			{
-				await Task.Yield(); // 매 프레임마다 대기
+				await Task.Yield();
 			}
+
+			return true;
 		}
 	}
 
@@ -73,15 +82,17 @@ namespace ChocoOzing.CommandSystem
 	{
 		public ManyReload(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
 			float startTime = Time.time;
-			float animationTime = player.AnimationManager.ManyReload(); // 애니메이션 시간
+			float animationTime = player.AnimationManager.ManyReload();
 
 			while (Time.time - startTime < animationTime)
 			{
-				await Task.Yield(); // 매 프레임마다 대기
+				await Task.Yield();
 			}
+
+			return true;
 		}
 	}
 
@@ -89,18 +100,16 @@ namespace ChocoOzing.CommandSystem
 	{
 		public ShotgunReloadAction(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
-			float startTime;
-			float animationTime;
+			float startTime = Time.time;
+			float animationTime = player.AnimationManager.ShotgunReloadAction();
+			player.Player.WeaponManager.ammo.ShotGunReload();
+			
+			while (Time.time - startTime < animationTime)
+				await Task.Yield(); 
 
-			while (player.Player.WeaponManager.ammo.currentAmmo < player.Player.WeaponManager.ammo.clipSize)
-			{
-				animationTime = player.AnimationManager.ShotgunReloadAction(); // 애니메이션 시간
-				startTime = Time.time;
-				while (Time.time - startTime < animationTime)
-					await Task.Yield(); // 매 프레임마다 대기
-			}
+			return !(player.Player.WeaponManager.ammo.currentAmmo < player.Player.WeaponManager.ammo.clipSize);
 		}
 	}
 
@@ -108,15 +117,17 @@ namespace ChocoOzing.CommandSystem
 	{
 		public ShotgunSetPos(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
 			float startTime = Time.time;
-			float animationTime = player.AnimationManager.ShotgunSetPos(); // 애니메이션 시간
+			float animationTime = player.AnimationManager.ShotgunSetPos();
 
 			while (Time.time - startTime < animationTime)
 			{
-				await Task.Yield(); // 매 프레임마다 대기
+				await Task.Yield();
 			}
+
+			return true;
 		}
 	}
 
@@ -124,15 +135,16 @@ namespace ChocoOzing.CommandSystem
 	{
 		public ShotgunPumpAction(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
 			float startTime = Time.time;
-			float animationTime = player.AnimationManager.ShotgunPumpAction(); // 애니메이션 시간
+			float animationTime = player.AnimationManager.ShotgunPumpAction();
 
 			while (Time.time - startTime < animationTime)
 			{
-				await Task.Yield(); // 매 프레임마다 대기
+				await Task.Yield(); 
 			}
+			return true;
 		}
 	}
 
@@ -140,15 +152,17 @@ namespace ChocoOzing.CommandSystem
 	{
 		public HipFireAction(IEntity player) : base(player) { }
 
-		public override async Task Execute()
+		public override async Task<bool> Execute()
 		{
 			float startTime = Time.time;
-			float animationTime = player.AnimationManager.HipFire(); // 애니메이션 시간
+			float animationTime = player.AnimationManager.HipFire(); 
 
 			while (Time.time - startTime < animationTime)
 			{
-				await Task.Yield(); // 매 프레임마다 대기
+				await Task.Yield(); 
 			}
+
+			return true;
 		}
 	}
 }

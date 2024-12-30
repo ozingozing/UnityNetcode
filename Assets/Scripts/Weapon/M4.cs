@@ -97,8 +97,7 @@ namespace ChocoOzing
 			audioSource.PlayOneShot(gunShot, gunShootVolum);
 			ammo.currentAmmo--;
 			// ½Ã°¢Àû È¿°ú (¸ÓÁñ ÇÃ·¡½Ã, ÃÑ±¸ ºÒºû)
-			SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.identity);
-
+			SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));
 		}
 	}
 }
