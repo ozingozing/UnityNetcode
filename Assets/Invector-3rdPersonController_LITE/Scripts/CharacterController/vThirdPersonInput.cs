@@ -69,6 +69,9 @@ namespace Invector.vCharacterController
 		[SerializeField] TextMeshProUGUI clientRpcText;
 
 		public bool isDebug = false;
+		const float MAX = 1000f;
+		const float MIN = -1000f;
+		const float PRESICION = 0.01f;
 		//
 		#endregion
 
@@ -250,13 +253,14 @@ namespace Invector.vCharacterController
 			var currentTick = neworkTimer.CurrentTick;
 			var bufferIndex = currentTick % bufferSize;
 
+
 			InputPayload inputPayload = new InputPayload()
 			{
 				tick = currentTick,
 				timestamp = DateTime.Now,
-				networkObjectId = NetworkObjectId,
-				inputVector = cc.moveDirection,
-				position = transform.position,
+				//networkObjectId = NetworkObjectId,
+				inputVector = PackVector3(cc.moveDirection),
+				position = PackVector3(transform.position),
 			};
 
 			clientInputBuffer.Add(inputPayload, bufferIndex);
@@ -331,7 +335,7 @@ namespace Invector.vCharacterController
 			if(isDebug)
 			{
 				serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
-				clientCube.transform.position = input.position;
+				clientCube.transform.position = UnpackVector3(input.position);
 			}
 			serverInputQueue.Enqueue(input);
 		}
@@ -340,10 +344,9 @@ namespace Invector.vCharacterController
 		{
 
 			if (IsServer
-			&& !IsOwner
-			&& !extrapolationTimer.IsRunning)
+			&& !IsOwner)
 			{
-				cc.input = input.inputVector.With(y: 0);
+				cc.input = UnpackVector3(input.inputVector).With(y: 0);
 				if (cc.input.sqrMagnitude > 0.001f)
 				{
 					Vector3 targetDirection = cc.input.normalized;
@@ -355,12 +358,12 @@ namespace Invector.vCharacterController
 					);
 				}
 
-				transform.position = Vector3.Lerp(transform.position, input.position, 10 * Time.deltaTime);
+				transform.position = Vector3.Lerp(transform.position, UnpackVector3(input.position), 10 * Time.deltaTime);
 			}
 			return new StatePayload()
 			{
 				tick = input.tick,
-				networkObjectId = NetworkObjectId,
+				//networkObjectId = NetworkObjectId,
 				position = transform.position,
 				rotation = transform.rotation,
 				velocity = cc._rigidbody.velocity,
@@ -378,6 +381,45 @@ namespace Invector.vCharacterController
 		public virtual void OnAnimatorMove()
 		{
 			cc.ControlAnimatorRootMotion(); // handle root motion animations 
+		}
+
+		short EncodeCoordinate(float value, float min, float max)
+		{
+			float normalized = Mathf.Clamp((value - min) / (max - min), 0f, 1f);
+			return (short)(normalized * short.MaxValue);
+		}
+
+		float DecodeCoordinate(short value, float min, float max)
+		{
+			float normalized = value / (float)short.MaxValue;
+			return normalized * (max - min) + min;
+		}
+
+		long PackVector3(Vector3 position)
+		{
+			position = Quantize(position, PRESICION);
+			long packed = 0;
+			packed |= ((long)EncodeCoordinate(position.x, MIN, MAX) & 0xFFFF) << 32; // X 좌표
+			packed |= ((long)EncodeCoordinate(position.y, MIN, MAX) & 0xFFFF) << 16;  // Y 좌표
+			packed |= ((long)EncodeCoordinate(position.z, MIN, MAX) & 0xFFFF);       // Z 좌표
+			return packed;
+		}
+
+		Vector3 UnpackVector3(long packed)
+		{
+			return new Vector3(
+				DecodeCoordinate((short)((packed >> 32) & 0xFFFF), MIN, MAX),
+				DecodeCoordinate((short)((packed >> 16) & 0xFFFF), MIN, MAX),
+				DecodeCoordinate((short)(packed & 0xFFFF), MIN, MAX));
+		}
+
+		Vector3 Quantize(Vector3 position, float precision)
+		{
+			return new Vector3(
+				Mathf.Round(position.x / precision) * precision,
+				Mathf.Round(position.y / precision) * precision,
+				Mathf.Round(position.z / precision) * precision
+			);
 		}
 
 		#region Basic Locomotion Inputs
@@ -497,15 +539,15 @@ namespace Invector.vCharacterController
 	{
 		public int tick;
 		public DateTime timestamp;
-		public ulong networkObjectId;
-		public Vector3 inputVector;
-		public Vector3 position;
+		//public ulong networkObjectId;
+		public long inputVector;
+		public long position;
 
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
 			serializer.SerializeValue(ref timestamp);
-			serializer.SerializeValue(ref networkObjectId);
+			//serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref inputVector);
 			serializer.SerializeValue(ref position);
 		}
@@ -514,14 +556,14 @@ namespace Invector.vCharacterController
 	public struct StatePayload : INetworkSerializable
 	{
 		public int tick;
-		public ulong networkObjectId;
+		//public ulong networkObjectId;
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 velocity;
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
-			serializer.SerializeValue(ref networkObjectId);
+			//serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref position);
 			serializer.SerializeValue(ref rotation);
 			serializer.SerializeValue(ref velocity);
