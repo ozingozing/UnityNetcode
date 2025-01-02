@@ -5224,7 +5224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10527,8 +10527,8 @@ MonoBehaviour:
     Port: 7777
     ServerListenAddress: 0.0.0.0
   DebugSimulator:
-    PacketDelayMS: 0
-    PacketJitterMS: 0
+    PacketDelayMS: 400
+    PacketJitterMS: 100
     PacketDropRate: 0
 --- !u!114 &1642795107
 MonoBehaviour:
@@ -11360,7 +11360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1811686692
 Transform:
   m_ObjectHideFlags: 0

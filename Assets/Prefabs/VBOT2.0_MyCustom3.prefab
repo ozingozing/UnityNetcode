@@ -5095,6 +5095,7 @@ MonoBehaviour:
   serverRpcText: {fileID: 3550636724675341066}
   clientRpcText: {fileID: 8867576331077597912}
   isDebug: 0
+  ValueCorrection: 1
 --- !u!114 &-6976243663974409411
 MonoBehaviour:
   m_ObjectHideFlags: 0

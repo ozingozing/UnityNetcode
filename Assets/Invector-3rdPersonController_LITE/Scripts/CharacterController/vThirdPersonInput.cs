@@ -58,8 +58,7 @@ namespace Invector.vCharacterController
 		[SerializeField] private GameObject clientCube;
 
 		StatePayload extrapolationState;
-		CountdownTimer extrapolationTimer;
-
+		//CountdownTimer extrapolationTimer;
 		CountdownTimer reconciliationTimer;
 
 		[Header("Netcode Debug")]
@@ -68,7 +67,9 @@ namespace Invector.vCharacterController
 		[SerializeField] TextMeshProUGUI serverRpcText;
 		[SerializeField] TextMeshProUGUI clientRpcText;
 
+		public ulong thisClientId;
 		public bool isDebug = false;
+		public bool ValueCorrection;
 		const float MAX = 1000f;
 		const float MIN = -1000f;
 		const float PRESICION = 0.01f;
@@ -92,6 +93,7 @@ namespace Invector.vCharacterController
 				if (!IsServer) serverRpcText.SetText("Not Server");
 				if (!IsClient) clientRpcText.SetText("Not Client");
 			}
+			thisClientId = GetComponent<NetworkObject>().OwnerClientId;
 			base.OnNetworkSpawn();
 		}
 
@@ -111,20 +113,20 @@ namespace Invector.vCharacterController
 			serverInputQueue = new Queue<InputPayload>();
 
 			reconciliationTimer = new CountdownTimer(reconciliationCooldownTime);
-			extrapolationTimer = new CountdownTimer(extrapolationLimit);
+			//extrapolationTimer = new CountdownTimer(extrapolationLimit);
 
 			reconciliationTimer.OnTimerStart += () => {
-				extrapolationTimer.Stop();
+				//extrapolationTimer.Stop();
 			};
 
-			extrapolationTimer.OnTimerStart += () => {
+			/*extrapolationTimer.OnTimerStart += () => {
 				reconciliationTimer.Stop();
-				SwitchAuthorityMode(AuthorityMode.Server);
+				//SwitchAuthorityMode(AuthorityMode.Server);
 			};
 			extrapolationTimer.OnTimerStop += () => {
 				extrapolationState = default;
-				SwitchAuthorityMode(AuthorityMode.Client);
-			};
+				//SwitchAuthorityMode(AuthorityMode.Client);
+			};*/
 		}
 
 		protected virtual void Start()
@@ -141,15 +143,17 @@ namespace Invector.vCharacterController
 		{
 			while (neworkTimer.ShouldTick())
 			{
-				HandleClientTick();
-				HandleServerTick();
+				if(IsLocalPlayer)
+					HandleClientTick();
+				if(IsServer)
+					HandleServerTick();
 			}
-			if (IsOwner && IsLocalPlayer)
+			if (IsLocalPlayer)
 			{
 				MOVE();
 			}
 			//Run on Update or FixedUpdate, or both - depends on the game, consider exposing on option to the editor
-			Extrapolate();
+			//Extrapolate();
 		}
 
 
@@ -157,13 +161,13 @@ namespace Invector.vCharacterController
 		{
 			neworkTimer.Update(Time.deltaTime);
 			reconciliationTimer.Tick(Time.deltaTime);
-			extrapolationTimer.Tick(Time.deltaTime);
+			//extrapolationTimer.Tick(Time.deltaTime);
 			//Run on Update or FixedUpdate, or both - depends on the game
-			Extrapolate();
+			//Extrapolate();
 			if(isDebug)
 				playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
 
-			if (IsOwner && IsLocalPlayer)
+			if (IsLocalPlayer)
 			{
 				InputHandle();                  // update the input methods
 				cc.UpdateAnimator();            // updates the Animator Parameters
@@ -181,52 +185,63 @@ namespace Invector.vCharacterController
 
 		void HandleServerTick()
 		{
-			if (!IsServer || IsOwner) return;
-
+			if (!IsServer) return;
 			var bufferIndex = -1;
 			InputPayload inputPayload = default;
 			while (serverInputQueue.Count > 0)
 			{
 				inputPayload = serverInputQueue.Dequeue();
 				bufferIndex = inputPayload.tick % bufferSize;
-
 				StatePayload statePayload = ProcessMovement(inputPayload);
+				statePayload = HandleExtrapolation(statePayload, bufferIndex);
 				serverStateBuffer.Add(statePayload, bufferIndex);
 			}
 
 			if (bufferIndex == -1) return;
 			SendToClientRpc(serverStateBuffer.Get(bufferIndex));
-			HandleExtrapolation(serverStateBuffer.Get(bufferIndex), CalculateLatencyInMillis(inputPayload));
+			//HandleExtrapolation(serverStateBuffer.Get(bufferIndex), CalculateLatencyInMillis(inputPayload));
 		}
 
 		void Extrapolate()
 		{
-			if (!IsOwner && IsServer && extrapolationTimer.IsRunning)
+			if (!IsOwner && IsServer /*&& extrapolationTimer.IsRunning*/)
 			{
-				transform.position += extrapolationState.position.With(y: 0);
-				transform.rotation *= Quaternion.Slerp(transform.rotation, extrapolationState.rotation, 360f * Time.deltaTime); // 회전 외삽 추가
+				var playerObject = GetComponent<NetworkObject>();
+				if (extrapolationState.networkObjectId == playerObject.OwnerClientId)
+				{
+					ulong originClientId = playerObject.OwnerClientId;
+					playerObject.ChangeOwnership(NetworkManager.ServerClientId);
+					transform.position += extrapolationState.position.With(y: 0);
+					transform.rotation *= Quaternion.Slerp(transform.rotation, extrapolationState.rotation, 360f * Time.deltaTime); // 회전 외삽 추가
+					playerObject.ChangeOwnership(originClientId);
+				}
 			}
 		}
 
-		void HandleExtrapolation(StatePayload latest, float latency)
+		StatePayload HandleExtrapolation(StatePayload latest, float latency)
 		{
+			if (!ValueCorrection)
+				return latest;
+
 			if (ShouldExtrapolate(latency))
 			{
-				/*float latencyWeight = (1 + latency * extrapolationMultiplier);*/
+				//float latencyWeight = 1 + latency * 1.2f;
 				float latencyWeight = latency;
-				float axisLength = latencyWeight * latest.velocity.magnitude * Mathf.Rad2Deg;
-				Quaternion angularRotation = Quaternion.AngleAxis(axisLength, latest.velocity.normalized);
+				latest.velocity = latest.velocity * latencyWeight;
+				latest.position += latest.velocity * latencyWeight;
+				latest.rotation *= Quaternion.AngleAxis(
+						latencyWeight * latest.velocity.magnitude * Mathf.Rad2Deg,
+						Vector3.up);
 
-				// Calculate the arc the object would traverse in degrees
-				extrapolationState.position = latest.velocity * latencyWeight;
-				extrapolationState.rotation = angularRotation;
-
-				extrapolationTimer.Start();
+				if( IsServer &&
+					!IsOwner &&
+					latest.networkObjectId == thisClientId)
+				{
+					transform.rotation *= Quaternion.Slerp(transform.rotation, latest.rotation, 360f * Time.deltaTime);
+					transform.position += latest.velocity;
+				}
 			}
-			else
-			{
-				extrapolationTimer.Stop();
-			}
+			return latest;
 		}
 
 		bool ShouldExtrapolate(float latency)
@@ -242,14 +257,11 @@ namespace Invector.vCharacterController
 				clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
 				serverCube.transform.position = statePayload.position;
 			}
-			if (!IsOwner) return;
 			lastServerState = statePayload;
 		}
 
 		void HandleClientTick()
 		{
-			if (!IsClient || !IsOwner) return;
-
 			var currentTick = neworkTimer.CurrentTick;
 			var bufferIndex = currentTick % bufferSize;
 
@@ -258,7 +270,7 @@ namespace Invector.vCharacterController
 			{
 				tick = currentTick,
 				timestamp = DateTime.Now,
-				//networkObjectId = NetworkObjectId,
+				networkObjectId = NetworkManager.Singleton.LocalClientId,
 				inputVector = PackVector3(cc.moveDirection),
 				position = PackVector3(transform.position),
 			};
@@ -282,7 +294,7 @@ namespace Invector.vCharacterController
 			bool isNewServerState = !lastServerState.Equals(default);
 			bool isLastStateUndefinedOrDifferent = lastProcessedState.Equals(default)
 													|| !lastProcessedState.Equals(lastServerState);
-			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationTimer.IsRunning && !extrapolationTimer.IsRunning;
+			return isNewServerState && isLastStateUndefinedOrDifferent && !reconciliationTimer.IsRunning /*&& !extrapolationTimer.IsRunning*/;
 		}
 
 		void HandleServerReconciliation()
@@ -342,9 +354,10 @@ namespace Invector.vCharacterController
 
 		StatePayload ProcessMovement(InputPayload input)
 		{
-
-			if (IsServer
-			&& !IsOwner)
+			if (IsServer &&
+				!IsOwner &&
+				input.networkObjectId == thisClientId &&
+				ValueCorrection)
 			{
 				cc.input = UnpackVector3(input.inputVector).With(y: 0);
 				if (cc.input.sqrMagnitude > 0.001f)
@@ -357,13 +370,13 @@ namespace Invector.vCharacterController
 						360f * Time.deltaTime
 					);
 				}
-
 				transform.position = Vector3.Lerp(transform.position, UnpackVector3(input.position), 10 * Time.deltaTime);
 			}
+
 			return new StatePayload()
 			{
 				tick = input.tick,
-				//networkObjectId = NetworkObjectId,
+				networkObjectId = input.networkObjectId,
 				position = transform.position,
 				rotation = transform.rotation,
 				velocity = cc._rigidbody.velocity,
@@ -539,7 +552,7 @@ namespace Invector.vCharacterController
 	{
 		public int tick;
 		public DateTime timestamp;
-		//public ulong networkObjectId;
+		public ulong networkObjectId;
 		public long inputVector;
 		public long position;
 
@@ -547,7 +560,7 @@ namespace Invector.vCharacterController
 		{
 			serializer.SerializeValue(ref tick);
 			serializer.SerializeValue(ref timestamp);
-			//serializer.SerializeValue(ref networkObjectId);
+			serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref inputVector);
 			serializer.SerializeValue(ref position);
 		}
@@ -556,14 +569,14 @@ namespace Invector.vCharacterController
 	public struct StatePayload : INetworkSerializable
 	{
 		public int tick;
-		//public ulong networkObjectId;
+		public ulong networkObjectId;
 		public Vector3 position;
 		public Quaternion rotation;
 		public Vector3 velocity;
 		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 		{
 			serializer.SerializeValue(ref tick);
-			//serializer.SerializeValue(ref networkObjectId);
+			serializer.SerializeValue(ref networkObjectId);
 			serializer.SerializeValue(ref position);
 			serializer.SerializeValue(ref rotation);
 			serializer.SerializeValue(ref velocity);
