@@ -60,6 +60,8 @@ namespace Invector.vCharacterController
 		StatePayload extrapolationState;
 		//CountdownTimer extrapolationTimer;
 		CountdownTimer reconciliationTimer;
+		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
+		ChocoOzing.Network.QuaternionCompressor quaternionCompressor = new ChocoOzing.Network.QuaternionCompressor();
 
 		[Header("Netcode Debug")]
 		[SerializeField] TextMeshProUGUI networkText;
@@ -112,6 +114,8 @@ namespace Invector.vCharacterController
 			serverStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
 			serverInputQueue = new Queue<InputPayload>();
 
+			
+			
 			reconciliationTimer = new CountdownTimer(reconciliationCooldownTime);
 			//extrapolationTimer = new CountdownTimer(extrapolationLimit);
 
@@ -141,7 +145,7 @@ namespace Invector.vCharacterController
 
 		protected virtual void FixedUpdate()
 		{
-			while (neworkTimer.ShouldTick())
+			while (neworkTimer.ShouldTick() && ValueCorrection)
 			{
 				if(IsLocalPlayer)
 					HandleClientTick();
@@ -152,8 +156,6 @@ namespace Invector.vCharacterController
 			{
 				MOVE();
 			}
-			//Run on Update or FixedUpdate, or both - depends on the game, consider exposing on option to the editor
-			//Extrapolate();
 		}
 
 
@@ -162,8 +164,6 @@ namespace Invector.vCharacterController
 			neworkTimer.Update(Time.deltaTime);
 			reconciliationTimer.Tick(Time.deltaTime);
 			//extrapolationTimer.Tick(Time.deltaTime);
-			//Run on Update or FixedUpdate, or both - depends on the game
-			//Extrapolate();
 			if(isDebug)
 				playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
 
@@ -177,34 +177,41 @@ namespace Invector.vCharacterController
 		void SwitchAuthorityMode(AuthorityMode mode)
 		{
 			clientNetworkTransform.authorityMode = mode;
-			bool shouldSync = mode == AuthorityMode.Client;
+			/*bool shouldSync = mode == AuthorityMode.Client;
 			clientNetworkTransform.SyncPositionX = shouldSync;
 			clientNetworkTransform.SyncPositionY = shouldSync;
-			clientNetworkTransform.SyncPositionZ = shouldSync;
+			clientNetworkTransform.SyncPositionZ = shouldSync;*/
 		}
 
 		void HandleServerTick()
 		{
-			if (!IsServer) return;
+			if (!IsServer || IsOwner) return;
 			var bufferIndex = -1;
 			InputPayload inputPayload = default;
+			SwitchAuthorityMode(AuthorityMode.Server);
 			while (serverInputQueue.Count > 0)
 			{
 				inputPayload = serverInputQueue.Dequeue();
 				bufferIndex = inputPayload.tick % bufferSize;
 				StatePayload statePayload = ProcessMovement(inputPayload);
-				statePayload = HandleExtrapolation(statePayload, bufferIndex);
+				statePayload = HandleExtrapolation(statePayload, this.transform, CalculateLatencyInMillis(inputPayload));
 				serverStateBuffer.Add(statePayload, bufferIndex);
 			}
-
+			SwitchAuthorityMode(AuthorityMode.Client);
 			if (bufferIndex == -1) return;
-			SendToClientRpc(serverStateBuffer.Get(bufferIndex));
-			//HandleExtrapolation(serverStateBuffer.Get(bufferIndex), CalculateLatencyInMillis(inputPayload));
+			StatePayload state = serverStateBuffer.Get(bufferIndex);
+			SendToClientRpc(new PackedStatePayload()
+			{
+				tick = state.tick,
+				position = vectorCompressor.PackVector3(state.position),
+				rotation = quaternionCompressor.PackQuaternion(state.rotation),
+				velocity = vectorCompressor.PackVector3(state.velocity),
+			});
 		}
 
-		void Extrapolate()
+		/*void Extrapolate()
 		{
-			if (!IsOwner && IsServer /*&& extrapolationTimer.IsRunning*/)
+			if (!IsOwner && IsServer && extrapolationTimer.IsRunning)
 			{
 				var playerObject = GetComponent<NetworkObject>();
 				if (extrapolationState.networkObjectId == playerObject.OwnerClientId)
@@ -216,18 +223,27 @@ namespace Invector.vCharacterController
 					playerObject.ChangeOwnership(originClientId);
 				}
 			}
-		}
+		}*/
 
-		StatePayload HandleExtrapolation(StatePayload latest, float latency)
+		StatePayload HandleExtrapolation(StatePayload latest, Transform current,float latency)
 		{
-			if (!ValueCorrection)
-				return latest;
-
 			if (ShouldExtrapolate(latency))
 			{
-				//float latencyWeight = 1 + latency * 1.2f;
 				float latencyWeight = latency;
-				latest.velocity = latest.velocity * latencyWeight;
+
+				Vector3 positionDelta = current.position - latest.position;
+				Quaternion rotationDelta = latest.rotation * Quaternion.Inverse(current.rotation);
+
+				latest.position += positionDelta * latencyWeight;
+				latest.rotation *= Quaternion.Slerp(Quaternion.identity, rotationDelta, latencyWeight);
+
+				if(IsServer && !IsOwner)
+				{
+					transform.rotation *= Quaternion.Slerp(transform.rotation, latest.rotation, 360f * Time.deltaTime);
+					transform.position = Vector3.Lerp(transform.position, latest.position, 10 * Time.deltaTime);
+				}
+
+				/*latest.velocity = latest.velocity * latencyWeight;
 				latest.position += latest.velocity * latencyWeight;
 				latest.rotation *= Quaternion.AngleAxis(
 						latencyWeight * latest.velocity.magnitude * Mathf.Rad2Deg,
@@ -238,8 +254,8 @@ namespace Invector.vCharacterController
 					latest.networkObjectId == thisClientId)
 				{
 					transform.rotation *= Quaternion.Slerp(transform.rotation, latest.rotation, 360f * Time.deltaTime);
-					transform.position += latest.velocity;
-				}
+					transform.position = Vector3.Lerp(transform.position, latest.position, 10 * Time.deltaTime);
+				}*/
 			}
 			return latest;
 		}
@@ -250,14 +266,22 @@ namespace Invector.vCharacterController
 		}
 
 		[ClientRpc]
-		void SendToClientRpc(StatePayload statePayload)
+		void SendToClientRpc(PackedStatePayload statePayload)
 		{
 			if (isDebug)
 			{
 				clientRpcText.SetText($"Received state from server Tick {statePayload.tick} Server POS: {statePayload.position}");
-				serverCube.transform.position = statePayload.position;
+				serverCube.transform.position = vectorCompressor.UnpackVector3(statePayload.position);
 			}
-			lastServerState = statePayload;
+
+			if(IsOwner)
+			lastServerState = new StatePayload()
+			{
+				tick = statePayload.tick,
+				position = vectorCompressor.UnpackVector3(statePayload.position),
+				rotation = quaternionCompressor.UnpackQuaternion(statePayload.rotation),
+				velocity = vectorCompressor.UnpackVector3(statePayload.velocity),
+			};
 		}
 
 		void HandleClientTick()
@@ -270,9 +294,8 @@ namespace Invector.vCharacterController
 			{
 				tick = currentTick,
 				timestamp = DateTime.Now,
-				networkObjectId = NetworkManager.Singleton.LocalClientId,
-				inputVector = PackVector3(cc.moveDirection),
-				position = PackVector3(transform.position),
+				inputVector = vectorCompressor.PackVector3(cc.moveDirection),
+				position = vectorCompressor.PackVector3(transform.position),
 			};
 
 			clientInputBuffer.Add(inputPayload, bufferIndex);
@@ -342,41 +365,36 @@ namespace Invector.vCharacterController
 		}
 
 		[ServerRpc]
-		void SendToServerRpc(InputPayload input)
+		void SendToServerRpc(InputPayload input, ServerRpcParams serverRpcParams = default)
 		{
 			if(isDebug)
 			{
 				serverRpcText.SetText($"Received input from client Tick: {input.tick} Client POS: {input.position}");
-				clientCube.transform.position = UnpackVector3(input.position);
+				clientCube.transform.position = vectorCompressor.UnpackVector3(input.position);
 			}
-			serverInputQueue.Enqueue(input);
+			if(serverRpcParams.Receive.SenderClientId == thisClientId)
+			{
+				serverInputQueue.Enqueue(input);
+			}
 		}
 
 		StatePayload ProcessMovement(InputPayload input)
 		{
 			if (IsServer &&
-				!IsOwner &&
-				input.networkObjectId == thisClientId &&
-				ValueCorrection)
+				!IsOwner)
 			{
-				cc.input = UnpackVector3(input.inputVector).With(y: 0);
-				if (cc.input.sqrMagnitude > 0.001f)
-				{
-					Vector3 targetDirection = cc.input.normalized;
-
-					transform.forward = Vector3.Slerp(
-						transform.forward,
-						targetDirection,
-						360f * Time.deltaTime
-					);
-				}
-				transform.position = Vector3.Lerp(transform.position, UnpackVector3(input.position), 10 * Time.deltaTime);
+				Vector3 targetDirection = vectorCompressor.UnpackVector3(input.inputVector).With(y: 0);
+				transform.forward = Vector3.Slerp(
+					transform.forward,
+					targetDirection,
+					360f * Time.deltaTime
+				);
+				transform.position = Vector3.Lerp(transform.position, vectorCompressor.UnpackVector3(input.position), 10 * Time.deltaTime);
 			}
 
 			return new StatePayload()
 			{
 				tick = input.tick,
-				networkObjectId = input.networkObjectId,
 				position = transform.position,
 				rotation = transform.rotation,
 				velocity = cc._rigidbody.velocity,
@@ -395,48 +413,92 @@ namespace Invector.vCharacterController
 		{
 			cc.ControlAnimatorRootMotion(); // handle root motion animations 
 		}
-
-		short EncodeCoordinate(float value, float min, float max)
+/*
+		// Change float to short
+		short EncodeCoordinate(float value, float min, float max, int maxBits = 1023)
 		{
+			// Normalize to [min, max]
 			float normalized = Mathf.Clamp((value - min) / (max - min), 0f, 1f);
-			return (short)(normalized * short.MaxValue);
+			return (short)(normalized * maxBits); // Scale to fit within 10 bits
 		}
 
-		float DecodeCoordinate(short value, float min, float max)
+		// Change int to float
+		float DecodeCoordinate(int value, float min, float max, int maxBits = 1023)
 		{
-			float normalized = value / (float)short.MaxValue;
-			return normalized * (max - min) + min;
+			float normalized = value / (float)maxBits; // Restore from 10-bit scale
+			return normalized * (max - min) + min; // Denormalize back to [min, max]
 		}
 
-		long PackVector3(Vector3 position)
+		int PackVector3(Vector3 position)
 		{
-			position = Quantize(position, PRESICION);
-			long packed = 0;
-			packed |= ((long)EncodeCoordinate(position.x, MIN, MAX) & 0xFFFF) << 32; // X 좌표
-			packed |= ((long)EncodeCoordinate(position.y, MIN, MAX) & 0xFFFF) << 16;  // Y 좌표
-			packed |= ((long)EncodeCoordinate(position.z, MIN, MAX) & 0xFFFF);       // Z 좌표
+			int packed = 0;
+			packed |= (EncodeCoordinate(position.x, MIN, MAX) & 0x3FF) << 20; // X 좌표 (10비트)
+			packed |= (EncodeCoordinate(position.y, MIN, MAX) & 0x3FF) << 10; // Y 좌표 (10비트)
+			packed |= (EncodeCoordinate(position.z, MIN, MAX) & 0x3FF);       // Z 좌표 (10비트)
 			return packed;
 		}
 
-		Vector3 UnpackVector3(long packed)
+		int PackQuaternion(Quaternion quaternion)
 		{
-			return new Vector3(
-				DecodeCoordinate((short)((packed >> 32) & 0xFFFF), MIN, MAX),
-				DecodeCoordinate((short)((packed >> 16) & 0xFFFF), MIN, MAX),
-				DecodeCoordinate((short)(packed & 0xFFFF), MIN, MAX));
+			float largest = Mathf.Abs(quaternion.x);
+			int largestIndex = 0;
+
+			if (Mathf.Abs(quaternion.y) > largest) { largest = Mathf.Abs(quaternion.y); largestIndex = 1; };
+			if (Mathf.Abs(quaternion.z) > largest) { largest = Mathf.Abs(quaternion.z); largestIndex = 2; };
+			if (Mathf.Abs(quaternion.w) > largest) { largest = Mathf.Abs(quaternion.w); largestIndex = 3; };
+
+			int sign = (quaternion[largestIndex] < 0) ? 1 : 0;
+
+			float a = quaternion[(largestIndex + 1) % 4];
+			float b = quaternion[(largestIndex + 2) % 4];
+			float c = quaternion[(largestIndex + 3) % 4];
+
+			int packedA = Mathf.RoundToInt((a + 1f) * 1023f);
+			int packedB = Mathf.RoundToInt((b + 1f) * 1023f);
+			int packedC = Mathf.RoundToInt((c + 1f) * 1023f);
+
+			return 
+				(largestIndex << 30) |
+				(sign << 29) |
+				(packedA << 20) |
+				(packedB << 10) |
+				packedC;
 		}
 
-		Vector3 Quantize(Vector3 position, float precision)
+		Vector3 UnpackVector3(int packed)
 		{
-			return new Vector3(
-				Mathf.Round(position.x / precision) * precision,
-				Mathf.Round(position.y / precision) * precision,
-				Mathf.Round(position.z / precision) * precision
-			);
+			// 10비트를 기준으로 각 축 값을 해석
+			float x = DecodeCoordinate((packed >> 20) & 0x3FF, MIN, MAX); // X 좌표 (10비트)
+			float y = DecodeCoordinate((packed >> 10) & 0x3FF, MIN, MAX); // Y 좌표 (10비트)
+			float z = DecodeCoordinate(packed & 0x3FF, MIN, MAX);         // Z 좌표 (10비트)
+			return new Vector3(x, y, z);
 		}
 
+		Quaternion UnpackQuaternion(int packed)
+		{
+			int largestIndex = (packed >> 30) & 0x3;
+			int sign = (packed >> 29) & 0x1;
+			int packedA = (packed >> 20) & 0x3FF;
+			int packedB = (packed >> 10) & 0x3FF;
+			int packedC = packed & 0x3FF;
+
+			//Restorate Quaternion value around [-1, 1]
+			float a = (packedA / 1023f) - 1f;
+			float b = (packedB / 1023f) - 1f;
+			float c = (packedC / 1023f) - 1f;
+			//Restorate  Quaternion w value
+			float w = Mathf.Sqrt(1f - a * a - b * b - c * c);
+
+			Quaternion quaternion = new Quaternion();
+			quaternion[(largestIndex + 1) % 4] = a;
+			quaternion[(largestIndex + 2) % 4] = b;
+			quaternion[(largestIndex + 3) % 4] = c;
+			quaternion[largestIndex] = (sign == 1) ? -w : w;
+
+			return quaternion;
+		}
+*/
 		#region Basic Locomotion Inputs
-
 		protected virtual void InitilizeController()
 		{
 			cc = GetComponent<vThirdPersonController>();
@@ -542,44 +604,49 @@ namespace Invector.vCharacterController
 			if (Input.GetKeyDown(jumpInput) && JumpConditions())
 				cc.Jump();
 		}
-
 		#endregion
-
 	}
+}
 
-	//Network variables should be value objects
-	public struct InputPayload : INetworkSerializable
+//Network variables should be value objects
+[System.Serializable]
+public struct InputPayload : INetworkSerializable
+{
+	public int tick;
+	public DateTime timestamp;
+	public int inputVector;
+	public int position;
+
+	public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 	{
-		public int tick;
-		public DateTime timestamp;
-		public ulong networkObjectId;
-		public long inputVector;
-		public long position;
-
-		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-		{
-			serializer.SerializeValue(ref tick);
-			serializer.SerializeValue(ref timestamp);
-			serializer.SerializeValue(ref networkObjectId);
-			serializer.SerializeValue(ref inputVector);
-			serializer.SerializeValue(ref position);
-		}
+		serializer.SerializeValue(ref tick);
+		serializer.SerializeValue(ref timestamp);
+		serializer.SerializeValue(ref inputVector);
+		serializer.SerializeValue(ref position);
 	}
+}
 
-	public struct StatePayload : INetworkSerializable
+[System.Serializable]
+public struct StatePayload	
+{
+	public int tick;
+	public Vector3 position;
+	public Quaternion rotation;
+	public Vector3 velocity;
+}
+
+[System.Serializable]
+public struct PackedStatePayload : INetworkSerializable
+{
+	public int tick;
+	public int position;
+	public int rotation;
+	public int velocity;
+	public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
 	{
-		public int tick;
-		public ulong networkObjectId;
-		public Vector3 position;
-		public Quaternion rotation;
-		public Vector3 velocity;
-		public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-		{
-			serializer.SerializeValue(ref tick);
-			serializer.SerializeValue(ref networkObjectId);
-			serializer.SerializeValue(ref position);
-			serializer.SerializeValue(ref rotation);
-			serializer.SerializeValue(ref velocity);
-		}
+		serializer.SerializeValue(ref tick);
+		serializer.SerializeValue(ref position);
+		serializer.SerializeValue(ref rotation);
+		serializer.SerializeValue(ref velocity);
 	}
 }
