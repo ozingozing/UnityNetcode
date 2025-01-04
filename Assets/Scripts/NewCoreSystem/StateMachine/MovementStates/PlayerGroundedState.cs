@@ -1,13 +1,9 @@
 using ChocoOzing.CoreSystem;
+using ChocoOzing.EventBusSystem;
 using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
-	/*public abstract void EnterState(MovementStateManager movement);
-
-    public abstract void UpdateState(MovementStateManager movement);
-    
-    public abstract void ExitState(MovementStateManager movement);*/
 	/// <summary>
 	/// if you want use Rigidbody? use this
 	/// UNT0008 Null propagation on Unity objects
@@ -26,6 +22,13 @@ public class PlayerGroundedState : PlayerState
 
 	public PlayerGroundedState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
+		//EventRegister
+		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
+	}
+
+	private void TestMVC(PlayerAnimationEvent @event)
+	{
+		player.Anim.CrossFade(@event.animationHash, 0.1f);
 	}
 
 	public override void DoChecks()

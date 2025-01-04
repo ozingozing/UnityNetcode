@@ -17,12 +17,12 @@ namespace Architecture.AbilitySystem.Model
 		AbilityCommand command;
 		public readonly AbilityData data;
 		
-		public Ability(AbilityData data)
+		public Ability(AbilityData data, IEntity player)
 		{
 			this.data = data;
-			command = new AbilityCommand(data);
+			command = new AbilityCommand(data, player);
 		}
 
-		public AbilityCommand CreateCommand() => command;
+		public AbilityCommand GetCommand() => command;
 	}
 }

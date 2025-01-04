@@ -8,9 +8,12 @@ public class AnimationManager
 {
     Animator animator;
 
+	static readonly int IdleHash = Animator.StringToHash("Free Locomotion");
+
 	static readonly int HipFireHash = Animator.StringToHash("HipFire");
 	
 	static readonly int ReloadHash = Animator.StringToHash("Reloading");
+
 	static readonly int ManyReloadHash = Animator.StringToHash("ManyReload");
 	static readonly int ShotgunReloadActionHash = Animator.StringToHash("ShotgunReloadAction");
 	static readonly int ShotgunSetPosHash = Animator.StringToHash("ShotgunSetPos");
@@ -19,6 +22,7 @@ public class AnimationManager
 
 	readonly Dictionary<int, float> animationDuration = new()
     {
+		{ IdleHash, 0.1f },
 		{ HipFireHash, 0.1f },
         { ReloadHash, 2.9f },
 		{ ManyReloadHash, 0.2f },
@@ -34,14 +38,26 @@ public class AnimationManager
 		this.animator = animator;
 	}
 
+	public void Idle()
+	{
+		PlayAnimation(IdleHash, 0.25f, 0);
+		animator.SetFloat("InputMagnitude", 0);
+	}
+
 	public float HipFire() => PlayAnimation(HipFireHash, corossFadeDuration, 2);
 	public float HipFire(float durtaion) => PlayAnimation(HipFireHash, durtaion, 2);
 
 	public float Reload() => PlayAnimation(ReloadHash, corossFadeDuration, 2);
+
 	public float ManyReload() => PlayAnimation(ManyReloadHash, corossFadeDuration, 2);
 	public float ShotgunReloadAction() => PlayAnimation(ShotgunReloadActionHash, 0.2f, 2);
 	public float ShotgunSetPos() => PlayAnimation(ShotgunSetPosHash, 0.25f, 2);
 	public float ShotgunPumpAction() => PlayAnimation(ShotgunPumpActionHash, corossFadeDuration, 2);
+
+	public void PlayAnimCrossFade(int animationHash, float duration, int layer)
+	{
+		animator.CrossFade(animationHash, duration, layer);
+	}
 
 	float PlayAnimation(int animationHash, float duration, int layer)
 	{

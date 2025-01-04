@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Architecture.AbilitySystem
+namespace Architecture.AbilitySystem.Model
 {
 	[CreateAssetMenu(fileName = "AbilityData", menuName = "ScriptableObjects/AbilityData")]
 	public class AbilityData : ScriptableObject

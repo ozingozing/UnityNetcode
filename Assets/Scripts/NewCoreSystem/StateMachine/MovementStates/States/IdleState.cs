@@ -4,21 +4,6 @@ using UnityEngine;
 
 public class IdleState : PlayerGroundedState
 {
-	/*public override void EnterState(MovementStateManager movement)
-	{
-	}
-
-	public override void ExitState(MovementStateManager movement)
-	{
-	}
-
-	public override void UpdateState(MovementStateManager movement)
-	{
-		if (movement.rb.velocity.magnitude > 0.1f)
-		{
-			movement.SwitchState(Input.GetKey(KeyCode.LeftShift) ? movement.Run : movement.Walk);
-		}
-	}*/
 	public IdleState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
 	}

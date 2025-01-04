@@ -16,14 +16,6 @@ using UnityEngine;
 
 public class PlayerInit : NetworkBehaviour
 {
-	/// <summary>
-	/// Event Bus
-	/// </summary>
-	private void TestMVC(PlayerAnimationEvent @event)
-	{
-		GetComponent<Animator>().Play(@event.animationHash);
-	}
-
 	public NetworkVariable<int> kills = new NetworkVariable<int>();
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
     public NetworkVariable<FixedString128Bytes> Name = new NetworkVariable<FixedString128Bytes>();
@@ -46,9 +38,6 @@ public class PlayerInit : NetworkBehaviour
 			CamManager.Instance.ThirdPersonCam.Follow = GetComponent<MyPlayer>().camFollowPos; ;
 			CamManager.Instance.ThirdPersonCam.LookAt = GetComponent<MyPlayer>().aimPos;
 			GetComponent<MyPlayer>().PlayerActionStart();
-
-			//EventRegister
-			EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
 		}
 		SetWeaponActive(currentWeaponIndex);
 		StartCoroutine(WeaponSwape());

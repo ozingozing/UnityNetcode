@@ -78,6 +78,7 @@ namespace ChocoOzing.EventBusSystem
 				// MakeGenericType: 제네릭 타입 정의(typedef)에 특정 타입(eventType)을 넣어
 				// 구체적인 제네릭 타입을 생성합니다.
 				// 예: EventBus<>를 EventBus<MyEvent>로 변환
+				//https://learn.microsoft.com/en-us/dotnet/api/system.type.makegenerictype?view=net-9.0
 				var busType = typedef.MakeGenericType(eventType);
 
 				// 초기화된 EventBus 타입을 리스트에 추가

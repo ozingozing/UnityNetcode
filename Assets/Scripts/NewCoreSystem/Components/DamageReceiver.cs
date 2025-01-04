@@ -6,13 +6,8 @@ using UnityEngine;
 
 public class DamageReceiver : CoreComponent, IHealth
 {
-	private Stats Stats => stats ? stats : core.GetCoreComponent(ref stats);
+	private Stats Stats => stats ? stats : Core.GetCoreComponent(ref stats);
 	private Stats stats;
-
-	public int Health {
-		get => throw new System.NotImplementedException();
-		set => throw new System.NotImplementedException();
-	}
 
 	public void TakeDamage(int amount, GameObject attacker)
 	{

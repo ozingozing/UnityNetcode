@@ -18,7 +18,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	/// Don't use [?.]
 	/// </summary>
 	protected Movement Movement
-	{ get => movement != null ? movement : Core.GetCoreComponent(ref movement); }
+	{ get => movement = (movement != null) ? movement : Core.GetCoreComponent(ref movement); }
 	private Movement movement;
 
 	public AnimationManager AnimationManager
@@ -26,7 +26,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	private AnimationManager animationManager;
 
 	public MyPlayer Player
-	{  get => player ??= this; }
+	{  get => player = (player != null) ? player : this; }
 	private MyPlayer player;
 
 	#region Component
@@ -109,31 +109,16 @@ public class MyPlayer : MonoBehaviour, IEntity
 		}
 	}
 
-	//When using AudioClip as AnimEvent in a netcode,
-	//Do not use it as an inheritance type
-	public void M4_AmmoReload()
-	{
-		//WeaponManager.ammo.Reload();
-	}
-
-	public void ShotgunAmmoReload()
-	{
-		/*if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
-			WeaponManager.ammo.ShotGunReload();
-
-		if (WeaponManager.ammo.currentAmmo < WeaponManager.ammo.clipSize)
-		{
-			Anim.Play("ShotgunReloadAction", 2, 0f);
-		}*/
-	}
 	public void MagIn()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magInSound);
 	}
+
 	public void MagOut()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.magOutSound);
 	}
+
 	public virtual void ReleaseSlide()
 	{
 		WeaponManager.audioSource.PlayOneShot(WeaponManager.ammo.releaseSlideSound);

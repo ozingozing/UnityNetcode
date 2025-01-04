@@ -8,7 +8,7 @@ public class Death : CoreComponent
 {
 	[SerializeField] private GameObject[] deathParicles;
 
-	private Stats Stats => stats ? stats : core.GetCoreComponent(ref stats);
+	private Stats Stats => stats ? stats : Core.GetCoreComponent(ref stats);
 	private Stats stats;
 
 	public void Die(GameObject attacker)

@@ -6,17 +6,13 @@ namespace ChocoOzing.CoreSystem
 {
 	public class CoreComponent : MonoBehaviour, ILogicUpdate
 	{
-		protected Core core;
+		protected Core Core { get => core = (core != null) ? core : GetComponentInParent<Core>(); }
+		private Core core;
 
 		protected virtual void Awake()
 		{
-			core = transform.parent.GetComponent<Core>();
 			//Debug.LogAssertion(this.gameObject.transform.parent.name);
-			if(core == null)
-			{
-				Debug.LogError("There isn't Core on the parent");
-			}
-			core.AddComponent(this);
+			Core.AddComponent(this);
 		}
 
 		public virtual void LogicUpdate() { }

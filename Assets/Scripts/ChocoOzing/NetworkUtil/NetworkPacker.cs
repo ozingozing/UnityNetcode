@@ -28,7 +28,7 @@ namespace ChocoOzing.Network
 
 	public class Vector3Compressor : ICompressVector3
 	{
-		float Static_10Bits = 1023f;
+		private float QuantizationValue = 1023f; //10bits
 
 		public float MAX { get; }
 		public float MIN { get; }
@@ -59,19 +59,19 @@ namespace ChocoOzing.Network
 		public short EncodeCoordinate(float value, float min, float max)
 		{
 			float normalized = Mathf.Clamp((value - min) / (max - min), 0f, 1f);
-			return (short)(normalized * Static_10Bits);
+			return (short)(normalized * QuantizationValue);
 		}
 
 		public float DecodeCoordinate(int value, float min, float max)
 		{
-			float normalized = value / (float)Static_10Bits;
+			float normalized = value / (float)QuantizationValue;
 			return normalized * (max - min) + min;
 		}
 	}
 
 	public class QuaternionCompressor : ICompressQuaternion
 	{
-		float Static_10Bits = 1023f;
+		private float QuantizationValue = 1023f; //10bits
 		public int PackQuaternion(Quaternion quaternion)
 		{
 			float largest = Mathf.Abs(quaternion.x);
@@ -87,9 +87,9 @@ namespace ChocoOzing.Network
 			float b = quaternion[(largestIndex + 2) % 4];
 			float c = quaternion[(largestIndex + 3) % 4];
 
-			int packedA = Mathf.RoundToInt((a + 1f) * Static_10Bits);
-			int packedB = Mathf.RoundToInt((b + 1f) * Static_10Bits);
-			int packedC = Mathf.RoundToInt((c + 1f) * Static_10Bits);
+			int packedA = Mathf.RoundToInt((a + 1f) * QuantizationValue);
+			int packedB = Mathf.RoundToInt((b + 1f) * QuantizationValue);
+			int packedC = Mathf.RoundToInt((c + 1f) * QuantizationValue);
 
 			return
 				(largestIndex << 30) |
@@ -108,9 +108,9 @@ namespace ChocoOzing.Network
 			int packedC = packed & 0x3FF;
 
 			//Restorate Quaternion value around [-1, 1]
-			float a = (packedA / Static_10Bits) - 1f;
-			float b = (packedB / Static_10Bits) - 1f;
-			float c = (packedC / Static_10Bits) - 1f;
+			float a = (packedA / QuantizationValue) - 1f;
+			float b = (packedB / QuantizationValue) - 1f;
+			float c = (packedC / QuantizationValue) - 1f;
 			//Restorate  Quaternion w value
 			float w = Mathf.Sqrt(1f - a * a - b * b - c * c);
 

@@ -1,25 +1,32 @@
 using Architecture.AbilitySystem.Controller;
+using Architecture.AbilitySystem.Model;
 using Architecture.AbilitySystem.View;
+using ChocoOzing.EventBusSystem;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Architecture.AbilitySystem
+namespace ChocoOzing.CoreSystem
 {
-	public class AbilitySystem : MonoBehaviour
+	public class AbilitySystem : CoreComponent
 	{
 		[SerializeField] AbilityView view;
 		[SerializeField] AbilityData[] startingSOabilities;
 		AbilityController controller;
 
+		protected override void Awake()
+		{
+			base.Awake();
+		}
+
 		private void OnEnable()
 		{
 			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
 			controller = new AbilityController.Builder()
-				.WithAbilities(startingSOabilities)
+				.WithAbilities(startingSOabilities, Core.Root.GetComponent<MyPlayer>())
 				.Build(view);
 		}
 
-		private void Update()
+		public override void LogicUpdate()
 		{
 			controller.Update(Time.deltaTime);
 		}

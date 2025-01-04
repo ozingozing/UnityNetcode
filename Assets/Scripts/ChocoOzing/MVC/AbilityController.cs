@@ -26,6 +26,7 @@ namespace Architecture.AbilitySystem.Controller
 			ConnectView();
 		}
 
+		AbilityCommand CacheCommand = null;
 		public void Update(float deltaTime)
 		{
 			cooltimer.Tick(deltaTime);
@@ -33,9 +34,15 @@ namespace Architecture.AbilitySystem.Controller
 
 			if(!cooltimer.IsRunning && abilityQueue.TryDequeue(out AbilityCommand cmd))
 			{
+				CacheCommand = cmd;
 				cmd.Execute();
 				cooltimer.Reset(cmd.duration);
 				cooltimer.Start();
+			}
+			if(cooltimer.IsFinished && CacheCommand != null)
+			{
+				CacheCommand.ReturnState();
+				CacheCommand = null;
 			}
 		}
 
@@ -54,7 +61,7 @@ namespace Architecture.AbilitySystem.Controller
 			{
 				if (model.abilities[index] != null)
 				{
-					abilityQueue.Enqueue(model.abilities[index].CreateCommand());
+					abilityQueue.Enqueue(model.abilities[index].GetCommand());
 				}
 			}
 			EventSystem.current.SetSelectedGameObject(null);
@@ -72,11 +79,11 @@ namespace Architecture.AbilitySystem.Controller
 		{
 			readonly AbilityModel model = new AbilityModel();
 
-			public Builder WithAbilities(AbilityData[] datas)
+			public Builder WithAbilities(AbilityData[] datas, IEntity player)
 			{
 				foreach(var data in datas)
 				{
-					model.Add(new Ability(data));
+					model.Add(new Ability(data, player));
 				}
 				return this;
 			}

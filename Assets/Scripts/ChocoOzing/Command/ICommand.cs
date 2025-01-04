@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem;
+using Architecture.AbilitySystem.Model;
 using ChocoOzing.EventBusSystem;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -19,12 +20,15 @@ namespace ChocoOzing.CommandSystem
 	//can make any CommandClass using ICommand
 	public class AbilityCommand : ICommand
 	{
+		private IEntity player;
+
 		private readonly AbilityData data;
 		public float duration => data.duration;
 
-		public AbilityCommand(AbilityData data)
+		public AbilityCommand(AbilityData data, IEntity entity)
 		{
 			this.data = data;
+			this.player = entity;
 		}
 
 		public void Execute()
@@ -34,13 +38,9 @@ namespace ChocoOzing.CommandSystem
 				animationHash = data.animationHash,
 			});
 		}
-	}
 
-	public class AbilityCommandWithProjectile : AbilityCommand
-	{
-		public AbilityCommandWithProjectile(AbilityData data) : base(data) { }
+		public void ReturnState() => player.AnimationManager.Idle();
 	}
-
 
 	public abstract class PlayerCommand : ICommandTask
 	{
