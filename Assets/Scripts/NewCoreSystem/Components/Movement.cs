@@ -20,13 +20,19 @@ namespace ChocoOzing.CoreSystem
 		{
 			base.Awake();
 
-			RB = GetComponentInParent<Rigidbody>();
+			RB = Core.Root.GetComponent<Rigidbody>();
 			canSetVelocity = true;
 		}
 
 		public override void LogicUpdate()
 		{
 			CurrentVelocity = RB.velocity;
+		}
+
+		public void StopMove(bool value)
+		{
+			if(value)
+				RB.velocity = Vector3.zero;
 		}
 	}
 }

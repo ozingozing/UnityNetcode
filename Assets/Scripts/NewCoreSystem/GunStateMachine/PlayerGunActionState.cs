@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class PlayerGunActionState : PlayerState
@@ -20,7 +17,7 @@ public class PlayerGunActionState : PlayerState
 
 	public Transform lastAimPos;
 
-	public PlayerGunActionState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
+	public PlayerGunActionState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
 	}
 

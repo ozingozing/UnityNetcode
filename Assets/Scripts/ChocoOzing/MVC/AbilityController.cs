@@ -15,7 +15,7 @@ namespace Architecture.AbilitySystem.Controller
 		readonly AbilityModel model;
 		readonly AbilityView view;
 		readonly Queue<AbilityCommand> abilityQueue = new Queue<AbilityCommand>();
-		readonly CountdownTimer cooltimer = new CountdownTimer(0);
+		public readonly CountdownTimer cooltimer = new CountdownTimer(0);
 
 		AbilityController(AbilityView view, AbilityModel model)
 		{
@@ -26,7 +26,6 @@ namespace Architecture.AbilitySystem.Controller
 			ConnectView();
 		}
 
-		AbilityCommand CacheCommand = null;
 		public void Update(float deltaTime)
 		{
 			cooltimer.Tick(deltaTime);
@@ -34,15 +33,9 @@ namespace Architecture.AbilitySystem.Controller
 
 			if(!cooltimer.IsRunning && abilityQueue.TryDequeue(out AbilityCommand cmd))
 			{
-				CacheCommand = cmd;
 				cmd.Execute();
 				cooltimer.Reset(cmd.duration);
 				cooltimer.Start();
-			}
-			if(cooltimer.IsFinished && CacheCommand != null)
-			{
-				CacheCommand.ReturnState();
-				CacheCommand = null;
 			}
 		}
 

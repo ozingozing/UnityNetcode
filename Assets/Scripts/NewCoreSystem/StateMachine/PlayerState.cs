@@ -1,6 +1,4 @@
 using ChocoOzing.CoreSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerState
@@ -9,7 +7,6 @@ public class PlayerState
 
     protected MyPlayer player;
     protected PlayerStateMachine playerStateMachine;
-    protected PlayerGunStateMachine gunStateMachine;
     //TODO: Should Make PlayerData
     //protected PlayerData playerData;
 
@@ -24,7 +21,7 @@ public class PlayerState
     /// <param name="_player"></param>
     /// <param name="_playerStateMachine"></param>
     /// <param name="_animBoolName"></param>
-    public PlayerState(MyPlayer _player, PlayerStateMachine _playerStateMachine, /*AddPlayerData*/ string _animBoolName)
+    public PlayerState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName)
     {
         this.player = _player;
         this.playerStateMachine = _playerStateMachine;
@@ -32,19 +29,6 @@ public class PlayerState
         core = _player.Core;
     }
 
-    /// <summary>
-    /// Player FPS ActionAnim Using Bool Param
-    /// </summary>
-    /// <param name="_player"></param>
-    /// <param name="_gunStateMachine"></param>
-    /// <param name="_animBoolName"></param>
-	public PlayerState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, /*AddPlayerData*/ string _animBoolName)
-	{
-		this.player = _player;
-		this.gunStateMachine = _gunStateMachine;
-		this.animBoolName = _animBoolName;
-		core = _player.Core;
-	}
 
 	public virtual void Enter()
     {
@@ -53,7 +37,7 @@ public class PlayerState
          player.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
         //Debug
-        //Debug.Log($"PlayerState Enter: {animBoolName}");
+        Debug.Log($"PlayerState Enter: {animBoolName}");
         isAnimationFinished = false;
         isExitingState = false;
     }
@@ -63,7 +47,7 @@ public class PlayerState
 		if (animBoolName != "_")
 			player.Anim.SetBool(animBoolName, false);
 		//Debug
-		//Debug.Log($"PlayerState Exit: {animBoolName}");
+		Debug.Log($"PlayerState Exit: {animBoolName}");
 		isExitingState = true;
         isAnimationFinished = true;
 	}

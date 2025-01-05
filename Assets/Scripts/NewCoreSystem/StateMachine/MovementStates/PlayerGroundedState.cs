@@ -22,14 +22,9 @@ public class PlayerGroundedState : PlayerState
 
 	public PlayerGroundedState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
-		//EventRegister
-		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(TestMVC));
+
 	}
 
-	private void TestMVC(PlayerAnimationEvent @event)
-	{
-		player.Anim.CrossFade(@event.animationHash, 0.1f);
-	}
 
 	public override void DoChecks()
 	{
@@ -49,6 +44,11 @@ public class PlayerGroundedState : PlayerState
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();
+
+		if(core.GetCoreComponent<AbilitySystem>().controller.cooltimer.IsRunning)
+		{
+			playerStateMachine.ChangeState(player.PlayerAbilityState);
+		}
 	}
 
 	public override void PhysicsUpdate()

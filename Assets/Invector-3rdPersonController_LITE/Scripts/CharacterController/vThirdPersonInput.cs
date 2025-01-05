@@ -30,6 +30,7 @@ namespace Invector.vCharacterController
 		[HideInInspector] public Camera cameraMain;
 
 		//추가
+		MyPlayer myPlayer;
 		private GameObject thirdPersonCamera;
 		private GameObject adsVirtualCamera;
 		ClientNetworkTransform clientNetworkTransform;
@@ -57,7 +58,6 @@ namespace Invector.vCharacterController
 		[SerializeField] private GameObject serverCube;
 		[SerializeField] private GameObject clientCube;
 
-		StatePayload extrapolationState;
 		//CountdownTimer extrapolationTimer;
 		CountdownTimer reconciliationTimer;
 		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
@@ -72,9 +72,6 @@ namespace Invector.vCharacterController
 		public ulong thisClientId;
 		public bool isDebug = false;
 		public bool ValueCorrection;
-		const float MAX = 1000f;
-		const float MIN = -1000f;
-		const float PRESICION = 0.01f;
 		//
 		#endregion
 
@@ -105,6 +102,7 @@ namespace Invector.vCharacterController
 			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
 			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 			clientNetworkTransform = GetComponent<ClientNetworkTransform>();
+			myPlayer = GetComponent<MyPlayer>();
 
 			neworkTimer = new NetworkTimer(serverTick);
 
@@ -114,8 +112,7 @@ namespace Invector.vCharacterController
 			serverStateBuffer = new CircularBuffer<StatePayload>(bufferSize);
 			serverInputQueue = new Queue<InputPayload>();
 
-			
-			
+
 			reconciliationTimer = new CountdownTimer(reconciliationCooldownTime);
 			//extrapolationTimer = new CountdownTimer(extrapolationLimit);
 
@@ -152,7 +149,7 @@ namespace Invector.vCharacterController
 				if(IsServer)
 					HandleServerTick();
 			}
-			if (IsLocalPlayer)
+			if (IsLocalPlayer && !myPlayer.IsMove.Value)
 			{
 				MOVE();
 			}
@@ -167,7 +164,7 @@ namespace Invector.vCharacterController
 			if(isDebug)
 				playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
 
-			if (IsLocalPlayer)
+			if (IsLocalPlayer && !myPlayer.IsMove.Value)
 			{
 				InputHandle();                  // update the input methods
 				cc.UpdateAnimator();            // updates the Animator Parameters

@@ -11,12 +11,7 @@ namespace ChocoOzing.CoreSystem
 	{
 		[SerializeField] AbilityView view;
 		[SerializeField] AbilityData[] startingSOabilities;
-		AbilityController controller;
-
-		protected override void Awake()
-		{
-			base.Awake();
-		}
+		public AbilityController controller;
 
 		private void OnEnable()
 		{

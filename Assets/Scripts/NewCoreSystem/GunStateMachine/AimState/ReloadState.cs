@@ -1,16 +1,12 @@
-using ChocoOzing;
 using ChocoOzing.CommandSystem;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using UnityEngine;
 
 public class ReloadState : PlayerGunActionState
 {
 	public List<ICommandTask> singleCommand;
 	public List<ICommandTask> commands;
 
-	public ReloadState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
+	public ReloadState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
 		singleCommand = new List<ICommandTask>
 		{
@@ -68,7 +64,7 @@ public class ReloadState : PlayerGunActionState
 
 		if (isAnimationFinished)
 		{
-			gunStateMachine.ChangeState(player.HipFireState);
+			playerStateMachine.ChangeState(player.HipFireState);
 		}
 	}
 }

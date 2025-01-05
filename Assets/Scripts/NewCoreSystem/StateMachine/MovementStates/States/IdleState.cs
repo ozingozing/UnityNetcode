@@ -15,6 +15,8 @@ public class IdleState : PlayerGroundedState
 	public override void Enter()
 	{
 		base.Enter();
+
+		player.AnimationManager.Idle();
 	}
 
 	public override void Exit()

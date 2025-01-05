@@ -1,4 +1,5 @@
 using ChocoOzing.CoreSystem;
+using ChocoOzing.EventBusSystem;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -44,14 +45,19 @@ public class MyPlayer : MonoBehaviour, IEntity
 
 	#region State Variables
 	public PlayerStateMachine StateMachine { get; private set; }
-	public PlayerGunStateMachine GunStateMachine { get; private set; }
+	public PlayerStateMachine GunStateMachine { get; private set; }
 	public IdleState IdleState { get; private set; }
 	public WalkState WalkState { get; private set; }
 	public RunState RunState { get; private set; }
+	public PlayerAbilityState PlayerAbilityState { get; private set; }
 	public HipFireState HipFireState { get; private set; }
 	public AimState AimState { get; private set; }
 	public ReloadState ReloadState { get; private set; }
 	public DefaultState DefaultState { get; private set; }
+	#endregion
+
+	#region Values
+	public Observer<bool> IsMove = new Observer<bool>(false);
 	#endregion
 
 	private void OnEnable()
@@ -61,31 +67,43 @@ public class MyPlayer : MonoBehaviour, IEntity
 
 	private void Awake()
 	{
+		Anim = GetComponent<Animator>();
+		MovementCollider = GetComponent<CapsuleCollider>();
+
 		Core = GetComponentInChildren<Core>();
 
 		StateMachine = new PlayerStateMachine();
-		GunStateMachine = new PlayerGunStateMachine();
+		GunStateMachine = new PlayerStateMachine();
 		
 		IdleState = new IdleState(this, StateMachine, "Idle");
 		WalkState = new WalkState(this, StateMachine, "IsWalking");
 		RunState = new RunState(this, StateMachine, "IsRunning");
+
+		PlayerAbilityState = new PlayerAbilityState(this, StateMachine, "IsAbility");
+
 		HipFireState = new HipFireState(this, GunStateMachine, "IsHipfiring");
 		AimState = new AimState(this, GunStateMachine, "IsAiming");
 		ReloadState = new ReloadState(this, GunStateMachine, "_");
 	}
+
 	private void Start()
 	{
-		Anim = GetComponent<Animator>();
-		MovementCollider = GetComponent<CapsuleCollider>();
-
 		StateMachine.Initialize(IdleState);
 		GunStateMachine.Initialize(HipFireState);
 	}
 
 	public void PlayerActionStart()
 	{
+		LocalPlayerInit();
+
 		StartCoroutine(UpdateCoroutine());
 		StartCoroutine(FixedUpdateCoroutine());
+	}
+
+	private void LocalPlayerInit()
+	{
+		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(PlayerAbilityState.SkillAction));
+		IsMove.AddListener(Movement.StopMove);
 	}
 
 	IEnumerator UpdateCoroutine()

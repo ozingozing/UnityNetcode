@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using ChocoOzing;
-using Cinemachine;
-using Unity.Burst.Intrinsics;
 
 public class AimState : PlayerGunActionState
 {
-	public AimState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
+	public AimState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
 	}
 
@@ -19,7 +13,6 @@ public class AimState : PlayerGunActionState
 		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
 
 		IsAiming = true;
-		//anim.SetBool("Aiming", true);
 	}
 
 	public override void Exit()
@@ -32,8 +25,7 @@ public class AimState : PlayerGunActionState
 		base.LogicUpdate();
 		if (Input.GetKeyUp(KeyCode.Mouse1))
 		{
-			gunStateMachine.ChangeState(player.HipFireState);
-			//aim.SwitchState(aim.Hip);
+			playerStateMachine.ChangeState(player.HipFireState);
 		}
 	}
 }

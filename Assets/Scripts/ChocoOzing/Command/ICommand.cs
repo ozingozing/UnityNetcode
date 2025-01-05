@@ -25,10 +25,10 @@ namespace ChocoOzing.CommandSystem
 		private readonly AbilityData data;
 		public float duration => data.duration;
 
-		public AbilityCommand(AbilityData data, IEntity entity)
+		public AbilityCommand(AbilityData data, IEntity player)
 		{
 			this.data = data;
-			this.player = entity;
+			this.player = player;
 		}
 
 		public void Execute()
@@ -36,10 +36,9 @@ namespace ChocoOzing.CommandSystem
 			EventBus<PlayerAnimationEvent>.Raise(new PlayerAnimationEvent
 			{
 				animationHash = data.animationHash,
+				MoveLock = data.moveLock,
 			});
 		}
-
-		public void ReturnState() => player.AnimationManager.Idle();
 	}
 
 	public abstract class PlayerCommand : ICommandTask

@@ -8,6 +8,7 @@ namespace Architecture.AbilitySystem.Model
 		public AnimationClip animtaionClip;
 		public int animationHash;
 		public float duration;
+		public bool moveLock;
 		public Sprite icon;
 
 		private void OnValidate()

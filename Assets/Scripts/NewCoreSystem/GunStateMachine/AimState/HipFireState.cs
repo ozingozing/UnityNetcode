@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using ChocoOzing;
-using Unity.Burst.Intrinsics;
 
 public class HipFireState : PlayerGunActionState
 {
-	public HipFireState(MyPlayer _player, PlayerGunStateMachine _gunStateMachine, string _animBoolName) : base(_player, _gunStateMachine, _animBoolName)
+	public HipFireState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
 	}
 
@@ -15,7 +11,6 @@ public class HipFireState : PlayerGunActionState
 		base.Enter();
 
 		IsAiming = false;
-		//player.Anim.SetBool("Aiming", false);
 	}
 
 	public override void Exit()
@@ -29,11 +24,11 @@ public class HipFireState : PlayerGunActionState
 		base.LogicUpdate();
 		if (Input.GetKeyDown(KeyCode.R) && CanReload())
 		{
-			gunStateMachine.ChangeState(player.ReloadState);
+			playerStateMachine.ChangeState(player.ReloadState);
 		}
 		if (Input.GetKey(KeyCode.Mouse1))
 		{
-			gunStateMachine.ChangeState(player.AimState);
+			playerStateMachine.ChangeState(player.AimState);
 		}
 	}
 
