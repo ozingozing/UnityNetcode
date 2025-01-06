@@ -17,7 +17,7 @@ namespace ChocoOzing.CoreSystem
 		{
 			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
 			controller = new AbilityController.Builder()
-				.WithAbilities(startingSOabilities, Core.Root.GetComponent<MyPlayer>())
+				.WithAbilities(startingSOabilities)
 				.Build(view);
 		}
 

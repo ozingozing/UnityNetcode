@@ -46,10 +46,14 @@ public class MyPlayer : MonoBehaviour, IEntity
 	#region State Variables
 	public PlayerStateMachine StateMachine { get; private set; }
 	public PlayerStateMachine GunStateMachine { get; private set; }
+	
 	public IdleState IdleState { get; private set; }
 	public WalkState WalkState { get; private set; }
 	public RunState RunState { get; private set; }
-	public PlayerAbilityState PlayerAbilityState { get; private set; }
+
+	public SingleAbilityState  singleAbilityState { get; private set; }
+	public OverrideAbilityState overrideAbilityState { get; private set; }
+	
 	public HipFireState HipFireState { get; private set; }
 	public AimState AimState { get; private set; }
 	public ReloadState ReloadState { get; private set; }
@@ -57,7 +61,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	#endregion
 
 	#region Values
-	public Observer<bool> IsMove = new Observer<bool>(false);
+	public Observer<bool> IsMoveLock = new Observer<bool>(false);
 	#endregion
 
 	private void OnEnable()
@@ -79,7 +83,9 @@ public class MyPlayer : MonoBehaviour, IEntity
 		WalkState = new WalkState(this, StateMachine, "IsWalking");
 		RunState = new RunState(this, StateMachine, "IsRunning");
 
-		PlayerAbilityState = new PlayerAbilityState(this, StateMachine, "IsAbility");
+		singleAbilityState = new SingleAbilityState(this, StateMachine, "IsAbility");
+		overrideAbilityState = new OverrideAbilityState(this, StateMachine, "IsAbility");
+
 
 		HipFireState = new HipFireState(this, GunStateMachine, "IsHipfiring");
 		AimState = new AimState(this, GunStateMachine, "IsAiming");
@@ -102,8 +108,15 @@ public class MyPlayer : MonoBehaviour, IEntity
 
 	private void LocalPlayerInit()
 	{
-		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(PlayerAbilityState.SkillAction));
-		IsMove.AddListener(Movement.StopMove);
+		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(SkillAction));
+		IsMoveLock.AddListener(Movement.StopMove);
+	}
+
+	float crossFadeValue = 0.1f;
+	public void SkillAction(PlayerAnimationEvent @event)
+	{
+		IsMoveLock.Set(@event.MoveLock);
+		Anim.CrossFade(@event.animationHash, crossFadeValue);
 	}
 
 	IEnumerator UpdateCoroutine()

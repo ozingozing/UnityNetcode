@@ -1,11 +1,8 @@
 using ChocoOzing.CoreSystem;
 using UnityEngine;
 
-public class PlayerGunActionState : PlayerState
+public class OverrideAbilityState : PlayerAbilityState
 {
-	//TODO: Check if the current weapon type requires
-	//the HipFire state and set the starting state
-	//to either HipFireState or DefaultState accordingly;
 	[SerializeField] private float mouseSense = 1;
 	public float xAxis, yAxis;
 
@@ -15,34 +12,17 @@ public class PlayerGunActionState : PlayerState
 	[SerializeField] public float aimSmoothSpeed = 20;
 	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Ground") | LayerMask.GetMask("Default");
 
-
-	public Transform lastAimPos;
-
-	public PlayerGunActionState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
+	public OverrideAbilityState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
-	}
-
-	public override void DoChecks()
-	{
-		base.DoChecks();
 	}
 
 	public override void Enter()
 	{
 		base.Enter();
+		IsAiming = true;
 
 		xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
 		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
-	}
-
-	public override void Exit()
-	{
-		base.Exit();
-	}
-
-	public override void LogicUpdate()
-	{
-		base.LogicUpdate();
 
 		Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
 		Ray ray = Camera.main.ScreenPointToRay(screenCenter);
@@ -54,7 +34,6 @@ public class PlayerGunActionState : PlayerState
 		{
 			player.aimPos.position = Vector3.Lerp(player.aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
 		}
-
 		if (IsAiming)
 		{
 			player.camFollowPos.localEulerAngles = new Vector3(yAxis, player.camFollowPos.localEulerAngles.y, player.camFollowPos.localEulerAngles.z);
@@ -62,8 +41,19 @@ public class PlayerGunActionState : PlayerState
 		}
 	}
 
-	public override void PhysicsUpdate()
+	public override void Exit()
 	{
-		base.PhysicsUpdate();
+		base.Exit();
+	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+	}
+
+	public override void DoChecks()
+	{
+		base.DoChecks();
+
 	}
 }

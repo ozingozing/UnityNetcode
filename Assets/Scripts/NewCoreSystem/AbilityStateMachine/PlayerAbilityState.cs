@@ -1,18 +1,9 @@
 using ChocoOzing.CoreSystem;
-using ChocoOzing.EventBusSystem;
 
 public class PlayerAbilityState : PlayerState
 {
-	float crossFadeDuration = 0.1f;
-
 	public PlayerAbilityState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
-	}
-
-	public void SkillAction(PlayerAnimationEvent @event)
-	{
-		player.IsMove.Set(@event.MoveLock);
-		player.Anim.CrossFade(@event.animationHash, crossFadeDuration);
 	}
 
 	public override void Enter()
@@ -23,7 +14,7 @@ public class PlayerAbilityState : PlayerState
 	public override void Exit()
 	{
 		base.Exit();
-		player.IsMove.Set(false);
+		player.IsMoveLock.Set(false);
 	}
 
 	public override void LogicUpdate()
@@ -31,7 +22,13 @@ public class PlayerAbilityState : PlayerState
 		base.LogicUpdate();
 		if(core.GetCoreComponent<AbilitySystem>().controller.cooltimer.IsFinished)
 		{
-			playerStateMachine.ChangeState(player.IdleState);
+			SetAllStateDefault();
 		}
+	}
+
+	void SetAllStateDefault()
+	{
+		player.StateMachine.ChangeState(player.IdleState);
+		player.GunStateMachine.ChangeState(player.HipFireState);
 	}
 }

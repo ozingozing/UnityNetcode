@@ -72,11 +72,11 @@ namespace Architecture.AbilitySystem.Controller
 		{
 			readonly AbilityModel model = new AbilityModel();
 
-			public Builder WithAbilities(AbilityData[] datas, IEntity player)
+			public Builder WithAbilities(AbilityData[] datas)
 			{
 				foreach(var data in datas)
 				{
-					model.Add(new Ability(data, player));
+					model.Add(new Ability(data));
 				}
 				return this;
 			}

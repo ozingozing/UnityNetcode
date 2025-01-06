@@ -1,4 +1,6 @@
 using ChocoOzing.CoreSystem;
+using ChocoOzing.EventBusSystem;
+using System;
 using UnityEngine;
 
 public class PlayerState

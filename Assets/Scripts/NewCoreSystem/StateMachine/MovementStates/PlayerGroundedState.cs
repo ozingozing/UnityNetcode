@@ -47,7 +47,14 @@ public class PlayerGroundedState : PlayerState
 
 		if(core.GetCoreComponent<AbilitySystem>().controller.cooltimer.IsRunning)
 		{
-			playerStateMachine.ChangeState(player.PlayerAbilityState);
+			if(player.IsMoveLock.Value)
+			{
+				playerStateMachine.ChangeState(player.singleAbilityState);
+			}
+			else
+			{
+				playerStateMachine.ChangeState(player.overrideAbilityState);
+			}
 		}
 	}
 

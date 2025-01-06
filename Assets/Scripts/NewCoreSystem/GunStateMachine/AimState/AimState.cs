@@ -9,15 +9,13 @@ public class AimState : PlayerGunActionState
 	public override void Enter()
 	{
 		base.Enter();
-		xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
-		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
-
 		IsAiming = true;
 	}
 
 	public override void Exit()
 	{
 		base.Exit();
+		IsAiming = false;
 	}
 
 	public override void LogicUpdate()

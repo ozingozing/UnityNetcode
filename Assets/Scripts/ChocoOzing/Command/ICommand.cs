@@ -20,15 +20,12 @@ namespace ChocoOzing.CommandSystem
 	//can make any CommandClass using ICommand
 	public class AbilityCommand : ICommand
 	{
-		private IEntity player;
-
 		private readonly AbilityData data;
 		public float duration => data.duration;
 
-		public AbilityCommand(AbilityData data, IEntity player)
+		public AbilityCommand(AbilityData data)
 		{
 			this.data = data;
-			this.player = player;
 		}
 
 		public void Execute()

@@ -41,7 +41,7 @@ public class AnimationManager
 	public void Idle()
 	{
 		PlayAnimation(IdleHash, 0.25f, 0);
-		animator.SetFloat("InputMagnitude", 0);
+		animator.SetFloat("InputMagnitude", animator.GetFloat("InputMagnitude"));
 	}
 
 	public float HipFire() => PlayAnimation(HipFireHash, corossFadeDuration, 2);
