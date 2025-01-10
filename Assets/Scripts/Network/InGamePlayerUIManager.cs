@@ -23,6 +23,7 @@ public class InGamePlayerUIManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
+		OnPlayerSpawnBinding.Remove(OnplayerSpanwed);
 		EventBus<PlayerOnSpawnState>.Deregister(OnPlayerSpawnBinding);
 		OnPlayerSpawnBinding = null;
 	}

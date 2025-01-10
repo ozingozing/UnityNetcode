@@ -1,3 +1,4 @@
+using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using System.Collections;
@@ -51,8 +52,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	public WalkState WalkState { get; private set; }
 	public RunState RunState { get; private set; }
 
-	public SingleAbilityState  singleAbilityState { get; private set; }
-	public OverrideAbilityState overrideAbilityState { get; private set; }
+	public PlayerAbilityState PlayerAbilityState { get; private set; }
 	
 	public HipFireState HipFireState { get; private set; }
 	public AimState AimState { get; private set; }
@@ -83,9 +83,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 		WalkState = new WalkState(this, StateMachine, "IsWalking");
 		RunState = new RunState(this, StateMachine, "IsRunning");
 
-		singleAbilityState = new SingleAbilityState(this, StateMachine, "IsAbility");
-		overrideAbilityState = new OverrideAbilityState(this, StateMachine, "IsAbility");
-
+		PlayerAbilityState = new PlayerAbilityState(this, StateMachine, "IsAbility");
 
 		HipFireState = new HipFireState(this, GunStateMachine, "IsHipfiring");
 		AimState = new AimState(this, GunStateMachine, "IsAiming");
@@ -106,18 +104,33 @@ public class MyPlayer : MonoBehaviour, IEntity
 		StartCoroutine(FixedUpdateCoroutine());
 	}
 
+	EventBinding<PlayerAnimationEvent> eventBinding;
 	private void LocalPlayerInit()
 	{
-		EventBus<PlayerAnimationEvent>.Register(new EventBinding<PlayerAnimationEvent>(SkillAction));
+		eventBinding = new EventBinding<PlayerAnimationEvent>(SkillAction);
+		EventBus<PlayerAnimationEvent>.Register(eventBinding);
 		IsMoveLock.AddListener(Movement.StopMove);
+	}
+
+	private void OnDestroy()
+	{
+		if (eventBinding != null)
+		{
+			eventBinding.Remove(SkillAction);
+			EventBus<PlayerAnimationEvent>.Deregister(eventBinding);
+			eventBinding = null;
+		}
+		IsMoveLock.Dispose();
 	}
 
 	float crossFadeValue = 0.1f;
 	public void SkillAction(PlayerAnimationEvent @event)
 	{
-		IsMoveLock.Set(@event.MoveLock);
-		Anim.CrossFade(@event.animationHash, crossFadeValue);
+		IsMoveLock.Set(@event.abilityData.moveLock);
+		Anim.CrossFade(@event.abilityData.animationHash, crossFadeValue);
+		StateMachine.ChangeState(PlayerAbilityState, @event.abilityData);
 	}
+
 
 	IEnumerator UpdateCoroutine()
 	{

@@ -67,6 +67,14 @@ namespace Architecture.AbilitySystem.Controller
 
 		private void UpdateButtons(IList<Ability> updatedAbilities) => view.UpdateButtonSprites(updatedAbilities);
 
+		public void Clear()
+		{
+			for (int i = 0; i < view.buttons.Length; i++)
+			{
+				view.buttons[i].DeRegisterListenr(OnAbilityButtonPressed);
+			}
+			model.abilities.Clear();
+		}
 
 		public class Builder
 		{

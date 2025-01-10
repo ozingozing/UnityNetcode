@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398aed2e1ffe5a74b910943dbe95bafd, type: 3}
   m_Name: AdsSO
   m_EditorClassIdentifier: 
-  animtaionClip: {fileID: 7400000, guid: d2dfe7f1f418e154b891b62e03270473, type: 2}
+  abilityType: 2
+  animationClip: {fileID: 7400000, guid: d2dfe7f1f418e154b891b62e03270473, type: 2}
   animationHash: 1183101120
   duration: 2
+  moveLock: 0
   icon: {fileID: 21300128, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  projectileRange: 0
+  effectPrefab: {fileID: 0}
+  startingPoint: {x: 0, y: 0, z: 0}

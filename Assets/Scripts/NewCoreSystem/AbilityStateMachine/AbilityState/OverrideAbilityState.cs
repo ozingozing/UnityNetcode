@@ -6,8 +6,6 @@ public class OverrideAbilityState : PlayerAbilityState
 	[SerializeField] private float mouseSense = 1;
 	public float xAxis, yAxis;
 
-	public bool IsAiming;
-
 	[HideInInspector] public Vector3 actualAimPos;
 	[SerializeField] public float aimSmoothSpeed = 20;
 	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Ground") | LayerMask.GetMask("Default");
@@ -20,6 +18,19 @@ public class OverrideAbilityState : PlayerAbilityState
 	{
 		base.Enter();
 		IsAiming = true;
+		player.Anim.SetBool("IsAiming", IsAiming);
+	}
+
+	public override void Exit()
+	{
+		base.Exit();
+		IsAiming = false;
+		player.Anim.SetBool("IsAiming", IsAiming);
+	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
 
 		xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
 		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
@@ -39,16 +50,6 @@ public class OverrideAbilityState : PlayerAbilityState
 			player.camFollowPos.localEulerAngles = new Vector3(yAxis, player.camFollowPos.localEulerAngles.y, player.camFollowPos.localEulerAngles.z);
 			player.transform.eulerAngles = new Vector3(player.transform.eulerAngles.x, xAxis, player.transform.eulerAngles.z);
 		}
-	}
-
-	public override void Exit()
-	{
-		base.Exit();
-	}
-
-	public override void LogicUpdate()
-	{
-		base.LogicUpdate();
 	}
 
 	public override void DoChecks()

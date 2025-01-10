@@ -78,9 +78,10 @@ public class LobbyUI : MonoBehaviour {
 
 	private void OnDestroy()
 	{
+		eventBinding.Remove(LobbyEvent);
 		EventBus<LobbyEventArgs>.Deregister(eventBinding);
         eventBinding = null;
-	}
+    }
 
 	private void LobbyEvent(LobbyEventArgs e)
 	{

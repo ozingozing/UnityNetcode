@@ -31,13 +31,17 @@ public class Unit : MonoBehaviour
 			LookAtTarget(target.position);
 	}
 
-	public void StartAction(GameObject go)
+	/// <summary>
+	/// Exclude OwnerPlayer And Start to Search
+	/// </summary>
+	/// <param name="OwnerPlayer">Exclude this one</param>
+	public void StartAction(GameObject OwnerPlayer)
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
 		foreach (Collider hitCollider in hitColliders)
 		{
 			// 자신을 제외한 객체만 처리
-			if (hitCollider.gameObject != go)
+			if (hitCollider.gameObject != OwnerPlayer)
 			{
 				target = hitCollider.gameObject.transform;
 				Debug.Log($"Detected: {target.name}");
@@ -76,7 +80,8 @@ public class Unit : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
-			if((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+			if (target != null &&
+				(target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
 			{
 				PathRequestManager.RequestPath(
 					new PathRequest(transform.position,
@@ -100,7 +105,9 @@ public class Unit : MonoBehaviour
 			Vector2 pos2D = new Vector2(transform.position.x, transform.position.z);
 			while (path.turnBoundaries[pathIndex].HasCrossedLine(pos2D))
 			{
-				if (pathIndex == path.finishLineIndex)
+				if(
+					target != null &&
+					pathIndex == path.finishLineIndex)
 				{
 					LookAtTarget(target.position);
 					followingPath = false;

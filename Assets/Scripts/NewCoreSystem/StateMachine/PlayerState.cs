@@ -1,3 +1,4 @@
+using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using System;
@@ -14,8 +15,10 @@ public class PlayerState
 
     protected bool isAnimationFinished;
     protected bool isExitingState;
+	public bool IsAiming;
 
-    protected float startTime;
+	public AbilityData abilityData;
+	protected float startTime;
     private string animBoolName;
     /// <summary>
     /// Player BaseMovement
@@ -31,6 +34,17 @@ public class PlayerState
         core = _player.Core;
     }
 
+	public virtual void Enter(AbilityData abilityData)
+	{
+		DoChecks();
+		if (animBoolName != "_")
+			player.Anim.SetBool(animBoolName, true);
+		startTime = Time.time;
+		//Debug
+		Debug.Log($"PlayerState Enter: {animBoolName}");
+		isAnimationFinished = false;
+		isExitingState = false;
+	}
 
 	public virtual void Enter()
     {

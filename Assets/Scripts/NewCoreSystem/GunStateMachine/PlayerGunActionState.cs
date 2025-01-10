@@ -9,8 +9,6 @@ public class PlayerGunActionState : PlayerState
 	[SerializeField] private float mouseSense = 1;
 	public float xAxis, yAxis;
 
-	public bool IsAiming;
-
 	[HideInInspector] public Vector3 actualAimPos;
 	[SerializeField] public float aimSmoothSpeed = 20;
 	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Ground") | LayerMask.GetMask("Default");

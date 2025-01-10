@@ -24,7 +24,6 @@ public class Pathfinding : MonoBehaviour
 
 		Node startNode = gridGizmo.NodeFromWorldPoint(request.pathStart);
 		Node targetNode = gridGizmo.NodeFromWorldPoint(request.pathEnd);
-		UnityEngine.Debug.Log(targetNode.worldPosition);
 		/*if (startNode.walkable &&
 			targetNode.walkable)*/
 		{
@@ -41,7 +40,8 @@ public class Pathfinding : MonoBehaviour
 				if (currentNode == targetNode)
 				{
 					sw.Stop();
-					print($"PathFound Using HEAP: {sw.ElapsedMilliseconds} ms");
+					//Debug
+					//print($"PathFound Using HEAP: {sw.ElapsedMilliseconds} ms");
 					pathSuccess = true;
 					break;
 				}

@@ -45,17 +45,10 @@ public class PlayerGroundedState : PlayerState
 	{
 		base.LogicUpdate();
 
-		if(core.GetCoreComponent<AbilitySystem>().controller.cooltimer.IsRunning)
+		/*if(core.GetCoreComponent<AbilitySystem>().controller.cooltimer.IsRunning)
 		{
-			if(player.IsMoveLock.Value)
-			{
-				playerStateMachine.ChangeState(player.singleAbilityState);
-			}
-			else
-			{
-				playerStateMachine.ChangeState(player.overrideAbilityState);
-			}
-		}
+			player.StateMachine.ChangeState(player.PlayerAbilityState);
+		}*/
 	}
 
 	public override void PhysicsUpdate()

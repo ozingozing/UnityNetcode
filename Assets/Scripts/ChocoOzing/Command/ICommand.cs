@@ -32,8 +32,7 @@ namespace ChocoOzing.CommandSystem
 		{
 			EventBus<PlayerAnimationEvent>.Raise(new PlayerAnimationEvent
 			{
-				animationHash = data.animationHash,
-				MoveLock = data.moveLock,
+				abilityData = data,
 			});
 		}
 	}

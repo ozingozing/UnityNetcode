@@ -29,8 +29,10 @@ public class LobbyListUI : MonoBehaviour {
         createLobbyButton.onClick.AddListener(CreateLobbyButtonClick);
     }
 
+    EventBinding<LobbyEventArgs> eventBinding;
 	private void Start() {
-		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(LobbyEvent));
+        eventBinding = new EventBinding<LobbyEventArgs>(LobbyEvent);
+		EventBus<LobbyEventArgs>.Register(eventBinding);
         //EventBus<OnLobbyListChangedEventArgs>.Register(new EventBinding<OnLobbyListChangedEventArgs>(LobbyManager_OnLobbyListChanged));
         
         /*LobbyManager.Instance.OnLobbyListChanged += LobbyManager_OnLobbyListChanged;
@@ -38,6 +40,13 @@ public class LobbyListUI : MonoBehaviour {
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnKickedFromLobby;*/
     }
+
+	private void OnDestroy()
+	{
+		eventBinding.Remove(LobbyEvent);
+        EventBus<LobbyEventArgs>.Deregister(eventBinding);
+        eventBinding = null;
+	}
 
 	private void LobbyEvent(LobbyEventArgs lobby)
 	{

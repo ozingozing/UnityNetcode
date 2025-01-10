@@ -89,9 +89,18 @@ public class WalkerGenerator : MonoBehaviour
 		depth = Floor.GetComponent<Renderer>().bounds.size.z;
 	}
 
+	EventBinding<LobbyEventArgs> eventBinding;
 	private void Start()
 	{
+		eventBinding = new EventBinding<LobbyEventArgs>(Func);
 		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(Func));
+	}
+
+	private void OnDestroy()
+	{
+		eventBinding.Remove(Func);
+		EventBus<LobbyEventArgs>.Deregister(eventBinding);
+		eventBinding = null;
 	}
 
 	public async void Func(LobbyEventArgs e)

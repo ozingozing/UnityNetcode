@@ -523,16 +523,16 @@ namespace Invector.vCharacterController
 		{
 			if (!Input.GetKey(KeyCode.Mouse1))
 			{
-				cc.isStrafing = false;
 				thirdPersonCamera.gameObject.SetActive(true);
 				adsVirtualCamera.gameObject.SetActive(false);
 			}
 			else
 			{
-				cc.isStrafing = true;
 				thirdPersonCamera.gameObject.SetActive(false);
 				adsVirtualCamera.gameObject.SetActive(true);
 			}
+			cc.isStrafing = myPlayer.StateMachine.CurrentState.IsAiming;
+			
 			MoveInput();
 			CameraInput();
 			SprintInput();

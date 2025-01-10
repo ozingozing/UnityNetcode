@@ -29,6 +29,11 @@ namespace Architecture.AbilitySystem.View
 			OnButtonPressed += listener;
 		}
 
+		public void DeRegisterListenr(Action<int> listener)
+		{
+			OnButtonPressed -= listener;
+		}
+
 		public void Initialize(int index, KeyCode key)
 		{
 			this.index = index;

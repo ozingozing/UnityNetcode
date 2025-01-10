@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398aed2e1ffe5a74b910943dbe95bafd, type: 3}
   m_Name: CrouchSO
   m_EditorClassIdentifier: 
-  animtaionClip: {fileID: 7400000, guid: 2085a52de71ff804b9f7ac98379235d1, type: 2}
+  abilityType: 3
+  animationClip: {fileID: 7400000, guid: 2085a52de71ff804b9f7ac98379235d1, type: 2}
   animationHash: -2051410350
   duration: 1
   moveLock: 1
   icon: {fileID: 21300122, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  Id: 22c65d2c-aca7-4013-a0e2-27f98612e08a
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 0
+  projectileRange: 0
+  effectPrefab: {fileID: 313859679423136830, guid: d8f56273d6233f74490cc8035a07b47d, type: 3}
+  startingPoint: {x: 0, y: 3, z: 0}

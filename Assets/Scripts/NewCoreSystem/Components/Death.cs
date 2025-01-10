@@ -21,7 +21,7 @@ public class Death : CoreComponent
 		Stats.Health.OnCurrentValueZero += Die;
 	}
 
-	private void OnDestroy()
+	public override void OnDestroy()
 	{
 		Stats.Health.OnCurrentValueZero -= Die;
 	}

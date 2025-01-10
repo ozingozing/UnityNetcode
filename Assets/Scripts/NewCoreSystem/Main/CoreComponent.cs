@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace ChocoOzing.CoreSystem
 {
-	public class CoreComponent : MonoBehaviour, ILogicUpdate
+	public class CoreComponent : NetworkBehaviour, ILogicUpdate
 	{
 		protected Core Core { get => core = (core != null) ? core : GetComponentInParent<Core>(); }
 		private Core core;

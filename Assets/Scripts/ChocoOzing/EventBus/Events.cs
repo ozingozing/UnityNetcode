@@ -1,3 +1,4 @@
+using Architecture.AbilitySystem.Model;
 using System.Collections.Generic;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -37,8 +38,7 @@ namespace ChocoOzing.EventBusSystem
 
 	public struct PlayerAnimationEvent : IEvent
 	{
-		public int animationHash;
-		public bool MoveLock;
+		public AbilityData abilityData;
 	}
 	#endregion
 

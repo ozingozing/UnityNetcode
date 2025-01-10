@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem.Controller;
+using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using Invector.vCharacterController;
@@ -128,27 +129,8 @@ public class PlayerInit : NetworkBehaviour
 			{
 				EquipWeaponServerRpc(1);
 			}
-			else if(Input.GetKeyDown(KeyCode.M) &&
-					IsLocalPlayer)
-			{
-				SpawnGOServerRpc(OwnerClientId);
-			}
 		}
 	}
-
-	[ServerRpc]
-	void SpawnGOServerRpc(ulong id)
-	{
-		if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
-		{
-			GameObject go = Instantiate(Seeker, new Vector3(0,10,0), Quaternion.identity);
-			go.GetComponent<NetworkObject>().Spawn();
-			/*var networkObject = go.GetComponent<NetworkObject>();
-			networkObject.SpawnWithOwnership(id);*/
-			go.GetComponent<Unit>().StartAction(client.PlayerObject.gameObject);
-		}
-	}
-
 
 	public void AddKill()
     {
