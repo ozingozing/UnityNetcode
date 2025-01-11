@@ -2,6 +2,8 @@ using Architecture.AbilitySystem.Controller;
 using Architecture.AbilitySystem.Model;
 using Architecture.AbilitySystem.View;
 using ChocoOzing.EventBusSystem;
+using QFSW.QC;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -55,11 +57,19 @@ namespace ChocoOzing.CoreSystem
 				Vector3 PlayerPos = OwnerPlayer.transform.position;
 				Vector3 PlayerForward = OwnerPlayer.transform.forward;
 
-				GameObject projectile = Instantiate(
+				NetworkObject projectile = 
+						NetworkObjectPool.Singleton.GetNetworkObject(
+							abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
+							PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start,
+							Quaternion.identity
+						);
+				if (!projectile.IsSpawned)
+					projectile.Spawn();
+				/*GameObject projectile = Instantiate(
 						abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
 						PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start,
-						Quaternion.identity);
-				projectile.GetComponent<NetworkObject>().Spawn();
+						Quaternion.identity);*/
+				//projectile.GetComponent<NetworkObject>().Spawn();
 
 				//Pathfinding Start
 				projectile.GetComponent<Unit>().StartAction(OwnerPlayer);

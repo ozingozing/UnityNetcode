@@ -98,9 +98,12 @@ public class WalkerGenerator : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		eventBinding.Remove(Func);
-		EventBus<LobbyEventArgs>.Deregister(eventBinding);
-		eventBinding = null;
+		if(eventBinding != null)
+		{
+			eventBinding.Remove(Func);
+			EventBus<LobbyEventArgs>.Deregister(eventBinding);
+			eventBinding = null;
+		}
 	}
 
 	public async void Func(LobbyEventArgs e)
