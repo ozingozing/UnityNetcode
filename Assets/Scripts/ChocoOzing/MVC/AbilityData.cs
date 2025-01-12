@@ -46,6 +46,7 @@ namespace Architecture.AbilitySystem.Model
 
 		// AreadOfEffect 전용 데이터
 		public GameObject effectPrefab;
+		public GameObject particlePrefab;
 		public Vector3 startingPoint;
 
 		private void OnValidate()
@@ -71,14 +72,14 @@ namespace Architecture.AbilitySystem.Model
 		}
 
 		// AreaOfEffect 전용 데이터 반환
-		public (GameObject prefab, Vector3 start) GetAreaOfEffectData(AbilityType abilityType)
+		public (GameObject prefab, Vector3 start, GameObject particle) GetAreaOfEffectData(AbilityType abilityType)
 		{
 			if (this.abilityType != abilityType)
 			{
 				Debug.LogError("AbilityDataSO Type doesn't same!!!");
 				return default;
 			}
-			return (effectPrefab, startingPoint);
+			return (effectPrefab, startingPoint, particlePrefab);
 		}
 	}
 }
@@ -126,6 +127,7 @@ namespace Architecture.AbilitySystem.Model
 					EditorGUILayout.HelpBox("Area of Effect data will go here.", MessageType.Info);
 					abilityData.effectPrefab = (GameObject)EditorGUILayout.ObjectField("Effect Prefab", abilityData.effectPrefab, typeof(GameObject), false);
 					abilityData.startingPoint = EditorGUILayout.Vector3Field("Effect Starting Point", abilityData.startingPoint);
+					abilityData.particlePrefab = (GameObject)EditorGUILayout.ObjectField("Particle Prefab", abilityData.particlePrefab, typeof(GameObject), false);
 					abilityData.Id = EditorGUILayout.TextField("Obejct ID", abilityData.Id);
 					break;
 

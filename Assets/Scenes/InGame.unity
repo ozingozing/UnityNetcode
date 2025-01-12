@@ -4607,7 +4607,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 702260286}
-  - component: {fileID: 702260284}
   - component: {fileID: 702260285}
   m_Layer: 0
   m_Name: NetworkObjectPool
@@ -4616,27 +4615,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &702260284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702260283}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2894364041
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &702260285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4651,7 +4629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PooledPrefabsList:
   - Prefab: {fileID: 313859679423136830, guid: d8f56273d6233f74490cc8035a07b47d, type: 3}
-    PrewarmCount: 3
+    PrewarmCount: 4
 --- !u!4 &702260286
 Transform:
   m_ObjectHideFlags: 0

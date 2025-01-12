@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit : NetworkBehaviour
 {
 	const float pathUpdateMoveThreshold = .5f;
 	const float minPathUpdateTime = .5f;
@@ -18,6 +20,8 @@ public class Unit : MonoBehaviour
 	private Rigidbody rb;
 	private bool followingPath = false;
 
+	public GameObject Effect;
+
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -31,12 +35,15 @@ public class Unit : MonoBehaviour
 			LookAtTarget(target.position);
 	}
 
+	bool findOnce = false;
 	/// <summary>
 	/// Exclude OwnerPlayer And Start to Search
 	/// </summary>
 	/// <param name="OwnerPlayer">Exclude this one</param>
-	public void StartAction(GameObject OwnerPlayer)
+	/// <param name="findOnce">If you want to search Once?</param>
+	public void StartAction(GameObject OwnerPlayer,  bool findOnce = false)
 	{
+		this.findOnce = findOnce;
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
 		foreach (Collider hitCollider in hitColliders)
 		{
@@ -77,7 +84,7 @@ public class Unit : MonoBehaviour
 
 		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
 		Vector3 targetPosOld = target.position;
-		while (true)
+		while (!Finish)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
 			if (target != null &&
@@ -92,6 +99,10 @@ public class Unit : MonoBehaviour
 		}
 	}
 
+	private void OnDisable() => FinishAction = null;
+	bool Finish = false;
+	NetworkObject EffectParticle;
+	public Action<NetworkObject, Transform> FinishAction;
 	IEnumerator FollowPath()
 	{
 		followingPath = true;
@@ -139,10 +150,32 @@ public class Unit : MonoBehaviour
 			}
 			yield return null;
 		}
+
+		if (findOnce)
+		{
+			Finish = true;
+			/*EffectParticle = NetworkObjectPool.Singleton.GetNetworkObject(Effect, transform.position, Quaternion.identity);
+			if (!EffectParticle.IsSpawned)
+				EffectParticle.Spawn();
+			yield return new WaitForSeconds(Effect.GetComponent<ParticleSystem>().totalTime + 0.1f);*/
+			//yield return new WaitForSeconds(1.5f);
+		}
+		FinishAction.Invoke(GetComponent<NetworkObject>(), transform);
+		RequestDespawnServerRpc(GetComponent<NetworkObject>().NetworkObjectId);
+	}
+
+	[ServerRpc]
+	public void RequestDespawnServerRpc(ulong objectId)
+	{
+		if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
+		{
+			networkObject.gameObject.SetActive(false);
+		}
 	}
 
 	void LookAtTarget(Vector3 targetPos)
 	{
+		if (targetPos - transform.position == Vector3.zero) return;
 		// 목표 회전 값 계산
 		Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
 

@@ -49,19 +49,19 @@ public class PlayerNetwork : NetworkBehaviour
 
 		if(!IsOwner) return;
 
-		if (Input.GetKeyDown(KeyCode.T))
+		/*if (Input.GetKeyDown(KeyCode.T))
 		{
 			spawnedObjectTransform = Instantiate(spawnedObjectPrefab);
 			spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true);
 			
 			//TestServerRPC(new ServerRpcParams());
 			//TestClientRPC(new ClientRpcParams { Send = new ClientRpcSendParams { TargetClientIds = new List<ulong> { 1 } } });
-			/*randomNumber.Value = new MyCustomData {
+			*//*randomNumber.Value = new MyCustomData {
 				_int = Random.Range(0, 10),
 				_bool = Random.Range(0, 2) == 0 ? false : true,
 				_string = "asdasdsad",
-			};*/
-		}
+			};*//*
+		}*/
 
 		if(Input.GetKeyDown(KeyCode.Y))
 		{

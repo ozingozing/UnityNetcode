@@ -153,11 +153,12 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  target: {fileID: 0}
+  target: {fileID: 7933212967319904012, guid: 7a3967d6aacd24642bccf6b9cbc3479e, type: 3}
   speed: 5
   turnSpeed: 3
   stoppingDst: 1
   turnDst: 0
+  Effect: {fileID: 7289666424166965593, guid: 7a3967d6aacd24642bccf6b9cbc3479e, type: 3}
 --- !u!114 &-1010176184068041761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 346084545
+  GlobalObjectIdHash: 139435901
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1

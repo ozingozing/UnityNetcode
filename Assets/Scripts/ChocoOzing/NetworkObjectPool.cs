@@ -101,6 +101,7 @@ public class NetworkObjectPool : NetworkBehaviour
 	public void ReturnNetworkObject(NetworkObject networkObject, GameObject prefab)
 	{
 		m_PooledObjects[prefab].Release(networkObject);
+		Debug.Log($"I am Release!!!: {m_PooledObjects[prefab].CountInactive}");
 	}
 
 	/// <summary>

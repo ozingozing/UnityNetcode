@@ -2,6 +2,8 @@ using Architecture.AbilitySystem.Controller;
 using Architecture.AbilitySystem.Model;
 using Architecture.AbilitySystem.View;
 using ChocoOzing.EventBusSystem;
+using ChocoOzing.Network;
+using ChocoOzing.Utilities;
 using QFSW.QC;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -46,6 +48,7 @@ namespace ChocoOzing.CoreSystem
 			controller.Update(Time.deltaTime);
 		}
 
+		AbilityData abilityData;
 		[ServerRpc]
 		public void AreaOfEffectActionServerRpc(ulong id, int type)
 		{
@@ -53,7 +56,7 @@ namespace ChocoOzing.CoreSystem
 			{
 				GameObject OwnerPlayer = client.PlayerObject.gameObject;
 
-				AbilityData abilityData = GetTypeData(type);
+				abilityData = GetTypeData(type);
 				Vector3 PlayerPos = OwnerPlayer.transform.position;
 				Vector3 PlayerForward = OwnerPlayer.transform.forward;
 
@@ -63,17 +66,34 @@ namespace ChocoOzing.CoreSystem
 							PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start,
 							Quaternion.identity
 						);
-				if (!projectile.IsSpawned)
-					projectile.Spawn();
-				/*GameObject projectile = Instantiate(
-						abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
-						PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start,
-						Quaternion.identity);*/
-				//projectile.GetComponent<NetworkObject>().Spawn();
+
+				projectile.GetComponent<Unit>().FinishAction += ReturnObject;
 
 				//Pathfinding Start
-				projectile.GetComponent<Unit>().StartAction(OwnerPlayer);
+				projectile.GetComponent<Unit>().StartAction(OwnerPlayer, true);
+				
+				if (!projectile.IsSpawned)
+					projectile.Spawn();
+				if(!client.PlayerObject.IsOwnedByServer)
+					projectile.ChangeOwnership(client.ClientId);
 			}
+		}
+
+		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
+		public void ReturnObject(NetworkObject networkObject, Transform pos)
+		{
+			ParticleActionClientRpc((int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
+		}
+
+		ObjectPool ParticlePool;
+		[ClientRpc]
+		public void ParticleActionClientRpc(int type, int Pos)
+		{
+			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2);
+			AbilityData abilityData = GetTypeData(type);
+			if (ParticlePool == null)
+				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);
+			ParticlePool.GetObject(pos, Quaternion.identity);
 		}
 	}
 }
