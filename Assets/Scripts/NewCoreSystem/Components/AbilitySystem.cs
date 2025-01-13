@@ -7,6 +7,7 @@ using ChocoOzing.Utilities;
 using QFSW.QC;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ChocoOzing.CoreSystem
@@ -55,41 +56,56 @@ namespace ChocoOzing.CoreSystem
 			if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
 			{
 				GameObject OwnerPlayer = client.PlayerObject.gameObject;
-
 				abilityData = GetTypeData(type);
 				Vector3 PlayerPos = OwnerPlayer.transform.position;
 				Vector3 PlayerForward = OwnerPlayer.transform.forward;
-
-				NetworkObject projectile = 
+				Vector3 StartingPoint = PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start;
+				NetworkObject projectile =
 						NetworkObjectPool.Singleton.GetNetworkObject(
 							abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
-							PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start,
+							StartingPoint,
 							Quaternion.identity
 						);
+				ParticleAction2ClientRpc(projectile.NetworkObjectId/*, vectorCompressor.PackVector3(StartingPoint)*/);
 
-				projectile.GetComponent<Unit>().FinishAction += ReturnObject;
+				Unit unit = projectile.GetComponent<Unit>();
+				projectile.GetComponent<Effect>().abilityData = abilityData;
+				unit.FinishAction += ReturnObject;
 
 				//Pathfinding Start
-				projectile.GetComponent<Unit>().StartAction(OwnerPlayer, true);
-				
-				if (!projectile.IsSpawned)
+				unit.StartAction(OwnerPlayer);
+
+				if(!projectile.IsSpawned)
 					projectile.Spawn();
-				if(!client.PlayerObject.IsOwnedByServer)
-					projectile.ChangeOwnership(client.ClientId);
 			}
 		}
 
 		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
 		public void ReturnObject(NetworkObject networkObject, Transform pos)
 		{
-			ParticleActionClientRpc((int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
+			ParticleActionClientRpc(networkObject.NetworkObjectId,(int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
+		}
+
+		[ClientRpc]
+		public void ParticleAction2ClientRpc(ulong objectId/*, int pos*/)
+		{
+			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
+			{
+				/*networkObject.transform.position = vectorCompressor.UnpackVector3(pos);
+				networkObject.transform.rotation = Quaternion.identity;*/
+				networkObject.gameObject.SetActive(true);
+			}
 		}
 
 		ObjectPool ParticlePool;
 		[ClientRpc]
-		public void ParticleActionClientRpc(int type, int Pos)
+		public void ParticleActionClientRpc(ulong objectId, int type, int Pos)
 		{
-			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2);
+			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
+			{
+				networkObject.gameObject.SetActive(false);
+			}
+			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2.5f);
 			AbilityData abilityData = GetTypeData(type);
 			if (ParticlePool == null)
 				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);

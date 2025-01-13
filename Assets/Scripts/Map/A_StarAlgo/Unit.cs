@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : NetworkBehaviour
@@ -16,11 +17,11 @@ public class Unit : NetworkBehaviour
 	public float stoppingDst = 10;
 	public float turnDst = 0;
 
-	private Path path;
+	public Path path;
 	private Rigidbody rb;
 	private bool followingPath = false;
 
-	public GameObject Effect;
+	//public GameObject Effect;
 
 	private void Start()
 	{
@@ -35,15 +36,13 @@ public class Unit : NetworkBehaviour
 			LookAtTarget(target.position);
 	}
 
-	bool findOnce = false;
 	/// <summary>
 	/// Exclude OwnerPlayer And Start to Search
 	/// </summary>
 	/// <param name="OwnerPlayer">Exclude this one</param>
 	/// <param name="findOnce">If you want to search Once?</param>
-	public void StartAction(GameObject OwnerPlayer,  bool findOnce = false)
+	public void StartAction(GameObject OwnerPlayer)
 	{
-		this.findOnce = findOnce;
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
 		foreach (Collider hitCollider in hitColliders)
 		{
@@ -84,7 +83,7 @@ public class Unit : NetworkBehaviour
 
 		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
 		Vector3 targetPosOld = target.position;
-		while (!Finish)
+		while (true)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
 			if (target != null &&
@@ -99,9 +98,8 @@ public class Unit : NetworkBehaviour
 		}
 	}
 
-	private void OnDisable() => FinishAction = null;
-	bool Finish = false;
-	NetworkObject EffectParticle;
+	public void OnDisable() => FinishAction = null;
+
 	public Action<NetworkObject, Transform> FinishAction;
 	IEnumerator FollowPath()
 	{
@@ -151,26 +149,7 @@ public class Unit : NetworkBehaviour
 			yield return null;
 		}
 
-		if (findOnce)
-		{
-			Finish = true;
-			/*EffectParticle = NetworkObjectPool.Singleton.GetNetworkObject(Effect, transform.position, Quaternion.identity);
-			if (!EffectParticle.IsSpawned)
-				EffectParticle.Spawn();
-			yield return new WaitForSeconds(Effect.GetComponent<ParticleSystem>().totalTime + 0.1f);*/
-			//yield return new WaitForSeconds(1.5f);
-		}
 		FinishAction.Invoke(GetComponent<NetworkObject>(), transform);
-		RequestDespawnServerRpc(GetComponent<NetworkObject>().NetworkObjectId);
-	}
-
-	[ServerRpc]
-	public void RequestDespawnServerRpc(ulong objectId)
-	{
-		if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
-		{
-			networkObject.gameObject.SetActive(false);
-		}
 	}
 
 	void LookAtTarget(Vector3 targetPos)

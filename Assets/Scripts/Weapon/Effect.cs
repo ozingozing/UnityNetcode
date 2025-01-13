@@ -1,14 +1,26 @@
+using Architecture.AbilitySystem.Model;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Effect : MonoBehaviour
+public class Effect : NetworkBehaviour
 {
+	public AbilityData abilityData;
 	private void OnDisable()
 	{
-		NetworkObject @object = GetComponent<NetworkObject>();
-		if(@object.IsSpawned && NetworkManager.Singleton.IsServer)
-			GetComponent<NetworkObject>().Despawn();
+		if (GetComponent<NetworkObject>().IsSpawned && IsServer)
+		{
+			NetworkObjectPool.Singleton.ReturnNetworkObject(GetComponent<NetworkObject>(), abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab);
+		}
 	}
+
+	/*public override void OnDestroy()
+	{
+		if (!GetComponent<NetworkObject>().IsDestroyed() && IsServer)
+		{
+			GetComponent<NetworkObject>().Despawn();
+		}
+	}*/
 }

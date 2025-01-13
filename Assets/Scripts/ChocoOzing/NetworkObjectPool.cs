@@ -126,7 +126,19 @@ public class NetworkObjectPool : NetworkBehaviour
 
 		void ActionOnDestroy(NetworkObject networkObject)
 		{
-			Destroy(networkObject.gameObject);
+			Type classType = this.GetType();
+
+			if (classType.IsSubclassOf(typeof(NetworkBehaviour)))
+			{
+				if (networkObject.IsSpawned)
+					networkObject.Despawn();
+			}
+			else if (classType.IsSubclassOf(typeof(MonoBehaviour)))
+			{
+				Destroy(networkObject.gameObject);
+			}
+			else
+				Debug.LogWarning($"Unexpected class type: {classType.Name}");
 		}
 
 		m_Prefabs.Add(prefab);
