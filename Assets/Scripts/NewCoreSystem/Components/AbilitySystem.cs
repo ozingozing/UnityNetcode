@@ -7,7 +7,6 @@ using ChocoOzing.Utilities;
 using QFSW.QC;
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ChocoOzing.CoreSystem
@@ -28,7 +27,10 @@ namespace ChocoOzing.CoreSystem
 
 		public override void OnDestroy()
 		{
-			controller.Clear();
+			if (IsLocalPlayer)
+			{
+				controller.Clear();
+			}
 			base.OnDestroy();
 		}
 
@@ -66,7 +68,7 @@ namespace ChocoOzing.CoreSystem
 							StartingPoint,
 							Quaternion.identity
 						);
-				ParticleAction2ClientRpc(projectile.NetworkObjectId/*, vectorCompressor.PackVector3(StartingPoint)*/);
+				ParticleAction2ClientRpc(projectile.NetworkObjectId);
 
 				Unit unit = projectile.GetComponent<Unit>();
 				projectile.GetComponent<Effect>().abilityData = abilityData;
@@ -75,6 +77,7 @@ namespace ChocoOzing.CoreSystem
 				//Pathfinding Start
 				unit.StartAction(OwnerPlayer);
 
+				//TODO: 비정상적인 서버퇴장시 조치를 취해야함
 				if(!projectile.IsSpawned)
 					projectile.Spawn();
 			}
@@ -87,12 +90,10 @@ namespace ChocoOzing.CoreSystem
 		}
 
 		[ClientRpc]
-		public void ParticleAction2ClientRpc(ulong objectId/*, int pos*/)
+		public void ParticleAction2ClientRpc(ulong objectId)
 		{
 			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
 			{
-				/*networkObject.transform.position = vectorCompressor.UnpackVector3(pos);
-				networkObject.transform.rotation = Quaternion.identity;*/
 				networkObject.gameObject.SetActive(true);
 			}
 		}
@@ -101,12 +102,17 @@ namespace ChocoOzing.CoreSystem
 		[ClientRpc]
 		public void ParticleActionClientRpc(ulong objectId, int type, int Pos)
 		{
+			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2.7f);
+			AbilityData abilityData = GetTypeData(type);
+
 			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
 			{
-				networkObject.gameObject.SetActive(false);
+				if (IsServer)
+					NetworkObjectPool.Singleton.ReturnNetworkObject(networkObject, abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab);
+				else
+					networkObject.gameObject.SetActive(false);
 			}
-			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2.5f);
-			AbilityData abilityData = GetTypeData(type);
+
 			if (ParticlePool == null)
 				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);
 			ParticlePool.GetObject(pos, Quaternion.identity);

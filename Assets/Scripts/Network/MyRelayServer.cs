@@ -79,4 +79,16 @@ public class MyRelayServer : MonoBehaviour
 			Debug.Log(e);
 		}
 	}
+
+	[Command]
+	public void LeaveRelay()
+	{
+		if(NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsHost)
+		{
+			Debug.Log("Leaving Relay Server...");
+			if(NetworkManager.Singleton.IsHost)
+				GameObject.Find("NetworkObjectPool").GetComponent<NetworkObjectPool>().AllClear();
+			NetworkManager.Singleton.Shutdown();
+		}
+	}
 }

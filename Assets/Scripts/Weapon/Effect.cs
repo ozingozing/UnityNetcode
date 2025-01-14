@@ -8,13 +8,13 @@ using UnityEngine;
 public class Effect : NetworkBehaviour
 {
 	public AbilityData abilityData;
-	private void OnDisable()
+	/*private void OnDisable()
 	{
 		if (GetComponent<NetworkObject>().IsSpawned && IsServer)
 		{
 			NetworkObjectPool.Singleton.ReturnNetworkObject(GetComponent<NetworkObject>(), abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab);
 		}
-	}
+	}*/
 
 	/*public override void OnDestroy()
 	{

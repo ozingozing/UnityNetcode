@@ -39,6 +39,11 @@ public class NetworkObjectPool : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
+		if (!IsServer)
+		{
+			gameObject.SetActive(false);
+			return;
+		}
 		// Registers all objects in PooledPrefabsList to the cache.
 		foreach (var configObject in PooledPrefabsList)
 		{
@@ -57,6 +62,22 @@ public class NetworkObjectPool : NetworkBehaviour
 		}
 		m_PooledObjects.Clear();
 		m_Prefabs.Clear();
+		base.OnNetworkDespawn();
+	}
+
+	public void AllClear()
+	{
+		if(IsServer)
+		{
+			foreach (var prefab in m_Prefabs)
+			{
+				// Unregister Netcode Spawn handlers
+				NetworkManager.Singleton.PrefabHandler.RemoveHandler(prefab);
+				m_PooledObjects[prefab].Clear();
+			}
+			m_PooledObjects.Clear();
+			m_Prefabs.Clear();
+		}
 	}
 
 	public void OnValidate()
@@ -126,19 +147,7 @@ public class NetworkObjectPool : NetworkBehaviour
 
 		void ActionOnDestroy(NetworkObject networkObject)
 		{
-			Type classType = this.GetType();
-
-			if (classType.IsSubclassOf(typeof(NetworkBehaviour)))
-			{
-				if (networkObject.IsSpawned)
-					networkObject.Despawn();
-			}
-			else if (classType.IsSubclassOf(typeof(MonoBehaviour)))
-			{
-				Destroy(networkObject.gameObject);
-			}
-			else
-				Debug.LogWarning($"Unexpected class type: {classType.Name}");
+			Destroy(networkObject);
 		}
 
 		m_Prefabs.Add(prefab);
