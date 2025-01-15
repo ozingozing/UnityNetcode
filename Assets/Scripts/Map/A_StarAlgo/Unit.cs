@@ -21,8 +21,6 @@ public class Unit : NetworkBehaviour
 	private Rigidbody rb;
 	private bool followingPath = false;
 
-	//public GameObject Effect;
-
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -100,7 +98,7 @@ public class Unit : NetworkBehaviour
 
 	public void OnDisable() => FinishAction = null;
 
-	public Action<NetworkObject, Transform> FinishAction;
+	public Action<ulong, Transform> FinishAction;
 	IEnumerator FollowPath()
 	{
 		followingPath = true;
@@ -149,7 +147,7 @@ public class Unit : NetworkBehaviour
 			yield return null;
 		}
 
-		FinishAction.Invoke(GetComponent<NetworkObject>(), transform);
+		FinishAction.Invoke(NetworkObjectId, transform);
 	}
 
 	void LookAtTarget(Vector3 targetPos)

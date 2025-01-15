@@ -41,7 +41,6 @@ public class NetworkObjectPool : NetworkBehaviour
 	{
 		if (!IsServer)
 		{
-			gameObject.SetActive(false);
 			return;
 		}
 		// Registers all objects in PooledPrefabsList to the cache.
@@ -67,7 +66,7 @@ public class NetworkObjectPool : NetworkBehaviour
 
 	public void AllClear()
 	{
-		if(IsServer)
+		if (IsServer)
 		{
 			foreach (var prefab in m_Prefabs)
 			{
@@ -147,7 +146,7 @@ public class NetworkObjectPool : NetworkBehaviour
 
 		void ActionOnDestroy(NetworkObject networkObject)
 		{
-			Destroy(networkObject);
+			Destroy(networkObject.gameObject);
 		}
 
 		m_Prefabs.Add(prefab);

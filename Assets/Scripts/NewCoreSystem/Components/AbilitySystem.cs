@@ -17,6 +17,8 @@ namespace ChocoOzing.CoreSystem
 		[SerializeField] AbilityData[] startingSOabilities;
 		public AbilityController controller;
 
+		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
+
 		private void OnEnable()
 		{
 			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
@@ -34,7 +36,7 @@ namespace ChocoOzing.CoreSystem
 			base.OnDestroy();
 		}
 
-		public AbilityData GetTypeData(int idx)
+		private AbilityData GetTypeData(int idx)
 		{
 			foreach (AbilityData ability in startingSOabilities)
 			{
@@ -50,6 +52,8 @@ namespace ChocoOzing.CoreSystem
 		{
 			controller.Update(Time.deltaTime);
 		}
+
+		#region AreaOfEffectAction
 
 		AbilityData abilityData;
 		[ServerRpc]
@@ -68,34 +72,21 @@ namespace ChocoOzing.CoreSystem
 							StartingPoint,
 							Quaternion.identity
 						);
-				ParticleAction2ClientRpc(projectile.NetworkObjectId);
 
 				Unit unit = projectile.GetComponent<Unit>();
-				projectile.GetComponent<Effect>().abilityData = abilityData;
 				unit.FinishAction += ReturnObject;
 
 				//Pathfinding Start
 				unit.StartAction(OwnerPlayer);
 
-				//TODO: 비정상적인 서버퇴장시 조치를 취해야함
 				if(!projectile.IsSpawned)
 					projectile.Spawn();
 			}
 		}
 
-		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
-		public void ReturnObject(NetworkObject networkObject, Transform pos)
+		public void ReturnObject(ulong networkObjectId, Transform pos)
 		{
-			ParticleActionClientRpc(networkObject.NetworkObjectId,(int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
-		}
-
-		[ClientRpc]
-		public void ParticleAction2ClientRpc(ulong objectId)
-		{
-			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
-			{
-				networkObject.gameObject.SetActive(true);
-			}
+			ParticleActionClientRpc(networkObjectId, (int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
 		}
 
 		ObjectPool ParticlePool;
@@ -108,14 +99,13 @@ namespace ChocoOzing.CoreSystem
 			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
 			{
 				if (IsServer)
-					NetworkObjectPool.Singleton.ReturnNetworkObject(networkObject, abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab);
-				else
-					networkObject.gameObject.SetActive(false);
+					networkObject.Despawn();
 			}
 
 			if (ParticlePool == null)
 				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);
 			ParticlePool.GetObject(pos, Quaternion.identity);
 		}
+		#endregion
 	}
 }
