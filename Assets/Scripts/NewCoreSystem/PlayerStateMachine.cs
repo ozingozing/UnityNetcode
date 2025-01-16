@@ -1,5 +1,6 @@
 using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
+using ChocoOzing.EventBusSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,10 @@ public class PlayerStateMachine
 		CurrentState.Enter();
 	}
 
-	public void ChangeState(PlayerState newState, AbilityData abilityData)
+	public void ChangeState(PlayerState newState, PlayerAnimationEvent @event)
 	{
 		CurrentState.Exit();
 		CurrentState = newState;
-		CurrentState.Enter(abilityData);
+		CurrentState.Enter(@event);
 	}
 }

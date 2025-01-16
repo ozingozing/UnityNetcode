@@ -21,17 +21,20 @@ namespace ChocoOzing.CommandSystem
 	public class AbilityCommand : ICommand
 	{
 		private readonly AbilityData data;
+		private readonly ulong ownerClientId;
 		public float duration => data.duration;
 
-		public AbilityCommand(AbilityData data)
+		public AbilityCommand(AbilityData data, ulong ownerClientId)
 		{
 			this.data = data;
+			this.ownerClientId = ownerClientId;
 		}
 
 		public void Execute()
 		{
 			EventBus<PlayerAnimationEvent>.Raise(new PlayerAnimationEvent
 			{
+				clientId = ownerClientId,
 				abilityData = data,
 			});
 		}

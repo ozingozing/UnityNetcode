@@ -12,29 +12,12 @@ public class PlayerAbilityState : PlayerState
 		abilitySystem = core.GetCoreComponent<AbilitySystem>();
 	}
 
-	public override void Enter(AbilityData abilityData)
+	public override void Enter(PlayerAnimationEvent @evnet)
 	{
 		base.Enter();
 		if (abilitySystem != null)
 		{
-			switch (abilityData.abilityType)
-			{
-				case AbilityType.Melee:
-					break;
-				case AbilityType.Ranged:
-					break;
-				case AbilityType.Projectile:
-					break;
-				case AbilityType.AreaOfEffect:
-					abilitySystem.AreaOfEffectActionServerRpc(abilitySystem.OwnerClientId, (int)abilityData.abilityType);
-					break;
-				case AbilityType.Buff:
-					break;
-				case AbilityType.Debuff:
-					break;
-				default:
-					break;
-			}
+			abilitySystem.SkillAction(@evnet);
 		}
 		else
 			Debug.LogWarning("Ability Sysyem is Null!!!");

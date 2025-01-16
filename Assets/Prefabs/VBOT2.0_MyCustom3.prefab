@@ -1637,6 +1637,53 @@ Transform:
   - {fileID: 4497279013557716457}
   m_Father: {fileID: 3207169434371320883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3216132225968956943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2714229320490590056}
+  - component: {fileID: 3249916354142770554}
+  m_Layer: 3
+  m_Name: Qskill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2714229320490590056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216132225968956943}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5305273706195780847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3249916354142770554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216132225968956943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac93f2ad34c4dd94482fc2d73fcb0f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 0}
+  SO_StartingAbilities: []
+  AbilityData: {fileID: 0}
 --- !u!1 &3229844541699846469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,7 +3820,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2714229320490590056}
   m_Father: {fileID: 8204801660297544508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6762683648249170386
@@ -3789,7 +3837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 0}
-  startingSOabilities:
+  SO_StartingAbilities:
   - {fileID: 11400000, guid: 8775d174e61944f41ae1b3507386e2cd, type: 2}
   - {fileID: 11400000, guid: bff9e14598463d149b72cd1ad0069f73, type: 2}
 --- !u!1 &6811901220177750321
@@ -5205,6 +5253,11 @@ MonoBehaviour:
   GunType: 0
   aimPos: {fileID: 4172401546582696947}
   camFollowPos: {fileID: 7969364526416371720}
+  IsMoveLock:
+    value: 0
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &7575242765587476310
 MonoBehaviour:
   m_ObjectHideFlags: 0

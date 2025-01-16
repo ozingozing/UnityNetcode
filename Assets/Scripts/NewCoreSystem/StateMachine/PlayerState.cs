@@ -34,7 +34,7 @@ public class PlayerState
         core = _player.Core;
     }
 
-	public virtual void Enter(AbilityData abilityData)
+	public virtual void Enter(PlayerAnimationEvent @event)
 	{
 		DoChecks();
 		if (animBoolName != "_")

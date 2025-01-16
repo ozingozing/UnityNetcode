@@ -1,6 +1,8 @@
+using Architecture.AbilitySystem.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,7 +11,8 @@ public class Unit : NetworkBehaviour
 {
 	const float pathUpdateMoveThreshold = .5f;
 	const float minPathUpdateTime = .5f;
-
+	
+	public GameObject Effect;
 	public LayerMask layerMask;
     public Transform target;
 	public float speed = 20;
@@ -96,9 +99,16 @@ public class Unit : NetworkBehaviour
 		}
 	}
 
-	public void OnDisable() => FinishAction = null;
+	ObjectPool ParticlePool;
+	public void OnDisable()
+	{
+		if(ParticlePool == null)
+			ParticlePool = ObjectPool.CreateInstance(Effect.GetComponent<PoolableObject>(), 4);
+		ParticlePool.GetObject(transform.position, Quaternion.identity);
+		FinishAction = null;
+	}
 
-	public Action<ulong, Transform> FinishAction;
+	public Action<NetworkObject, Transform> FinishAction;
 	IEnumerator FollowPath()
 	{
 		followingPath = true;
@@ -147,7 +157,7 @@ public class Unit : NetworkBehaviour
 			yield return null;
 		}
 
-		FinishAction.Invoke(NetworkObjectId, transform);
+		FinishAction.Invoke(GetComponent<NetworkObject>(), transform);
 	}
 
 	void LookAtTarget(Vector3 targetPos)

@@ -11,21 +11,42 @@ using UnityEngine;
 
 namespace ChocoOzing.CoreSystem
 {
+	public interface ISkillAction
+	{
+		public AbilityData abilityData { get; }
+		public void SetAbilityData(AbilityData abilityData);
+		public void Action(PlayerAnimationEvent @evnet);
+	}
+
 	public class AbilitySystem : CoreComponent
 	{
-		[SerializeField] AbilityView view;
-		[SerializeField] AbilityData[] startingSOabilities;
+		[SerializeField]private AbilityView view;
+		[SerializeField]private AbilityData[] SO_StartingAbilities;
 		public AbilityController controller;
 
-		ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
+		private List<ISkillAction> skills = new List<ISkillAction>();
 
-		private void OnEnable()
+		public override void OnNetworkSpawn()
 		{
-			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
-			controller = new AbilityController.Builder()
-				.WithAbilities(startingSOabilities)
-				.Build(view);
+			if (IsLocalPlayer)
+			{
+				view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
+				controller = new AbilityController.Builder()
+					.WithAbilities(SO_StartingAbilities, OwnerClientId)
+					.Build(view);
+
+
+				int idx = 0;
+				foreach (var item in transform.GetComponentsInChildren<ISkillAction>())
+				{
+					item.SetAbilityData(SO_StartingAbilities[idx]);
+					skills.Add(item);
+					idx++;
+				}
+			}
+			base.OnNetworkSpawn();
 		}
+
 
 		public override void OnDestroy()
 		{
@@ -36,9 +57,16 @@ namespace ChocoOzing.CoreSystem
 			base.OnDestroy();
 		}
 
-		private AbilityData GetTypeData(int idx)
+
+		public override void LogicUpdate()
 		{
-			foreach (AbilityData ability in startingSOabilities)
+			if(IsLocalPlayer && controller != null)
+				controller.Update(Time.deltaTime);
+		}
+
+		public AbilityData GetTypeData(int idx)
+		{
+			foreach (AbilityData ability in SO_StartingAbilities)
 			{
 				if (ability.abilityType == (AbilityType)idx)
 					return ability;
@@ -48,18 +76,19 @@ namespace ChocoOzing.CoreSystem
 			return null;
 		}
 
-		public override void LogicUpdate()
-		{
-			controller.Update(Time.deltaTime);
-		}
-
 		#region AreaOfEffectAction
 
+
 		AbilityData abilityData;
-		[ServerRpc]
-		public void AreaOfEffectActionServerRpc(ulong id, int type)
+		public void SkillAction(PlayerAnimationEvent @event)
 		{
-			if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
+			foreach (var item in skills)
+			{
+				if (@event.abilityData.abilityType == item.abilityData.abilityType)
+					item.Action(@event);
+			}
+
+			/*if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
 			{
 				GameObject OwnerPlayer = client.PlayerObject.gameObject;
 				abilityData = GetTypeData(type);
@@ -81,10 +110,10 @@ namespace ChocoOzing.CoreSystem
 
 				if(!projectile.IsSpawned)
 					projectile.Spawn();
-			}
+			}*/
 		}
 
-		public void ReturnObject(ulong networkObjectId, Transform pos)
+		/*public void ReturnObject(ulong networkObjectId, Transform pos)
 		{
 			ParticleActionClientRpc(networkObjectId, (int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
 		}
@@ -105,7 +134,7 @@ namespace ChocoOzing.CoreSystem
 			if (ParticlePool == null)
 				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);
 			ParticlePool.GetObject(pos, Quaternion.identity);
-		}
+		}*/
 		#endregion
 	}
 }

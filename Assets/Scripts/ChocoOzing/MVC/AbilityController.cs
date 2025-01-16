@@ -80,11 +80,11 @@ namespace Architecture.AbilitySystem.Controller
 		{
 			readonly AbilityModel model = new AbilityModel();
 
-			public Builder WithAbilities(AbilityData[] datas)
+			public Builder WithAbilities(AbilityData[] datas, ulong ownerClientId)
 			{
 				foreach(var data in datas)
 				{
-					model.Add(new Ability(data));
+					model.Add(new Ability(data, ownerClientId));
 				}
 				return this;
 			}

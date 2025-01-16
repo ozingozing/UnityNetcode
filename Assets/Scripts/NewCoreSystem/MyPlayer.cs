@@ -128,7 +128,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{
 		IsMoveLock.Set(@event.abilityData.moveLock);
 		Anim.CrossFade(@event.abilityData.animationHash, crossFadeValue);
-		StateMachine.ChangeState(PlayerAbilityState, @event.abilityData);
+		StateMachine.ChangeState(PlayerAbilityState, @event);
 	}
 
 

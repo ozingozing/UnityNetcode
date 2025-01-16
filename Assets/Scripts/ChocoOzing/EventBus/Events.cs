@@ -38,8 +38,10 @@ namespace ChocoOzing.EventBusSystem
 
 	public struct PlayerAnimationEvent : IEvent
 	{
+		public ulong clientId;
 		public AbilityData abilityData;
 	}
+
 	#endregion
 
 	public class Events : IEvent{}
