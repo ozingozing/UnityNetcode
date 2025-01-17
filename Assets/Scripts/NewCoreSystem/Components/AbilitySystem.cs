@@ -77,9 +77,6 @@ namespace ChocoOzing.CoreSystem
 		}
 
 		#region AreaOfEffectAction
-
-
-		AbilityData abilityData;
 		public void SkillAction(PlayerAnimationEvent @event)
 		{
 			foreach (var item in skills)
@@ -87,54 +84,7 @@ namespace ChocoOzing.CoreSystem
 				if (@event.abilityData.abilityType == item.abilityData.abilityType)
 					item.Action(@event);
 			}
-
-			/*if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
-			{
-				GameObject OwnerPlayer = client.PlayerObject.gameObject;
-				abilityData = GetTypeData(type);
-				Vector3 PlayerPos = OwnerPlayer.transform.position;
-				Vector3 PlayerForward = OwnerPlayer.transform.forward;
-				Vector3 StartingPoint = PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start;
-				NetworkObject projectile =
-						NetworkObjectPool.Singleton.GetNetworkObject(
-							abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
-							StartingPoint,
-							Quaternion.identity
-						);
-
-				Unit unit = projectile.GetComponent<Unit>();
-				unit.FinishAction += ReturnObject;
-
-				//Pathfinding Start
-				unit.StartAction(OwnerPlayer);
-
-				if(!projectile.IsSpawned)
-					projectile.Spawn();
-			}*/
 		}
-
-		/*public void ReturnObject(ulong networkObjectId, Transform pos)
-		{
-			ParticleActionClientRpc(networkObjectId, (int)abilityData.abilityType, vectorCompressor.PackVector3(pos.position));
-		}
-
-		ObjectPool ParticlePool;
-		[ClientRpc]
-		public void ParticleActionClientRpc(ulong objectId, int type, int Pos)
-		{
-			Vector3 pos = vectorCompressor.UnpackVector3(Pos).With(y: 2.7f);
-			AbilityData abilityData = GetTypeData(type);
-
-			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(objectId, out var networkObject))
-			{
-				if (IsServer)
-					networkObject.Despawn();
-			}
-
-			if (ParticlePool == null)
-				ParticlePool = ObjectPool.CreateInstance(abilityData.GetAreaOfEffectData(abilityData.abilityType).particle.GetComponent<PoolableObject>(), 4);
-			ParticlePool.GetObject(pos, Quaternion.identity);
-		}*/
 		#endregion
 	}
 }

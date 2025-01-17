@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 398aed2e1ffe5a74b910943dbe95bafd, type: 3}
-  m_Name: AdsSO
+  m_Name: ThrowSO
   m_EditorClassIdentifier: 
   abilityType: 2
-  animationClip: {fileID: 7400000, guid: d2dfe7f1f418e154b891b62e03270473, type: 2}
-  animationHash: 1183101120
-  duration: 2
+  animationClip: {fileID: 7400000, guid: e3ea8eeef052cb44380fca1e1611ea97, type: 2}
+  animationHash: 344656471
+  duration: 2.6
   moveLock: 0
   icon: {fileID: 21300128, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  Id: 2324d5c2-a833-46d3-bd66-d98f1bf003e7
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0

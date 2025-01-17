@@ -42,5 +42,6 @@ public class PlayerAbilityState : PlayerState
 	{
 		player.StateMachine.ChangeState(player.IdleState);
 		player.GunStateMachine.ChangeState(player.HipFireState);
+		player.AnimationManager.HipFire(0.1f);
 	}
 }
