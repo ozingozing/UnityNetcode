@@ -10,16 +10,33 @@ using UnityEngine;
 
 public class Q : CoreComponent, ISkillAction
 {
-	public AbilityData abilityData { get => AbilityData; set => AbilityData = value; }
+	public AbilityData abilityData {
+		get => AbilityData;
+		set {
+			SetAbilityData(value);
+		}
+	}
+
+	public bool isHoldAction
+	{
+		get => IsHoldAction;
+		set => IsHoldAction = value;
+	}
+
+	[SerializeField] private bool IsHoldAction = false;
 	[SerializeField] private AbilityData AbilityData;
+
 	private ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
 
-	public void SetAbilityData(AbilityData abilityData) => this.abilityData = abilityData;
+	public void SetAbilityData(AbilityData abilityData) => AbilityData = abilityData;
 
 	public void Action(PlayerAnimationEvent @evnet)
 	{
 		if (IsLocalPlayer)
+		{
+			isHoldAction = abilityData.isHoldAction ? true : false;
 			AreaOfEffectActionServerRpc(@evnet.clientId, (int)@evnet.abilityData.abilityType);
+		}
 	}
 
 	[ServerRpc]

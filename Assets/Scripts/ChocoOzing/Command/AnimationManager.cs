@@ -8,8 +8,11 @@ public class AnimationManager
 {
     Animator animator;
 
+	#region IdleAction
 	static readonly int IdleHash = Animator.StringToHash("Free Locomotion");
+	#endregion
 
+	#region GunAction
 	static readonly int HipFireHash = Animator.StringToHash("HipFire");
 	
 	static readonly int ReloadHash = Animator.StringToHash("Reloading");
@@ -18,7 +21,7 @@ public class AnimationManager
 	static readonly int ShotgunReloadActionHash = Animator.StringToHash("ShotgunReloadAction");
 	static readonly int ShotgunSetPosHash = Animator.StringToHash("ShotgunSetPos");
 	static readonly int ShotgunPumpActionHash = Animator.StringToHash("ShotgunPumpAction");
-
+	#endregion
 
 	readonly Dictionary<int, float> animationDuration = new()
     {

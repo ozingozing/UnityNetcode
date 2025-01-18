@@ -32,7 +32,7 @@ public class PlayerAbilityState : PlayerState
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();
-		if(abilitySystem.controller.cooltimer.IsFinished)
+		if(abilitySystem.controller.cooltimer.IsFinished && !abilitySystem.currentAction.isHoldAction)
 		{
 			SetAllStateDefault();
 		}

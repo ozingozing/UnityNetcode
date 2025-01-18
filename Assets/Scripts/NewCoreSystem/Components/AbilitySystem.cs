@@ -13,7 +13,8 @@ namespace ChocoOzing.CoreSystem
 {
 	public interface ISkillAction
 	{
-		public AbilityData abilityData { get; }
+		public bool isHoldAction { get; set; }
+		public AbilityData abilityData { get; set; }
 		public void SetAbilityData(AbilityData abilityData);
 		public void Action(PlayerAnimationEvent @evnet);
 	}
@@ -39,7 +40,7 @@ namespace ChocoOzing.CoreSystem
 				int idx = 0;
 				foreach (var item in transform.GetComponentsInChildren<ISkillAction>())
 				{
-					item.SetAbilityData(SO_StartingAbilities[idx]);
+					item.abilityData = SO_StartingAbilities[idx];
 					skills.Add(item);
 					idx++;
 				}
@@ -76,15 +77,17 @@ namespace ChocoOzing.CoreSystem
 			return null;
 		}
 
-		#region AreaOfEffectAction
+		public ISkillAction currentAction;
 		public void SkillAction(PlayerAnimationEvent @event)
 		{
 			foreach (var item in skills)
 			{
 				if (@event.abilityData.abilityType == item.abilityData.abilityType)
+				{
+					currentAction = item;
 					item.Action(@event);
+				}
 			}
 		}
-		#endregion
 	}
 }

@@ -39,6 +39,10 @@ namespace Architecture.AbilitySystem.Model
 
 		public string Id;
 
+		public bool isHoldAction; // 새로운 필드 추가
+		public AnimationClip holdReleaseAnimationClip; // HoldRelease 애니메이션 클립
+		public int holdReleaseAnimationHash;
+
 		// Projectile 전용 데이터
 		public GameObject projectilePrefab;
 		public float projectileSpeed;
@@ -51,6 +55,8 @@ namespace Architecture.AbilitySystem.Model
 		private void OnValidate()
 		{
 			animationHash = Animator.StringToHash(animationClip.name);
+			if(isHoldAction)
+				holdReleaseAnimationHash = Animator.StringToHash(holdReleaseAnimationClip.name);
 
 			if (String.IsNullOrEmpty(Id))
 			{
@@ -107,13 +113,24 @@ namespace Architecture.AbilitySystem.Model
 			abilityData.duration = EditorGUILayout.FloatField("Duration", abilityData.duration);
 			abilityData.moveLock = EditorGUILayout.Toggle("Move Lock", abilityData.moveLock);
 			abilityData.icon = (Sprite)EditorGUILayout.ObjectField("Icon", abilityData.icon, typeof(Sprite), false);
-			
+
+			//HoldAction 사용여부
+			EditorGUILayout.Space();
+			abilityData.isHoldAction = EditorGUILayout.Toggle("Is Hold Action", abilityData.isHoldAction);
+			if (abilityData.isHoldAction)
+			{
+				EditorGUILayout.LabelField("Hold Action Data", EditorStyles.boldLabel);
+				abilityData.holdReleaseAnimationClip = (AnimationClip)EditorGUILayout.ObjectField("Hold Release Animation Clip", abilityData.holdReleaseAnimationClip, typeof(AnimationClip), false);
+				abilityData.holdReleaseAnimationHash = EditorGUILayout.IntField("HoldReleaseAnimationHash", abilityData.holdReleaseAnimationHash);
+			}
+
 			// Ability Type에 따라 다른 필드 표시
 			switch (abilityData.abilityType)
 			{
 				case AbilityType.Projectile:
 					EditorGUILayout.Space();
 					EditorGUILayout.LabelField("Projectile Data", EditorStyles.boldLabel);
+					EditorGUILayout.HelpBox("Projectile data will go here.", MessageType.Info);
 					abilityData.projectilePrefab = (GameObject)EditorGUILayout.ObjectField("Projectile Prefab", abilityData.projectilePrefab, typeof(GameObject), false);
 					abilityData.projectileSpeed = EditorGUILayout.FloatField("Projectile Speed", abilityData.projectileSpeed);
 					abilityData.projectileRange = EditorGUILayout.FloatField("Projectile Range", abilityData.projectileRange);
@@ -122,7 +139,6 @@ namespace Architecture.AbilitySystem.Model
 				case AbilityType.AreaOfEffect:
 					EditorGUILayout.Space();
 					EditorGUILayout.LabelField("AOE Data", EditorStyles.boldLabel);
-					// AOE 전용 데이터 추가 예시
 					EditorGUILayout.HelpBox("Area of Effect data will go here.", MessageType.Info);
 					abilityData.effectPrefab = (GameObject)EditorGUILayout.ObjectField("Effect Prefab", abilityData.effectPrefab, typeof(GameObject), false);
 					abilityData.startingPoint = EditorGUILayout.Vector3Field("Effect Starting Point", abilityData.startingPoint);
@@ -130,6 +146,7 @@ namespace Architecture.AbilitySystem.Model
 					break;
 
 				case AbilityType.Buff:
+					break;
 				case AbilityType.Debuff:
 					EditorGUILayout.Space();
 					EditorGUILayout.LabelField("Buff/Debuff Data", EditorStyles.boldLabel);

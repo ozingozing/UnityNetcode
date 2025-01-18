@@ -168,7 +168,19 @@ public class PlayerInit : NetworkBehaviour
 		}
 	}
 
-    [ServerRpc]
+	[ServerRpc]
+	public void TurnOnCurrentWeaponServerRpc() => TurnOnCurrentWeaponClientRpc();
+
+	[ClientRpc]
+	void TurnOnCurrentWeaponClientRpc() => weaponPrefabs[currentWeaponIndex].SetActive(true);
+
+	[ServerRpc]
+	public void TurnOffCurrentWeaponServerRpc() => TurnOffCurrentWeaponClientRpc();
+
+	[ClientRpc]
+	void TurnOffCurrentWeaponClientRpc() => weaponPrefabs[currentWeaponIndex].SetActive(false);
+
+	[ServerRpc]
     public void EquipWeaponServerRpc(int index)
     {
 		EquipWeaponClientRpc(index);

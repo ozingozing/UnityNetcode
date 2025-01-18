@@ -4948,11 +4948,11 @@ MonoBehaviour:
       m_RotationOrder: 0
     perlinRange: 1
     perlinRangeSpeed: 0
-    animateColor: 0
+    animateColor: 1
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0, b: 0, a: 0}
-      key1: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.27607292, b: 0, a: 1}
+      key1: {r: 1, g: 0.88149357, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4986,8 +4986,8 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
-    perlinColor: 0
-    perlinColorSpeed: 0
+    perlinColor: 1
+    perlinColorSpeed: 2
   fadeOutReference: {fileID: 0}
 --- !u!199 &4147508473522720470
 ParticleSystemRenderer:
@@ -5118,7 +5118,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.5774723, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.88149357, b: 0, a: 1}
   m_Intensity: 0
   m_Range: 4
   m_SpotAngle: 30
