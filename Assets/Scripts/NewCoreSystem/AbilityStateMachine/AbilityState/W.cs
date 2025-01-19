@@ -1,9 +1,11 @@
 using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
+using ChocoOzing.Utilities;
 using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -126,9 +128,13 @@ public class W : CoreComponent, ISkillAction
 	{
 		if (currentPreview != null)
 		{
+			/*GameObject newWall = Instantiate(wallPrefab,
+				currentPreview.transform.position , Quaternion.identity);*/
 			GameObject newWall = Instantiate(wallPrefab,
-				currentPreview.transform.position , Quaternion.identity);
+				Core.Root.transform.position.With(y: 2.3f), Quaternion.identity);
 			newWall.layer = LayerMask.NameToLayer("Wall");
+
+			newWall.GetComponent<ThrowObject>().TrowInit(newWall.transform, currentPreview.transform);
 
 			if (builtWalls.Count >= maxWalls)
 			{
