@@ -19,11 +19,11 @@ public class GridGizmo : MonoBehaviour
 	public Dictionary<int, int> walkableRegionDictionary = new Dictionary<int, int>();
 	Node[,] grid;
 
-	[SerializeField]private int obstacleProximityPenalty = 100;
+	[SerializeField]private int obstacleProximityPenalty;
 	float hexWidth, hexHeight, hexHorizontalSpacing, hexVerticalSpacing;
 	int gridSizeX, gridSizeY;
-	int penaltyMin = int.MaxValue;
-	int penaltyMax = int.MinValue;
+	[SerializeField] int penaltyMin = 0;
+	[SerializeField] int penaltyMax = 0;
 	bool isGridReady = false;
 
 	public int MaxSize
@@ -104,6 +104,109 @@ public class GridGizmo : MonoBehaviour
 		}
 		
 		return await BlurPenaltyMap(blurSize);
+	}
+
+	public GameObject Check;
+	public async Task CheckAgain(Vector3 pos)
+	{
+		List<Node> nodes = GetNeighbours(NodeFromWorldPoint(pos));
+
+		NodeFromWorldPoint(pos).walkable = false;
+		foreach (Node item in nodes)
+		{
+			if (!item.walkable) continue;
+			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius * 1.25f, unwalkableMask);
+			//Instantiate(Check, item.worldPosition, Quaternion.identity);
+			int movementPenalty = 0;
+			Ray ray = new Ray(item.worldPosition + Vector3.up * 50, Vector3.down);
+			if (Physics.Raycast(ray, out RaycastHit hit, 100, walkableMask))
+			{
+				walkableRegionDictionary.TryGetValue(hit.collider.gameObject.layer, out movementPenalty);
+			}
+
+			if (!walkable)
+			{
+				movementPenalty += obstacleProximityPenalty;
+			}
+
+			item.walkable = walkable;
+			item.movementPenalty = movementPenalty;
+		}
+
+		await ApplyLocalBlur(2, NodeFromWorldPoint(pos));
+	}
+
+	async Task ApplyLocalBlur(int blurSize, Node centerNode)
+	{
+		await Task.Run(() =>
+		{
+			try
+			{
+				if (blurSize > 0)
+				{
+					int kernelSize = blurSize * 2 + 1;
+					int kernelExtents = (kernelSize - 1) / 2;
+
+					// 임시 배열 생성
+					Dictionary<Node, int> penaltiesTemp = new Dictionary<Node, int>();
+
+					// 블러링 영역 내 이웃 노드 탐색
+					for (int dr = -kernelExtents; dr <= kernelExtents; dr++)
+					{
+						for (int dq = -kernelExtents; dq <= kernelExtents; dq++)
+						{
+							// 홀수 행 보정
+							int adjustedQ = centerNode.gridX + dq + ((centerNode.gridY % 2 == 1 && dr % 2 != 0) ? 1 : 0);
+							int adjustedR = centerNode.gridY + dr;
+
+							// 유효한 노드인지 확인
+							if (adjustedQ >= 0 && adjustedQ < gridSizeX && adjustedR >= 0 && adjustedR < gridSizeY)
+							{
+								Node currentNode = grid[adjustedQ, adjustedR];
+
+								int totalPenalty = 0;
+								int totalCount = 0;
+
+								// 블러링 계산
+								for (int blurDr = -kernelExtents; blurDr <= kernelExtents; blurDr++)
+								{
+									for (int blurDq = -kernelExtents; blurDq <= kernelExtents; blurDq++)
+									{
+										// 블러링 영역 내 이웃 노드 탐색
+										int blurQ = adjustedQ + blurDq + ((adjustedR % 2 == 1 && blurDr % 2 != 0) ? 1 : 0);
+										int blurR = adjustedR + blurDr;
+
+										if (blurQ >= 0 && blurQ < gridSizeX && blurR >= 0 && blurR < gridSizeY)
+										{
+											totalPenalty += grid[blurQ, blurR].movementPenalty;
+											totalCount++;
+										}
+									}
+								}
+
+								// 평균값 계산
+								int blurredPenalty = Mathf.RoundToInt((float)totalPenalty / totalCount);
+
+								penaltiesTemp[currentNode] = blurredPenalty;
+							}
+						}
+					}
+
+					// 블러링된 값을 실제 그리드에 반영
+					foreach (var kvp in penaltiesTemp)
+					{
+						Node node = kvp.Key;
+						int blurredPenalty = kvp.Value;
+
+						node.movementPenalty = blurredPenalty;
+					}
+				}
+			}
+			catch (System.Exception ex)
+			{
+				Debug.LogError($"BlurPenaltyMap Error: {ex.Message}");
+			}
+		});
 	}
 
 	public List<Node> GetNeighbours(Node node)
@@ -225,7 +328,7 @@ public class GridGizmo : MonoBehaviour
 			{
 				foreach (Node n in grid)
 				{
-					Gizmos.color = Color.Lerp(Color.green, Color.blue, Mathf.InverseLerp(penaltyMin, penaltyMax, n.movementPenalty));
+					Gizmos.color = Color.Lerp(Color.green, Color.blue, Mathf.InverseLerp(penaltyMin, penaltyMax / 2, n.movementPenalty));
 					// 정육각형 색상 설정 (walkable 여부에 따라)
 					Gizmos.color = (n.walkable) ? Gizmos.color : Color.red;
 

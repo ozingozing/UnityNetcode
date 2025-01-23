@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ThrowObject : MonoBehaviour
@@ -11,7 +12,7 @@ public class ThrowObject : MonoBehaviour
     public float gravity = -9.8f;
     public Vector3 velocity;
 
-    public void TrowInit(Transform start, Transform end)
+    public async void TrowInit(Transform start, Transform end)
     {
 		setStartPoint = start.position;
 		setEndPoint = end.position;
@@ -27,10 +28,10 @@ public class ThrowObject : MonoBehaviour
         //y방향 속도
         velocity.y = displacement.y / time - .5f * gravity * time;
 
-        StartCoroutine(Throw());
+		await Throw();
     }
 
-	System.Collections.IEnumerator Throw()
+	async Task Throw()
 	{
 		float elapsed = 0f;
 
@@ -43,7 +44,7 @@ public class ThrowObject : MonoBehaviour
 				+ velocity * elapsed
 				+ 0.5f * new Vector3(0, gravity, 0) * Mathf.Pow(elapsed, 2);
 
-			transform.rotation = Quaternion.LookRotation(velocity);
+			//transform.rotation = Quaternion.LookRotation(velocity);
 			transform.position = currentPosition;
 
 			// 목표 위치와 현재 위치의 거리가 충분히 가까워졌다면 루프 종료
@@ -54,10 +55,11 @@ public class ThrowObject : MonoBehaviour
 				break;
 			}
 
-			yield return null;
+			await Task.Yield(); // 다음 프레임까지 대기
 		}
 
 		// 정확히 도착점에 정렬
 		transform.position = setEndPoint;
+		await GridGizmo.instance.CheckAgain(transform.position);
 	}
 }

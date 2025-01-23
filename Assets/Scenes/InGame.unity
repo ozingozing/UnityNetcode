@@ -1541,7 +1541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &191469174
 Transform:
   m_ObjectHideFlags: 0
@@ -3347,7 +3347,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524274462}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b7f7d93dfe45464b9fcac116292ee3b, type: 3}
   m_Name: 
@@ -5193,7 +5193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11376,8 +11376,11 @@ MonoBehaviour:
     terrainPenalty: 0
   walkableMask:
     serializedVersion: 2
-    m_Bits: 0
-  obstacleProximityPenalty: 10
+    m_Bits: 1536
+  obstacleProximityPenalty: 30
+  penaltyMin: 0
+  penaltyMax: 0
+  Check: {fileID: 386261879261293105, guid: 17aa0c213550dd84f8ce0135dc2d5473, type: 3}
 --- !u!114 &1811686694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12832,7 +12835,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113503394}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6aeb8bd47e164f2499da0fd0b04757ab, type: 3}
   m_Name: 

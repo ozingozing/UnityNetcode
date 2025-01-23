@@ -126,7 +126,7 @@ public class WalkerGenerator : MonoBehaviour
 	{
 		var tsc = new TaskCompletionSource<bool>();
 		StartCoroutine(CreateMap(tsc));
-		await tsc.Task;
+		await tsc.Task; //CreateMap에서 상태완료/예외 반환전까지 대기
 	}
 
 	IEnumerator CreateMap(TaskCompletionSource<bool> tcs)
