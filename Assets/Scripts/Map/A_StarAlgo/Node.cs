@@ -1,13 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : IHeapItem<Node>
 {
-    public bool walkable;
-    public Vector3 worldPosition;
+    public bool walkable { get; private set; }
+	public int movementPenalty { get; private set; }
+
+	public Vector3 worldPosition;
     public int gridX;
     public int gridY;
-    public int movementPenalty;
+
+    bool lastWalkable;
+    int lastMovementPenalty;
 
     public int gCost;
     public int hCost;
@@ -21,7 +26,60 @@ public class Node : IHeapItem<Node>
         gridX = _gridX;
         gridY = _gridY;
         movementPenalty = _movementPanalty;
+
+        //save origin setting
+        lastWalkable = _walkable;
+        lastMovementPenalty = _movementPanalty;
     }
+
+	#region DynamicValueSet
+	public void ReSetMovementPenalty(int _penalty, bool IsInit = true)
+    {
+        if (IsInit)
+        {
+            movementPenalty = _penalty;
+            lastMovementPenalty = _penalty;
+        }
+        else
+            movementPenalty = _penalty;
+	}
+
+    public void ReSetWalkable(bool _walkable, bool IsInit = true)
+    {
+        if(IsInit)
+        {
+            walkable = _walkable;
+            lastWalkable = _walkable;
+		}
+        else
+            walkable = _walkable;
+    }
+
+	List<Node> penaltiesTemp;
+    public void SetpenaltiesTemp(Node _penaltiesTemp)
+    {
+        if(penaltiesTemp == null)
+        {
+			penaltiesTemp = new List<Node>();
+		}
+
+		penaltiesTemp.Add(_penaltiesTemp);
+	}
+
+	public void ReturnToOriginValue()
+    {
+        foreach (Node item in penaltiesTemp)
+            item.SetOriginValue();
+
+        penaltiesTemp.Clear();
+    }
+
+    void SetOriginValue()
+    {
+        walkable = lastWalkable;
+        movementPenalty = lastMovementPenalty;
+    }
+    #endregion
 
     public int fCost
     {

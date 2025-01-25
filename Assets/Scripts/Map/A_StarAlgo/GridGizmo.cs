@@ -107,11 +107,12 @@ public class GridGizmo : MonoBehaviour
 	}
 
 	public GameObject Check;
-	public async Task CheckAgain(Vector3 pos)
+	public async Task<Node> CheckAgain(Vector3 pos)
 	{
-		List<Node> nodes = GetNeighbours(NodeFromWorldPoint(pos));
+		Node node = NodeFromWorldPoint(pos);
+		List<Node> nodes = GetNeighbours(node);
 
-		NodeFromWorldPoint(pos).walkable = false;
+		node.ReSetWalkable(false, false);
 		foreach (Node item in nodes)
 		{
 			if (!item.walkable) continue;
@@ -129,14 +130,15 @@ public class GridGizmo : MonoBehaviour
 				movementPenalty += obstacleProximityPenalty;
 			}
 
-			item.walkable = walkable;
-			item.movementPenalty = movementPenalty;
+			item.ReSetWalkable(walkable, false);
+			item.ReSetMovementPenalty(movementPenalty, false);
 		}
 
-		await ApplyLocalBlur(2, NodeFromWorldPoint(pos));
+		await ApplyAgainLocalBlur(2, node);
+		return node;
 	}
 
-	async Task ApplyLocalBlur(int blurSize, Node centerNode)
+	async Task ApplyAgainLocalBlur(int blurSize, Node centerNode)
 	{
 		await Task.Run(() =>
 		{
@@ -198,7 +200,8 @@ public class GridGizmo : MonoBehaviour
 						Node node = kvp.Key;
 						int blurredPenalty = kvp.Value;
 
-						node.movementPenalty = blurredPenalty;
+						node.ReSetMovementPenalty(blurredPenalty, false);
+						centerNode.SetpenaltiesTemp(node);
 					}
 				}
 			}
@@ -299,7 +302,7 @@ public class GridGizmo : MonoBehaviour
 					{
 						for (int q = 0; q < gridSizeX; q++)
 						{
-							grid[q, r].movementPenalty = penaltiesTemp[q, r];
+							grid[q, r].ReSetMovementPenalty(penaltiesTemp[q, r]);
 
 							// 최대/최소 패널티 값 업데이트
 							penaltyMax = Mathf.Max(penaltyMax, penaltiesTemp[q, r]);

@@ -111,6 +111,7 @@ public class Unit : NetworkBehaviour
 	public Action<NetworkObject, Transform> FinishAction;
 	IEnumerator FollowPath()
 	{
+		if(!gameObject.activeSelf) yield break;
 		followingPath = true;
 		int pathIndex = 0;
 		transform.LookAt(path.lookPoints[0]);

@@ -75,6 +75,10 @@ public class Q : CoreComponent, ISkillAction
 	[ClientRpc]
 	public void CallClientRpc(ulong id)
 	{
+		if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+		{
+			obj.gameObject.SetActive(false);
+		}
 		if (!IsServer)
 			CallServerRpc(id);
 	}

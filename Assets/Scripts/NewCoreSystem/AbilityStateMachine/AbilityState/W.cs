@@ -1,11 +1,13 @@
 using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
+using ChocoOzing.Network;
 using ChocoOzing.Utilities;
 using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -68,7 +70,8 @@ public class W : CoreComponent, ISkillAction
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				isHoldAction = false;
-				BuildWall();
+				if(IsLocalPlayer)
+					RequestSapwnServerRpc(currentPreview.transform.position);
 				player.Anim.CrossFade(abilityData.holdReleaseAnimationHash, 0.1f);
 				coolTimer.Reset(1f);
 				coolTimer.Start();
@@ -124,26 +127,25 @@ public class W : CoreComponent, ISkillAction
 		playerInit.TurnOnCurrentWeaponServerRpc();
 	}
 
-	void BuildWall()
+	[ServerRpc]
+	void RequestSapwnServerRpc(Vector3 targetPos)
 	{
-		if (currentPreview != null)
+		GameObject newWall = Instantiate(
+				wallPrefab,
+				Core.Root.transform.position.With(y: 5),
+				Quaternion.identity);
+		newWall.GetComponent<NetworkObject>().Spawn();
+		newWall.layer = LayerMask.NameToLayer("Wall");
+
+		newWall.GetComponent<ThrowObject>().TrowInit(newWall.transform, targetPos);
+
+		if (builtWalls.Count >= maxWalls)
 		{
-			/*GameObject newWall = Instantiate(wallPrefab,
-				currentPreview.transform.position , Quaternion.identity);*/
-			GameObject newWall = Instantiate(wallPrefab,
-				Core.Root.transform.position.With(y: 2.3f), Quaternion.identity);
-			newWall.layer = LayerMask.NameToLayer("Wall");
-
-			newWall.GetComponent<ThrowObject>().TrowInit(newWall.transform, currentPreview.transform);
-
-			if (builtWalls.Count >= maxWalls)
-			{
-				GameObject oldestWall = builtWalls.Dequeue();
-				Destroy(oldestWall);
-			}
-
-			builtWalls.Enqueue(newWall);
+			GameObject oldestWall = builtWalls.Dequeue();
+			oldestWall.GetComponent<NetworkObject>().Despawn();
 		}
+
+		builtWalls.Enqueue(newWall);
 	}
 
 	bool IsOverlapping(Vector3 position)

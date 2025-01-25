@@ -12,10 +12,10 @@ public class ThrowObject : MonoBehaviour
     public float gravity = -9.8f;
     public Vector3 velocity;
 
-    public async void TrowInit(Transform start, Transform end)
+    public async void TrowInit(Transform start, Vector3 end)
     {
 		setStartPoint = start.position;
-		setEndPoint = end.position;
+		setEndPoint = end;
 
 		//시작점, 끝점을 기준 초기 속도
 		Vector3 displacement = setEndPoint - setStartPoint;
@@ -31,6 +31,7 @@ public class ThrowObject : MonoBehaviour
 		await Throw();
     }
 
+	Node node;
 	async Task Throw()
 	{
 		float elapsed = 0f;
@@ -60,6 +61,14 @@ public class ThrowObject : MonoBehaviour
 
 		// 정확히 도착점에 정렬
 		transform.position = setEndPoint;
-		await GridGizmo.instance.CheckAgain(transform.position);
+		node = await GridGizmo.instance.CheckAgain(transform.position);
+	}
+
+	private void OnDestroy()
+	{
+		if (node != null)
+		{
+			node.ReturnToOriginValue();
+		}
 	}
 }
