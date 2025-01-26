@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ThrowObject : MonoBehaviour
@@ -12,7 +13,19 @@ public class ThrowObject : MonoBehaviour
     public float gravity = -9.8f;
     public Vector3 velocity;
 
-    public async void TrowInit(Transform start, Vector3 end)
+	public Action<NetworkObject> action;
+
+	private void OnDisable()
+	{
+		if (NetworkManager.Singleton.IsServer &&
+			action != null)
+		{
+			action.Invoke(GetComponent<NetworkObject>());
+			action = null;
+		}
+	}
+
+	public async void TrowInit(Transform start, Vector3 end)
     {
 		setStartPoint = start.position;
 		setEndPoint = end;

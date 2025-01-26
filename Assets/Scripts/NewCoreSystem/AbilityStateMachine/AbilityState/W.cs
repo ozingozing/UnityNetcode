@@ -40,7 +40,7 @@ public class W : CoreComponent, ISkillAction
 	private GameObject currentPreview;
 	private bool canBuild;
 	private Vector3 lastValidPosition;
-	private Queue<GameObject> builtWalls = new Queue<GameObject>();
+	private Queue<NetworkObject> builtWalls = new Queue<NetworkObject>();
 
 	public void SetAbilityData(AbilityData abilityData)
 	{
@@ -70,8 +70,7 @@ public class W : CoreComponent, ISkillAction
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				isHoldAction = false;
-				if(IsLocalPlayer)
-					RequestSapwnServerRpc(currentPreview.transform.position);
+				RequestSapwnServerRpc(currentPreview.transform.position);
 				player.Anim.CrossFade(abilityData.holdReleaseAnimationHash, 0.1f);
 				coolTimer.Reset(1f);
 				coolTimer.Start();
@@ -130,22 +129,52 @@ public class W : CoreComponent, ISkillAction
 	[ServerRpc]
 	void RequestSapwnServerRpc(Vector3 targetPos)
 	{
-		GameObject newWall = Instantiate(
+		/*GameObject newWall = Instantiate(
+				wallPrefab,
+				Core.Root.transform.position.With(y: 5),
+				Quaternion.identity);*/
+		NetworkObject newWall =
+			NetworkObjectPool.Singleton.GetNetworkObject(
 				wallPrefab,
 				Core.Root.transform.position.With(y: 5),
 				Quaternion.identity);
-		newWall.GetComponent<NetworkObject>().Spawn();
-		newWall.layer = LayerMask.NameToLayer("Wall");
+		newWall.gameObject.layer = LayerMask.NameToLayer("Wall");
+		newWall.GetComponent<ThrowObject>().action += FindDeleteBox;
+		if(!newWall.IsSpawned)
+			newWall.Spawn();
 
 		newWall.GetComponent<ThrowObject>().TrowInit(newWall.transform, targetPos);
 
 		if (builtWalls.Count >= maxWalls)
-		{
-			GameObject oldestWall = builtWalls.Dequeue();
-			oldestWall.GetComponent<NetworkObject>().Despawn();
-		}
+			OverflowDeleteBox();
 
 		builtWalls.Enqueue(newWall);
+	}
+
+	public void FindDeleteBox(NetworkObject compareObject)
+	{
+		for (int i = 0; i < builtWalls.Count; i++)
+		{
+			NetworkObject oldestWall = builtWalls.Dequeue();
+			if (oldestWall != compareObject)
+			{
+				builtWalls.Enqueue(oldestWall);
+				continue;
+			}
+
+			if (oldestWall.IsSpawned)
+			{
+				oldestWall.GetComponent<NetworkObject>().Despawn();
+				break;
+			}
+		}
+	}
+
+	public void OverflowDeleteBox()
+	{
+		NetworkObject oldestWall = builtWalls.Dequeue();
+		if (oldestWall.IsSpawned)
+			oldestWall.GetComponent<NetworkObject>().Despawn();
 	}
 
 	bool IsOverlapping(Vector3 position)
