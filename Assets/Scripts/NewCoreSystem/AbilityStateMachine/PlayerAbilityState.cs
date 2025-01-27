@@ -26,7 +26,7 @@ public class PlayerAbilityState : PlayerState
 	public override void Exit()
 	{
 		base.Exit();
-		player.IsMoveLock.Set(false);
+		//player.IsMoveLock.Set(false);
 	}
 
 	public override void LogicUpdate()

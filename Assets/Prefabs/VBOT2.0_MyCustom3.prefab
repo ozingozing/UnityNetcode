@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42e87e0b3e86314da00a6fd627d845a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsHoldAction: 1
+  IsHoldAction: 0
   AbilityData: {fileID: 0}
   wallPrefab: {fileID: 386261879261293105, guid: e71ceb8d3bc292942ad699efe172046c, type: 3}
   wallPreviewPrefab: {fileID: 386261879261293105, guid: e689815684c1efa4ebcd3967a29c002a, type: 3}

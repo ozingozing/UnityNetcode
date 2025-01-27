@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ThrowObject : MonoBehaviour
+public class ThrowObject : NetworkBehaviour
 {
     public Vector3 setStartPoint;
     public Vector3 setEndPoint;
@@ -15,13 +15,12 @@ public class ThrowObject : MonoBehaviour
 
 	public Action<NetworkObject> action;
 
-	private void OnDisable()
+	public void RequestDelete()
 	{
 		if (NetworkManager.Singleton.IsServer &&
 			action != null)
 		{
 			action.Invoke(GetComponent<NetworkObject>());
-			action = null;
 		}
 	}
 
@@ -77,11 +76,12 @@ public class ThrowObject : MonoBehaviour
 		node = await GridGizmo.instance.CheckAgain(transform.position);
 	}
 
-	private void OnDestroy()
+	public override void OnNetworkDespawn()
 	{
 		if (node != null)
 		{
 			node.ReturnToOriginValue();
 		}
+		base.OnNetworkDespawn();
 	}
 }

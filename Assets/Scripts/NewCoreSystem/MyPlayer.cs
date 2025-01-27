@@ -61,7 +61,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	#endregion
 
 	#region Values
-	public Observer<bool> IsMoveLock = new Observer<bool>(false);
+	//public Observer<bool> IsMoveLock;
 	#endregion
 
 	private void OnEnable()
@@ -109,7 +109,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{
 		eventBinding = new EventBinding<PlayerAnimationEvent>(SkillAction);
 		EventBus<PlayerAnimationEvent>.Register(eventBinding);
-		IsMoveLock.AddListener(Movement.StopMove);
+		//IsMoveLock = new Observer<bool>(false, Movement.StopMove);
 	}
 
 	private void OnDestroy()
@@ -120,13 +120,13 @@ public class MyPlayer : MonoBehaviour, IEntity
 			EventBus<PlayerAnimationEvent>.Deregister(eventBinding);
 			eventBinding = null;
 		}
-		IsMoveLock.Dispose();
+		//IsMoveLock.Dispose();
 	}
 
 	float crossFadeValue = 0.1f;
 	public void SkillAction(PlayerAnimationEvent @event)
 	{
-		IsMoveLock.Set(@event.abilityData.moveLock);
+		//IsMoveLock.Set(@event.abilityData.moveLock);
 		Anim.CrossFade(@event.abilityData.animationHash, crossFadeValue);
 		StateMachine.ChangeState(PlayerAbilityState, @event);
 	}

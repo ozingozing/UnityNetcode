@@ -12,40 +12,37 @@ public class Q : CoreComponent, ISkillAction
 {
 	public AbilityData abilityData {
 		get => AbilityData;
-		set {
-			SetAbilityData(value);
-		}
+		set => AbilityData = value;
 	}
+	[SerializeField] private AbilityData AbilityData;
 
 	public bool isHoldAction
 	{
 		get => IsHoldAction;
 		set => IsHoldAction = value;
 	}
-
 	[SerializeField] private bool IsHoldAction = false;
-	[SerializeField] private AbilityData AbilityData;
+
 
 	private ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
 
-	public void SetAbilityData(AbilityData abilityData) => AbilityData = abilityData;
+	public void SetAbilityData(AbilityData abilityData) => this.abilityData = abilityData;
 
 	public void Action(PlayerAnimationEvent @evnet)
 	{
 		if (IsLocalPlayer)
 		{
 			isHoldAction = abilityData.isHoldAction ? true : false;
-			AreaOfEffectActionServerRpc(@evnet.clientId, (int)@evnet.abilityData.abilityType);
+			AreaOfEffectActionServerRpc(@evnet.clientId);
 		}
 	}
 
 	[ServerRpc]
-	public void AreaOfEffectActionServerRpc(ulong id, int type)
+	public void AreaOfEffectActionServerRpc(ulong id)
 	{
 		if (NetworkManager.Singleton.ConnectedClients.TryGetValue(id, out var client))
 		{
 			GameObject OwnerPlayer = client.PlayerObject.gameObject;
-			abilityData = Core.GetCoreComponent<AbilitySystem>().GetTypeData(type);
 			Vector3 PlayerPos = OwnerPlayer.transform.position;
 			Vector3 PlayerForward = OwnerPlayer.transform.forward;
 			Vector3 StartingPoint = PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start;

@@ -10,7 +10,8 @@ public class Explosion : MonoBehaviour
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 		{
-			other.gameObject.SetActive(false);
+			if(other.TryGetComponent<ThrowObject>(out ThrowObject item))
+				item.RequestDelete();
 		}
 	}
 }

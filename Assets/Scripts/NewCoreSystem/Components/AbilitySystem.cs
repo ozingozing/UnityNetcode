@@ -29,21 +29,16 @@ namespace ChocoOzing.CoreSystem
 
 		public override void OnNetworkSpawn()
 		{
-			if (IsLocalPlayer)
+			view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
+			controller = new AbilityController.Builder()
+				.WithAbilities(SO_StartingAbilities, OwnerClientId)
+				.Build(view);
+			int idx = 0;
+			foreach (var item in transform.GetComponentsInChildren<ISkillAction>())
 			{
-				view = GameObject.Find("PlayerStatsUI").GetComponent<AbilityView>();
-				controller = new AbilityController.Builder()
-					.WithAbilities(SO_StartingAbilities, OwnerClientId)
-					.Build(view);
-
-
-				int idx = 0;
-				foreach (var item in transform.GetComponentsInChildren<ISkillAction>())
-				{
-					item.abilityData = SO_StartingAbilities[idx];
-					skills.Add(item);
-					idx++;
-				}
+				item.SetAbilityData(SO_StartingAbilities[idx]);
+				skills.Add(item);
+				idx++;
 			}
 			base.OnNetworkSpawn();
 		}

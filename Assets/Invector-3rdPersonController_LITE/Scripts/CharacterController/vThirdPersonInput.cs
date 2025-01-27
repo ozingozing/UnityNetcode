@@ -149,7 +149,7 @@ namespace Invector.vCharacterController
 				if(IsServer)
 					HandleServerTick();
 			}
-			if (IsLocalPlayer && !myPlayer.IsMoveLock.Value)
+			if (IsLocalPlayer /*&& !myPlayer.IsMoveLock.Value*/)
 			{
 				MOVE();
 			}
@@ -164,7 +164,7 @@ namespace Invector.vCharacterController
 			if(isDebug)
 				playerText.SetText($"Owner: {IsOwner} NetworkObjectId: {NetworkObjectId} Velocity: {cc._rigidbody.velocity.magnitude:F1}");
 
-			if (IsLocalPlayer && !myPlayer.IsMoveLock.Value)
+			if (IsLocalPlayer /*&& !myPlayer.IsMoveLock.Value*/)
 			{
 				InputHandle();                  // update the input methods
 				cc.UpdateAnimator();            // updates the Animator Parameters

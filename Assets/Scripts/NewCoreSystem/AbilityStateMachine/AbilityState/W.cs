@@ -13,20 +13,19 @@ using UnityEngine;
 
 public class W : CoreComponent, ISkillAction
 {
-	public AbilityData abilityData {
+	public AbilityData abilityData
+	{
 		get => AbilityData;
-		set {
-			SetAbilityData(value);
-		}
+		set => AbilityData = value;
 	}
+	[SerializeField] private AbilityData AbilityData;
 
 	public bool isHoldAction {
 		get => IsHoldAction;
 		set => IsHoldAction = value;
 	}
-
 	[SerializeField] private bool IsHoldAction = true;
-	[SerializeField] private AbilityData AbilityData;
+
 	MyPlayer player;
 	PlayerInit playerInit;
 	ChocoOzing.Utilities.CountdownTimer coolTimer;
@@ -44,7 +43,7 @@ public class W : CoreComponent, ISkillAction
 
 	public void SetAbilityData(AbilityData abilityData)
 	{
-		AbilityData = abilityData;
+		this.abilityData = abilityData;
 		player = Core.Root.GetComponent<MyPlayer>();
 		playerInit = Core.Root.GetComponent<PlayerInit>();
 		coolTimer = Core.GetCoreComponent<AbilitySystem>().controller.cooltimer;
@@ -129,13 +128,9 @@ public class W : CoreComponent, ISkillAction
 	[ServerRpc]
 	void RequestSapwnServerRpc(Vector3 targetPos)
 	{
-		/*GameObject newWall = Instantiate(
-				wallPrefab,
-				Core.Root.transform.position.With(y: 5),
-				Quaternion.identity);*/
 		NetworkObject newWall =
 			NetworkObjectPool.Singleton.GetNetworkObject(
-				wallPrefab,
+				abilityData.GetProjectileData(abilityData.abilityType).prefab,
 				Core.Root.transform.position.With(y: 5),
 				Quaternion.identity);
 		newWall.gameObject.layer = LayerMask.NameToLayer("Wall");
@@ -164,6 +159,7 @@ public class W : CoreComponent, ISkillAction
 
 			if (oldestWall.IsSpawned)
 			{
+				oldestWall.GetComponent<ThrowObject>().action -= FindDeleteBox;
 				oldestWall.GetComponent<NetworkObject>().Despawn();
 				break;
 			}

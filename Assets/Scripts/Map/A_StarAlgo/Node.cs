@@ -19,6 +19,8 @@ public class Node : IHeapItem<Node>
     public Node parent;
     int heapIndex;
 
+    public bool tempCheck = false;
+
 	public Node(bool _walkable,  Vector3 _worldPosition, int _gridX, int _gridY, int _movementPanalty)
     {
         walkable = _walkable;
@@ -78,7 +80,8 @@ public class Node : IHeapItem<Node>
     {
         walkable = lastWalkable;
         movementPenalty = lastMovementPenalty;
-    }
+		tempCheck = false;
+	}
     #endregion
 
     public int fCost

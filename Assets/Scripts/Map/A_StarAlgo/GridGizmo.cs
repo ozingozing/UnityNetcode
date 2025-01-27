@@ -110,13 +110,13 @@ public class GridGizmo : MonoBehaviour
 	public async Task<Node> CheckAgain(Vector3 pos)
 	{
 		Node node = NodeFromWorldPoint(pos);
-		List<Node> nodes = GetNeighbours(node);
+		List<Node> nodes = GetNeighbours(node, true);
 
 		node.ReSetWalkable(false, false);
 		foreach (Node item in nodes)
 		{
-			if (!item.walkable) continue;
-			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius * 1.25f, unwalkableMask);
+			if(!item.walkable) continue;
+			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius, unwalkableMask);
 			//Instantiate(Check, item.worldPosition, Quaternion.identity);
 			int movementPenalty = 0;
 			Ray ray = new Ray(item.worldPosition + Vector3.up * 50, Vector3.down);
@@ -138,6 +138,7 @@ public class GridGizmo : MonoBehaviour
 		return node;
 	}
 
+	//블록이 삭제될 때 상대가 블러처리하거나 UnWalkable처리한 노드도 같이 리셋시킴 이거 막아야함
 	async Task ApplyAgainLocalBlur(int blurSize, Node centerNode)
 	{
 		await Task.Run(() =>
@@ -212,7 +213,7 @@ public class GridGizmo : MonoBehaviour
 		});
 	}
 
-	public List<Node> GetNeighbours(Node node)
+	public List<Node> GetNeighbours(Node node, bool oneMore = false)
 	{
 		List<Node> neighbours = new List<Node>();
 		//int[] dq = { 1,-1,  0,0,  1,-1 };
@@ -220,18 +221,39 @@ public class GridGizmo : MonoBehaviour
 
 		int[] dq_even = { 1,-1,  1, 0,  1, 0 };
 		int[] dq_odd =  { 1,-1,  0,-1,  0,-1 };
-		int[] dr =	    { 0,0,   1,-1,  -1,1 };
+		int[] dr =	    { 0, 0,  1,-1, -1, 1 };
+
+		int[] dq_even2 = { 2,-2,  0, 0, 2, 1,  -1,-1,  1, 2,  -1,-1};
+		int[] dq_odd2  = { 2,-2,  0, 0, 1, 1,  -2,-1,  1, 1,  -2,-1};
+		int[] dr2      = { 0, 0, -2, 2, 1, 2,  -1,-2, -2,-1,   1, 2};
 
 		bool isOddRow = node.gridY % 2 == 0;
 
-		for (int i = 0; i < 6; i++)
+		// 범위에 따라 탐색
+		for (int i = 0; i < 6; i++) // 6방향 탐색
 		{
 			int checkQ = node.gridX + (isOddRow ? dq_odd[i] : dq_even[i]);
 			int checkR = node.gridY + dr[i];
 
+			// 유효한 범위 내 노드만 추가
 			if (checkQ >= 0 && checkQ < gridSizeX && checkR >= 0 && checkR < gridSizeY)
 			{
 				neighbours.Add(grid[checkQ, checkR]);
+			}
+		}
+
+		if(oneMore)
+		{
+			for(int i = 0; i < 12; i++)
+			{
+				int checkQ = node.gridX + (isOddRow ? dq_odd2[i] : dq_even2[i]);
+				int checkR = node.gridY + dr2[i];
+
+				// 유효한 범위 내 노드만 추가
+				if (checkQ >= 0 && checkQ < gridSizeX && checkR >= 0 && checkR < gridSizeY)
+				{
+					neighbours.Add(grid[checkQ, checkR]);
+				}
 			}
 		}
 
