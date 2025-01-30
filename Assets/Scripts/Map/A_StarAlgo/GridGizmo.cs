@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GridGizmo : MonoBehaviour
@@ -107,16 +108,15 @@ public class GridGizmo : MonoBehaviour
 	}
 
 	public GameObject Check;
-	public async Task<Node> CheckAgain(Vector3 pos)
+	public Node CheckAgain(Vector3 pos)
 	{
-		Node node = NodeFromWorldPoint(pos);
-		List<Node> nodes = GetNeighbours(node, true);
+		Node centerNode = NodeFromWorldPoint(pos);
+		List<Node> nodes = GetNeighbours(centerNode, true);
+		nodes.Add(centerNode);
 
-		node.ReSetWalkable(false, false);
 		foreach (Node item in nodes)
 		{
-			if(!item.walkable) continue;
-			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius, unwalkableMask);
+			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius * 1.1f, unwalkableMask);
 			//Instantiate(Check, item.worldPosition, Quaternion.identity);
 			int movementPenalty = 0;
 			Ray ray = new Ray(item.worldPosition + Vector3.up * 50, Vector3.down);
@@ -131,86 +131,37 @@ public class GridGizmo : MonoBehaviour
 			}
 
 			item.ReSetWalkable(walkable, false);
-			item.ReSetMovementPenalty(movementPenalty, false);
+			item.ReSetMovementPenalty(movementPenalty * 2, false);
 		}
 
-		await ApplyAgainLocalBlur(2, node);
-		return node;
+		return ApplyAgainLocalBlur(centerNode, nodes);
 	}
 
 	//블록이 삭제될 때 상대가 블러처리하거나 UnWalkable처리한 노드도 같이 리셋시킴 이거 막아야함
-	async Task ApplyAgainLocalBlur(int blurSize, Node centerNode)
+	Node ApplyAgainLocalBlur(Node centerNode, List<Node> nodes)
 	{
-		await Task.Run(() =>
+		// 블러링 영역 내 이웃 노드 탐색
+		foreach (Node item in nodes)
 		{
-			try
+			// 유효한 노드인지 확인
+			Node currentNode = item;
+			int totalPenalty = 0;
+			int totalCount = 0;
+
+			foreach (Node item2 in GetNeighbours(currentNode))
 			{
-				if (blurSize > 0)
-				{
-					int kernelSize = blurSize * 2 + 1;
-					int kernelExtents = (kernelSize - 1) / 2;
-
-					// 임시 배열 생성
-					Dictionary<Node, int> penaltiesTemp = new Dictionary<Node, int>();
-
-					// 블러링 영역 내 이웃 노드 탐색
-					for (int dr = -kernelExtents; dr <= kernelExtents; dr++)
-					{
-						for (int dq = -kernelExtents; dq <= kernelExtents; dq++)
-						{
-							// 홀수 행 보정
-							int adjustedQ = centerNode.gridX + dq + ((centerNode.gridY % 2 == 1 && dr % 2 != 0) ? 1 : 0);
-							int adjustedR = centerNode.gridY + dr;
-
-							// 유효한 노드인지 확인
-							if (adjustedQ >= 0 && adjustedQ < gridSizeX && adjustedR >= 0 && adjustedR < gridSizeY)
-							{
-								Node currentNode = grid[adjustedQ, adjustedR];
-
-								int totalPenalty = 0;
-								int totalCount = 0;
-
-								// 블러링 계산
-								for (int blurDr = -kernelExtents; blurDr <= kernelExtents; blurDr++)
-								{
-									for (int blurDq = -kernelExtents; blurDq <= kernelExtents; blurDq++)
-									{
-										// 블러링 영역 내 이웃 노드 탐색
-										int blurQ = adjustedQ + blurDq + ((adjustedR % 2 == 1 && blurDr % 2 != 0) ? 1 : 0);
-										int blurR = adjustedR + blurDr;
-
-										if (blurQ >= 0 && blurQ < gridSizeX && blurR >= 0 && blurR < gridSizeY)
-										{
-											totalPenalty += grid[blurQ, blurR].movementPenalty;
-											totalCount++;
-										}
-									}
-								}
-
-								// 평균값 계산
-								int blurredPenalty = Mathf.RoundToInt((float)totalPenalty / totalCount);
-
-								penaltiesTemp[currentNode] = blurredPenalty;
-							}
-						}
-					}
-
-					// 블러링된 값을 실제 그리드에 반영
-					foreach (var kvp in penaltiesTemp)
-					{
-						Node node = kvp.Key;
-						int blurredPenalty = kvp.Value;
-
-						node.ReSetMovementPenalty(blurredPenalty, false);
-						centerNode.SetpenaltiesTemp(node);
-					}
-				}
+				totalPenalty += item2.movementPenalty;
+				totalCount++;
 			}
-			catch (System.Exception ex)
-			{
-				Debug.LogError($"BlurPenaltyMap Error: {ex.Message}");
-			}
-		});
+
+			// 평균값 계산
+			int blurredPenalty = Mathf.RoundToInt((float)totalPenalty / totalCount);
+			currentNode.ReSetMovementPenalty(blurredPenalty, false);
+			currentNode.Owner = centerNode;
+
+			centerNode.SetpenaltiesTemp(currentNode);
+		}
+		return centerNode;
 	}
 
 	public List<Node> GetNeighbours(Node node, bool oneMore = false)
@@ -223,9 +174,9 @@ public class GridGizmo : MonoBehaviour
 		int[] dq_odd =  { 1,-1,  0,-1,  0,-1 };
 		int[] dr =	    { 0, 0,  1,-1, -1, 1 };
 
-		int[] dq_even2 = { 2,-2,  0, 0, 2, 1,  -1,-1,  1, 2,  -1,-1};
-		int[] dq_odd2  = { 2,-2,  0, 0, 1, 1,  -2,-1,  1, 1,  -2,-1};
-		int[] dr2      = { 0, 0, -2, 2, 1, 2,  -1,-2, -2,-1,   1, 2};
+		int[] dq_even2 = { 2,-2,  0, 0,  2, 1,  -1,-1,  1, 2,  -1,-1};
+		int[] dq_odd2  = { 2,-2,  0, 0,  1, 1,  -2,-1,  1, 1,  -2,-1};
+		int[] dr2      = { 0, 0, -2, 2,  1, 2,  -1,-2, -2,-1,   1, 2};
 
 		bool isOddRow = node.gridY % 2 == 0;
 
@@ -302,7 +253,7 @@ public class GridGizmo : MonoBehaviour
 								for (int dq = -kernelExtents; dq <= kernelExtents; dq++)
 								{
 									// 홀수 행 보정
-									int adjustedQ = q + dq + ((r % 2 == 1 && dr % 2 != 0) ? 1 : 0);
+									int adjustedQ = q + dq + ((r % 2 == 1 && dr % 2 == 0) || (r % 2 != 1 && dr % 2 != 0) ? 1 : 0);
 									int adjustedR = r + dr;
 
 									// 유효한 노드인지 확인
@@ -324,7 +275,7 @@ public class GridGizmo : MonoBehaviour
 					{
 						for (int q = 0; q < gridSizeX; q++)
 						{
-							grid[q, r].ReSetMovementPenalty(penaltiesTemp[q, r]);
+							grid[q, r].ReSetMovementPenalty(penaltiesTemp[q, r], true);
 
 							// 최대/최소 패널티 값 업데이트
 							penaltyMax = Mathf.Max(penaltyMax, penaltiesTemp[q, r]);

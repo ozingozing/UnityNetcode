@@ -48,8 +48,14 @@ public class Pathfinding : MonoBehaviour
 
 				foreach (Node neighbour in gridGizmo.GetNeighbours(currentNode))
 				{
-					if (neighbour != targetNode &&
-						!neighbour.walkable ||
+					//타겟이 UnWalkable이면 탐색에서 제외 하지만
+					//가끔 타겟이 블럭 근처에 있어서 타겟 노드가 UnWalkable노드에
+					//걸쳐서 Walkable로 쭉 가다가 타겟 노드만 UnWalkable인 형태가 돼서
+					//탐색이 안되는 현상이 있음
+					/*if (!neighbour.walkable ||
+						closedSet.Contains(neighbour)) continue;*/
+
+					if ((neighbour != targetNode && !neighbour.walkable) ||
 						closedSet.Contains(neighbour)) continue;
 
 					int newMovementCostToNeighbour =

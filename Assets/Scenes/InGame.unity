@@ -5195,7 +5195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11365,7 +11365,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   gridWorldSize: {x: 150, y: 150}
-  blurSize: 3
+  blurSize: 5
   hexRadius: 0.75
   walkableRegions:
   - terrainLayerMask:
@@ -11379,7 +11379,7 @@ MonoBehaviour:
   walkableMask:
     serializedVersion: 2
     m_Bits: 1536
-  obstacleProximityPenalty: 30
+  obstacleProximityPenalty: 25
   penaltyMin: 0
   penaltyMax: 0
   Check: {fileID: 386261879261293105, guid: 17aa0c213550dd84f8ce0135dc2d5473, type: 3}

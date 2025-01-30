@@ -1,3 +1,4 @@
+using ChocoOzing.Network;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ public class ThrowObject : NetworkBehaviour
     public float duration = 2.0f;
     public float gravity = -9.8f;
     public Vector3 velocity;
-
 	public Action<NetworkObject> action;
 
 	public void RequestDelete()
@@ -25,7 +25,8 @@ public class ThrowObject : NetworkBehaviour
 	}
 
 	public async void TrowInit(Transform start, Vector3 end)
-    {
+	{
+		needCheck = false;
 		setStartPoint = start.position;
 		setEndPoint = end;
 
@@ -73,11 +74,25 @@ public class ThrowObject : NetworkBehaviour
 
 		// 정확히 도착점에 정렬
 		transform.position = setEndPoint;
-		node = await GridGizmo.instance.CheckAgain(transform.position);
+		needCheck = true;
+	}
+
+	bool needCheck = false;
+	private int fixedUpdateCount = 0;
+	private const int CALL_INTERVAL = 30; // OneCall Per 30FPS 
+	private void FixedUpdate()
+	{
+		fixedUpdateCount++;
+		if (fixedUpdateCount >= CALL_INTERVAL && needCheck)
+		{
+			node = GridGizmo.instance.CheckAgain(transform.position);
+			fixedUpdateCount = 0;
+		}
 	}
 
 	public override void OnNetworkDespawn()
 	{
+		needCheck = false;
 		if (node != null)
 		{
 			node.ReturnToOriginValue();

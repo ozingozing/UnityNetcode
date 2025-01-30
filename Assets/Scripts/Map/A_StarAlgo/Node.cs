@@ -11,8 +11,8 @@ public class Node : IHeapItem<Node>
     public int gridX;
     public int gridY;
 
-    bool lastWalkable;
-    int lastMovementPenalty;
+    bool originWalkable;
+    int originMovementPenalty;
 
     public int gCost;
     public int hCost;
@@ -30,56 +30,55 @@ public class Node : IHeapItem<Node>
         movementPenalty = _movementPanalty;
 
         //save origin setting
-        lastWalkable = _walkable;
-        lastMovementPenalty = _movementPanalty;
+        originWalkable = _walkable;
+        originMovementPenalty = _movementPanalty;
     }
 
-	#region DynamicValueSet
-	public void ReSetMovementPenalty(int _penalty, bool IsInit = true)
+    #region DynamicValueSet
+    public void ReSetMovementPenalty(int _penalty, bool IsInit = false)
     {
         if (IsInit)
         {
             movementPenalty = _penalty;
-            lastMovementPenalty = _penalty;
+            originMovementPenalty = _penalty;
         }
         else
             movementPenalty = _penalty;
 	}
 
-    public void ReSetWalkable(bool _walkable, bool IsInit = true)
+    public void ReSetWalkable(bool _walkable, bool IsInit = false)
     {
         if(IsInit)
         {
             walkable = _walkable;
-            lastWalkable = _walkable;
+            originWalkable = _walkable;
 		}
         else
             walkable = _walkable;
     }
 
-	List<Node> penaltiesTemp;
-    public void SetpenaltiesTemp(Node _penaltiesTemp)
+    public Node Owner;
+	List<Node> penaltiesTemp = new List<Node>();
+	public void SetpenaltiesTemp(Node _penaltiesTemp)
     {
-        if(penaltiesTemp == null)
-        {
-			penaltiesTemp = new List<Node>();
-		}
-
 		penaltiesTemp.Add(_penaltiesTemp);
 	}
 
 	public void ReturnToOriginValue()
     {
         foreach (Node item in penaltiesTemp)
-            item.SetOriginValue();
+        {
+            if(item.Owner == this)
+			    item.SetOriginValue();
+		}
 
-        penaltiesTemp.Clear();
+		penaltiesTemp.Clear();
     }
 
     void SetOriginValue()
     {
-        walkable = lastWalkable;
-        movementPenalty = lastMovementPenalty;
+		walkable = originWalkable;
+		movementPenalty = originMovementPenalty;
 		tempCheck = false;
 	}
     #endregion
