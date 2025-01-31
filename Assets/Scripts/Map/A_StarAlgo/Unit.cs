@@ -37,26 +37,43 @@ public class Unit : NetworkBehaviour
 			LookAtTarget(target.position);
 	}
 
+	float minDistance = float.MaxValue;
 	/// <summary>
 	/// Exclude OwnerPlayer And Start to Search
 	/// </summary>
 	/// <param name="OwnerPlayer">Exclude this one</param>
 	/// <param name="findOnce">If you want to search Once?</param>
-	public void StartAction(GameObject OwnerPlayer)
+	public void StartAction(GameObject ownerPlayer)
 	{
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
-		foreach (Collider hitCollider in hitColliders)
+		minDistance = float.MaxValue;
+		StartCoroutine(FindTarget(ownerPlayer));
+		StartCoroutine(UpdatePath());
+	}
+
+	IEnumerator FindTarget(GameObject ownerPlayer)
+	{
+		while (true)
 		{
-			// 자신을 제외한 객체만 처리
-			if (hitCollider.gameObject != OwnerPlayer)
+			yield return new WaitForFixedUpdate();
+			Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
+			if (hitColliders.Length > 0)
 			{
-				target = hitCollider.gameObject.transform;
-				Debug.Log($"Detected: {target.name}");
-				break;
+				foreach (Collider hitCollider in hitColliders)
+				{
+					// 자신을 제외한 객체만 처리
+					if (hitCollider.gameObject != ownerPlayer)
+					{
+						float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+						if (distance < minDistance)
+						{
+							minDistance = distance;
+							target = hitCollider.gameObject.transform;
+						}
+					}
+				}
+				yield break;
 			}
 		}
-
-		StartCoroutine(UpdatePath());
 	}
 
 	public void OnPathFound(Vector3[] waypoints, bool pathSuccessful)

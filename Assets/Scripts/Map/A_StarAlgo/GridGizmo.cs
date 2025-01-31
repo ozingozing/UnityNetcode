@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GridGizmo : MonoBehaviour
@@ -111,12 +110,12 @@ public class GridGizmo : MonoBehaviour
 	public Node CheckAgain(Vector3 pos)
 	{
 		Node centerNode = NodeFromWorldPoint(pos);
-		List<Node> nodes = GetNeighbours(centerNode, true);
+		List<Node> nodes = GetNeighbours2(centerNode, 3);
 		nodes.Add(centerNode);
 
 		foreach (Node item in nodes)
 		{
-			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius * 1.1f, unwalkableMask);
+			bool walkable = !Physics.CheckSphere(item.worldPosition + Vector3.up * 2, hexRadius, unwalkableMask);
 			//Instantiate(Check, item.worldPosition, Quaternion.identity);
 			int movementPenalty = 0;
 			Ray ray = new Ray(item.worldPosition + Vector3.up * 50, Vector3.down);
@@ -164,6 +163,66 @@ public class GridGizmo : MonoBehaviour
 		return centerNode;
 	}
 
+
+	public List<Node> GetNeighbours2(Node node, int distance = 1)
+	{
+		List<Node> neighbours = new List<Node>();
+		HashSet<(int, int)> visited = new HashSet<(int, int)>(); // 중복 방지
+		Queue<(int, int, int)> queue = new Queue<(int, int, int)>();
+
+		// 기본 6방향 벡터 (짝수 줄 기준)
+		int[,] evenDirections =
+		{
+				{ 1, 0 }, {-1, 0 },
+				{ 1, 1 }, { 1,-1 },
+				{ 0,-1 }, { 0, 1 }
+			};
+
+		// 홀수 줄 기준 (y가 홀수일 때 방향 수정)
+		int[,] oddDirections =
+		{
+				{ 1, 0 },{-1, 0 },
+				{ 0, 1 },{ 0,-1 },
+				{-1,-1 },{-1, 1 }
+			};
+
+		// 시작 위치 큐에 추가
+		queue.Enqueue((node.gridX, node.gridY, 0));
+		visited.Add((node.gridX, node.gridY));
+
+		while (queue.Count > 0)
+		{
+			var (x, y, d) = queue.Dequeue();
+
+			// 거리가 distance를 넘으면 종료
+			if (d >= distance) continue;
+
+			// 현재 줄이 홀수인지 체크
+			bool isEvenRow = y % 2 == 0;
+			int[,] directions = isEvenRow ? oddDirections : evenDirections;
+
+			// 6방향 탐색
+			for (int i = 0; i < 6; i++)
+			{
+				int newX = x + directions[i, 0];
+				int newY = y + directions[i, 1];
+
+				// 유효한 범위 내에 있는지 확인
+				if (newX >= 0 && newX < gridSizeX && newY >= 0 && newY < gridSizeY)
+				{
+					if (!visited.Contains((newX, newY)))
+					{
+						visited.Add((newX, newY));
+						queue.Enqueue((newX, newY, d + 1));
+						neighbours.Add(grid[newX, newY]); // 실제 노드 추가
+					}
+				}
+			}
+		}
+
+		return neighbours;
+	}
+
 	public List<Node> GetNeighbours(Node node, bool oneMore = false)
 	{
 		List<Node> neighbours = new List<Node>();
@@ -178,12 +237,12 @@ public class GridGizmo : MonoBehaviour
 		int[] dq_odd2  = { 2,-2,  0, 0,  1, 1,  -2,-1,  1, 1,  -2,-1};
 		int[] dr2      = { 0, 0, -2, 2,  1, 2,  -1,-2, -2,-1,   1, 2};
 
-		bool isOddRow = node.gridY % 2 == 0;
+		bool isEvenRow = node.gridY % 2 == 0;
 
 		// 범위에 따라 탐색
 		for (int i = 0; i < 6; i++) // 6방향 탐색
 		{
-			int checkQ = node.gridX + (isOddRow ? dq_odd[i] : dq_even[i]);
+			int checkQ = node.gridX + (isEvenRow ? dq_odd[i] : dq_even[i]);
 			int checkR = node.gridY + dr[i];
 
 			// 유효한 범위 내 노드만 추가
@@ -197,7 +256,7 @@ public class GridGizmo : MonoBehaviour
 		{
 			for(int i = 0; i < 12; i++)
 			{
-				int checkQ = node.gridX + (isOddRow ? dq_odd2[i] : dq_even2[i]);
+				int checkQ = node.gridX + (isEvenRow ? dq_odd2[i] : dq_even2[i]);
 				int checkR = node.gridY + dr2[i];
 
 				// 유효한 범위 내 노드만 추가

@@ -26,7 +26,6 @@ public class ThrowObject : NetworkBehaviour
 
 	public async void TrowInit(Transform start, Vector3 end)
 	{
-		needCheck = false;
 		setStartPoint = start.position;
 		setEndPoint = end;
 
@@ -74,25 +73,34 @@ public class ThrowObject : NetworkBehaviour
 
 		// 정확히 도착점에 정렬
 		transform.position = setEndPoint;
-		needCheck = true;
+		StartCoroutine(TTT());
 	}
 
-	bool needCheck = false;
-	private int fixedUpdateCount = 0;
-	private const int CALL_INTERVAL = 30; // OneCall Per 30FPS 
-	private void FixedUpdate()
+	public void ResetCheckerValue()
 	{
-		fixedUpdateCount++;
-		if (fixedUpdateCount >= CALL_INTERVAL && needCheck)
+		/*needCheck = true;
+		StartCoroutine(TTT());*/
+	}
+
+	private float fixedUpdateCount = 0;
+	private const int CALL_INTERVAL = 1; // OneCall Per 60FPS  OneShot Per 1seconds
+	IEnumerator TTT()
+	{
+		while (true)
 		{
-			node = GridGizmo.instance.CheckAgain(transform.position);
-			fixedUpdateCount = 0;
+			yield return new WaitForFixedUpdate();
+			fixedUpdateCount += Time.fixedDeltaTime;
+			if (fixedUpdateCount >= CALL_INTERVAL/2)
+			{
+				node = GridGizmo.instance.CheckAgain(transform.position);
+				fixedUpdateCount = 0;
+			}
 		}
 	}
 
 	public override void OnNetworkDespawn()
 	{
-		needCheck = false;
+		StopCoroutine(TTT());
 		if (node != null)
 		{
 			node.ReturnToOriginValue();

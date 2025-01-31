@@ -151,6 +151,7 @@ public class W : CoreComponent, ISkillAction
 		for (int i = 0; i < builtWalls.Count; i++)
 		{
 			NetworkObject oldestWall = builtWalls.Dequeue();
+			ThrowObject throwObject = oldestWall.GetComponent<ThrowObject>();
 			if (oldestWall != compareObject)
 			{
 				builtWalls.Enqueue(oldestWall);
@@ -159,10 +160,14 @@ public class W : CoreComponent, ISkillAction
 
 			if (oldestWall.IsSpawned)
 			{
-				oldestWall.GetComponent<ThrowObject>().action -= FindDeleteBox;
-				oldestWall.GetComponent<NetworkObject>().Despawn();
-				break;
+				oldestWall.Despawn();
+				throwObject.action -= FindDeleteBox;
 			}
+		}
+
+		foreach (var item in builtWalls)
+		{
+			item.GetComponent<ThrowObject>().ResetCheckerValue();
 		}
 	}
 
