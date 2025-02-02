@@ -149,7 +149,7 @@ namespace Invector.vCharacterController
 				if(IsServer)
 					HandleServerTick();
 			}
-			if (IsLocalPlayer /*&& !myPlayer.IsMoveLock.Value*/)
+			if (IsLocalPlayer && !myPlayer.GetMoveValue())
 			{
 				MOVE();
 			}
@@ -521,17 +521,25 @@ namespace Invector.vCharacterController
 
 		protected virtual void InputHandle()
 		{
-			if (!Input.GetKey(KeyCode.Mouse1))
-			{
-				thirdPersonCamera.gameObject.SetActive(true);
-				adsVirtualCamera.gameObject.SetActive(false);
-			}
-			else
+			if (myPlayer.GunStateMachine.CurrentState.IsAiming)
 			{
 				thirdPersonCamera.gameObject.SetActive(false);
 				adsVirtualCamera.gameObject.SetActive(true);
 			}
-			cc.isStrafing = myPlayer.StateMachine.CurrentState.IsAiming;
+			else
+			{
+				if (!Input.GetKey(KeyCode.Mouse1))
+				{
+					thirdPersonCamera.gameObject.SetActive(true);
+					adsVirtualCamera.gameObject.SetActive(false);
+				}
+				else
+				{
+					thirdPersonCamera.gameObject.SetActive(false);
+					adsVirtualCamera.gameObject.SetActive(true);
+				}
+			}
+			cc.isStrafing = myPlayer.GunStateMachine.CurrentState.IsAiming;
 			
 			MoveInput();
 			CameraInput();

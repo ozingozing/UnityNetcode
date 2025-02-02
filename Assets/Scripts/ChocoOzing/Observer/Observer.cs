@@ -32,7 +32,8 @@ public class Observer<T>
 
 	public void Invoke()
     {
-        Debug.Log($"Invoking {onValueChanged.GetPersistentEventCount()} listeners");
+        //I don't know whay value 0?
+        //Debug.Log($"Invoking {onValueChanged.GetPersistentEventCount()} listeners");
         onValueChanged.Invoke(value);   
     }
 

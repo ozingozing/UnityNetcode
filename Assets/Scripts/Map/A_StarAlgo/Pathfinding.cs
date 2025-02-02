@@ -24,6 +24,27 @@ public class Pathfinding : MonoBehaviour
 
 		Node startNode = gridGizmo.NodeFromWorldPoint(request.pathStart);
 		Node targetNode = gridGizmo.NodeFromWorldPoint(request.pathEnd);
+		//If targetNode and neighbourNodes are Unwalkable, target is changed one of neighbours;
+		if(!targetNode.walkable)
+		{
+			int min = int.MaxValue;
+			Node tempNode = targetNode;
+			foreach (Node item in gridGizmo.GetNeighbours2(targetNode, 3))
+			{
+				if (item.walkable)
+				{
+					int d = GetHexDistance(targetNode, item);
+					if (d < min)
+					{
+						min = d;
+						tempNode = item;
+						//Debug Check
+						//Instantiate(gridGizmo.Check, item.worldPosition, Quaternion.identity);
+					}
+				}
+			}
+			targetNode = tempNode;
+		}
 		/*if (startNode.walkable &&
 			targetNode.walkable)*/
 		{

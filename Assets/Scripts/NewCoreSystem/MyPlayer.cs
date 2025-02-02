@@ -19,7 +19,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	/// UNT0008 Null propagation on Unity objects
 	/// Don't use [?.]
 	/// </summary>
-	protected Movement Movement
+	public Movement Movement
 	{ get => movement = (movement != null) ? movement : Core.GetCoreComponent(ref movement); }
 	private Movement movement;
 
@@ -61,12 +61,13 @@ public class MyPlayer : MonoBehaviour, IEntity
 	#endregion
 
 	#region Values
-	//public Observer<bool> IsMoveLock;
+	
 	#endregion
 
 	private void OnEnable()
 	{
 		CamManager.Instance.MapViewCam.Priority = 0;
+		//GridGizmo.instance.T = gameObject;
 	}
 
 	private void Awake()
@@ -109,7 +110,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{
 		eventBinding = new EventBinding<PlayerAnimationEvent>(SkillAction);
 		EventBus<PlayerAnimationEvent>.Register(eventBinding);
-		//IsMoveLock = new Observer<bool>(false, Movement.StopMove);
+		
 	}
 
 	private void OnDestroy()
@@ -120,17 +121,16 @@ public class MyPlayer : MonoBehaviour, IEntity
 			EventBus<PlayerAnimationEvent>.Deregister(eventBinding);
 			eventBinding = null;
 		}
-		//IsMoveLock.Dispose();
 	}
 
 	float crossFadeValue = 0.1f;
 	public void SkillAction(PlayerAnimationEvent @event)
 	{
-		//IsMoveLock.Set(@event.abilityData.moveLock);
+		Movement.IsMoveLock.Set(@event.abilityData.moveLock);
 		Anim.CrossFade(@event.abilityData.animationHash, crossFadeValue);
 		StateMachine.ChangeState(PlayerAbilityState, @event);
 	}
-
+	public bool GetMoveValue() => Movement.IsMoveLock.Value;
 
 	IEnumerator UpdateCoroutine()
 	{

@@ -19,9 +19,12 @@ MonoBehaviour:
   moveLock: 1
   icon: {fileID: 21300122, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   Id: 22c65d2c-aca7-4013-a0e2-27f98612e08a
+  isHoldAction: 0
+  holdReleaseAnimationClip: {fileID: 0}
+  holdReleaseAnimationDuration: 0
+  holdReleaseAnimationHash: 0
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0
   effectPrefab: {fileID: 313859679423136830, guid: d8f56273d6233f74490cc8035a07b47d, type: 3}
-  particlePrefab: {fileID: 7289666424166965593, guid: 7a3967d6aacd24642bccf6b9cbc3479e, type: 3}
   startingPoint: {x: 0, y: 3, z: 0}

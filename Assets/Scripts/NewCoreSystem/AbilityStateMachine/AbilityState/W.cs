@@ -51,7 +51,7 @@ public class W : CoreComponent, ISkillAction
 
 	public void Action(PlayerAnimationEvent @evnet)
 	{
-		if(IsLocalPlayer)
+		if (IsLocalPlayer)
 		{
 			isHoldAction = abilityData.isHoldAction ? true : false;
 			playerInit.TurnOffCurrentWeaponServerRpc();
@@ -61,7 +61,10 @@ public class W : CoreComponent, ISkillAction
 
 	IEnumerator MyAction()
 	{
-		while(true)
+		Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+		RaycastHit hit;
+		player.GunStateMachine.CurrentState.IsAiming = true;
+		while (true)
 		{
 			if (coolTimer.IsRunning)
 				coolTimer.Pause();
@@ -69,16 +72,15 @@ public class W : CoreComponent, ISkillAction
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				isHoldAction = false;
+				player.GunStateMachine.CurrentState.IsAiming = false;
 				RequestSapwnServerRpc(currentPreview.transform.position);
 				player.Anim.CrossFade(abilityData.holdReleaseAnimationHash, 0.1f);
-				coolTimer.Reset(1f);
+				coolTimer.Reset(abilityData.holdReleaseAnimationDuration);
 				coolTimer.Start();
 				break;
 			}
 
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
+			Ray ray = Camera.main.ScreenPointToRay(screenCenter);
 			if (Physics.Raycast(ray, out hit, 100f, buildableLayer))
 			{
 				Vector3 buildPosition = hit.point;
@@ -163,11 +165,6 @@ public class W : CoreComponent, ISkillAction
 				oldestWall.Despawn();
 				throwObject.action -= FindDeleteBox;
 			}
-		}
-
-		foreach (var item in builtWalls)
-		{
-			item.GetComponent<ThrowObject>().ResetCheckerValue();
 		}
 	}
 

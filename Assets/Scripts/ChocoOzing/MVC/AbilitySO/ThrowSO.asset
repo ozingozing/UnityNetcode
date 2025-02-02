@@ -21,6 +21,7 @@ MonoBehaviour:
   Id: 2324d5c2-a833-46d3-bd66-d98f1bf003e7
   isHoldAction: 1
   holdReleaseAnimationClip: {fileID: 7400000, guid: e3ea8eeef052cb44380fca1e1611ea97, type: 2}
+  holdReleaseAnimationDuration: 1
   holdReleaseAnimationHash: 344656471
   projectilePrefab: {fileID: 386261879261293105, guid: e71ceb8d3bc292942ad699efe172046c, type: 3}
   projectileSpeed: 2

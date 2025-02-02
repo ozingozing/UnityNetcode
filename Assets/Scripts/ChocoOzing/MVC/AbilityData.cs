@@ -41,6 +41,7 @@ namespace Architecture.AbilitySystem.Model
 
 		public bool isHoldAction; // 새로운 필드 추가
 		public AnimationClip holdReleaseAnimationClip; // HoldRelease 애니메이션 클립
+		public float holdReleaseAnimationDuration;
 		public int holdReleaseAnimationHash;
 
 		// Projectile 전용 데이터
@@ -108,6 +109,7 @@ namespace Architecture.AbilitySystem.Model
 
 			// 공통 데이터
 			EditorGUILayout.LabelField("Common Data", EditorStyles.boldLabel);
+			abilityData.Id = EditorGUILayout.TextField("Obejct ID", abilityData.Id);
 			abilityData.animationClip = (AnimationClip)EditorGUILayout.ObjectField("Animation Clip", abilityData.animationClip, typeof(AnimationClip), false);
 			abilityData.animationHash = EditorGUILayout.IntField("AnimHash", abilityData.animationHash);
 			abilityData.duration = EditorGUILayout.FloatField("Duration", abilityData.duration);
@@ -122,6 +124,7 @@ namespace Architecture.AbilitySystem.Model
 				EditorGUILayout.LabelField("Hold Action Data", EditorStyles.boldLabel);
 				abilityData.holdReleaseAnimationClip = (AnimationClip)EditorGUILayout.ObjectField("Hold Release Animation Clip", abilityData.holdReleaseAnimationClip, typeof(AnimationClip), false);
 				abilityData.holdReleaseAnimationHash = EditorGUILayout.IntField("HoldReleaseAnimationHash", abilityData.holdReleaseAnimationHash);
+				abilityData.holdReleaseAnimationDuration = EditorGUILayout.FloatField("AnimDuration", abilityData.holdReleaseAnimationDuration); ;
 			}
 
 			// Ability Type에 따라 다른 필드 표시
@@ -142,7 +145,6 @@ namespace Architecture.AbilitySystem.Model
 					EditorGUILayout.HelpBox("Area of Effect data will go here.", MessageType.Info);
 					abilityData.effectPrefab = (GameObject)EditorGUILayout.ObjectField("Effect Prefab", abilityData.effectPrefab, typeof(GameObject), false);
 					abilityData.startingPoint = EditorGUILayout.Vector3Field("Effect Starting Point", abilityData.startingPoint);
-					abilityData.Id = EditorGUILayout.TextField("Obejct ID", abilityData.Id);
 					break;
 
 				case AbilityType.Buff:

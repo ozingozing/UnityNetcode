@@ -110,7 +110,7 @@ public class GridGizmo : MonoBehaviour
 	public Node CheckAgain(Vector3 pos)
 	{
 		Node centerNode = NodeFromWorldPoint(pos);
-		List<Node> nodes = GetNeighbours2(centerNode, 3);
+		List<Node> nodes = GetNeighbours2(centerNode, 2);
 		nodes.Add(centerNode);
 
 		foreach (Node item in nodes)
@@ -130,7 +130,7 @@ public class GridGizmo : MonoBehaviour
 			}
 
 			item.ReSetWalkable(walkable, false);
-			item.ReSetMovementPenalty(movementPenalty * 2, false);
+			item.ReSetMovementPenalty(movementPenalty * 10, false);
 		}
 
 		return ApplyAgainLocalBlur(centerNode, nodes);
@@ -275,12 +275,13 @@ public class GridGizmo : MonoBehaviour
 		//TotalSzie of Center (0, 0) == LeftButtom + HalfSize
 		float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
 		float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
-		percentX = Mathf.Clamp01(percentX);
-		percentY = Mathf.Clamp01(percentY);
+		/*percentX = Mathf.Clamp01(percentX);
+		percentY = Mathf.Clamp01(percentY);*/
 
 		int r = Mathf.Clamp(Mathf.RoundToInt((gridSizeY) * percentY), 0, gridSizeY - 1);
 		int q = Mathf.Clamp(Mathf.RoundToInt((gridSizeX) * percentX), 0, gridSizeX - 1);
-
+		if (r % 2 == 1)
+			q = Mathf.Clamp(q - 1, 0, gridSizeX - 1);
 		return grid[q, r];
 	}
 
@@ -353,6 +354,7 @@ public class GridGizmo : MonoBehaviour
 		});
 	}
 
+	public GameObject T;
 	private void OnDrawGizmos()
 	{
 		if(isGridReady)
@@ -370,6 +372,9 @@ public class GridGizmo : MonoBehaviour
 					DrawHexagon(n.worldPosition, hexRadius);
 				}
 			}
+			//Debug PlayerPos Check
+			/*if(T != null) 
+				DrawHexagon(GridGizmo.instance.NodeFromWorldPoint(T.transform.position).worldPosition + Vector3.up / 2, GridGizmo.instance.hexRadius);*/
 		}
 	}
 

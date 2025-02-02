@@ -73,18 +73,12 @@ public class ThrowObject : NetworkBehaviour
 
 		// 정확히 도착점에 정렬
 		transform.position = setEndPoint;
-		StartCoroutine(TTT());
-	}
-
-	public void ResetCheckerValue()
-	{
-		/*needCheck = true;
-		StartCoroutine(TTT());*/
+		StartCoroutine(StartGridCheck());
 	}
 
 	private float fixedUpdateCount = 0;
 	private const int CALL_INTERVAL = 1; // OneCall Per 60FPS  OneShot Per 1seconds
-	IEnumerator TTT()
+	IEnumerator StartGridCheck()
 	{
 		while (true)
 		{
@@ -100,7 +94,7 @@ public class ThrowObject : NetworkBehaviour
 
 	public override void OnNetworkDespawn()
 	{
-		StopCoroutine(TTT());
+		StopCoroutine(StartGridCheck());
 		if (node != null)
 		{
 			node.ReturnToOriginValue();

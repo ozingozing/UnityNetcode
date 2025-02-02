@@ -175,7 +175,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  target: {fileID: 7933212967319904012, guid: 7a3967d6aacd24642bccf6b9cbc3479e, type: 3}
+  target: {fileID: 0}
   speed: 5
   turnSpeed: 3
   stoppingDst: 1

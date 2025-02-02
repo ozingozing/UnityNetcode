@@ -26,13 +26,12 @@ public class PlayerAbilityState : PlayerState
 	public override void Exit()
 	{
 		base.Exit();
-		//player.IsMoveLock.Set(false);
+		player.Movement.IsMoveLock.Set(false);
 	}
 
 	public override void LogicUpdate()
 	{
-		base.LogicUpdate();
-		if(abilitySystem.controller.cooltimer.IsFinished && !abilitySystem.currentAction.isHoldAction)
+		if (abilitySystem.controller.cooltimer.IsFinished && !abilitySystem.currentAction.isHoldAction)
 		{
 			SetAllStateDefault();
 		}
