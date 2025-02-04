@@ -117,6 +117,8 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{
 		if (eventBinding != null)
 		{
+			StateMachine.ClearAll();
+			GunStateMachine.ClearAll();
 			eventBinding.Remove(SkillAction);
 			EventBus<PlayerAnimationEvent>.Deregister(eventBinding);
 			eventBinding = null;

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerStateMachine
 {
+	public List<PlayerState> StateMachines = new List<PlayerState>();
 	public PlayerState CurrentState { get; private set; }
 
 	public void Initialize(PlayerState startingState)
@@ -27,5 +28,14 @@ public class PlayerStateMachine
 		CurrentState.Exit();
 		CurrentState = newState;
 		CurrentState.Enter(@event);
+	}
+
+	public void ClearAll()
+	{
+		foreach (var item in StateMachines)
+		{
+			Debug.Log(item.GetType().Name + " Clear Call!!!");
+			item.Clear();
+		}
 	}
 }

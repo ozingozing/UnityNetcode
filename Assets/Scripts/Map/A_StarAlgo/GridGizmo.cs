@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class GridGizmo : MonoBehaviour
@@ -66,6 +67,7 @@ public class GridGizmo : MonoBehaviour
 		Debug.Log("Grid Generation Completed!");
 	}
 	
+	List<(Vector3, Vector3)> vector3s = new List<(Vector3, Vector3)>();
 	async Task<bool> CreateGrid(int blurSize)
 	{
 		grid = new Node[gridSizeX, gridSizeY];
@@ -85,7 +87,8 @@ public class GridGizmo : MonoBehaviour
 										 0,
 										 r * hexVerticalSpacing);
 
-				bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
+				vector3s.Add((worldPoint + Vector3.up * 50, Vector3.down));
+				/*bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
 
 				int movementPenalty = 0;
 				Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
@@ -99,10 +102,43 @@ public class GridGizmo : MonoBehaviour
 					movementPenalty += obstacleProximityPenalty;
 				}
 
-				grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);
+				grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);*/
 			}
 		}
-		
+
+		Vector3[] origins = vector3s.Select(v => v.Item1).ToArray();
+		Vector3[] directions = vector3s.Select(v => v.Item2).ToArray();
+		RaycastBatchProcessor.Instance.PerformRaycasts(
+				origins,
+				directions,
+				walkableMask,
+				false,
+				false,
+				false,
+				(RaycastHit[] results) =>
+				{
+					for(int i = 0; i < results.Length; i++)
+					{
+						Vector3 worldPoint = origins[i] - Vector3.up * 50;
+						bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
+
+						int movementPenalty = 0;
+						if (results[i].collider != null)
+						{
+							walkableRegionDictionary.TryGetValue(results[i].collider.gameObject.layer, out movementPenalty);
+						}
+
+						if (!walkable)
+							movementPenalty = obstacleProximityPenalty;
+
+						int q = i % gridSizeX;
+						int r = i / gridSizeX;
+
+						grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);
+					}
+				}
+			);
+
 		return await BlurPenaltyMap(blurSize);
 	}
 

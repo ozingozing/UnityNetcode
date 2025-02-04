@@ -10,7 +10,7 @@ public class HipFireState : PlayerGunActionState
 	{
 		base.Enter();
 
-		IsAiming = false;
+		isAiming.Set(false);
 	}
 
 	public override void Exit()

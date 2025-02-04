@@ -104,10 +104,17 @@ public abstract class GunBase : NetworkBehaviour
 		{
 			for (int i = 0; i < bulletPerShot; i++)
 			{
-				spreadDirections[i] = Quaternion.Euler(
+				float randomYaw = UnityEngine.Random.Range(-(spreadAngle + currentBloom), spreadAngle + currentBloom) * spreadReduceValue;
+				float randomPitch = UnityEngine.Random.Range(-(spreadAngle + currentBloom), spreadAngle + currentBloom) * spreadReduceValue;
+				float randomRoll = UnityEngine.Random.Range(-(spreadAngle + currentBloom), spreadAngle + currentBloom) * spreadReduceValue;
+
+				Quaternion spreadRotation = Quaternion.Euler(randomPitch, randomYaw, randomRoll);
+				spreadDirections[i] = spreadRotation * barrelPos.forward;
+				//Z -> X -> Y순서로 회전 함 그리고 각 축에 대한 회전 축과 결합 될 때 기대한 만큼 회전이 안 될 수도 있음
+				/*spreadDirections[i] = Quaternion.Euler(
 					UnityEngine.Random.Range(-spreadAngle, spreadAngle), // Pitch (상하)
 					UnityEngine.Random.Range(-spreadAngle, spreadAngle), // Yaw (좌우)
-					0) * barrelPos.forward;
+					0) * barrelPos.forward;*/
 			}
 		}
 		return spreadDirections;
@@ -122,22 +129,26 @@ public abstract class GunBase : NetworkBehaviour
 		}*/
 	}
 
+	float spreadReduceValue;
 	public virtual Vector3 BloomAngle(Transform barrelPos, MyPlayer currentState)
 	{
 		if (currentState.StateMachine.CurrentState == currentState.WalkState)
 		{
 			currentBloom = defaultBloomAngle * walkBloomMultiplier;
+			spreadReduceValue = .7f;
 		}
 		else if (currentState.StateMachine.CurrentState == currentState.RunState)
 		{
 			currentBloom = defaultBloomAngle * sprintBloomMultiplier;
+			spreadReduceValue = 1f;
 		}
 		else if (currentState.StateMachine.CurrentState == currentState.IdleState)
 		{
 			currentBloom = defaultBloomAngle * adsBloomMultiplier;
+			spreadReduceValue = .5f;
 		}
 
-		if (myPlayer.StateMachine.CurrentState == currentState.AimState)
+		if (myPlayer.GunStateMachine.CurrentState == currentState.AimState)
 		{
 			currentBloom *= adsBloomMultiplier;
 		}

@@ -9,13 +9,13 @@ public class AimState : PlayerGunActionState
 	public override void Enter()
 	{
 		base.Enter();
-		IsAiming = true;
+		isAiming.Set(true);
 	}
 
 	public override void Exit()
 	{
 		base.Exit();
-		IsAiming = false;
+		isAiming.Set(false);
 	}
 
 	public override void LogicUpdate()

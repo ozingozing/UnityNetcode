@@ -61,9 +61,7 @@ public class W : CoreComponent, ISkillAction
 
 	IEnumerator MyAction()
 	{
-		Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-		RaycastHit hit;
-		player.GunStateMachine.CurrentState.IsAiming = true;
+		player.GunStateMachine.CurrentState.isAiming.Set(true);
 		while (true)
 		{
 			if (coolTimer.IsRunning)
@@ -72,7 +70,7 @@ public class W : CoreComponent, ISkillAction
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				isHoldAction = false;
-				player.GunStateMachine.CurrentState.IsAiming = false;
+				player.GunStateMachine.CurrentState.isAiming.Set(false);
 				RequestSapwnServerRpc(currentPreview.transform.position);
 				player.Anim.CrossFade(abilityData.holdReleaseAnimationHash, 0.1f);
 				coolTimer.Reset(abilityData.holdReleaseAnimationDuration);
@@ -80,7 +78,9 @@ public class W : CoreComponent, ISkillAction
 				break;
 			}
 
+			Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
 			Ray ray = Camera.main.ScreenPointToRay(screenCenter);
+			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, 100f, buildableLayer))
 			{
 				Vector3 buildPosition = hit.point;
@@ -178,7 +178,7 @@ public class W : CoreComponent, ISkillAction
 	bool IsOverlapping(Vector3 position)
 	{
 		Collider[] wallColliders = Physics.OverlapBox(position,
-			wallPrefab.GetComponent<Renderer>().bounds.extents, Quaternion.identity, disbuildableLayer);
+			wallPrefab.GetComponent<Renderer>().bounds.extents * .95f, Quaternion.identity, disbuildableLayer);
 		return wallColliders.Length > 0;
 	}
 }

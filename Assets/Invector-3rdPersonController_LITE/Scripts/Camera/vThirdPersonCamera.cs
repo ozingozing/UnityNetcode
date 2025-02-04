@@ -58,7 +58,6 @@ public class vThirdPersonCamera : NetworkBehaviour
     private float cullingHeight = 0.2f;
     private float cullingMinDist = 0.1f;
 
-    //CUSTOM
 	#endregion
 
 
@@ -76,11 +75,12 @@ public class vThirdPersonCamera : NetworkBehaviour
             return;
 
 		_camera = GetComponent<Camera>();
-		//currentTarget = checkLocalComponent.transform;
+
 		currentTarget = target;
         currentTargetPos = new Vector3(currentTarget.position.x, currentTarget.position.y + offSetPlayerPivot, currentTarget.position.z);
 
-		targetLookAt = new GameObject("targetLookAt").transform;
+        if(targetLookAt == null)
+			targetLookAt = new GameObject("targetLookAt").transform;
 		targetLookAt.position = currentTarget.position;
 		targetLookAt.hideFlags = HideFlags.HideInHierarchy;
 		targetLookAt.rotation = currentTarget.rotation;
@@ -91,15 +91,6 @@ public class vThirdPersonCamera : NetworkBehaviour
 		distance = defaultDistance;
 		currentHeight = height;
 	}
-
-    IEnumerator FixedUpdateCoroutine()
-    {
-        yield return new WaitForFixedUpdate();
-        while (true)
-        {
-			CameraMovement();
-		}
-    }
 
     void FixedUpdate()
     {
@@ -120,9 +111,6 @@ public class vThirdPersonCamera : NetworkBehaviour
     public void SetMainTarget(Transform newTarget)
     {
         target = newTarget;
-        currentTarget = newTarget;
-        mouseY = currentTarget.rotation.eulerAngles.x;
-        mouseX = currentTarget.rotation.eulerAngles.y;
         Init();
     }
 

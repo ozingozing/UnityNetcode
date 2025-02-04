@@ -18,6 +18,27 @@ public class PlayerGunActionState : PlayerState
 
 	public PlayerGunActionState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
 	{
+		if (isAiming == null)
+			isAiming = new Observer<bool>(false, SetAxis);
+	}
+
+	public override void Clear()
+	{
+		base.Clear();
+		if(isAiming != null)
+		{
+			isAiming.Dispose();
+			isAiming = null;
+		}
+	}
+
+	public void SetAxis(bool value)
+	{
+		if(value)
+		{
+			xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
+			yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
+		}
 	}
 
 	public override void DoChecks()
@@ -28,9 +49,6 @@ public class PlayerGunActionState : PlayerState
 	public override void Enter()
 	{
 		base.Enter();
-
-		xAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.y;
-		yAxis = CamManager.Instance.ThirdPersonCam.transform.localEulerAngles.x;
 	}
 
 	public override void Exit()
@@ -53,7 +71,7 @@ public class PlayerGunActionState : PlayerState
 			player.aimPos.position = Vector3.Lerp(player.aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
 		}
 
-		if (IsAiming)
+		if (isAiming.Value)
 		{
 			player.camFollowPos.localEulerAngles = new Vector3(yAxis, player.camFollowPos.localEulerAngles.y, player.camFollowPos.localEulerAngles.z);
 			player.transform.eulerAngles = new Vector3(player.transform.eulerAngles.x, xAxis, player.transform.eulerAngles.z);

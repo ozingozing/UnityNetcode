@@ -514,32 +514,25 @@ namespace Invector.vCharacterController
 				if (tpCamera && IsLocalPlayer)
 				{
 					tpCamera.SetMainTarget(transform);
-					tpCamera.Init();
 				}
 			}
 		}
 
 		protected virtual void InputHandle()
 		{
-			if (myPlayer.GunStateMachine.CurrentState.IsAiming)
+			if (!myPlayer.GunStateMachine.CurrentState.isAiming.Value)
 			{
-				thirdPersonCamera.gameObject.SetActive(false);
-				adsVirtualCamera.gameObject.SetActive(true);
+				CamManager.Instance.ThirdPersonCam.gameObject.GetComponent<vThirdPersonCamera>().lockCamera = false;
+				CamManager.Instance.ThirdPersonCam.gameObject.SetActive(true);
+				CamManager.Instance.AdsCam.gameObject.SetActive(false);
 			}
 			else
 			{
-				if (!Input.GetKey(KeyCode.Mouse1))
-				{
-					thirdPersonCamera.gameObject.SetActive(true);
-					adsVirtualCamera.gameObject.SetActive(false);
-				}
-				else
-				{
-					thirdPersonCamera.gameObject.SetActive(false);
-					adsVirtualCamera.gameObject.SetActive(true);
-				}
+				CamManager.Instance.AdsCam.gameObject.SetActive(true);
+				CamManager.Instance.ThirdPersonCam.gameObject.GetComponent<vThirdPersonCamera>().lockCamera = true;
+				CamManager.Instance.ThirdPersonCam.gameObject.SetActive(false);
 			}
-			cc.isStrafing = myPlayer.GunStateMachine.CurrentState.IsAiming;
+			cc.isStrafing = myPlayer.GunStateMachine.CurrentState.isAiming.Value;
 			
 			MoveInput();
 			CameraInput();

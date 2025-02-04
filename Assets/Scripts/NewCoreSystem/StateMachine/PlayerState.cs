@@ -15,7 +15,8 @@ public class PlayerState
 
     protected bool isAnimationFinished;
     protected bool isExitingState;
-	public bool IsAiming;
+	//public bool IsAiming;
+    public Observer<bool> isAiming;
 
 	public AbilityData abilityData;
 	protected float startTime;
@@ -32,7 +33,8 @@ public class PlayerState
         this.playerStateMachine = _playerStateMachine;
         this.animBoolName = _animBoolName;
         core = _player.Core;
-    }
+		playerStateMachine.StateMachines.Add(this);
+	}
 
 	public virtual void Enter(PlayerAnimationEvent @event)
 	{
@@ -67,6 +69,8 @@ public class PlayerState
 		isExitingState = true;
         isAnimationFinished = true;
 	}
+
+    public virtual void Clear() { }
 
     public virtual void LogicUpdate() { }
 
