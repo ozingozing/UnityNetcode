@@ -34,6 +34,7 @@ namespace Architecture.AbilitySystem.Model
 		public AnimationClip animationClip;
 		public int animationHash;
 		public float duration;
+		public float exitDuration;
 		public bool moveLock;
 		public Sprite icon;
 
@@ -42,6 +43,7 @@ namespace Architecture.AbilitySystem.Model
 		public bool isHoldAction; // 새로운 필드 추가
 		public AnimationClip holdReleaseAnimationClip; // HoldRelease 애니메이션 클립
 		public float holdReleaseAnimationDuration;
+		public float holdReleaseAnimationExitDuration;
 		public int holdReleaseAnimationHash;
 
 		// Projectile 전용 데이터
@@ -113,6 +115,7 @@ namespace Architecture.AbilitySystem.Model
 			abilityData.animationClip = (AnimationClip)EditorGUILayout.ObjectField("Animation Clip", abilityData.animationClip, typeof(AnimationClip), false);
 			abilityData.animationHash = EditorGUILayout.IntField("AnimHash", abilityData.animationHash);
 			abilityData.duration = EditorGUILayout.FloatField("Duration", abilityData.duration);
+			abilityData.exitDuration = EditorGUILayout.FloatField("ExitDuration", abilityData.exitDuration);
 			abilityData.moveLock = EditorGUILayout.Toggle("Move Lock", abilityData.moveLock);
 			abilityData.icon = (Sprite)EditorGUILayout.ObjectField("Icon", abilityData.icon, typeof(Sprite), false);
 
@@ -122,9 +125,10 @@ namespace Architecture.AbilitySystem.Model
 			if (abilityData.isHoldAction)
 			{
 				EditorGUILayout.LabelField("Hold Action Data", EditorStyles.boldLabel);
-				abilityData.holdReleaseAnimationClip = (AnimationClip)EditorGUILayout.ObjectField("Hold Release Animation Clip", abilityData.holdReleaseAnimationClip, typeof(AnimationClip), false);
-				abilityData.holdReleaseAnimationHash = EditorGUILayout.IntField("HoldReleaseAnimationHash", abilityData.holdReleaseAnimationHash);
-				abilityData.holdReleaseAnimationDuration = EditorGUILayout.FloatField("AnimDuration", abilityData.holdReleaseAnimationDuration); ;
+				abilityData.holdReleaseAnimationClip = (AnimationClip)EditorGUILayout.ObjectField("HoldRelease AnimationClip", abilityData.holdReleaseAnimationClip, typeof(AnimationClip), false);
+				abilityData.holdReleaseAnimationHash = EditorGUILayout.IntField("HoldRelease AnimationHash", abilityData.holdReleaseAnimationHash);
+				abilityData.holdReleaseAnimationDuration = EditorGUILayout.FloatField("HoldRelease AnimationDuration", abilityData.holdReleaseAnimationDuration);
+				abilityData.holdReleaseAnimationExitDuration = EditorGUILayout.FloatField("HoldRelease AnimationExitDuration", abilityData.holdReleaseAnimationExitDuration);
 			}
 
 			// Ability Type에 따라 다른 필드 표시

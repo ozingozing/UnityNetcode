@@ -125,11 +125,10 @@ public class MyPlayer : MonoBehaviour, IEntity
 		}
 	}
 
-	float crossFadeValue = 0.1f;
 	public void SkillAction(PlayerAnimationEvent @event)
 	{
 		Movement.IsMoveLock.Set(@event.abilityData.moveLock);
-		Anim.CrossFade(@event.abilityData.animationHash, crossFadeValue);
+		animationManager.AnimEnterDurationPlay(@event.abilityData.animationHash);
 		StateMachine.ChangeState(PlayerAbilityState, @event);
 	}
 	public bool GetMoveValue() => Movement.IsMoveLock.Value;

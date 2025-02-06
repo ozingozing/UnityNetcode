@@ -50,7 +50,7 @@ namespace Architecture.AbilitySystem.Controller
 
 		void OnAbilityButtonPressed(int index)
 		{
-			if(cooltimer.Progress < 0.25f || !cooltimer.IsRunning)
+			if(cooltimer.IsFinished)
 			{
 				if (model.abilities[index] != null)
 				{

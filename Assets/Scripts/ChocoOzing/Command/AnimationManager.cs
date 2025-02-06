@@ -28,7 +28,7 @@ public class AnimationManager
 		{ IdleHash, 0.1f },
 		{ HipFireHash, 0.1f },
         { ReloadHash, 2.9f },
-		{ ManyReloadHash, 0.2f },
+		{ ManyReloadHash, 0.4f },
 		{ ShotgunReloadActionHash, 0.5f },
 		{ ShotgunSetPosHash, 0.3f },
 		{ ShotgunPumpActionHash, 0.4f },
@@ -57,9 +57,19 @@ public class AnimationManager
 	public float ShotgunSetPos() => PlayAnimation(ShotgunSetPosHash, 0.25f, 2);
 	public float ShotgunPumpAction() => PlayAnimation(ShotgunPumpActionHash, corossFadeDuration, 2);
 
-	public void PlayAnimCrossFade(int animationHash, float duration, int layer)
+	public void AnimPlay(int animationHash)
 	{
-		animator.CrossFade(animationHash, duration, layer);
+		animator.Play(animationHash);
+	}
+
+	public void AnimEnterDurationPlay(int animationHash, float crossDuration = .1f)
+	{
+		animator.CrossFade(animationHash, crossDuration);
+	}
+
+	public void PlayAnimCrossFade(int animationHash, int layer, float crossDurationTime = .25f)
+	{
+		animator.CrossFade(animationHash, crossDurationTime, layer);
 	}
 
 	float PlayAnimation(int animationHash, float duration, int layer)

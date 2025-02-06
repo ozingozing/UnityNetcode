@@ -15,7 +15,7 @@ namespace ChocoOzing.CoreSystem
 	{
 		public bool isHoldAction { get; set; }
 		public AbilityData abilityData { get; set; }
-		public void SetAbilityData(AbilityData abilityData);
+		public void SetAbilityData(AbilityData abilityData, AbilityButton myButton);
 		public void Action(PlayerAnimationEvent @evnet);
 	}
 
@@ -36,7 +36,7 @@ namespace ChocoOzing.CoreSystem
 			int idx = 0;
 			foreach (var item in transform.GetComponentsInChildren<ISkillAction>())
 			{
-				item.SetAbilityData(SO_StartingAbilities[idx]);
+				item.SetAbilityData(SO_StartingAbilities[idx], view.buttons[idx]);
 				skills.Add(item);
 				idx++;
 			}

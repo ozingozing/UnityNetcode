@@ -1,18 +1,16 @@
 using Architecture.AbilitySystem.Model;
+using Architecture.AbilitySystem.View;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
-using ChocoOzing.Network;
 using ChocoOzing.Utilities;
-using Mono.CSharp;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class W : CoreComponent, ISkillAction
 {
+	public AbilityButton myButton;
 	public AbilityData abilityData
 	{
 		get => AbilityData;
@@ -41,11 +39,11 @@ public class W : CoreComponent, ISkillAction
 	private Vector3 lastValidPosition;
 	private Queue<NetworkObject> builtWalls = new Queue<NetworkObject>();
 
-	public void SetAbilityData(AbilityData abilityData)
+	public void SetAbilityData(AbilityData abilityData, AbilityButton myButton)
 	{
+		this.myButton = myButton;
 		this.abilityData = abilityData;
 		player = Core.Root.GetComponent<MyPlayer>();
-		playerInit = Core.Root.GetComponent<PlayerInit>();
 		coolTimer = Core.GetCoreComponent<AbilitySystem>().controller.cooltimer;
 	}
 
@@ -54,7 +52,6 @@ public class W : CoreComponent, ISkillAction
 		if (IsLocalPlayer)
 		{
 			isHoldAction = abilityData.isHoldAction ? true : false;
-			playerInit.TurnOffCurrentWeaponServerRpc();
 			StartCoroutine(MyAction());
 		}
 	}
@@ -66,15 +63,25 @@ public class W : CoreComponent, ISkillAction
 		{
 			if (coolTimer.IsRunning)
 				coolTimer.Pause();
+
 			yield return null;
+			
+			//Action Next
 			if(Input.GetKeyDown(KeyCode.Mouse0))
 			{
 				isHoldAction = false;
+				if(currentPreview != null)
+					RequestSapwnServerRpc(currentPreview.transform.position);
+				player.AnimationManager.AnimPlay(abilityData.holdReleaseAnimationHash);
+				player.PlayerAbilityState.setDefualtDuration = abilityData.holdReleaseAnimationExitDuration;
 				player.GunStateMachine.CurrentState.isAiming.Set(false);
-				RequestSapwnServerRpc(currentPreview.transform.position);
-				player.Anim.CrossFade(abilityData.holdReleaseAnimationHash, 0.1f);
-				coolTimer.Reset(abilityData.holdReleaseAnimationDuration);
-				coolTimer.Start();
+				break;
+			}
+			//Cancle Action
+			else if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(myButton.key))
+			{
+				isHoldAction = false;
+				player.GunStateMachine.CurrentState.isAiming.Set(false);
 				break;
 			}
 
@@ -122,9 +129,8 @@ public class W : CoreComponent, ISkillAction
 			currentPreview = null;
 		}
 
-		yield return new WaitForSeconds(1.15f);
-
-		playerInit.TurnOnCurrentWeaponServerRpc();
+		coolTimer.Reset(player.PlayerAbilityState.setDefualtDuration);
+		coolTimer.Start();
 	}
 
 	[ServerRpc]

@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem.Model;
+using Architecture.AbilitySystem.View;
 using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using ChocoOzing.Network;
@@ -10,6 +11,7 @@ using UnityEngine;
 
 public class Q : CoreComponent, ISkillAction
 {
+	public AbilityButton myButton;
 	public AbilityData abilityData {
 		get => AbilityData;
 		set => AbilityData = value;
@@ -26,7 +28,11 @@ public class Q : CoreComponent, ISkillAction
 
 	private ChocoOzing.Network.Vector3Compressor vectorCompressor = new Vector3Compressor(1000f, -1000f);
 
-	public void SetAbilityData(AbilityData abilityData) => this.abilityData = abilityData;
+	public void SetAbilityData(AbilityData abilityData, AbilityButton myButton)
+	{
+		this.myButton = myButton;
+		this.abilityData = abilityData;
+	}
 
 	public void Action(PlayerAnimationEvent @evnet)
 	{
