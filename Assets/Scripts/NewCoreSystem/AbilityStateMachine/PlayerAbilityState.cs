@@ -47,7 +47,6 @@ public class PlayerAbilityState : PlayerState
 	void SetAllStateDefault(float duration = 0.25f)
 	{
 		player.StateMachine.ChangeState(player.IdleState);
-		player.GunStateMachine.ChangeState(player.HipFireState);
 		player.AnimationManager.HipFire(duration);
 	}
 }

@@ -9,7 +9,6 @@ public class HipFireState : PlayerGunActionState
 	public override void Enter()
 	{
 		base.Enter();
-
 		isAiming.Set(false);
 	}
 

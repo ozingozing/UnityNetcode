@@ -74,14 +74,13 @@ public class W : CoreComponent, ISkillAction
 					RequestSapwnServerRpc(currentPreview.transform.position);
 				player.AnimationManager.AnimPlay(abilityData.holdReleaseAnimationHash);
 				player.PlayerAbilityState.setDefualtDuration = abilityData.holdReleaseAnimationExitDuration;
-				player.GunStateMachine.CurrentState.isAiming.Set(false);
 				break;
 			}
 			//Cancle Action
 			else if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(myButton.key))
 			{
 				isHoldAction = false;
-				player.GunStateMachine.CurrentState.isAiming.Set(false);
+				player.Movement.IsMoveLock.Set(true);
 				break;
 			}
 
@@ -131,6 +130,8 @@ public class W : CoreComponent, ISkillAction
 
 		coolTimer.Reset(player.PlayerAbilityState.setDefualtDuration);
 		coolTimer.Start();
+		CamManager.Instance.CamChange(1, player.PlayerAbilityState.setDefualtDuration);
+		player.GunStateMachine.CurrentState.isAiming.Set(false);
 	}
 
 	[ServerRpc]

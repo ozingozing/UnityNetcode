@@ -37,7 +37,7 @@ public class PlayerInit : NetworkBehaviour
 			CamManager.Instance.AdsCam.Follow = GetComponent<MyPlayer>().camFollowPos;
 			CamManager.Instance.AdsCam.LookAt = GetComponent<MyPlayer>().aimPos;
 			CamManager.Instance.ThirdPersonCam.Follow = GetComponent<MyPlayer>().camFollowPos;
-			CamManager.Instance.ThirdPersonCam.LookAt = GetComponent<MyPlayer>().aimPos;
+			//CamManager.Instance.ThirdPersonCam.LookAt = GetComponent<MyPlayer>().aimPos;
 			GetComponent<MyPlayer>().PlayerActionStart();
 		}
 		SetWeaponActive(currentWeaponIndex);

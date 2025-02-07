@@ -13,6 +13,9 @@ namespace Invector.vCharacterController
 
         #endregion  
 
+        //MyCustom
+        public void SetStopMove(bool valiable) => stopMove = valiable;
+        //MyCustom
         public virtual void UpdateAnimator()
         {
             if (animator == null || !animator.enabled) return;

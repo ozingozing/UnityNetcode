@@ -31,8 +31,6 @@ namespace Invector.vCharacterController
 
 		//추가
 		MyPlayer myPlayer;
-		private GameObject thirdPersonCamera;
-		private GameObject adsVirtualCamera;
 		ClientNetworkTransform clientNetworkTransform;
 
 		//Netcode general
@@ -99,8 +97,6 @@ namespace Invector.vCharacterController
 
 		private void Awake()
 		{
-			thirdPersonCamera = CamManager.Instance.ThirdPersonCam.gameObject;
-			adsVirtualCamera = CamManager.Instance.AdsCam.gameObject;
 			clientNetworkTransform = GetComponent<ClientNetworkTransform>();
 			myPlayer = GetComponent<MyPlayer>();
 
@@ -132,7 +128,13 @@ namespace Invector.vCharacterController
 
 		protected virtual void Start()
 		{
-			InitializeTpCamera();
+			if(IsLocalPlayer && IsOwner)
+			{
+				InitializeTpCamera();
+				myPlayer.Movement.IsMoveLock.AddListener((value) => {
+					cc.SetStopMove(value);
+				});
+			}
 		}
 
 		protected virtual void OnEnable()
@@ -506,16 +508,13 @@ namespace Invector.vCharacterController
 
 		protected virtual void InitializeTpCamera()
 		{
+			tpCamera = FindObjectOfType<vThirdPersonCamera>();
 			if (tpCamera == null)
 			{
-				tpCamera = FindObjectOfType<vThirdPersonCamera>();
-				if (tpCamera == null)
-					return;
-				if (tpCamera && IsLocalPlayer)
-				{
-					tpCamera.SetMainTarget(transform);
-				}
+				Debug.LogError("3rdPersonCam Missing!!!!");
+				return;
 			}
+			tpCamera.SetMainTarget(transform);
 		}
 
 		protected virtual void InputHandle()

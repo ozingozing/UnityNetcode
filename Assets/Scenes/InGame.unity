@@ -5195,7 +5195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6961,6 +6961,8 @@ MonoBehaviour:
   AdsCam: {fileID: 8557706733818067112}
   ThirdPersonCam: {fileID: 3851937974469683183}
   MapViewCam: {fileID: 1259175705}
+  customBlends: []
+  defaultChangingValues: []
 --- !u!1 &967276528
 GameObject:
   m_ObjectHideFlags: 0

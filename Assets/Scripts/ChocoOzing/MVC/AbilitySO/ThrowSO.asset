@@ -16,7 +16,7 @@ MonoBehaviour:
   animationClip: {fileID: 7400000, guid: 00f16072879bc364090e311817abbfe0, type: 2}
   animationHash: 1847568449
   duration: 1
-  exitDuration: 0.5
+  exitDuration: 0.4
   moveLock: 0
   icon: {fileID: 21300128, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   Id: 2324d5c2-a833-46d3-bd66-d98f1bf003e7
