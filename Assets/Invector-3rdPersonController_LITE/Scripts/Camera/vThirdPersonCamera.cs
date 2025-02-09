@@ -41,7 +41,7 @@ public class vThirdPersonCamera : NetworkBehaviour
 
     private Transform targetLookAt;
     private Vector3 currentTargetPos;
-    private Vector3 lookPoint;
+    //private Vector3 lookPoint;
     private Vector3 current_cPos;
     private Vector3 desired_cPos;
     private Camera _camera;
@@ -149,6 +149,7 @@ public class vThirdPersonCamera : NetworkBehaviour
         }
     }
 
+    public GameObject targetLookAtGO;
     /// <summary>
     /// Camera behaviour
     /// </summary>    
@@ -157,7 +158,8 @@ public class vThirdPersonCamera : NetworkBehaviour
         if (currentTarget == null)
             return;
 
-        distance = Mathf.Lerp(distance, defaultDistance, smoothFollow * Time.deltaTime);
+        targetLookAtGO = targetLookAt.gameObject;
+		distance = Mathf.Lerp(distance, defaultDistance, smoothFollow * Time.deltaTime);
         cullingDistance = Mathf.Lerp(cullingDistance, distance, Time.deltaTime);
         var camDir = (forward * targetLookAt.forward) + (rightOffset * targetLookAt.right);
 
@@ -200,9 +202,9 @@ public class vThirdPersonCamera : NetworkBehaviour
         }
         //Check if target position with culling height applied is not blocked
         if (CullingRayCast(current_cPos, planePoints, out hitInfo, distance, cullingLayer, Color.cyan)) distance = Mathf.Clamp(cullingDistance, 0.0f, defaultDistance);
-        var lookPoint = current_cPos + targetLookAt.forward * 2f;
+        lookPoint = current_cPos + targetLookAt.forward * 2f;
         lookPoint += (targetLookAt.right * Vector3.Dot(camDir * (distance), targetLookAt.right));
-        targetLookAt.position = current_cPos;
+		targetLookAt.position = current_cPos;
 
         Quaternion newRot = Quaternion.Euler(mouseY, mouseX, 0);
         targetLookAt.rotation = Quaternion.Slerp(targetLookAt.rotation, newRot, smoothCameraRotation * Time.deltaTime);
@@ -213,16 +215,34 @@ public class vThirdPersonCamera : NetworkBehaviour
         movementSpeed = Vector2.zero;
     }
 
-    /// <summary>
-    /// Custom Raycast using NearClipPlanesPoints
-    /// </summary>
-    /// <param name="_to"></param>
-    /// <param name="from"></param>
-    /// <param name="hitInfo"></param>
-    /// <param name="distance"></param>
-    /// <param name="cullingLayer"></param>
-    /// <returns></returns>
-    bool CullingRayCast(Vector3 from, ClipPlanePoints _to, out RaycastHit hitInfo, float distance, LayerMask cullingLayer, Color color)
+    Vector3 lookPoint;
+	void OnDrawGizmos()
+	{
+		if (currentTarget == null) return;
+
+		// lookPoint (카메라가 바라보는 위치) - 초록색 Sphere
+		Gizmos.color = Color.green;
+		Gizmos.DrawSphere(lookPoint, 0.2f);
+
+		// 카메라 위치에서 lookPoint까지 선 그리기
+		Gizmos.color = Color.blue;
+		Gizmos.DrawLine(transform.position, lookPoint);
+
+		// 카메라 위치에서 targetLookAt까지 선 그리기
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawLine(transform.position, targetLookAt.position);
+	}
+
+	/// <summary>
+	/// Custom Raycast using NearClipPlanesPoints
+	/// </summary>
+	/// <param name="_to"></param>
+	/// <param name="from"></param>
+	/// <param name="hitInfo"></param>
+	/// <param name="distance"></param>
+	/// <param name="cullingLayer"></param>
+	/// <returns></returns>
+	bool CullingRayCast(Vector3 from, ClipPlanePoints _to, out RaycastHit hitInfo, float distance, LayerMask cullingLayer, Color color)
     {
         bool value = false;
 

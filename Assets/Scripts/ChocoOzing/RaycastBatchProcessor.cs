@@ -99,10 +99,11 @@ public class RaycastBatchProcessor
 
 		using (hitResults = new NativeArray<RaycastHit>(totalHitsNeeded, Allocator.TempJob))
 		{
-			foreach (RaycastCommand t in raycastCommands)
+			//Debug
+			/*foreach (RaycastCommand t in raycastCommands)
 			{
 				Debug.DrawLine(t.from, t.from + t.direction * 1f, Color.red, 0.5f);
-			}
+			}*/
 
 			JobHandle raycastJobHandle = RaycastCommand.ScheduleBatch(raycastCommands, hitResults, maxHitsPerRaycast);
 			raycastJobHandle.Complete();

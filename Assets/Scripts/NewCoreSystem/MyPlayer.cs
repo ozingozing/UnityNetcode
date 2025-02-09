@@ -67,7 +67,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	private void OnEnable()
 	{
 		CamManager.Instance.MapViewCam.Priority = 0;
-		//GridGizmo.instance.T = gameObject;
+		GridGizmo.instance.T = gameObject;
 	}
 
 	private void Awake()

@@ -4,6 +4,7 @@ using ChocoOzing.CoreSystem;
 using ChocoOzing.EventBusSystem;
 using ChocoOzing.Network;
 using ChocoOzing.Utilities;
+using QFSW.QC;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -43,6 +44,25 @@ public class Q : CoreComponent, ISkillAction
 		}
 	}
 
+	[Command]
+	public void SpawnTest()
+	{
+		NetworkObject projectile =
+					NetworkObjectPool.Singleton.GetNetworkObject(
+						abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
+						NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint(),
+						Quaternion.identity
+					);
+		Unit unit = projectile.GetComponent<Unit>();
+		unit.FinishAction += ReturnObject;
+
+		//Pathfinding Start
+		unit.StartActionTest(gameObject);
+
+		if (!projectile.IsSpawned)
+			projectile.Spawn();
+	}
+
 	[ServerRpc]
 	public void AreaOfEffectActionServerRpc(ulong id)
 	{
@@ -52,6 +72,13 @@ public class Q : CoreComponent, ISkillAction
 			Vector3 PlayerPos = OwnerPlayer.transform.position;
 			Vector3 PlayerForward = OwnerPlayer.transform.forward;
 			Vector3 StartingPoint = PlayerPos + PlayerForward * 1.5f + abilityData.GetAreaOfEffectData(abilityData.abilityType).start;
+
+			float checkDistance = 2;
+			if (Physics.Raycast(PlayerPos, PlayerForward, out RaycastHit hit, checkDistance, LayerMask.GetMask("Wall")))
+			{
+				StartingPoint = PlayerPos - PlayerForward * 2 + abilityData.GetAreaOfEffectData(abilityData.abilityType).start;
+			}
+
 			NetworkObject projectile =
 					NetworkObjectPool.Singleton.GetNetworkObject(
 						abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,

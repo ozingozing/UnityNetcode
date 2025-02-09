@@ -28,7 +28,7 @@ public class Unit : NetworkBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-		turnDst = (GridGizmo.instance.hexRadius);
+		//turnDst = (GridGizmo.instance.hexRadius);
 	}
 
 	private void FixedUpdate()
@@ -47,6 +47,12 @@ public class Unit : NetworkBehaviour
 	{
 		minDistance = float.MaxValue;
 		StartCoroutine(FindTarget(ownerPlayer));
+		StartCoroutine(UpdatePath());
+	}
+
+	public void StartActionTest(GameObject go)
+	{
+		target = go.transform;
 		StartCoroutine(UpdatePath());
 	}
 
@@ -140,9 +146,8 @@ public class Unit : NetworkBehaviour
 			Vector2 pos2D = new Vector2(transform.position.x, transform.position.z);
 			while (path.turnBoundaries[pathIndex].HasCrossedLine(pos2D))
 			{
-				if(
-					target != null &&
-					pathIndex == path.finishLineIndex)
+				if(target != null &&
+				pathIndex == path.finishLineIndex)
 				{
 					LookAtTarget(target.position);
 					followingPath = false;

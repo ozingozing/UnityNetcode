@@ -67,9 +67,9 @@ public class GridGizmo : MonoBehaviour
 		Debug.Log("Grid Generation Completed!");
 	}
 	
-	List<(Vector3, Vector3)> vector3s = new List<(Vector3, Vector3)>();
 	async Task<bool> CreateGrid(int blurSize)
 	{
+		//List<(Vector3, Vector3)> vector3s = new List<(Vector3, Vector3)>();
 		grid = new Node[gridSizeX, gridSizeY];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
 
@@ -87,8 +87,8 @@ public class GridGizmo : MonoBehaviour
 										 0,
 										 r * hexVerticalSpacing);
 
-				vector3s.Add((worldPoint + Vector3.up * 50, Vector3.down));
-				/*bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
+				//vector3s.Add((worldPoint + Vector3.up * 50, Vector3.down));
+				bool walkable = !Physics.CheckSphere(worldPoint, hexRadius, unwalkableMask);
 
 				int movementPenalty = 0;
 				Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
@@ -102,11 +102,11 @@ public class GridGizmo : MonoBehaviour
 					movementPenalty += obstacleProximityPenalty;
 				}
 
-				grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);*/
+				grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);
 			}
 		}
 
-		Vector3[] origins = vector3s.Select(v => v.Item1).ToArray();
+		/*Vector3[] origins = vector3s.Select(v => v.Item1).ToArray();
 		Vector3[] directions = vector3s.Select(v => v.Item2).ToArray();
 		RaycastBatchProcessor.Instance.PerformRaycasts(
 				origins,
@@ -132,12 +132,12 @@ public class GridGizmo : MonoBehaviour
 							movementPenalty = obstacleProximityPenalty;
 
 						int q = i % gridSizeX;
-						int r = i / gridSizeX;
+						int r = i / gridSizeY;
 
 						grid[q, r] = new Node(walkable, worldPoint, q, r, movementPenalty);
 					}
 				}
-			);
+			);*/
 
 		return await BlurPenaltyMap(blurSize);
 	}
@@ -212,7 +212,7 @@ public class GridGizmo : MonoBehaviour
 				{ 1, 0 }, {-1, 0 },
 				{ 1, 1 }, { 1,-1 },
 				{ 0,-1 }, { 0, 1 }
-			};
+		};
 
 		// 홀수 줄 기준 (y가 홀수일 때 방향 수정)
 		int[,] oddDirections =
@@ -220,7 +220,7 @@ public class GridGizmo : MonoBehaviour
 				{ 1, 0 },{-1, 0 },
 				{ 0, 1 },{ 0,-1 },
 				{-1,-1 },{-1, 1 }
-			};
+		};
 
 		// 시작 위치 큐에 추가
 		queue.Enqueue((node.gridX, node.gridY, 0));
@@ -316,8 +316,7 @@ public class GridGizmo : MonoBehaviour
 
 		int r = Mathf.Clamp(Mathf.RoundToInt((gridSizeY) * percentY), 0, gridSizeY - 1);
 		int q = Mathf.Clamp(Mathf.RoundToInt((gridSizeX) * percentX), 0, gridSizeX - 1);
-		if (r % 2 == 1)
-			q = Mathf.Clamp(q - 1, 0, gridSizeX - 1);
+		
 		return grid[q, r];
 	}
 
@@ -409,8 +408,8 @@ public class GridGizmo : MonoBehaviour
 				}
 			}
 			//Debug PlayerPos Check
-			/*if(T != null) 
-				DrawHexagon(GridGizmo.instance.NodeFromWorldPoint(T.transform.position).worldPosition + Vector3.up / 2, GridGizmo.instance.hexRadius);*/
+			if (T != null)
+				DrawHexagon(GridGizmo.instance.NodeFromWorldPoint(T.transform.position).worldPosition + Vector3.up / 2, GridGizmo.instance.hexRadius);
 		}
 	}
 
