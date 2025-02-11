@@ -12,25 +12,22 @@ public class Unit : NetworkBehaviour
 {
 	const float pathUpdateMoveThreshold = .5f;
 	const float minPathUpdateTime = .5f;
-	
+
 	public GameObject Effect;
 	public LayerMask layerMask;
-    public Transform target;
+	public Transform target;
 	public float speed = 20;
 	public float turnSpeed = 3;
 	public float stoppingDst = 10;
 	public float turnDst = 0;
 
 	public Path path;
-	private Rigidbody rb;
 	private bool followingPath = false;
 
 	ObjectPool ParticlePool;
 
 	private void Awake()
 	{
-		rb = GetComponent<Rigidbody>();
-		rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		turnDst = (GridGizmo.instance.hexRadius);
 	}
 
@@ -45,8 +42,6 @@ public class Unit : NetworkBehaviour
 		if(gameObject.activeSelf)
 		{
 			followingPath = false;
-			rb.velocity = Vector3.zero;
-			rb.angularVelocity = Vector3.zero;
 		}
 	}
 
@@ -153,6 +148,7 @@ public class Unit : NetworkBehaviour
 	public void ActionCall(Action<ulong> deleteRequestCallback, ulong objId)
 	{
 		ParticlePool.GetObject(transform.position, Quaternion.identity);
+		target = null;
 		FinishAction = null;
 		transform.GetComponent<GetExploded>().Explode(deleteRequestCallback, objId);
 	}

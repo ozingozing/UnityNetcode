@@ -21,7 +21,6 @@ public class PlayerInit : NetworkBehaviour
     public NetworkVariable<int> deaths = new NetworkVariable<int>();
     public NetworkVariable<FixedString128Bytes> Name = new NetworkVariable<FixedString128Bytes>();
 
-	public GameObject Seeker;
 	public bool IsDead;
     public TextMeshProUGUI kda;
     public LobbyManager.PlayerCharacter PlayerCharactar;

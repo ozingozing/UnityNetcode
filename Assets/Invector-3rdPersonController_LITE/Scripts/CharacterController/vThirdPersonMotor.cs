@@ -154,17 +154,18 @@ namespace Invector.vCharacterController
             AirControl();
 
 			//MyCustom
-            if(!lastIsGrounded && isGrounded)
+            /*if(!lastIsGrounded && isGrounded)
 			    SyncRigidBody();
-            lastIsGrounded = isGrounded;
+            lastIsGrounded = isGrounded;*/
 			//MyCustom
 		}
 		//MyCustom
 		private bool lastIsGrounded = false;
         private void SyncRigidBody()
         {
-			Physics.SyncTransforms();
 			_rigidbody.velocity = Vector3.zero;
+			_rigidbody.angularVelocity = Vector3.zero;
+			Physics.SyncTransforms();
 		}
 		//MyCustom
 
@@ -319,6 +320,7 @@ namespace Invector.vCharacterController
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
 
                 heightReached = transform.position.y;
+				SyncRigidBody();
 			}
             else
             {

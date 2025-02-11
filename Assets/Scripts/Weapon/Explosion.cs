@@ -31,10 +31,11 @@ public class Explosion : MonoBehaviour
 				rb.AddForce(explosionDirection * explosionForce, ForceMode.Impulse);
 			}
 		}
-		/*if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
 			if (other.TryGetComponent(out Rigidbody rb))
 			{
+				
 				// 폭발 지점에서 플레이어 방향 벡터 구하기
 				Vector3 explosionDirection = (other.transform.position - transform.position).normalized;
 
@@ -44,6 +45,6 @@ public class Explosion : MonoBehaviour
 				// 힘 적용
 				rb.AddForce(forceDirection * 30, ForceMode.Impulse);
 			}
-		}*/
+		}
 	}
 }

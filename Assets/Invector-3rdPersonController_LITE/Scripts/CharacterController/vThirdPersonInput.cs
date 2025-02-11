@@ -545,13 +545,13 @@ namespace Invector.vCharacterController
 			cc.input.x = Input.GetAxis(horizontalInput);
 			cc.input.z = Input.GetAxis(verticallInput);
 
-			if (cc.isGrounded &&
+			/*if (cc.isGrounded &&
 				(cc.input.x >= -.03f && cc.input.x <= .03f &&
 				cc.input.z >= -.03f && cc.input.z <= .03f))
 			{
 				cc._rigidbody.velocity = Vector3.zero;
 				cc._rigidbody.angularVelocity = Vector3.zero;
-			}
+			}*/
 		}
 
 		protected virtual void CameraInput()

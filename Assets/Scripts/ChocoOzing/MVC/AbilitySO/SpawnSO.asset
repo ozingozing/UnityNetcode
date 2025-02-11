@@ -23,9 +23,10 @@ MonoBehaviour:
   isHoldAction: 0
   holdReleaseAnimationClip: {fileID: 0}
   holdReleaseAnimationDuration: 0
+  holdReleaseAnimationExitDuration: 0
   holdReleaseAnimationHash: 0
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0
-  effectPrefab: {fileID: 313859679423136830, guid: d8f56273d6233f74490cc8035a07b47d, type: 3}
+  effectPrefab: {fileID: 6061139909503440564, guid: 62be6875ef3106143bc012555b36e755, type: 3}
   startingPoint: {x: 0, y: 3, z: 0}
