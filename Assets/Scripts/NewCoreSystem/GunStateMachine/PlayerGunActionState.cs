@@ -11,9 +11,6 @@ public class PlayerGunActionState : PlayerState
 
 	[HideInInspector] public Vector3 actualAimPos;
 	[SerializeField] public float aimSmoothSpeed = 20;
-	[SerializeField] public LayerMask aimMask = LayerMask.GetMask("Ground") | LayerMask.GetMask("Default");
-
-
 	public Transform lastAimPos;
 
 	public PlayerGunActionState(MyPlayer _player, PlayerStateMachine _playerStateMachine, string _animBoolName) : base(_player, _playerStateMachine, _animBoolName)
@@ -66,7 +63,7 @@ public class PlayerGunActionState : PlayerState
 		yAxis -= Input.GetAxisRaw("Mouse Y") * mouseSense;
 		//yAxis = Mathf.Clamp(yAxis, -80, 80);
 
-		if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, aimMask))
+		if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, player.aimMask))
 		{
 			player.aimPos.position = Vector3.Lerp(player.aimPos.position, hit.point, aimSmoothSpeed * Time.deltaTime);
 		}

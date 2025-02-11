@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem.Model;
+using ChocoOzing.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,11 +25,29 @@ public class Unit : NetworkBehaviour
 	private Rigidbody rb;
 	private bool followingPath = false;
 
-	private void Start()
+	ObjectPool ParticlePool;
+
+	private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-		//turnDst = (GridGizmo.instance.hexRadius);
+		turnDst = (GridGizmo.instance.hexRadius);
+	}
+
+	private void Start()
+	{
+		if (ParticlePool == null)
+			ParticlePool = ObjectPool.CreateInstance(Effect.GetComponent<PoolableObject>(), 4);
+	}
+
+	private void OnEnable()
+	{
+		if(gameObject.activeSelf)
+		{
+			followingPath = false;
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+		}
 	}
 
 	private void FixedUpdate()
@@ -122,24 +141,32 @@ public class Unit : NetworkBehaviour
 		}
 	}
 
-	ObjectPool ParticlePool;
 	public void OnDisable()
 	{
-		if(ParticlePool == null)
+		/*if (ParticlePool == null)
 			ParticlePool = ObjectPool.CreateInstance(Effect.GetComponent<PoolableObject>(), 4);
 		ParticlePool.GetObject(transform.position, Quaternion.identity);
 		FinishAction = null;
+		transform.GetChild(0).GetComponent<GetExploded>().Explode();*/
 	}
 
-	public Action<NetworkObject, Transform> FinishAction;
+	public void ActionCall(Action<ulong> deleteRequestCallback, ulong objId)
+	{
+		ParticlePool.GetObject(transform.position, Quaternion.identity);
+		FinishAction = null;
+		transform.GetComponent<GetExploded>().Explode(deleteRequestCallback, objId);
+	}
+
+	public Action<ulong> FinishAction;
 	IEnumerator FollowPath()
 	{
 		if(!gameObject.activeSelf) yield break;
+		
 		followingPath = true;
 		int pathIndex = 0;
-		transform.LookAt(path.lookPoints[0]);
-
 		float speedPercent = 1;
+
+		transform.LookAt(path.lookPoints[0]);
 
 		while (followingPath)
 		{
@@ -162,6 +189,7 @@ public class Unit : NetworkBehaviour
 				if(pathIndex >= path.slowDownIndex && stoppingDst > 0)
 				{
 					//speedPercent = Mathf.Clamp01(path.turnBoundaries[path.finishLineIndex].DistanceFromPoint(pos2D) / stoppingDst);
+					//Don't use speedPercent
 					speedPercent = 1;
 					if (speedPercent < 0.01f)
 					{
@@ -169,18 +197,19 @@ public class Unit : NetworkBehaviour
 					}
 				}
 
+				LookAtTarget(path.lookPoints[pathIndex]);
+
 				// 전진 이동 계산
 				Vector3 forwardMovement = transform.forward * speed * speedPercent * Time.deltaTime;
-				
+
 				// `transform.position`으로 이동
 				transform.position += forwardMovement;
-
-				LookAtTarget(path.lookPoints[pathIndex]);
 			}
 			yield return null;
 		}
 
-		FinishAction.Invoke(GetComponent<NetworkObject>(), transform);
+		if(FinishAction !=	null)
+			FinishAction.Invoke(GetComponent<NetworkObject>().NetworkObjectId);
 	}
 
 	void LookAtTarget(Vector3 targetPos)
@@ -203,8 +232,6 @@ public class Unit : NetworkBehaviour
 
 		// 오브젝트 회전 설정
 		transform.rotation = newRotation;
-
-		rb.angularVelocity = Vector3.zero;
 	}
 
 	public void OnDrawGizmos()

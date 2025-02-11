@@ -61,7 +61,7 @@ public class MyPlayer : MonoBehaviour, IEntity
 	#endregion
 
 	#region Values
-	
+	public LayerMask aimMask;
 	#endregion
 
 	private void OnEnable()

@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42e87e0b3e86314da00a6fd627d845a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myButton: {fileID: 0}
   AbilityData: {fileID: 0}
   IsHoldAction: 0
   wallPrefab: {fileID: 386261879261293105, guid: e71ceb8d3bc292942ad699efe172046c, type: 3}
@@ -1737,6 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac93f2ad34c4dd94482fc2d73fcb0f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myButton: {fileID: 0}
   AbilityData: {fileID: 0}
   IsHoldAction: 0
 --- !u!1 &3229844541699846469
@@ -5007,7 +5009,7 @@ GameObject:
   - component: {fileID: 7575242765587476310}
   m_Layer: 3
   m_Name: VBOT2.0_MyCustom3
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5299,7 +5301,7 @@ MonoBehaviour:
   limitFallVelocity: -15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1601
+    m_Bits: 1537
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
@@ -5397,6 +5399,9 @@ MonoBehaviour:
   GunType: 0
   aimPos: {fileID: 4172401546582696947}
   camFollowPos: {fileID: 7969364526416371720}
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &7575242765587476310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5869,7 +5874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1862690070231287600, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2089956038417073302, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: defaultBloomAngle
@@ -5905,7 +5910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7136091046414503313, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7136091046414503313, guid: 0ec45a66b1356814daeb41df3d27a711, type: 3}
       propertyPath: m_IsActive
@@ -6144,7 +6149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3120583887678870316, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_Name
@@ -6152,7 +6157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4716373905849923474, guid: 60946ec9a02e02f438b301f7b8b5325a, type: 3}
       propertyPath: m_IsActive

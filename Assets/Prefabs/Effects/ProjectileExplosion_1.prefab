@@ -19156,12 +19156,11 @@ GameObject:
   - component: {fileID: 7933212967319904012}
   - component: {fileID: 6446920000647083850}
   - component: {fileID: 2362217504423154598}
-  - component: {fileID: 7656940462086744897}
   - component: {fileID: 8692646540500947870}
   - component: {fileID: 940111298182238386}
   - component: {fileID: 5562590302033729412}
   - component: {fileID: 3859280996872748720}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: ProjectileExplosion_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23868,33 +23867,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7656940462086744897
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7289666424166965593}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!199 &8692646540500947870
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -24156,6 +24128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3cdb260f5b26348b0713b18554a226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionForce: 10
+  explosionRadius: 5
 --- !u!1 &8601691101310707731
 GameObject:
   m_ObjectHideFlags: 0

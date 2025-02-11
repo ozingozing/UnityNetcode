@@ -44,23 +44,28 @@ public class Q : CoreComponent, ISkillAction
 		}
 	}
 
+	NetworkObject debugObj;
 	[Command]
-	public void SpawnTest()
+	public void DebugSpawn()
 	{
-		NetworkObject projectile =
-					NetworkObjectPool.Singleton.GetNetworkObject(
+		debugObj = NetworkObjectPool.Singleton.GetNetworkObject(
 						abilityData.GetAreaOfEffectData(abilityData.abilityType).prefab,
 						NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint(),
-						Quaternion.identity
-					);
-		Unit unit = projectile.GetComponent<Unit>();
-		unit.FinishAction += ReturnObject;
+						Quaternion.identity);
+		Unit unit = debugObj.GetComponent<Unit>();
+		unit.FinishAction += CallClientRpc;
 
 		//Pathfinding Start
 		unit.StartActionTest(gameObject);
 
-		if (!projectile.IsSpawned)
-			projectile.Spawn();
+		if (!debugObj.IsSpawned)
+			debugObj.Spawn();
+	}
+	[Command]
+	public void DebugDelete()
+	{
+		if(debugObj.IsSpawned)
+			debugObj.Despawn();
 	}
 
 	[ServerRpc]
@@ -87,7 +92,7 @@ public class Q : CoreComponent, ISkillAction
 					);
 
 			Unit unit = projectile.GetComponent<Unit>();
-			unit.FinishAction += ReturnObject;
+			unit.FinishAction += CallClientRpc;
 
 			//Pathfinding Start
 			unit.StartAction(OwnerPlayer);
@@ -107,19 +112,20 @@ public class Q : CoreComponent, ISkillAction
 	{
 		if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
 		{
-			obj.gameObject.SetActive(false);
+			//obj.gameObject.SetActive(false);
+			obj.GetComponent<Unit>().ActionCall(DeleteRequestServerRpc, id);
 		}
-		if (!IsServer)
-			CallServerRpc(id);
+		/*if (!IsServer)
+			CallServerRpc(id);*/
 	}
 
 	[ServerRpc(RequireOwnership = false)]
-	public void CallServerRpc(ulong id)
+	public void DeleteRequestServerRpc(ulong id)
 	{
 		if(NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
 		{
 			if(obj.IsSpawned)
 				obj.Despawn();
 		}
-	}
+	}	
 }
