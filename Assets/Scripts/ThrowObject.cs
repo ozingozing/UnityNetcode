@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ThrowObject : NetworkBehaviour, IDeleteNetworkObjId
+public class ThrowObject : NetworkBehaviour
 {
     public Vector3 setStartPoint;
     public Vector3 setEndPoint;
@@ -14,15 +14,15 @@ public class ThrowObject : NetworkBehaviour, IDeleteNetworkObjId
     public float gravity = -9.8f;
     public Vector3 velocity;
 
-	public Action<NetworkObject> finishAction;
+	public Action<NetworkObjectReference> finishAction;
 
-	public void ActionCall()
+	/*public void ActionCall()
 	{
 		GetComponent<GetExploded>().Explode(DeleteRequestServerRpc, NetworkObjectId);
 	}
 
 	[ClientRpc]
-	public void DeleteRequestClientRpc(ulong id)
+	public void DoFinishingWorkClientRpc(ulong id)
 	{
 		if(!IsServer)
 			DeleteRequestServerRpc(id);
@@ -43,7 +43,7 @@ public class ThrowObject : NetworkBehaviour, IDeleteNetworkObjId
 				}
 			}
 		}
-	}
+	}*/
 
 	public async void TrowInit(Transform start, Vector3 end)
 	{

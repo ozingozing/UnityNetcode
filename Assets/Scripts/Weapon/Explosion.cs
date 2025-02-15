@@ -14,12 +14,11 @@ public class Explosion : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+		if (NetworkManager.Singleton.IsServer &&
+			other.gameObject.layer == LayerMask.NameToLayer("Wall") &&
+			other.TryGetComponenInParent(out ThrowObject item))
 		{
-			if (other.TryGetComponenInParent(out ThrowObject item))
-			{
-				item.ActionCall();
-			}
+			item.finishAction.Invoke(item.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Extra"))
 		{

@@ -27,7 +27,7 @@ public class Unit : NetworkBehaviour
 
 	private void Awake()
 	{
-		turnDst = (GridGizmo.instance.hexRadius) * .9f;
+		turnDst = (GridGizmo.instance.hexRadius);
 	}
 
 	private void Start()
@@ -44,11 +44,11 @@ public class Unit : NetworkBehaviour
 		}
 	}
 
-	private void FixedUpdate()
+	/*private void FixedUpdate()
 	{
 		if(!followingPath && target)
 			LookAtTarget(target.position);
-	}
+	}*/
 
 	float minDistance = float.MaxValue;
 	/// <summary>
@@ -74,7 +74,7 @@ public class Unit : NetworkBehaviour
 		while (true)
 		{
 			yield return new WaitForFixedUpdate();
-			Collider[] hitColliders = Physics.OverlapSphere(transform.position, 100f, layerMask);
+			Collider[] hitColliders = Physics.OverlapSphere(transform.position, 500f, layerMask);
 			if (hitColliders.Length > 0)
 			{
 				foreach (Collider hitCollider in hitColliders)
@@ -169,7 +169,7 @@ public class Unit : NetworkBehaviour
 		int pathIndex = 0;
 		float speedPercent = 1;
 
-		transform.LookAt(path.lookPoints[0]);
+		LookAtTarget(path.lookPoints[0]);
 
 		while (followingPath)
 		{

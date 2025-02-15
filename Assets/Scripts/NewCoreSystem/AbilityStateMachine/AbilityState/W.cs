@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class W : CoreComponent, ISkillAction
+public class W : CoreComponent, ISkillAction, IDeleteNetworkObj
 {
 	public AbilityButton myButton;
 	public AbilityData abilityData
@@ -143,7 +143,7 @@ public class W : CoreComponent, ISkillAction
 				Core.Root.transform.position.With(y: 5),
 				Quaternion.identity);
 		newWall.gameObject.layer = LayerMask.NameToLayer("Wall");
-		newWall.GetComponent<ThrowObject>().finishAction += FindDeleteBox;
+		newWall.GetComponent<ThrowObject>().finishAction += DoFinishingWorkClientRpc;
 		if(!newWall.IsSpawned)
 			newWall.Spawn();
 
@@ -170,7 +170,7 @@ public class W : CoreComponent, ISkillAction
 			if (oldestWall.IsSpawned)
 			{
 				oldestWall.Despawn();
-				throwObject.finishAction -= FindDeleteBox;
+				throwObject.finishAction -= DoFinishingWorkClientRpc;
 			}
 		}
 
@@ -188,5 +188,31 @@ public class W : CoreComponent, ISkillAction
 		Collider[] wallColliders = Physics.OverlapBox(position,
 			wallPrefab.GetComponent<Renderer>().bounds.extents * .95f, Quaternion.identity, disbuildableLayer);
 		return wallColliders.Length > 0;
+	}
+
+	[ClientRpc]
+	public void DoFinishingWorkClientRpc(NetworkObjectReference networkObject)
+	{
+		if (networkObject.TryGet(out NetworkObject foundObject))
+		{
+			foundObject.GetComponent<GetExploded>().Explode(DeleteRequestServerRpc, foundObject.NetworkObjectId);
+		}
+	}
+
+	int cntFinishAction = 0;
+	[ServerRpc(RequireOwnership = false)]
+	public void DeleteRequestServerRpc(ulong id)
+	{
+		if (++cntFinishAction == NetworkManager.ConnectedClientsList.Count - 1)
+		{
+			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+			{
+				if (obj.IsSpawned)
+				{
+					FindDeleteBox(obj);
+					cntFinishAction = 0;
+				}
+			}
+		}
 	}
 }

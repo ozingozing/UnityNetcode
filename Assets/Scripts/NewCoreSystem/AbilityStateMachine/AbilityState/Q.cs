@@ -54,7 +54,7 @@ public class Q : CoreComponent, ISkillAction, IDeleteNetworkObj
 						NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint(),
 						Quaternion.identity);
 		Unit unit = debugObj.GetComponent<Unit>();
-		unit.pathFindingFinishAction += DeleteRequestClientRpc;
+		unit.pathFindingFinishAction += DoFinishingWorkClientRpc;
 
 		//Pathfinding Start
 		unit.StartActionTest(gameObject);
@@ -93,7 +93,7 @@ public class Q : CoreComponent, ISkillAction, IDeleteNetworkObj
 					);
 
 			Unit unit = projectile.GetComponent<Unit>();
-			unit.pathFindingFinishAction += DeleteRequestClientRpc;
+			unit.pathFindingFinishAction += DoFinishingWorkClientRpc;
 
 			//Pathfinding Start
 			unit.StartAction(OwnerPlayer);
@@ -104,7 +104,7 @@ public class Q : CoreComponent, ISkillAction, IDeleteNetworkObj
 	}
 
 	[ClientRpc]
-	public void DeleteRequestClientRpc(NetworkObjectReference networkObject)
+	public void DoFinishingWorkClientRpc(NetworkObjectReference networkObject)
 	{
 		if (networkObject.TryGet(out NetworkObject foundObject))
 		{

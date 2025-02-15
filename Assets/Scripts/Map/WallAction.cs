@@ -36,7 +36,8 @@ public class WallAction : NetworkBehaviour
 			Vector3 acceleration = (springForce + dampingForce) / mass;
 
 			scaleVelocity += acceleration * Time.deltaTime;
-			transform.localScale += scaleVelocity * Time.deltaTime;
+			if(transform.localScale.magnitude > (scaleVelocity * Time.deltaTime).magnitude)
+				transform.localScale += scaleVelocity * Time.deltaTime;
 
 			if(displacement.magnitude > stopThreshold && scaleVelocity.magnitude < stopThreshold)
 			{
