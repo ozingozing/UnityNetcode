@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using ChocoOzing.Utilities;
 
 public class Explosion : MonoBehaviour
 {
+	//Noted: All NetworkRootObjects without player must include the collider in childOb but rb is fine
 	public float explosionForce = 10;  // Æø¹ß·Â
 	public float explosionRadius = 5;   // Æø¹ß ¹Ý°æ
+	public LayerMask layerMask;
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 		{
-			if(other.TryGetComponent(out ThrowObject item))
-				item.RequestDelete();
+			if (other.TryGetComponenInParent(out ThrowObject item))
+			{
+				item.ActionCall();
+			}
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Extra"))
 		{

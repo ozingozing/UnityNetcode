@@ -24158,6 +24158,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionForce: 10
   explosionRadius: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 392
 --- !u!1 &8601691101310707731
 GameObject:
   m_ObjectHideFlags: 0

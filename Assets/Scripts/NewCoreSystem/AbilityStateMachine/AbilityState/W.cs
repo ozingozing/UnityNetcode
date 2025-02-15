@@ -143,7 +143,7 @@ public class W : CoreComponent, ISkillAction
 				Core.Root.transform.position.With(y: 5),
 				Quaternion.identity);
 		newWall.gameObject.layer = LayerMask.NameToLayer("Wall");
-		newWall.GetComponent<ThrowObject>().action += FindDeleteBox;
+		newWall.GetComponent<ThrowObject>().finishAction += FindDeleteBox;
 		if(!newWall.IsSpawned)
 			newWall.Spawn();
 
@@ -166,13 +166,14 @@ public class W : CoreComponent, ISkillAction
 				builtWalls.Enqueue(oldestWall);
 				continue;
 			}
-
+			
 			if (oldestWall.IsSpawned)
 			{
 				oldestWall.Despawn();
-				throwObject.action -= FindDeleteBox;
+				throwObject.finishAction -= FindDeleteBox;
 			}
 		}
+
 	}
 
 	public void OverflowDeleteBox()

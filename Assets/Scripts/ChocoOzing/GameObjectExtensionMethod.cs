@@ -16,6 +16,17 @@ namespace ChocoOzing.Utilities
 		{
 			return TryGetComponentInChildren(comp.gameObject, out component);
 		}
+
+		public static bool TryGetComponenInParent<T>(this GameObject gameObject, out T component)
+		{
+			component = gameObject.GetComponentInParent<T>();
+			return component != null;
+		}
+
+		public static bool TryGetComponenInParent<T>(this Component comp, out T component)
+		{
+			return TryGetComponenInParent(comp.gameObject, out component);
+		}
 	}
 
 	public static class Vector3Extensions

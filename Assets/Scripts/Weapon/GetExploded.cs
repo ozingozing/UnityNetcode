@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
+using static DG.Tweening.DOTweenAnimation;
 
 public class GetExploded : NetworkBehaviour
 {
@@ -10,9 +13,9 @@ public class GetExploded : NetworkBehaviour
 	public float explosionRadius = 5f;   // 폭발 반경
 	public float disableDelay = 5f;      // 조각이 날아간 후 비활성화 시간
 
-	Rigidbody rb;
+	MeshRenderer mesh; //RootModle과 ChildModel로 나눠져 있을 시 부착
 
-	public GameObject ModelRoot;
+	GameObject ModelRoot;
 	public GameObject prefab;
 	public Rigidbody[] childPieces;     // 자식 오브젝트 목록 저장
 	private Vector3[] initialPositions;  // 초기 위치 저장
@@ -22,7 +25,8 @@ public class GetExploded : NetworkBehaviour
 	private void Awake()
 	{
 		ModelRoot = Instantiate(prefab, transform.position, Quaternion.identity, transform);
-		rb = GetComponent<Rigidbody>();
+		if (ModelRoot.TryGetComponent(out MeshRenderer mesh))
+			this.mesh = mesh;
 
 		// 초기 상태 저장 (한 번만 실행)
 		int childCount = ModelRoot.transform.childCount;
@@ -35,24 +39,28 @@ public class GetExploded : NetworkBehaviour
 			childPieces[i] = ModelRoot.transform.GetChild(i).GetComponent<Rigidbody>();
 			initialPositions[i] = childPieces[i].gameObject.transform.localPosition;  // 초기 위치 저장
 			initialRotations[i] = childPieces[i].gameObject.transform.localRotation;  // 초기 회전값 저장
+			if (mesh != null)
+				childPieces[i].gameObject.SetActive(false);
 		}
 	}
 
 	private void OnEnable()
 	{
-		rb.isKinematic = false;
 		ModelRoot.gameObject.SetActive(true);
 	}
 
-	public void Explode(Action<ulong> deleteRequestCallback, ulong objId)
+	#region Call NetcodeObject
+	public async void Explode(Action<NetworkObject> deleteRequestCallback, NetworkObject networkObject)
 	{
 		Vector3 explosionPosition = transform.position;
 
 		foreach (Rigidbody child in childPieces)
 		{
+			if (mesh != null)
+				child.gameObject.SetActive(true);
 			// 폭발력 적용
 			child.isKinematic = false;
-			
+
 			// 랜덤 회전력 추가 (토크 적용)
 			Vector3 randomTorque = new Vector3(
 				UnityEngine.Random.Range(-1f, 1f),
@@ -65,15 +73,67 @@ public class GetExploded : NetworkBehaviour
 			// 부모에서 분리
 			child.gameObject.transform.SetParent(null);
 		}
-		// 일정 시간 뒤 복구 코루틴 실행
-		StartCoroutine(ResetAfterDelay(deleteRequestCallback, objId));
+		ModelRoot.gameObject.SetActive(false);
+
+		double targetTime = NetworkManager.Singleton.ServerTime.Time + disableDelay;
+
+		while (NetworkManager.Singleton.ServerTime.Time < targetTime)
+		{
+			await Task.Yield();
+		}
+
+		if (!IsServer)
+			deleteRequestCallback.Invoke(networkObject);
+	}
+	#endregion
+
+	#region Call NetcodeObjectId
+	public async void Explode(Action<ulong> deleteRequestCallback, ulong objId)
+	{
+		Vector3 explosionPosition = transform.position;
+
+		foreach (Rigidbody child in childPieces)
+		{
+			if (mesh != null)
+				child.gameObject.SetActive(true);
+			// 폭발력 적용
+			child.isKinematic = false;
+
+			// 랜덤 회전력 추가 (토크 적용)
+			Vector3 randomTorque = new Vector3(
+				UnityEngine.Random.Range(-1f, 1f),
+				UnityEngine.Random.Range(-1f, 1f),
+				UnityEngine.Random.Range(-1f, 1f)
+			) * explosionForce;  // 폭발력 크기에 비례하여 설정
+			child.AddTorque(randomTorque, ForceMode.Impulse);
+			Vector3 explosionDirection = ((child.position - explosionPosition) + (Vector3.up * .25f)).normalized;
+			child.AddForce(explosionDirection * explosionForce, ForceMode.Impulse);
+			// 부모에서 분리
+			child.gameObject.transform.SetParent(null);
+		}
+		ModelRoot.gameObject.SetActive(false);
+
+		double targetTime = NetworkManager.Singleton.ServerTime.Time + disableDelay;
+
+		while (NetworkManager.Singleton.ServerTime.Time < targetTime)
+		{
+			await Task.Yield();
+		}
+
+		if(!IsServer)
+			deleteRequestCallback.Invoke(objId);
+	}
+	#endregion
+
+	public override void OnNetworkDespawn()
+	{
+		if (ModelRoot.transform.childCount == 0)
+			ResetAgain();
+		base.OnNetworkDespawn();
 	}
 
-	private IEnumerator ResetAfterDelay(Action<ulong> deleteRequestCallback, ulong objId)
+	public void ResetAgain()
 	{
-		rb.isKinematic = true;
-		yield return new WaitForSeconds(disableDelay);
-
 		// 조각들을 원래 위치로 되돌리기
 		for (int i = 0; i < childPieces.Length; i++)
 		{
@@ -88,12 +148,12 @@ public class GetExploded : NetworkBehaviour
 
 				// 위치와 회전 복구
 				child.gameObject.transform.SetParent(ModelRoot.transform);  // 다시 부모에 부착
+				if (mesh != null)
+					child.gameObject.SetActive(false);
 			}
 		}
 
-		ModelRoot.gameObject.SetActive(false);
-		
-		for(int i = 0; i< childPieces.Length; i++)
+		for (int i = 0; i < childPieces.Length; i++)
 		{
 			Transform child = childPieces[i].gameObject.transform;
 			child.localPosition = initialPositions[i];
@@ -101,9 +161,5 @@ public class GetExploded : NetworkBehaviour
 		}
 		ModelRoot.transform.localPosition = Vector3.zero;
 		ModelRoot.transform.localRotation = Quaternion.identity;
-
-		// 전체 오브젝트 비활성화 (오브젝트 풀로 반환)
-		if (!IsServer)
-			deleteRequestCallback.Invoke(objId);
 	}
 }

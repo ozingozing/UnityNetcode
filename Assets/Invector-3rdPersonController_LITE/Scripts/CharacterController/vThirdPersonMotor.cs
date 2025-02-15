@@ -160,7 +160,7 @@ namespace Invector.vCharacterController
 			//MyCustom
 		}
 		//MyCustom
-		private bool lastIsGrounded = false;
+		//private bool lastIsGrounded = false;
         private void SyncRigidBody()
         {
 			_rigidbody.velocity = Vector3.zero;

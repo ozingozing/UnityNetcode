@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Q : CoreComponent, ISkillAction
+public class Q : CoreComponent, ISkillAction, IDeleteNetworkObj
 {
 	public AbilityButton myButton;
-	public AbilityData abilityData {
+	public AbilityData abilityData
+	{
 		get => AbilityData;
 		set => AbilityData = value;
 	}
@@ -53,7 +54,7 @@ public class Q : CoreComponent, ISkillAction
 						NetworkManager.gameObject.GetComponent<SpawnPoint>().GetRandomSpawnPoint(),
 						Quaternion.identity);
 		Unit unit = debugObj.GetComponent<Unit>();
-		unit.FinishAction += CallClientRpc;
+		unit.pathFindingFinishAction += DeleteRequestClientRpc;
 
 		//Pathfinding Start
 		unit.StartActionTest(gameObject);
@@ -64,7 +65,7 @@ public class Q : CoreComponent, ISkillAction
 	[Command]
 	public void DebugDelete()
 	{
-		if(debugObj.IsSpawned)
+		if (debugObj.IsSpawned)
 			debugObj.Despawn();
 	}
 
@@ -92,7 +93,7 @@ public class Q : CoreComponent, ISkillAction
 					);
 
 			Unit unit = projectile.GetComponent<Unit>();
-			unit.FinishAction += CallClientRpc;
+			unit.pathFindingFinishAction += DeleteRequestClientRpc;
 
 			//Pathfinding Start
 			unit.StartAction(OwnerPlayer);
@@ -102,30 +103,29 @@ public class Q : CoreComponent, ISkillAction
 		}
 	}
 
-	public void ReturnObject(NetworkObject networkObjectId, Transform pos)
-	{
-		CallClientRpc(networkObjectId.NetworkObjectId);
-	}
-
 	[ClientRpc]
-	public void CallClientRpc(ulong id)
+	public void DeleteRequestClientRpc(NetworkObjectReference networkObject)
 	{
-		if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+		if (networkObject.TryGet(out NetworkObject foundObject))
 		{
-			//obj.gameObject.SetActive(false);
-			obj.GetComponent<Unit>().ActionCall(DeleteRequestServerRpc, id);
+			foundObject.GetComponent<Unit>().ActionCall(DeleteRequestServerRpc, foundObject.NetworkObjectId);
 		}
-		/*if (!IsServer)
-			CallServerRpc(id);*/
 	}
 
+	int cntFinishAction = 0;
 	[ServerRpc(RequireOwnership = false)]
 	public void DeleteRequestServerRpc(ulong id)
 	{
-		if(NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+		if (++cntFinishAction == NetworkManager.Singleton.ConnectedClientsList.Count - 1)
 		{
-			if(obj.IsSpawned)
-				obj.Despawn();
+			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+			{
+				if (obj.IsSpawned)
+				{
+					obj.Despawn();
+					cntFinishAction = 0;
+				}
+			}
 		}
-	}	
+	}
 }

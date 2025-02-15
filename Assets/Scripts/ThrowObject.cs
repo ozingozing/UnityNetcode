@@ -6,21 +6,42 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
-public class ThrowObject : NetworkBehaviour
+public class ThrowObject : NetworkBehaviour, IDeleteNetworkObjId
 {
     public Vector3 setStartPoint;
     public Vector3 setEndPoint;
     public float duration = 2.0f;
     public float gravity = -9.8f;
     public Vector3 velocity;
-	public Action<NetworkObject> action;
 
-	public void RequestDelete()
+	public Action<NetworkObject> finishAction;
+
+	public void ActionCall()
 	{
-		if (NetworkManager.Singleton.IsServer &&
-			action != null)
+		GetComponent<GetExploded>().Explode(DeleteRequestServerRpc, NetworkObjectId);
+	}
+
+	[ClientRpc]
+	public void DeleteRequestClientRpc(ulong id)
+	{
+		if(!IsServer)
+			DeleteRequestServerRpc(id);
+	}
+
+	int cntFinishAction = 0;
+	[ServerRpc(RequireOwnership = false)]
+	public void DeleteRequestServerRpc(ulong id)
+	{
+		if(++cntFinishAction == NetworkManager.ConnectedClientsList.Count - 1)
 		{
-			action.Invoke(GetComponent<NetworkObject>());
+			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
+			{
+				if (obj.IsSpawned)
+				{
+					finishAction.Invoke(obj);
+					cntFinishAction = 0;
+				}
+			}
 		}
 	}
 
@@ -84,7 +105,7 @@ public class ThrowObject : NetworkBehaviour
 		{
 			yield return new WaitForFixedUpdate();
 			fixedUpdateCount += Time.fixedDeltaTime;
-			if (fixedUpdateCount >= CALL_INTERVAL/2)
+			if (fixedUpdateCount >= CALL_INTERVAL)
 			{
 				node = GridGizmo.instance.CheckAgain(transform.position);
 				fixedUpdateCount = 0;

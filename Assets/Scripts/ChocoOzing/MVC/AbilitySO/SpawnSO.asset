@@ -28,5 +28,5 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 0
   projectileRange: 0
-  effectPrefab: {fileID: 6061139909503440564, guid: 62be6875ef3106143bc012555b36e755, type: 3}
+  effectPrefab: {fileID: 6574185616629742065, guid: 86f4243bb52293d42a95d7b52d22c73e, type: 3}
   startingPoint: {x: 0, y: 3, z: 0}

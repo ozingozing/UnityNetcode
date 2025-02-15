@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : NetworkBehaviour
@@ -28,7 +27,7 @@ public class Unit : NetworkBehaviour
 
 	private void Awake()
 	{
-		turnDst = (GridGizmo.instance.hexRadius);
+		turnDst = (GridGizmo.instance.hexRadius) * .9f;
 	}
 
 	private void Start()
@@ -119,13 +118,12 @@ public class Unit : NetworkBehaviour
 
 		PathRequestManager.RequestPath(new PathRequest(transform.position, target.position, OnPathFound));
 
-		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
 		Vector3 targetPosOld = target.position;
 		while (true)
 		{
 			yield return new WaitForSeconds(minPathUpdateTime);
 			if (target != null &&
-				(target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+				(target.position - targetPosOld).sqrMagnitude > pathUpdateMoveThreshold)
 			{
 				PathRequestManager.RequestPath(
 					new PathRequest(transform.position,
@@ -143,17 +141,26 @@ public class Unit : NetworkBehaviour
 		ParticlePool.GetObject(transform.position, Quaternion.identity);
 		FinishAction = null;
 		transform.GetChild(0).GetComponent<GetExploded>().Explode();*/
+		GetComponent<Rigidbody>().isKinematic = false;
 	}
 
 	public void ActionCall(Action<ulong> deleteRequestCallback, ulong objId)
 	{
+		//All Action Stop
+		if(IsServer)
+		{
+			StopCoroutine("FollowPath");
+			target = null;
+			pathFindingFinishAction = null;
+			GetComponent<Rigidbody>().isKinematic = true;
+		}
+		//Spawn Particle Obj
 		ParticlePool.GetObject(transform.position, Quaternion.identity);
-		target = null;
-		FinishAction = null;
+		//Do Explode
 		transform.GetComponent<GetExploded>().Explode(deleteRequestCallback, objId);
 	}
 
-	public Action<ulong> FinishAction;
+	public Action<NetworkObjectReference> pathFindingFinishAction;
 	IEnumerator FollowPath()
 	{
 		if(!gameObject.activeSelf) yield break;
@@ -204,8 +211,8 @@ public class Unit : NetworkBehaviour
 			yield return null;
 		}
 
-		if(FinishAction !=	null)
-			FinishAction.Invoke(GetComponent<NetworkObject>().NetworkObjectId);
+		if(pathFindingFinishAction != null)
+			pathFindingFinishAction.Invoke(new NetworkObjectReference(gameObject));
 	}
 
 	void LookAtTarget(Vector3 targetPos)
