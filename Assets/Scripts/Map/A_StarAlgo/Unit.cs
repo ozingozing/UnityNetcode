@@ -157,7 +157,7 @@ public class Unit : NetworkBehaviour
 		//Spawn Particle Obj
 		ParticlePool.GetObject(transform.position, Quaternion.identity);
 		//Do Explode
-		transform.GetComponent<GetExploded>().Explode(deleteRequestCallback, objId);
+		transform.GetComponent<GetExploded>().ReceiveExplode(deleteRequestCallback, objId);
 	}
 
 	public Action<NetworkObjectReference> pathFindingFinishAction;

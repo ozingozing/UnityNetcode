@@ -16,35 +16,6 @@ public class ThrowObject : NetworkBehaviour
 
 	public Action<NetworkObjectReference> finishAction;
 
-	/*public void ActionCall()
-	{
-		GetComponent<GetExploded>().Explode(DeleteRequestServerRpc, NetworkObjectId);
-	}
-
-	[ClientRpc]
-	public void DoFinishingWorkClientRpc(ulong id)
-	{
-		if(!IsServer)
-			DeleteRequestServerRpc(id);
-	}
-
-	int cntFinishAction = 0;
-	[ServerRpc(RequireOwnership = false)]
-	public void DeleteRequestServerRpc(ulong id)
-	{
-		if(++cntFinishAction == NetworkManager.ConnectedClientsList.Count - 1)
-		{
-			if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(id, out var obj))
-			{
-				if (obj.IsSpawned)
-				{
-					finishAction.Invoke(obj);
-					cntFinishAction = 0;
-				}
-			}
-		}
-	}*/
-
 	public async void TrowInit(Transform start, Vector3 end)
 	{
 		setStartPoint = start.position;

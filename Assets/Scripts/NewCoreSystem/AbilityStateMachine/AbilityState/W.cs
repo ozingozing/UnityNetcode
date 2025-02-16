@@ -195,7 +195,7 @@ public class W : CoreComponent, ISkillAction, IDeleteNetworkObj
 	{
 		if (networkObject.TryGet(out NetworkObject foundObject))
 		{
-			foundObject.GetComponent<GetExploded>().Explode(DeleteRequestServerRpc, foundObject.NetworkObjectId);
+			foundObject.GetComponent<GetExploded>().ReceiveExplode(DeleteRequestServerRpc, foundObject.NetworkObjectId);
 		}
 	}
 

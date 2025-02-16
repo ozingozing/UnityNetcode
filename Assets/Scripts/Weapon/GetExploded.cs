@@ -88,7 +88,7 @@ public class GetExploded : NetworkBehaviour
 	#endregion
 
 	#region Call NetcodeObjectId
-	public async void Explode(Action<ulong> deleteRequestCallback, ulong objId)
+	public async void ReceiveExplode(Action<ulong> deleteRequestCallback, ulong objId)
 	{
 		Vector3 explosionPosition = transform.position;
 

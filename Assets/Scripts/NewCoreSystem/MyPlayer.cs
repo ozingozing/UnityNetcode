@@ -110,7 +110,6 @@ public class MyPlayer : MonoBehaviour, IEntity
 	{
 		eventBinding = new EventBinding<PlayerAnimationEvent>(SkillAction);
 		EventBus<PlayerAnimationEvent>.Register(eventBinding);
-		
 	}
 
 	private void OnDestroy()
