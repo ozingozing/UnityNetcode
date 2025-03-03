@@ -1,4 +1,5 @@
 using Architecture.AbilitySystem.Model;
+using ChocoOzing.EventBusSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,19 +10,48 @@ namespace Architecture.AbilitySystem.View
 	public class AbilityView : MonoBehaviour
 	{
 		[SerializeField] public AbilityButton[] buttons;
-
 		readonly KeyCode[] keys = { KeyCode.Y, KeyCode.T, KeyCode.F, KeyCode.D, KeyCode.G };
 
 		private void Awake()
 		{
 			for (int i = 0; i < buttons.Length; i++)
 			{
-				if(i >= keys.Length)
+				if (i >= keys.Length)
 				{
 					Debug.LogError("Not enough keycodes for the number of buttons.");
 				}
 
 				buttons[i].Initialize(i, keys[i]);
+			}
+		}
+
+		EventBinding<LobbyEventArgs> eventBinding;
+		private void Start()
+		{
+			eventBinding = new EventBinding<LobbyEventArgs>(LobbyEvent);
+			EventBus<LobbyEventArgs>.Register(eventBinding);
+			gameObject.SetActive(false);
+		}
+
+		private void OnDestroy()
+		{
+			eventBinding.Remove(LobbyEvent);
+			EventBus<LobbyEventArgs>.Deregister(eventBinding);
+			eventBinding = null;
+		}
+
+		private void LobbyEvent(LobbyEventArgs lobby)
+		{
+			switch (lobby.state)
+			{
+				case LobbyState.StartGame:
+					gameObject.SetActive(true);
+					break;
+				case LobbyState.LeaveGame:
+					gameObject.SetActive(false);
+					break;
+				default:
+					break;
 			}
 		}
 

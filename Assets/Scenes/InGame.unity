@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1127305, g: 0.2815926, b: 0.70917517, a: 1}
+  m_IndirectSpecularColor: {r: 0.112726726, g: 0.28158873, b: 0.7091778, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5563,7 +5563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845276930943762971, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 4845637959249703711, guid: 2da3dcc22749e7f4280737786d898334, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13796,7 +13796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.72156864}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.72156864}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13808,7 +13808,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.553
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -14014,8 +14014,9 @@ GameObject:
   - component: {fileID: 1645927265728196812}
   - component: {fileID: 1647478597824312920}
   - component: {fileID: 1467859484814100338}
+  - component: {fileID: 1647478597824312921}
   m_Layer: 5
-  m_Name: Filler
+  m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14033,7 +14034,7 @@ GameObject:
   - component: {fileID: 1647243714390630140}
   - component: {fileID: 1463947099691082436}
   m_Layer: 5
-  m_Name: Bar_1Gray
+  m_Name: HpState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14067,7 +14068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645475625993444572}
   m_Layer: 5
-  m_Name: PlayerHP
+  m_Name: PlayerStates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14103,7 +14104,7 @@ GameObject:
   - component: {fileID: 1647996724583152658}
   - component: {fileID: 1467532369750652832}
   m_Layer: 5
-  m_Name: Icon_1Gray (1)
+  m_Name: PlayerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14121,7 +14122,7 @@ GameObject:
   - component: {fileID: 1647309662269370514}
   - component: {fileID: 1467825917067800290}
   m_Layer: 5
-  m_Name: Frame
+  m_Name: HpFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14432,10 +14433,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1645328680244502902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.4, y: 0.30002}
-  m_SizeDelta: {x: 251.65, y: 67.8}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000045776367, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1645968182535910734
 RectTransform:
@@ -14508,6 +14509,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570663408193124086}
   m_CullTransparentMesh: 0
+--- !u!114 &1647478597824312921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570663408193124086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f30c2b2ba295b47979ae88cff4645e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &1647701167263332394
 CanvasRenderer:
   m_ObjectHideFlags: 0

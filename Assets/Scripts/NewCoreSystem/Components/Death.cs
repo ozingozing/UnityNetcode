@@ -16,13 +16,17 @@ public class Death : CoreComponent
 		CombatManager.Instance.OnPlayerDeath(attacker, gameObject);
 	}
 
-	private void OnEnable()
+	public override void OnNetworkSpawn()
 	{
-		Stats.Health.OnCurrentValueZero += Die;
+		if (IsServer)
+			Stats.OnCurrentValueZero += Die;
+		base.OnNetworkSpawn();
 	}
 
-	public override void OnDestroy()
+	public override void OnNetworkDespawn()
 	{
-		Stats.Health.OnCurrentValueZero -= Die;
+		if (IsServer)
+			Stats.OnCurrentValueZero -= Die;
+		base.OnNetworkDespawn();
 	}
 }

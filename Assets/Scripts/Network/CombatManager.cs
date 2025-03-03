@@ -19,20 +19,17 @@ public class CombatManager : MonoBehaviour
 		ulong killerId = killer.GetComponentInParent<NetworkObject>().OwnerClientId;
 		ulong victimId = victim.GetComponentInParent<NetworkObject>().OwnerClientId;
 
-		if (NetworkManager.Singleton.IsServer)
+		var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerInit>();
+		var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerInit>();
+
+		if (killerStats != null)
 		{
-			var killerStats = NetworkManager.Singleton.ConnectedClients[killerId].PlayerObject.GetComponent<PlayerInit>();
-			var victimStats = NetworkManager.Singleton.ConnectedClients[victimId].PlayerObject.GetComponent<PlayerInit>();
+			killerStats.AddKill();
+		}
 
-			if (killerStats != null)
-			{
-				killerStats.AddKill();
-			}
-
-			if(victimStats != null)
-			{
-				victimStats.AddDeath();
-			}
+		if (victimStats != null)
+		{
+			victimStats.AddDeath();
 		}
 	}
 }

@@ -168,7 +168,7 @@ public class LobbyManager : MonoBehaviour {
 					EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
 					{
 						lobby = joinedLobby,
-						state = LobbyState.Start,
+						state = LobbyState.StartGame,
 					});
 				}
             }

@@ -153,14 +153,14 @@ namespace Invector.vCharacterController
             ControlJumpBehaviour();
             AirControl();
 
-			//MyCustom
-            /*if(!lastIsGrounded && isGrounded)
-			    SyncRigidBody();
+            //MyCustom
+            /*if (!lastIsGrounded && isGrounded)
+                SyncRigidBody();
             lastIsGrounded = isGrounded;*/
-			//MyCustom
-		}
+            //MyCustom
+        }
 		//MyCustom
-		//private bool lastIsGrounded = false;
+		private bool lastIsGrounded = false;
         private void SyncRigidBody()
         {
 			_rigidbody.velocity = Vector3.zero;
@@ -320,7 +320,7 @@ namespace Invector.vCharacterController
                     _rigidbody.AddForce(transform.up * (extraGravity * 2 * Time.deltaTime), ForceMode.VelocityChange);
 
                 heightReached = transform.position.y;
-				SyncRigidBody();
+				//SyncRigidBody();
 			}
             else
             {

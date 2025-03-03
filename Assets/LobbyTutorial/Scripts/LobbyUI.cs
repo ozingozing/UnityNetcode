@@ -97,7 +97,7 @@ public class LobbyUI : MonoBehaviour {
 				Hide();
 				break;
 
-			case LobbyState.Start:
+			case LobbyState.StartGame:
 				Hide();
 				break;
 

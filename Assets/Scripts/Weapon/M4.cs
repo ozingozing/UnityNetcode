@@ -2,12 +2,9 @@ using ChocoOzing.Utilities;
 using QFSW.QC.Actions;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using Unity.Collections;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Jobs;
 
 namespace ChocoOzing
 {
@@ -18,7 +15,7 @@ namespace ChocoOzing
 		{
 			myPlayer.WeaponManager = this;
 			myPlayer.GunType = GunType.M4A1;
-			if(IsOwner)
+			if(IsOwner && IsLocalPlayer)
 				StartCoroutine(GunAction());
 		}
 
@@ -33,15 +30,12 @@ namespace ChocoOzing
 			{
 				fireRateTimer += Time.deltaTime;
 
-				if(IsLocalPlayer)
+				if (ShouldFire() && fireRateTimer >= fireRate)
 				{
-					if (ShouldFire() && fireRateTimer >= fireRate)
-					{
-						BarrelPositionReadyAction();
-						FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
-						weaponRecoil.TriggerRecoil();
-						fireRateTimer = 0;
-					}
+					BarrelPositionReadyAction();
+					FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
+					weaponRecoil.TriggerRecoil();
+					fireRateTimer = 0;
 				}
 				yield return null;
 			}
@@ -59,7 +53,7 @@ namespace ChocoOzing
 		[ServerRpc]
 		public void FireServerRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
 		{
-			RaycastBatchProcessor.Instance.PerformRaycasts(
+			/*RaycastBatchProcessor.Instance.PerformRaycasts(
 				barrelPosition,
 				spreadDirections,
 				layerMask,
@@ -68,16 +62,16 @@ namespace ChocoOzing
 				false,
 				(RaycastHit[] hits) =>
 				{
-					for (int i = 0; i < hits.Length; i++)
+					foreach (var item in hits)
 					{
 						// 피격 처리
-						if (hits[i].transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
+						if (item.transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
 						{
 							damageReceiver.TakeDamage(10, gameObject); // 데미지 처리
 						}
 					}
 				}
-			);
+			);*/
 			// 모든 클라이언트에 시각 효과를 동기화
 			FireEffectsClientRpc(barrelPosition, spreadDirections);
 			/*foreach (var direction in spreadDirections)
@@ -110,8 +104,13 @@ namespace ChocoOzing
 				{
 					for (int i = 0; i < hits.Length; i++)
 					{
+						if (hits[i].transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
+						{
+							if(!IsHost)
+								damageReceiver.TakeDamageServerRpc(10, OwnerClientId); // 데미지 처리
+						}
 						//TestSurfaceManager//
-						if (hits[i].collider != null)
+						else if (hits[i].collider != null)
 						{
 							SurfaceManager.Instance.HandleImpact(
 								hits[i].transform.gameObject,

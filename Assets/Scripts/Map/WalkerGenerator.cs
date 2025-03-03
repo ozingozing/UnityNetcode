@@ -92,23 +92,23 @@ public class WalkerGenerator : MonoBehaviour
 	EventBinding<LobbyEventArgs> eventBinding;
 	private void Start()
 	{
-		eventBinding = new EventBinding<LobbyEventArgs>(Func);
-		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(Func));
+		eventBinding = new EventBinding<LobbyEventArgs>(CreateMap);
+		EventBus<LobbyEventArgs>.Register(new EventBinding<LobbyEventArgs>(CreateMap));
 	}
 
 	private void OnDestroy()
 	{
 		if(eventBinding != null)
 		{
-			eventBinding.Remove(Func);
+			eventBinding.Remove(CreateMap);
 			EventBus<LobbyEventArgs>.Deregister(eventBinding);
 			eventBinding = null;
 		}
 	}
 
-	public async void Func(LobbyEventArgs e)
+	public async void CreateMap(LobbyEventArgs e)
 	{
-		if (e.state == LobbyState.Start)
+		if (e.state == LobbyState.StartGame)
 		{
 			if (NetworkManager.Singleton.ServerIsHost)
 			{

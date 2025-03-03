@@ -121,6 +121,11 @@ public class MyPlayer : MonoBehaviour, IEntity
 			eventBinding.Remove(SkillAction);
 			EventBus<PlayerAnimationEvent>.Deregister(eventBinding);
 			eventBinding = null;
+			EventBus<LobbyEventArgs>.Raise(new LobbyEventArgs()
+			{
+				lobby = null,
+				state = LobbyState.LeaveGame,
+			});
 		}
 	}
 

@@ -1,12 +1,14 @@
 using Architecture.AbilitySystem.Controller;
 using Architecture.AbilitySystem.Model;
 using ChocoOzing.CoreSystem;
+using ChocoOzing.CoreSystem.StatSystem;
 using ChocoOzing.EventBusSystem;
+using ChocoOzing.Network;
+using ChocoOzing.Utilities;
 using Invector.vCharacterController;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using TMPro;
 using Unity.Collections;
@@ -55,6 +57,13 @@ public class PlayerInit : NetworkBehaviour
 		base.OnNetworkSpawn();
 	}
 
+	private void OnCollisionEnter(Collision collision)
+	{
+		if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		{
+			Physics.SyncTransforms();
+		}
+	}
 
 	// 클라이언트에서 위치를 업데이트하는 RPC
 	[ClientRpc]
@@ -62,8 +71,10 @@ public class PlayerInit : NetworkBehaviour
 	{
 		if (!gameObject.activeSelf) gameObject.SetActive(!gameObject.activeSelf);
 		IsDead = false;
+		GetComponent<ClientNetworkTransform>().authorityMode = AuthorityMode.Server;
 		GetComponent<Rigidbody>().MovePosition(newPosition);
 		transform.position = newPosition;
+		GetComponent<ClientNetworkTransform>().authorityMode = AuthorityMode.Client;
 	}
 
 

@@ -14,7 +14,8 @@ namespace ChocoOzing.EventBusSystem
 		Joined,
 		Refresh,
 		Leave,
-		Start
+		StartGame,
+		LeaveGame,
 	};
 	public struct LobbyEventArgs :IEvent
 	{
