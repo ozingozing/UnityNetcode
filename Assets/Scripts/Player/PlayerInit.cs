@@ -85,7 +85,7 @@ public class PlayerInit : NetworkBehaviour
 		ulong playerId = GetComponent<NetworkObject>().OwnerClientId;
 		string playerLobbyId = AuthenticationService.Instance.PlayerId;
 
-		if(IsOwner)
+		if(IsOwner && IsLocalPlayer)
 			GetNameServerRpc(EditPlayerName.Instance.GetPlayerName(), playerLobbyId);
 	}
 
@@ -101,7 +101,7 @@ public class PlayerInit : NetworkBehaviour
 			.Select(var => var.Key)
 			.ToList();
 
-		SendNameToClientRpc(id);
+		BroadcastNameClientRpc(id);
 	}
 
 	private void OnDisable()
@@ -114,7 +114,7 @@ public class PlayerInit : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	public void SendNameToClientRpc(string clientLobbyId)
+	public void BroadcastNameClientRpc(string clientLobbyId)
 	{
 		PlayerCharactar = InGameManager.Instance.playerDataDictionary.FirstOrDefault(pair => pair.Value.playerLobbyId == clientLobbyId).Value.playerCharacterImage;
 

@@ -15,7 +15,7 @@ namespace ChocoOzing
 		{
 			myPlayer.WeaponManager = this;
 			myPlayer.GunType = GunType.M4A1;
-			if(IsOwner && IsLocalPlayer)
+			if (IsOwner && IsLocalPlayer)
 				StartCoroutine(GunAction());
 		}
 
@@ -33,7 +33,8 @@ namespace ChocoOzing
 				if (ShouldFire() && fireRateTimer >= fireRate)
 				{
 					BarrelPositionReadyAction();
-					FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
+					if (IsClient)
+						FireServerRpc(barrelPos.position, GenerateSpreadDirections());
 					weaponRecoil.TriggerRecoil();
 					fireRateTimer = 0;
 				}
@@ -41,59 +42,79 @@ namespace ChocoOzing
 			}
 		}
 
-		/*private void FixedUpdate()
+		private void FixedUpdate()
 		{
-			if(canShoot)
+			if(IsServer && canShot)
 			{
-				FireServerRpc(barrelPos.position, GenerateSpreadDirections()); // 서버에 발사 요청
-				canShoot = false;
-			}
-		}*/
-
-		[ServerRpc]
-		public void FireServerRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
-		{
-			/*RaycastBatchProcessor.Instance.PerformRaycasts(
-				barrelPosition,
-				spreadDirections,
+				canShot = false;
+				RaycastBatchProcessor.Instance.PerformRaycasts(
+				pos,
+				spreads,
 				layerMask,
 				false,
 				false,
 				false,
 				(RaycastHit[] hits) =>
 				{
-					foreach (var item in hits)
+					for (int i = 0; i < hits.Length; i++)
 					{
-						// 피격 처리
-						if (item.transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
+						if (hits[i].transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
 						{
 							damageReceiver.TakeDamage(10, gameObject); // 데미지 처리
 						}
 					}
-				}
-			);*/
-			// 모든 클라이언트에 시각 효과를 동기화
-			FireEffectsClientRpc(barrelPosition, spreadDirections);
-			/*foreach (var direction in spreadDirections)
+				});
+			}
+			else if(IsClient && clientShot)
 			{
-				if (Physics.Raycast(barrelPosition, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
-				{
-					// 피격 처리
-					if (hit.transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
+				clientShot = false;
+				RaycastBatchProcessor.Instance.PerformRaycasts(
+					pos,
+					spreads,
+					layerMask,
+					false,
+					false,
+					false,
+					(RaycastHit[] hits) =>
 					{
-						damageReceiver.TakeDamage(10, gameObject); // 데미지 처리
-					}
+						for (int i = 0; i < hits.Length; i++)
+						{
+							//TestSurfaceManager//
+							if (hits[i].collider != null)
+							{
+								SurfaceManager.Instance.HandleImpact(
+									hits[i].transform.gameObject,
+									hits[i].point,
+									hits[i].normal,
+									ImpactType,
+									0
+								);
+							}
+							//TestSurfaceManager//
 
-					// 모든 클라이언트에 시각 효과를 동기화
-					FireEffectsClientRpc(hit.point, hit.normal, barrelPosition, direction);
-				}
-			}*/
+							// 피격 지점에 파티클 생성
+							SafeGetPoolObj(hitParticlePool, hits[i].point + hits[i].normal * 0.1f, Quaternion.identity);
+							// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
+							audioSource.PlayOneShot(gunShot, gunShootVolum);
+							ammo.currentAmmo--;
+							// 시각적 효과 (머즐 플래시, 총구 불빛)
+							SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));
+						}
+					});
+			}
 		}
 
-		[ClientRpc]
-		private void FireEffectsClientRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
+		bool canShot = false;
+		Vector3 pos;
+		Vector3[] spreads;
+		[ServerRpc]
+		public void FireServerRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
 		{
-			RaycastBatchProcessor.Instance.PerformRaycasts(
+			FireEffectsClientRpc(barrelPosition, spreadDirections);
+			canShot = true;
+			pos = barrelPosition;
+			spreads = spreadDirections;
+			/*RaycastBatchProcessor.Instance.PerformRaycasts(
 				barrelPosition,
 				spreadDirections,
 				layerMask,
@@ -106,55 +127,54 @@ namespace ChocoOzing
 					{
 						if (hits[i].transform.TryGetComponentInChildren(out DamageReceiver damageReceiver))
 						{
-							if(!IsHost)
-								damageReceiver.TakeDamageServerRpc(10, OwnerClientId); // 데미지 처리
+							damageReceiver.TakeDamage(10, gameObject); // 데미지 처리
 						}
-						//TestSurfaceManager//
-						else if (hits[i].collider != null)
-						{
-							SurfaceManager.Instance.HandleImpact(
-								hits[i].transform.gameObject,
-								hits[i].point,
-								hits[i].normal,
-								ImpactType,
-								0
-							);
-						}
-						//TestSurfaceManager//
-
-						// 피격 지점에 파티클 생성
-						SafeGetPoolObj(hitParticlePool, hits[i].point + hits[i].normal * 0.1f, Quaternion.identity);
-						// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
-						audioSource.PlayOneShot(gunShot, gunShootVolum);
-						ammo.currentAmmo--;
-						// 시각적 효과 (머즐 플래시, 총구 불빛)
-						SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));
 					}
-				}
-			);
-			/*if(Physics.Raycast(barrelPosition, direction, out RaycastHit hit, Mathf.Infinity, layerMask))
-			{
-				//TestSurfaceManager//
-				if (hit.collider != null)
-				{
-					SurfaceManager.Instance.HandleImpact(
-						hit.transform.gameObject,
-						hit.point,
-						hit.normal,
-						ImpactType,
-						0
-					);
-				}
-				//TestSurfaceManager//
-			}
+				});
 
-			// 피격 지점에 파티클 생성
-			SafeGetPoolObj(hitParticlePool, hitPoint + hitNormal * 0.1f, Quaternion.identity);
-			// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
-			audioSource.PlayOneShot(gunShot, gunShootVolum);
-			ammo.currentAmmo--;
-			// 시각적 효과 (머즐 플래시, 총구 불빛)
-			SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));*/
+			FireEffectsClientRpc(barrelPosition, spreadDirections);*/
+		}
+
+		bool clientShot = false;
+		[ClientRpc]
+		private void FireEffectsClientRpc(Vector3 barrelPosition, Vector3[] spreadDirections)
+		{
+			clientShot = true;
+			pos = barrelPosition;
+			spreads = spreadDirections;
+			/*RaycastBatchProcessor.Instance.PerformRaycasts(
+			barrelPosition,
+			spreadDirections,
+			layerMask,
+			false,
+			false,
+			false,
+			(RaycastHit[] hits) =>
+			{
+				for (int i = 0; i < hits.Length; i++)
+				{
+					//TestSurfaceManager//
+					if (hits[i].collider != null)
+					{
+						SurfaceManager.Instance.HandleImpact(
+							hits[i].transform.gameObject,
+							hits[i].point,
+							hits[i].normal,
+							ImpactType,
+							0
+						);
+					}
+					//TestSurfaceManager//
+
+					// 피격 지점에 파티클 생성
+					SafeGetPoolObj(hitParticlePool, hits[i].point + hits[i].normal * 0.1f, Quaternion.identity);
+					// 클라이언트에서 총알 효과 및 발사 사운드, 머즐 플래시 처리
+					audioSource.PlayOneShot(gunShot, gunShootVolum);
+					ammo.currentAmmo--;
+					// 시각적 효과 (머즐 플래시, 총구 불빛)
+					SafeGetPoolObj(muzzlePool, barrelPos.position, Quaternion.LookRotation(barrelPos.forward));
+				}
+			});*/
 		}
 	}
 }

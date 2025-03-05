@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ChocoOzing.CoreSystem.StatSystem
@@ -27,6 +26,12 @@ namespace ChocoOzing.CoreSystem.StatSystem
 			playerHp.AddListener(PlayerHpChanged);
 
 			base.OnNetworkSpawn();
+		}
+
+		public override void OnNetworkDespawn()
+		{
+			playerHp.Dispose();
+			base.OnNetworkDespawn();
 		}
 
 		protected override void Awake()

@@ -172,5 +172,4 @@ MonoBehaviour:
   explosionRadius: 5
   disableDelay: 5
   prefab: {fileID: 4417201614729222893, guid: 21d70bd107649234a81e863d3d1c8298, type: 3}
-  ModelRoot: {fileID: 0}
   childPieces: []

@@ -102,7 +102,7 @@ MonoBehaviour:
     m_Bits: 8
   target: {fileID: 0}
   speed: 10
-  turnSpeed: 3
+  turnSpeed: 5
   stoppingDst: 1
   turnDst: 2
 --- !u!114 &5881529384183269071

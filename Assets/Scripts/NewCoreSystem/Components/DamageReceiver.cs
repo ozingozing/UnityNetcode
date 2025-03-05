@@ -24,7 +24,7 @@ public class DamageReceiver : CoreComponent, IHealth
 
 	public void TakeDamage(int amount, GameObject attacker)
 	{
-		//TakeDamage(Stats.Decrease(amount, attacker));
+		TakeDamageClientRpc(Stats.Decrease(amount, attacker));
 		//queue.Enqueue(new ShootAction(amount, attacker));
 	}
 	[ServerRpc(RequireOwnership = false)]

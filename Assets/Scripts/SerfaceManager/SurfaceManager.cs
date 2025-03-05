@@ -1,10 +1,13 @@
+using Architecture.AbilitySystem.Model;
+using ChocoOzing.CoreSystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SurfaceManager : MonoBehaviour
+public class SurfaceManager : NetworkBehaviour
 {
     private static SurfaceManager _instance;
     public static SurfaceManager Instance
@@ -204,7 +207,7 @@ public class SurfaceManager : MonoBehaviour
 				ObjectPool pool = ObjectPool.CreateInstance(spawnObjectEffect.Prefab.GetComponent<PoolableObject>(), DefaultPoolSizes);
 
 				PoolableObject instance = pool.GetObject(HitPoint + HitNormal * 0.001f, Quaternion.LookRotation(HitNormal));
-
+				
 				instance.transform.forward = HitNormal;
 				if (spawnObjectEffect.RandomizeRotation)
 				{
